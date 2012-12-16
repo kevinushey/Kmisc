@@ -1,0 +1,34 @@
+\name{kLoad}
+\alias{kLoad}
+\title{Load and Assign an R Object}
+\usage{
+  kLoad(...)
+}
+\arguments{
+  \item{...}{args to pass to \code{load}}
+}
+\value{
+  the object stored in the \code{load}-ed object
+}
+\description{
+  The regular \code{load} function keeps the old variable
+  name used when saving that object. Often, we would prefer
+  to assign the \code{load}ed object to a new variable
+  name. Hence, this function.
+}
+\details{
+  If multiple arguments are supplied, they will be
+  \code{paste}d together, with \code{collapse=""}.
+}
+\examples{
+dat <- data.frame( x = c(1,2,3), y=c('a','b','c') )
+save( dat, file="dat.rda" )
+rm( dat )
+my_data <- kLoad( "dat.rda" )
+## we protect ourselves from 'forgetting' the name of the
+## object we saved
+}
+\seealso{
+  \code{\link{load}}
+}
+

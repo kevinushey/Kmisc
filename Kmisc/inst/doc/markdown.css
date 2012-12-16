@@ -1,0 +1,292 @@
+body {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 0;
+   margin-left: auto;
+   margin-right: auto;
+   padding-left:40px;
+   padding-right:40px;
+   padding-top:20px;
+   padding-bottom:20px;
+   max-width:700px;
+   border: 20px solid #DDD;
+}
+
+table, th, td {
+  
+  font-size: 14px;
+  font-family: "Droid Sans MS", "DejaVu Sans MS", sans-serif;
+  padding: 6px;
+  text-align: right;
+  
+}
+
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid #9AD;  
+  background-color: #FFFFFF;
+}
+
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+
+tr:nth-child(odd) td {
+  background-color: #FCFCFE;
+}
+
+tr:nth-child(even) td {
+  background-color: #F4F4FF;
+}
+
+.twoDtable tr:nth-last-child(1) td, th {
+  font-weight: bold;
+  text-align: center;
+  background-color: #FBFBFB;
+}
+
+tr:nth-child(1) {
+  font-weight: bold;
+  background-color: #FBFBFB;
+}
+
+tr:nth-child(1) td, th {
+  text-align: center;
+}
+
+/* R-outputted 2x2 tables */
+
+.twoDtable tr:nth-child(2) td {
+  font-weight: bold;
+  text-align: center;
+}
+
+.twoDtable tr:nth-last-child(1) {
+  border-top: 2px solid black;
+}
+
+.twoDtable tr:nth-child(3) td:nth-child(2) {
+  font-weight: bold;
+  text-align: center;
+}
+
+.twoDtable tr td:nth-last-child(1) {
+  border-left: 2px solid black;
+  text-align: center;
+  font-weight: bold;
+}
+
+.twoDtable tr td:nth-child(1) {
+  font-weight: bold;
+  text-align: center;
+}
+
+/* End 2x2 tables */
+
+/* 1D tables */
+
+.oneDtable tr:nth-last-child(1) td {
+  border-top: 2px solid black;
+  font-weight: bold;
+}
+
+/* End 1D tables */
+
+p {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 14px;
+  line-height:125%;
+}
+
+p.question {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  color: red;
+}
+
+p.mono {
+  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+ul, ol {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 14px;
+}
+
+.divTable {
+  display: inline-block;
+  width:auto;
+  padding:5px;
+  border-style:solid;
+  border-width:thin;
+  border-radius:10px;
+}
+
+.divTable hr {
+  height: 1px;
+  border: 0;
+  width: 100%;
+}
+
+.divTable .left {
+  margin-left:10px;
+  float:left;
+}
+
+.divTable .right {
+  margin-left:200px;
+  margin-right:10px;
+}
+
+
+
+img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  
+}
+
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+   padding: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica", sans-serif;  
+}
+
+h1 { 
+   font-size:2.6em;
+}
+
+h2 { 
+   font-size:2.2em;
+}
+
+h3 { 
+   font-size:1.8em; 
+}
+
+h4 { 
+   font-size:1.4em; 
+}
+
+h5 { 
+   font-size:1.0em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; 
+   padding: 0.5em;
+   white-space: pre-wrap;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+  
+  body { 
+    /* font-size:12pt; */ 
+    max-width:100%; 
+    border: none;
+    padding: none;
+  }
+     
+  a, a:visited { 
+    text-decoration: underline;
+  }
+
+  hr { 
+    visibility: hidden;
+    page-break-before: always;
+  }
+
+  pre, blockquote {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size:8pt;
+    padding-right: 1em; 
+    page-break-inside: avoid;
+    
+  }
+   
+  table {
+	  page-break-inside: avoid;
+	}
+  
+  td {
+    -webkit-print-color-adjust: exact;
+    font-size: 12px;
+  }
+
+  tr, img { 
+    page-break-inside: avoid; 
+  }
+
+  @page {
+    size: auto;
+    margin: 20mm 14mm 20mm 14mm;
+  }
+  
+  p { 
+    orphans: 3; 
+    widows: 3; 
+  }
+   
+  h2 {
+    page-break-before: always;
+  }
+   
+  h1, h2, h3 { 
+    font-family: serif;
+    page-break-after: avoid; 
+  }
+}

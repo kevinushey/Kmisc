@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="markdown.css">
+
+Quick Introduction to Kmisc
+=====
+
+Kmisc introduces a bunch of utility functions to make the R coding experience
+a bit easier. Some of the most useful functions in the package are shown here.
+
+*Please forgive the vanity / very short namespace-like construct with many names,
+in which I prepend function names with `k`.*
+
+```{r, tidy=FALSE}
+suppressPackageStartupMessages( library(Kmisc) )
+dat <- data.frame( x=letters[1:10], y=1:10, z=LETTERS[1:10] )
+
+```
+
+`without`: This function is used to remove columns from a `list` / `data.frame`.
+
+```{r, tidy=FALSE}
+## let's remove columns 'x' and 'z' from dat.
+dat[ !(names(dat) %in% c('x', 'z')) ]
+
+## I always find that syntax awkward. Let's use Kmisc::without instead.
+without( dat, x, z )
+```
+
+`kReplace`: Replace elements in a vector.
+
+```{r, tidy=FALSE}
+tDat <- dat ## make a temporary copy of dat
+
+## Replace some elements in tDat$y
+tDat$y <- kReplace( tDat$y, from=c(4, 8, 10), to=c(20, 40, 60) )
+cbind( dat$y, tDat$y )
+```
+
+`dapply`: The `data.frame` version of the `l/sapply` series of functions.
+
+Why have this function when `sapply` still does much the same? I always get
+frustrated with the fact that either an `array` or a `list` is returned
+by sapply, but never a `data.frame` .
+
+```{r, tidy=FALSE}
+
+dat <- data.frame( x = rnorm(100), y = rnorm(100), z = rnorm(100) )
+dapply( dat, summary )
+```
+
+`kMerge`: Left joins, aka. `merge( all.x=TRUE, ... )` without any mangling 
+of the order.
+
+```{r, tidy=FALSE}
+dat1 <- data.frame( id=5:1, x=c("a","a","b","b","b"), y=rnorm(5) )
+dat2 <- data.frame( id=c(1, 2, 4), z=rnorm(3) )
+
+## default merge changes id order
+merge( dat1, dat2, by="id", all.x=TRUE )
+## even the sort parameter can't save you
+merge( dat1, dat2, by="id", all.x=TRUE, sort=TRUE )
+# kMerge keeps it as is
+kMerge( dat1, dat2, by="id" )
+```
+
+The cool R Markdown / HTML Stuff
+-----
+
+The real point of releasing this package is due to the HTML helper functions
+I've made. I've found them especially useful in laying out R Markdown documents,
+and also controlling more finely CSS styling and such.
+
+`makeHTMLTable`: Converts a `data.frame` or `matrix` into an HTML table.
+Best seen with an example. Note that we require `results='asis'` in the chunk
+options.
+
+```{r results='asis'}
+dat <- data.frame( apple=c('a', 'b', 'c'), banana=c(1, 2, 3) )
+makeHTMLTable( dat, use.col.names=TRUE )
+```
+
+`kTable`: Generated 1D and 2D (contingency) tables, which are then typically
+passed through `makeHTMLtable` for 1D tables, or `pxt` for 2D tables.
+
+```{r results='asis', tidy=FALSE}
+x <- factor( rbinom(100, 2, 0.2) )
+y <- factor( rbinom(100, 3, 0.3) )
+
+p1t( kTable( x, top.left.cell="foo" ) )
+pxt( kTable(x, y, 
+            top.left.cell="foo", 
+            top.label="bar", 
+            left.label="baz" 
+            ) )
+
+```
+
+`hImg, hSvg`: These utility functions do the work of simultaneously writing a
+plot to file, and then producing the HTML code needed to embed that plot in
+the page. Once again, we require `results='asis'` in the chunk options. I
+also show off the nice little `kColor` function.
+
+```{r results='asis', tidy=FALSE}
+x <- rnorm(100); y <- x + runif(100)
+## note that the default resolution is high for PNGs
+hImg( file="test.png", width=400, height=300, dpi=72,
+      xyplot( y ~ x, col=kColor(x+y) )
+      )
+hSvg( file="test.svg", width=400, height=300,
+      xyplot( y ~ x, col=kColor(x+y) )
+      )
+```
+
+`kCoef, kAnova`: These are functions that produce 'nicer' coefficient output
+from a model fit, especially when factors are used. However, they don't work
+quite right for models with interaction effects yet.
+
+```{r tidy=FALSE}
+x <- rnorm(100); y <- x + runif(100)
+z <- factor( rep(c('a','b','c','d'), each=25) )
+
+myFit <- lm( y ~ x + z )
+
+## the vanilla way
+coef( summary( myFit ) )
+
+## nicer parsing of variable names
+kCoef( myFit )
+```
+
+`html`: Custom HTML in an R Markdown document. We can load a bunch of utility
+functions for HTML markup with `data(html)`; the functions are all hidden
+inside that environment so as to not gum up the main namespace. You could,
+of course, attach them if you wanted, with `attach(html)`, but you would
+then be masking functions like `table`.
+
+```{r results='asis', tidy=FALSE}
+data(html)
+with(html,
+     table( class="my-favourite-table",
+            tr(
+              td("Apples"),
+              td("Bananas")
+              ),
+            tr(
+              td("20"),
+              td("30")
+              )
+            )
+     )
+```
+
+`attachHTML, detachHTML`: If you want to avoid using the `with` syntax, you can also load a
+namespace of 'common' HTML functions, or just generate your own.
+
+```{r results='asis', tidy=FALSE}
+attachHTML()
+span( style="color: red;",
+      "This is some red text."
+      )
+article <- Kmisc:::makeHTMLTag("article")
+article( class="class", id="id", p("Some text") )
+detachHTML()
+
+```

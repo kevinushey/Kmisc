@@ -1,0 +1,28 @@
+\name{kmeans_plot}
+\alias{kmeans_plot}
+\title{k-means Diagnostic Plot}
+\usage{
+  kmeans_plot(dat, nmax = 20, ...)
+}
+\arguments{
+  \item{dat}{numeric matrix of data, or an object that can
+  be coerced to such a matrix (such as a numeric vector or
+  a data frame with all numeric columns).}
+
+  \item{nmax}{maximum number of clusters to examine}
+
+  \item{...}{optional arguments passed to xyplot}
+}
+\description{
+  Using \code{kmeans}, plot percentage variance explained
+  vs. number of clusters. Used as a means of picking
+  \code{k}.
+}
+\examples{
+data(iris)
+kmeans_plot(iris[,1:4])
+}
+\seealso{
+  \code{\link{kmeans}}
+}
+
