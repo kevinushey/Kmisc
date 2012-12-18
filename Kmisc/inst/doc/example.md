@@ -12,7 +12,7 @@ in which I prepend function names with `k`.*
 
 ```r
 suppressPackageStartupMessages( library(Kmisc) )
-dat <- data.frame( x=letters[1:10], y=1:10, z=LETTERS[1:10] )
+dat <- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
 ```
 
 
@@ -25,17 +25,11 @@ dat[ !(names(dat) %in% c('x', 'z')) ]
 ```
 
 ```
-##     y
-## 1   1
-## 2   2
-## 3   3
-## 4   4
-## 5   5
-## 6   6
-## 7   7
-## 8   8
-## 9   9
-## 10 10
+##   y
+## 1 1
+## 2 2
+## 3 3
+## 4 4
 ```
 
 ```r
@@ -45,17 +39,58 @@ without( dat, x, z )
 ```
 
 ```
-##     y
-## 1   1
-## 2   2
-## 3   3
-## 4   4
-## 5   5
-## 6   6
-## 7   7
-## 8   8
-## 9   9
-## 10 10
+##   y
+## 1 1
+## 2 2
+## 3 3
+## 4 4
+```
+
+```r
+
+## what if there is a variable 'x' in the global environment?
+x <- "a"
+without( dat, x, z )
+```
+
+```
+##   y
+## 1 1
+## 2 2
+## 3 3
+## 4 4
+```
+
+```r
+## 'without' looks within the object first. however...
+a <- c("x", "z")
+without( dat, a )
+```
+
+```
+##   y
+## 1 1
+## 2 2
+## 3 3
+## 4 4
+```
+
+```r
+## finally, we can also index by $ (note: NOT done by partial matching):
+without( dat, dat$x, dat$z )
+```
+
+```
+##   y
+## 1 1
+## 2 2
+## 3 3
+## 4 4
+```
+
+```r
+## this could be handy for vectors with very long names, if using an IDE with
+## auto-complete
 ```
 
 
@@ -71,17 +106,11 @@ cbind( dat$y, tDat$y )
 ```
 
 ```
-##       [,1] [,2]
-##  [1,]    1    1
-##  [2,]    2    2
-##  [3,]    3    3
-##  [4,]    4   20
-##  [5,]    5    5
-##  [6,]    6    6
-##  [7,]    7    7
-##  [8,]    8   40
-##  [9,]    9    9
-## [10,]   10   60
+##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2    2
+## [3,]    3    3
+## [4,]    4   20
 ```
 
 
@@ -99,13 +128,13 @@ dapply( dat, summary )
 ```
 
 ```
-##              x       y       z
-## Min.    -2.560 -2.2100 -2.4400
-## 1st Qu. -0.696 -0.7980 -0.5580
-## Median  -0.225  0.0504  0.0802
-## Mean    -0.105  0.0104  0.0643
-## 3rd Qu.  0.567  0.7670  0.8840
-## Max.     2.610  2.4200  2.6300
+##                x       y       z
+## Min.    -2.56000 -2.8000 -3.3800
+## 1st Qu. -0.62400 -0.5800 -0.5660
+## Median   0.07340 -0.0262  0.1320
+## Mean    -0.00764  0.0822 -0.0122
+## 3rd Qu.  0.75900  0.9270  0.7110
+## Max.     2.09000  2.2100  2.4800
 ```
 
 
@@ -122,12 +151,12 @@ merge( dat1, dat2, by="id", all.x=TRUE )
 ```
 
 ```
-##   id x       y       z
-## 1  1 b  1.0870 -0.5154
-## 2  2 b -1.2411  1.6979
-## 3  3 b -0.8075      NA
-## 4  4 a  1.2353 -0.6307
-## 5  5 a -2.1829      NA
+##   id x      y       z
+## 1  1 b -0.245  0.5016
+## 2  2 b -0.708 -1.6663
+## 3  3 b -1.285      NA
+## 4  4 a  1.136 -0.3671
+## 5  5 a -2.036      NA
 ```
 
 ```r
@@ -136,12 +165,12 @@ merge( dat1, dat2, by="id", all.x=TRUE, sort=TRUE )
 ```
 
 ```
-##   id x       y       z
-## 1  1 b  1.0870 -0.5154
-## 2  2 b -1.2411  1.6979
-## 3  3 b -0.8075      NA
-## 4  4 a  1.2353 -0.6307
-## 5  5 a -2.1829      NA
+##   id x      y       z
+## 1  1 b -0.245  0.5016
+## 2  2 b -0.708 -1.6663
+## 3  3 b -1.285      NA
+## 4  4 a  1.136 -0.3671
+## 5  5 a -2.036      NA
 ```
 
 ```r
@@ -150,12 +179,12 @@ kMerge( dat1, dat2, by="id" )
 ```
 
 ```
-##   id x       y       z
-## 5  5 a -2.1829      NA
-## 4  4 a  1.2353 -0.6307
-## 3  3 b -0.8075      NA
-## 2  2 b -1.2411  1.6979
-## 1  1 b  1.0870 -0.5154
+##   id x      y       z
+## 5  5 a -2.036      NA
+## 4  4 a  1.136 -0.3671
+## 3  3 b -1.285      NA
+## 2  2 b -0.708 -1.6663
+## 1  1 b -0.245  0.5016
 ```
 
 
@@ -190,7 +219,7 @@ y <- factor( rbinom(100, 3, 0.3) )
 p1t( kTable( x, top.left.cell="foo" ) )
 ```
 
-<table class='oneDtable' ><tr><td >foo</td><td >Count (%)</td></tr><tr><td >0</td><td >63 (63.0%)</td></tr><tr><td >1</td><td >30 (30.0%)</td></tr><tr><td >2</td><td > 7 (7.00%)</td></tr><tr><td >Total</td><td >100</td></tr></table> 
+<table class='oneDtable' ><tr><td >foo</td><td >Count (%)</td></tr><tr><td >0</td><td >67 (67.0%)</td></tr><tr><td >1</td><td >31 (31.0%)</td></tr><tr><td >2</td><td > 2 (2.00%)</td></tr><tr><td >Total</td><td >100</td></tr></table> 
 
 ```r
 pxt( kTable(x, y, 
@@ -200,7 +229,7 @@ pxt( kTable(x, y,
             ) )
 ```
 
-<table class='twoDtable' ><tr><td colspan=2 rowspan=2 >foo</td><td colspan=4 >bar</td><td ></td></tr><tr><td >0</td><td >1</td><td >2</td><td >3</td><td >Total</td></tr><tr><td rowspan=3 >baz</td><td >0</td><td >22 (68.7%)</td><td >27 (57.4%)</td><td >13 (68.4%)</td><td >1 (50.0%)</td><td >63</td></tr><tr><td >1</td><td > 6 (18.7%)</td><td >18 (38.2%)</td><td > 5 (26.3%)</td><td >1 (50.0%)</td><td >30</td></tr><tr><td >2</td><td > 4 (12.5%)</td><td > 2 (4.25%)</td><td > 1 (5.26%)</td><td >0 (0.00%)</td><td >7</td></tr><tr><td ></td><td >Total</td><td >32</td><td >47</td><td >19</td><td >2</td><td >100</td></tr></table> 
+<table class='twoDtable' ><tr><td colspan=2 rowspan=2 >foo</td><td colspan=4 >bar</td><td ></td></tr><tr><td >0</td><td >1</td><td >2</td><td >3</td><td >Total</td></tr><tr><td rowspan=3 >baz</td><td >0</td><td >21 (60.0%)</td><td >33 (76.7%)</td><td >12 (57.1%)</td><td >1 ( 100%)</td><td >67</td></tr><tr><td >1</td><td >13 (37.1%)</td><td > 9 (20.9%)</td><td > 9 (42.8%)</td><td >0 (0.00%)</td><td >31</td></tr><tr><td >2</td><td > 1 (2.85%)</td><td > 1 (2.32%)</td><td > 0 (0.00%)</td><td >0 (0.00%)</td><td >2</td></tr><tr><td ></td><td >Total</td><td >35</td><td >43</td><td >21</td><td >1</td><td >100</td></tr></table> 
 
 
 `hImg, hSvg`: These utility functions do the work of simultaneously writing a
@@ -247,11 +276,11 @@ coef( summary( myFit ) )
 
 ```
 ##             Estimate Std. Error t value  Pr(>|t|)
-## (Intercept)  0.50424    0.06006  8.3963 4.372e-13
-## x            1.02075    0.02757 37.0231 3.025e-58
-## zb           0.01407    0.08521  0.1651 8.692e-01
-## zc           0.07402    0.08462  0.8748 3.839e-01
-## zd          -0.01325    0.08512 -0.1557 8.766e-01
+## (Intercept)  0.41616    0.06167  6.7486 1.171e-09
+## x            0.97947    0.03082 31.7848 2.033e-52
+## zb           0.12491    0.08590  1.4540 1.492e-01
+## zc           0.09850    0.08636  1.1405 2.569e-01
+## zd           0.04536    0.08571  0.5293 5.979e-01
 ```
 
 ```r
@@ -262,11 +291,11 @@ kCoef( myFit )
 
 ```
 ##             Estimate Std. Error t value  Pr(>|t|)
-## (Intercept)  0.50424    0.06006  8.3963 4.372e-13
-## x            1.02075    0.02757 37.0231 3.025e-58
-## z: a -> b    0.01407    0.08521  0.1651 8.692e-01
-## z: a -> c    0.07402    0.08462  0.8748 3.839e-01
-## z: a -> d   -0.01325    0.08512 -0.1557 8.766e-01
+## (Intercept)  0.41616    0.06167  6.7486 1.171e-09
+## x            0.97947    0.03082 31.7848 2.033e-52
+## z: a -> b    0.12491    0.08590  1.4540 1.492e-01
+## z: a -> c    0.09850    0.08636  1.1405 2.569e-01
+## z: a -> d    0.04536    0.08571  0.5293 5.979e-01
 ```
 
 

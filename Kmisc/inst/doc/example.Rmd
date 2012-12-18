@@ -11,7 +11,7 @@ in which I prepend function names with `k`.*
 
 ```{r, tidy=FALSE}
 suppressPackageStartupMessages( library(Kmisc) )
-dat <- data.frame( x=letters[1:10], y=1:10, z=LETTERS[1:10] )
+dat <- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
 
 ```
 
@@ -23,6 +23,17 @@ dat[ !(names(dat) %in% c('x', 'z')) ]
 
 ## I always find that syntax awkward. Let's use Kmisc::without instead.
 without( dat, x, z )
+
+## what if there is a variable 'x' in the global environment?
+x <- "a"
+without( dat, x, z )
+## 'without' looks within the object first. however...
+a <- c("x", "z")
+without( dat, a )
+## finally, we can also index by $ (note: NOT done by partial matching):
+without( dat, dat$x, dat$z )
+## this could be handy for vectors with very long names, if using an IDE with
+## auto-complete
 ```
 
 `kReplace`: Replace elements in a vector.

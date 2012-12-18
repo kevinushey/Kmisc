@@ -100,7 +100,7 @@ attachHTML <- function() {
     myFuns <- c(
       paste( sep="", "h", 1:6),
       "tr", "td", "th", "ul", "ol", "li", "p", "span", "br", "strong", "em", "a",
-      "hr", "div", "link", "script"
+      "hr", "div", "link", "script", "pre"
     )
     .html.sub <- new.env()
     for( fun in myFuns ) {
