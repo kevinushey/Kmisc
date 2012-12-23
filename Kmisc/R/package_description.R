@@ -6,6 +6,7 @@
 #' 
 #' @name Kmisc
 #' @docType package
+#' @useDynLib Kmisc
 #' @seealso \code{\link{html}}
 NULL
 

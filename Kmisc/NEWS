@@ -1,9 +1,10 @@
 Version 0.2.0
 ------------------------------------------------------------------------------
 
+  * Added some useful string operations: 'str_rev' and 'str_slice'. These
+    functions are written in C for fast execution.
   * Fixed bug with HTML tag functions handling of functions at arguments
-  * Changed Rcpp verison dependence - should work with Rcpp 0.9.0+, for
-    compatibility with older R installations
+  * Functions no longer depend on Rcpp
   * Minor changes to code for R <2.15.0 compatibility
   * Updated documentation + DESCRIPTION for clarity
   * Package now byte compiles by default

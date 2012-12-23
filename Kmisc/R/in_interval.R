@@ -1,0 +1,33 @@
+#' Determine if Value Lies within Interval
+#' 
+#' This function determines whether elements of a numeric vector \code{x} lie
+#' within boundaries \code{[lo, hi)}. Marginally slower than the R equivalent
+#' code \code{x >= lo & x < hi} for small vectors; much faster for very large
+#' vectors.
+#' 
+#' @export
+#' @param x numeric. vector of numbers.
+#' @param lo numeric, length 1. lower boundary.
+#' @param hi numeric, length 1. upper boundary.
+#' @param include.lower boolean. include the lower endpoint?
+#' @param include.upper boolean. include the upper endpoint?
+#' @note See \url{http://stackoverflow.com/questions/13970333/fast-vectorized-function-to-check-if-a-value-is-in-an-interval/13970618#comment19278585_13970618} for some discussion.
+#' @examples
+#' x <- runif(100); lo <- 0.5; hi <- 1
+#' f <- function(x, lo, hi) {
+#'   return( x >= lo & x < hi )
+#'   }
+#' stopifnot( all( in.interval( x, lo, hi ) == f(x, lo, hi) ) )
+in.interval <- function(x, lo, hi, include.lower=TRUE, include.upper=FALSE) {
+  
+  .Call("in_interval", 
+        as.numeric(x), 
+        as.numeric(lo), 
+        as.numeric(hi), 
+        as.logical(include.lower),
+        as.logical(include.upper),
+        PACKAGE="Kmisc"
+        )
+  
+}
+
