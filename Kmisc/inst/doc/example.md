@@ -11,6 +11,7 @@ in which I prepend function names with `k`.*
 
 
 ```r
+set.seed(123)
 suppressPackageStartupMessages( library(Kmisc) )
 dat <- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
 ```
@@ -94,6 +95,52 @@ without( dat, dat$x, dat$z )
 ```
 
 
+`extract`: Extract vectors from a data.frame or list. Although there is already
+a good subsetting syntax for lists and vectors, I wanted a complementary
+function for `without`.
+
+
+```r
+extract( dat, x, y)
+```
+
+```
+##   x y
+## 1 a 1
+## 2 b 2
+## 3 c 3
+## 4 d 4
+```
+
+
+`without.re, extract.re`: Extract variables whose names don't match / do match
+a regular expression pattern.
+
+```r
+extract.re( dat, "[xy]")
+```
+
+```
+##   x y
+## 1 a 1
+## 2 b 2
+## 3 c 3
+## 4 d 4
+```
+
+```r
+without.re( dat, "[xy]")
+```
+
+```
+##   z
+## 1 A
+## 2 B
+## 3 C
+## 4 D
+```
+
+
 `kReplace`: Replace elements in a vector.
 
 
@@ -128,13 +175,13 @@ dapply( dat, summary )
 ```
 
 ```
-##                x       y       z
-## Min.    -2.56000 -2.8000 -3.3800
-## 1st Qu. -0.62400 -0.5800 -0.5660
-## Median   0.07340 -0.0262  0.1320
-## Mean    -0.00764  0.0822 -0.0122
-## 3rd Qu.  0.75900  0.9270  0.7110
-## Max.     2.09000  2.2100  2.4800
+##               x      y       z
+## Min.    -2.3100 -2.050 -1.7600
+## 1st Qu. -0.4940 -0.801 -0.5310
+## Median   0.0618 -0.226  0.0359
+## Mean     0.0904 -0.108  0.1200
+## 3rd Qu.  0.6920  0.468  0.7640
+## Max.     2.1900  3.240  2.2900
 ```
 
 
@@ -151,12 +198,12 @@ merge( dat1, dat2, by="id", all.x=TRUE )
 ```
 
 ```
-##   id x      y       z
-## 1  1 b -0.245  0.5016
-## 2  2 b -0.708 -1.6663
-## 3  3 b -1.285      NA
-## 4  4 a  1.136 -0.3671
-## 5  5 a -2.036      NA
+##   id x       y       z
+## 1  1 b -0.4372  0.3312
+## 2  2 b -1.0525 -2.0142
+## 3  3 b -0.9385      NA
+## 4  4 a -0.7527  0.2120
+## 5  5 a -0.7152      NA
 ```
 
 ```r
@@ -165,12 +212,12 @@ merge( dat1, dat2, by="id", all.x=TRUE, sort=TRUE )
 ```
 
 ```
-##   id x      y       z
-## 1  1 b -0.245  0.5016
-## 2  2 b -0.708 -1.6663
-## 3  3 b -1.285      NA
-## 4  4 a  1.136 -0.3671
-## 5  5 a -2.036      NA
+##   id x       y       z
+## 1  1 b -0.4372  0.3312
+## 2  2 b -1.0525 -2.0142
+## 3  3 b -0.9385      NA
+## 4  4 a -0.7527  0.2120
+## 5  5 a -0.7152      NA
 ```
 
 ```r
@@ -179,12 +226,77 @@ kMerge( dat1, dat2, by="id" )
 ```
 
 ```
-##   id x      y       z
-## 5  5 a -2.036      NA
-## 4  4 a  1.136 -0.3671
-## 3  3 b -1.285      NA
-## 2  2 b -0.708 -1.6663
-## 1  1 b -0.245  0.5016
+##   id x       y       z
+## 5  5 a -0.7152      NA
+## 4  4 a -0.7527  0.2120
+## 3  3 b -0.9385      NA
+## 2  2 b -1.0525 -2.0142
+## 1  1 b -0.4372  0.3312
+```
+
+
+`in.interval`: A fast C implementation for determing which elements of a 
+vector `x` lie within an interval `[lo, hi)`.
+
+
+```r
+x <- runif(10); lo <- 0.5; hi <- 1
+print( data.frame( x=x, inner=in.interval(x, lo, hi) ) )
+```
+
+```
+##          x inner
+## 1  0.89190  TRUE
+## 2  0.75487  TRUE
+## 3  0.97920  TRUE
+## 4  0.04415 FALSE
+## 5  0.90340  TRUE
+## 6  0.86550  TRUE
+## 7  0.77541  TRUE
+## 8  0.37682 FALSE
+## 9  0.04211 FALSE
+## 10 0.36441 FALSE
+```
+
+
+Fast String Operations
+-----
+
+For whatever reason, R is missing some nice builtin 'string' functions. I've
+introduced a few functions, implemented in C for speed, for two common
+string operations.
+
+`str_rev`: Reverses a character vector; ie, a vector of strings.
+
+
+```r
+str_rev( c("ABC", "DEF", NA, paste(LETTERS, collapse="") ) )
+```
+
+```
+## [1] "CBA"                        "FED"                       
+## [3] NA                           "ZYXWVUTSRQPONMLKJIHGFEDCBA"
+```
+
+
+`str_slice`: Slices a vector of strings at consecutive indices `n`.
+
+```r
+str_slice( c("ABCDEF", "GHIJKL", "MNOP", "QR"), 2 )
+```
+
+```
+## [[1]]
+## [1] "AB" "CD" "EF"
+## 
+## [[2]]
+## [1] "GH" "IJ" "KL"
+## 
+## [[3]]
+## [1] "MN" "OP"
+## 
+## [[4]]
+## [1] "QR"
 ```
 
 
@@ -219,7 +331,7 @@ y <- factor( rbinom(100, 3, 0.3) )
 p1t( kTable( x, top.left.cell="foo" ) )
 ```
 
-<table class='oneDtable' ><tr><td >foo</td><td >Count (%)</td></tr><tr><td >0</td><td >67 (67.0%)</td></tr><tr><td >1</td><td >31 (31.0%)</td></tr><tr><td >2</td><td > 2 (2.00%)</td></tr><tr><td >Total</td><td >100</td></tr></table> 
+<table class='oneDtable' ><tr><td >foo</td><td >Count (%)</td></tr><tr><td >0</td><td >65 (65.0%)</td></tr><tr><td >1</td><td >34 (34.0%)</td></tr><tr><td >2</td><td > 1 (1.00%)</td></tr><tr><td >Total</td><td >100</td></tr></table> 
 
 ```r
 pxt( kTable(x, y, 
@@ -229,7 +341,7 @@ pxt( kTable(x, y,
             ) )
 ```
 
-<table class='twoDtable' ><tr><td colspan=2 rowspan=2 >foo</td><td colspan=4 >bar</td><td ></td></tr><tr><td >0</td><td >1</td><td >2</td><td >3</td><td >Total</td></tr><tr><td rowspan=3 >baz</td><td >0</td><td >21 (60.0%)</td><td >33 (76.7%)</td><td >12 (57.1%)</td><td >1 ( 100%)</td><td >67</td></tr><tr><td >1</td><td >13 (37.1%)</td><td > 9 (20.9%)</td><td > 9 (42.8%)</td><td >0 (0.00%)</td><td >31</td></tr><tr><td >2</td><td > 1 (2.85%)</td><td > 1 (2.32%)</td><td > 0 (0.00%)</td><td >0 (0.00%)</td><td >2</td></tr><tr><td ></td><td >Total</td><td >35</td><td >43</td><td >21</td><td >1</td><td >100</td></tr></table> 
+<table class='twoDtable' ><tr><td colspan=2 rowspan=2 >foo</td><td colspan=4 >bar</td><td ></td></tr><tr><td >0</td><td >1</td><td >2</td><td >3</td><td >Total</td></tr><tr><td rowspan=3 >baz</td><td >0</td><td >26 (66.6%)</td><td >26 (66.6%)</td><td >12 (63.1%)</td><td >1 (33.3%)</td><td >65</td></tr><tr><td >1</td><td >13 (33.3%)</td><td >12 (30.7%)</td><td > 7 (36.8%)</td><td >2 (66.6%)</td><td >34</td></tr><tr><td >2</td><td > 0 (0.00%)</td><td > 1 (2.56%)</td><td > 0 (0.00%)</td><td >0 (0.00%)</td><td >1</td></tr><tr><td ></td><td >Total</td><td >39</td><td >39</td><td >19</td><td >3</td><td >100</td></tr></table> 
 
 
 `hImg, hSvg`: These utility functions do the work of simultaneously writing a
@@ -276,11 +388,11 @@ coef( summary( myFit ) )
 
 ```
 ##             Estimate Std. Error t value  Pr(>|t|)
-## (Intercept)  0.41616    0.06167  6.7486 1.171e-09
-## x            0.97947    0.03082 31.7848 2.033e-52
-## zb           0.12491    0.08590  1.4540 1.492e-01
-## zc           0.09850    0.08636  1.1405 2.569e-01
-## zd           0.04536    0.08571  0.5293 5.979e-01
+## (Intercept)  0.49270    0.05457  9.0282 1.973e-14
+## x            1.04476    0.02700 38.6959 5.885e-60
+## zb          -0.11483    0.07717 -1.4880 1.401e-01
+## zc          -0.01759    0.07724 -0.2277 8.203e-01
+## zd           0.01866    0.07751  0.2408 8.103e-01
 ```
 
 ```r
@@ -291,11 +403,11 @@ kCoef( myFit )
 
 ```
 ##             Estimate Std. Error t value  Pr(>|t|)
-## (Intercept)  0.41616    0.06167  6.7486 1.171e-09
-## x            0.97947    0.03082 31.7848 2.033e-52
-## z: a -> b    0.12491    0.08590  1.4540 1.492e-01
-## z: a -> c    0.09850    0.08636  1.1405 2.569e-01
-## z: a -> d    0.04536    0.08571  0.5293 5.979e-01
+## (Intercept)  0.49270    0.05457  9.0282 1.973e-14
+## x            1.04476    0.02700 38.6959 5.885e-60
+## z: a -> b   -0.11483    0.07717 -1.4880 1.401e-01
+## z: a -> c   -0.01759    0.07724 -0.2277 8.203e-01
+## z: a -> d    0.01866    0.07751  0.2408 8.103e-01
 ```
 
 

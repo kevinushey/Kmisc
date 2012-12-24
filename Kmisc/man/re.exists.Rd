@@ -8,8 +8,8 @@
   \item{...}{passed to \code{ \link{grep} }.}
 }
 \description{
-  A tighter wrapper of a commonly used R idiom. See
-  examples for usage.
+  Checks whether a match was found for a given regular
+  expression in a vector. See examples for usage.
 }
 \examples{
 if( re.exists("^ap", c("apple", "banana") ) ) print("yay!")

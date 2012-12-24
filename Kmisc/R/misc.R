@@ -21,7 +21,7 @@ u <- function(...) { unique( ... ) }
 
 #' length( grep( ... ) )
 #' 
-#' This is a wrapper to a commonly used R idiom. See examples for usage.
+#' This is a wrapper to a \code{length( grep( ... ) )}. See examples for usage.
 #' @param ... passed to \code{\link{grep}}.
 #' @seealso \code{\link{re.exists}}
 #' @export
@@ -34,7 +34,8 @@ lg <- function(...) { length( grep( ... ) ) }
 
 #' Check whether Regular Expression was Found
 #' 
-#' A tighter wrapper of a commonly used R idiom. See examples for usage.
+#' Checks whether a match was found for a given regular expression in a vector.
+#' See examples for usage.
 #' @param ... passed to \code{ \link{grep} }.
 #' @export
 #' @seealso \code{\link{lg}}

@@ -10,4 +10,7 @@
 \description{
   Reverses a vector of 'strings' (a character vector).
 }
+\note{
+  Underlying code is written in C for fast execution.
+}
 

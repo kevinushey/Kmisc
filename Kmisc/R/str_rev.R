@@ -4,6 +4,9 @@
 #' 
 #' @export
 #' @param x a character vector
+#' @note Underlying code is written in C for fast execution.
 str_rev <- function(x) {
-  .Call("str_rev", as.character(x), PACKAGE="Kmisc")
+  tmp <- .Call("str_rev", as.character(x), PACKAGE="Kmisc")
+  tmp[ is.na(x) ] <- NA
+  return(tmp)
 }

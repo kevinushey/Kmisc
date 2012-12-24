@@ -8,7 +8,7 @@
   \item{...}{passed to \code{\link{grep}}.}
 }
 \description{
-  This is a wrapper to a commonly used R idiom. See
+  This is a wrapper to a \code{length( grep( ... ) )}. See
   examples for usage.
 }
 \examples{
