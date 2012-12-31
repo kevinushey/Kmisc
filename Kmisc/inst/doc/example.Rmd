@@ -9,6 +9,10 @@ a bit easier. Some of the most useful functions in the package are shown here.
 *Please forgive the vanity / very short namespace-like construct with many names,
 in which I prepend function names with `k`.*
 
+Install the package with
+
+    install.packages("Kmisc")
+
 ```{r, tidy=FALSE}
 set.seed(123)
 suppressPackageStartupMessages( library(Kmisc) )
@@ -58,7 +62,7 @@ without.re( dat, "[xy]")
 tDat <- dat ## make a temporary copy of dat
 
 ## Replace some elements in tDat$y
-tDat$y <- kReplace( tDat$y, from=c(4, 8, 10), to=c(20, 40, 60) )
+tDat$y <- kReplace( tDat$y, from=c(2, 4), to=c(20, 40) )
 cbind( dat$y, tDat$y )
 ```
 
@@ -145,6 +149,15 @@ pxt( kTable(x, y,
             left.label="baz" 
             ) )
 
+```
+
+`kTable` with `google=TRUE`: Generate a 1D table output with the `googleVis`
+package.
+
+```{r results='asis', tidy=FALSE}
+suppressPackageStartupMessages( library(googleVis) )
+tmp <- gvisTable( kTable(x, google=TRUE) )
+cat( tmp$html$chart )
 ```
 
 `hImg, hSvg`: These utility functions do the work of simultaneously writing a

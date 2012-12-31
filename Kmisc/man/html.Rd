@@ -8,19 +8,23 @@
   generating HTML tags. See examples for usage.
 }
 \examples{
-## The first argument is interpreted as the 'data' of an HTML element, while
-## all further arguments are interpreted as named attributes to pass to
-## the HTML tag you're using
+## All un-named arguments are interpreted as 'data' to paste (in order),
+## while all named arguments are interpreted as HTML attributes to give to
+## the tag.
 data(html)
 myName <- "Kevin"
-with( html, strong( paste0("Hi, ", myName, "!" ) ) )
+with( html, strong( style="color: red;", "Hi, ", myName, "!" ) )
 
-with( html, table( class="my-favorite-table",
+with( html, table( id="my-favorite-table",
   tr( td(myName, class="blue") ) )
   )
 
 ## See all of the HTML tags currently available
 print( objects(html) )
+
+## make your own!
+article <- makeHTMLTag("article")
+article( id="main", "hello!" )
 }
 \keyword{datasets}
 

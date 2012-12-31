@@ -1,8 +1,8 @@
-\name{str_slice}
-\alias{str_slice}
+\name{str_slice2}
+\alias{str_slice2}
 \title{Slice a Vector at Consecutive Indices}
 \usage{
-  str_slice(x, n = 1)
+  str_slice2(x, n = 1)
 }
 \arguments{
   \item{x}{a character vector.}
@@ -19,14 +19,14 @@
   This function 'slices' the strings of a character vector
   \code{x} at consecutive indices \code{n}, thereby
   generating consecutive substrings of length \code{n} and
-  returning the result as a list. Not safe for use with
-  unicode characters.
+  returning the result as a list. This function will safely
+  'slice' a UTF-8 encoded vector.
 }
 \note{
-  Underlying code is written in C for fast execution.
+  Safe for use with UTF-8 characters, but slower than
+  \code{str_slice}.
 }
 \seealso{
-  \code{\link{str_slice2}}, for slicing a UTF-8 encoded
-  vector.
+  \code{\link{str_slice}}, for slicing an ASCII vector.
 }
 

@@ -95,13 +95,11 @@ ngrep <- function(pattern, x, ...) {
 
 #' Extract Variables from a List / Data Frame
 #' 
-#' Extract variables from a \code{list} / \code{data.frame}.
-#' The first argument is the \code{list} / \code{data.frame}, while the second 
-#' is passed to and parsed from \code{...}. \code{\link{name}}s passed to 
-#' \code{...} are first searched for in the global environment; if
-#' not found, we fall back to a character representation of the \code{name}.
-#' We return the \code{list} / \code{data.frame},
-#' including only those whose names were found in \code{...}.
+#' Extracts variables from a \code{list} / \code{data.frame} / other R object
+#' with the names attribute set in a 'lazy' way. 
+#' The first argument is the R object, while the second is passed 
+#' and parsed from \code{...}. We return the R object, sans the elements with
+#' names matched from \code{...}.
 #' 
 #' We can be 'lazy' with how we name the variables. The \code{\link{name}}s
 #' passed to \code{...} are not evaluated directly; rather, their character
@@ -111,7 +109,7 @@ ngrep <- function(pattern, x, ...) {
 #' @details First, symbols are parsed as characters, and named of \code{dat}
 #' are checked to see if they match any of \code{names(dat)}. If not, we
 #' try to find the variable in the local search path, and match that
-#' against the names. If none of these are successful, we throw an error.
+#' against the names. If none of these are successful, we display a warning.
 #' 
 #' @param dat \code{list} or \code{data.frame} object, or other similar object with a \code{names} attribute
 #' @param ... an optional number of 'names' to match in \code{dat}
@@ -146,6 +144,13 @@ extract <- function( dat, ... ) {
     return(x)
     
   })
+  
+  for( i in seq_along(args) ) {
+    if( !is.atomic(args[i]) ) {
+      stop( "'", names(args)[i], "' is not atomic" )
+    }
+  }
+  
   dat <- dat[ names(dat) %in% unlist(args) ]
   return( dat )
   
@@ -169,10 +174,11 @@ extract.re <- function( dat, pattern, value=TRUE, perl=TRUE, ... ) {
 
 #' Remove Variables from a List / Data Frame
 #' 
-#' Removes variables from a \code{list} / \code{data.frame} in a 'lazy' way. 
-#' The first argument is the data frame, while the second is passed 
-#' and parsed from \code{...}. We return the \code{list} / \code{data.frame}, 
-#' sans the names matched from \code{...}.
+#' Removes variables from a \code{list} / \code{data.frame} / other R object
+#' with the names attribute set in a 'lazy' way. 
+#' The first argument is the R object, while the second is passed 
+#' and parsed from \code{...}. We return the R object, sans the elements with
+#' names matched from \code{...}.
 #' 
 #' We can be 'lazy' with how we name the variables. The \code{\link{name}}s
 #' passed to \code{...} are not evaluated directly; rather, their character
@@ -182,7 +188,7 @@ extract.re <- function( dat, pattern, value=TRUE, perl=TRUE, ... ) {
 #' @details First, symbols are parsed as characters, and named of \code{dat}
 #' are checked to see if they match any of \code{names(dat)}. If not, we
 #' try to find the variable in the local search path, and match that
-#' against the names. If none of these are successful, we throw an error.
+#' against the names. If none of these are successful, we display a warning.
 #' 
 #' @param dat \code{list} or \code{data.frame} object, or other similar object with a \code{names} attribute
 #' @param ... an optional number of 'names' to match in \code{dat}
@@ -213,6 +219,13 @@ without <- function( dat, ... ) {
     return(x)
     
   })
+  
+  for( i in seq_along(args) ) {
+    if( !is.atomic(args[i]) ) {
+      stop( "'", names( args )[i], "' is not atomic" )
+    }
+  }
+  
   dat <- dat[ names(dat) %nin% unlist(args) ]
   return( dat )
   
@@ -726,6 +739,10 @@ kTable <- function( x,
                     top.label=NULL,
                     google=FALSE 
                     ) {
+  
+  if( !is.null(y) & isTRUE(google) ) {
+    stop("cannot generate google tables from 2x2 contingency tables")
+  }
   
   if( is.null(left.label) ) {
     left.label <- gsub( ".*\\$", "", deparse( substitute( x ) ) )

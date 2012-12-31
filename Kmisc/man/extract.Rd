@@ -12,15 +12,12 @@
   \code{dat}}
 }
 \description{
-  Extract variables from a \code{list} / \code{data.frame}.
-  The first argument is the \code{list} /
-  \code{data.frame}, while the second is passed to and
-  parsed from \code{...}. \code{\link{name}}s passed to
-  \code{...} are first searched for in the global
-  environment; if not found, we fall back to a character
-  representation of the \code{name}. We return the
-  \code{list} / \code{data.frame}, including only those
-  whose names were found in \code{...}.
+  Extracts variables from a \code{list} / \code{data.frame}
+  / other R object with the names attribute set in a 'lazy'
+  way. The first argument is the R object, while the second
+  is passed and parsed from \code{...}. We return the R
+  object, sans the elements with names matched from
+  \code{...}.
 }
 \details{
   We can be 'lazy' with how we name the variables. The
@@ -34,7 +31,7 @@
   \code{dat} are checked to see if they match any of
   \code{names(dat)}. If not, we try to find the variable in
   the local search path, and match that against the names.
-  If none of these are successful, we throw an error.
+  If none of these are successful, we display a warning.
 }
 \examples{
 dat <- data.frame( x = c(1, 2, 3), y = c("a", "b", "c"), z=c(4, 5, 6) )

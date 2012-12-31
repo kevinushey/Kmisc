@@ -11,6 +11,7 @@
   This function removes all the .Rd documentation files
   present in \code{<dir>/man}. This function is handy if
   you've 'polluted' your manual directory in prototyping
-  different functions.
+  different functions - assuming that you're documenting
+  your code with eg. \code{roxygen}.
 }
 

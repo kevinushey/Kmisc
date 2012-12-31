@@ -9,6 +9,10 @@ a bit easier. Some of the most useful functions in the package are shown here.
 *Please forgive the vanity / very short namespace-like construct with many names,
 in which I prepend function names with `k`.*
 
+Install the package with
+
+    install.packages("Kmisc")
+
 
 ```r
 set.seed(123)
@@ -148,16 +152,16 @@ without.re( dat, "[xy]")
 tDat <- dat ## make a temporary copy of dat
 
 ## Replace some elements in tDat$y
-tDat$y <- kReplace( tDat$y, from=c(4, 8, 10), to=c(20, 40, 60) )
+tDat$y <- kReplace( tDat$y, from=c(2, 4), to=c(20, 40) )
 cbind( dat$y, tDat$y )
 ```
 
 ```
 ##      [,1] [,2]
 ## [1,]    1    1
-## [2,]    2    2
+## [2,]    2   20
 ## [3,]    3    3
-## [4,]    4   20
+## [4,]    4   40
 ```
 
 
@@ -342,6 +346,90 @@ pxt( kTable(x, y,
 ```
 
 <table class='twoDtable' ><tr><td colspan=2 rowspan=2 >foo</td><td colspan=4 >bar</td><td ></td></tr><tr><td >0</td><td >1</td><td >2</td><td >3</td><td >Total</td></tr><tr><td rowspan=3 >baz</td><td >0</td><td >26 (66.6%)</td><td >26 (66.6%)</td><td >12 (63.1%)</td><td >1 (33.3%)</td><td >65</td></tr><tr><td >1</td><td >13 (33.3%)</td><td >12 (30.7%)</td><td > 7 (36.8%)</td><td >2 (66.6%)</td><td >34</td></tr><tr><td >2</td><td > 0 (0.00%)</td><td > 1 (2.56%)</td><td > 0 (0.00%)</td><td >0 (0.00%)</td><td >1</td></tr><tr><td ></td><td >Total</td><td >39</td><td >39</td><td >19</td><td >3</td><td >100</td></tr></table> 
+
+
+`kTable` with `google=TRUE`: Generate a 1D table output with the `googleVis`
+package.
+
+
+```r
+suppressPackageStartupMessages( library(googleVis) )
+tmp <- gvisTable( kTable(x, google=TRUE) )
+cat( tmp$html$chart )
+```
+
+<!-- Table generated in R 2.15.2 by googleVis 0.3.3 package -->
+<!-- Sun Dec 30 21:25:51 2012 -->
+
+
+<!-- jsHeader -->
+<script type="text/javascript" src="http://www.google.com/jsapi">
+</script>
+<script type="text/javascript">
+ 
+// jsData 
+function gvisDataTableID517e23a3ec27 ()
+{
+  var data = new google.visualization.DataTable();
+  var datajson =
+[
+ [
+ "0",
+"65 (65.0%)" 
+],
+[
+ "1",
+"34 (34.0%)" 
+],
+[
+ "2",
+" 1 (1.00%)" 
+],
+[
+ "Total",
+"100" 
+] 
+];
+data.addColumn('string','x');
+data.addColumn('string','Count (%)');
+data.addRows(datajson);
+return(data);
+}
+ 
+// jsDrawChart
+function drawChartTableID517e23a3ec27() {
+  var data = gvisDataTableID517e23a3ec27();
+  var options = {};
+options["allowHtml"] = true;
+
+     var chart = new google.visualization.Table(
+       document.getElementById('TableID517e23a3ec27')
+     );
+     chart.draw(data,options);
+    
+
+}
+  
+ 
+// jsDisplayChart 
+function displayChartTableID517e23a3ec27()
+{
+  google.load("visualization", "1", { packages:["table"] }); 
+  google.setOnLoadCallback(drawChartTableID517e23a3ec27);
+}
+ 
+// jsChart 
+displayChartTableID517e23a3ec27()
+ 
+<!-- jsFooter -->  
+//-->
+</script>
+ 
+<!-- divChart -->
+  
+<div id="TableID517e23a3ec27"
+  style="width: 600px; height: 500px;">
+</div>
 
 
 `hImg, hSvg`: These utility functions do the work of simultaneously writing a

@@ -29,7 +29,8 @@ SEXP str_slice(SEXP x, SEXP n) {
         int string_counter = 0;
         for( int i=0; i < num_substr; i++ ) {
 
-            char elt[len_substr];
+            // allocate memory for a string
+            char* elt = malloc( sizeof(char) * (len_substr+1) );
 
             // Push items onto the element
             for( int j=0; j < len_substr; j++ ) {
@@ -41,6 +42,7 @@ SEXP str_slice(SEXP x, SEXP n) {
             elt[len_substr] = '\0';
 
             SET_STRING_ELT( substring, i, mkChar(elt) );
+            free( elt );
         }
         
         // Set the list element to the substring

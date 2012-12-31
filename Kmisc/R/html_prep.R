@@ -107,7 +107,7 @@ attachHTML <- function() {
       assign( fun, get(fun, envir=get("html")), envir=.html.sub )
     }
     
-    attach(.html.sub)
+    attach( what=get(".html.sub"), name=".html.sub" )
   }
   
 }
