@@ -2,13 +2,20 @@
 \alias{without_rows.re}
 \title{Exclude Rows from a Data Frame Based on Regex Matching}
 \usage{
-  without_rows.re(df, regex, match_var = rownames(df), ...)
+  without_rows.re(df, regex, match_var = rownames(df),
+    perl = TRUE, ...)
 }
 \arguments{
   \item{df}{a data frame with row names}
 
   \item{regex}{a regular expression to evaluate against the
   row names}
+
+  \item{match_var}{the variable to match on. defaults to
+  \code{rownames(df)}}
+
+  \item{perl}{boolean. use perl-compatible regular
+  expressions?}
 
   \item{...}{optional arguments passed to \code{grep}}
 }

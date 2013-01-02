@@ -2,7 +2,8 @@
 \alias{extract_rows.re}
 \title{Extract Rows from a Data Frame Based on Regex Matching}
 \usage{
-  extract_rows.re(df, regex, match_var = rownames(df), ...)
+  extract_rows.re(df, regex, match_var = rownames(df),
+    perl = TRUE, ...)
 }
 \arguments{
   \item{df}{a data frame with row names}
@@ -10,10 +11,13 @@
   \item{regex}{a regular expression to evaluate against the
   row names}
 
-  \item{...}{optional arguments passed to \code{grep}}
-
   \item{match_var}{the variable to match on. defaults to
   \code{rownames(df)}}
+
+  \item{perl}{boolean. use perl-compatible regular
+  expressions?}
+
+  \item{...}{optional arguments passed to \code{grep}}
 }
 \description{
   This function extracts rows from a data frame \code{df}

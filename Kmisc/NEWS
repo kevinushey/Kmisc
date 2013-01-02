@@ -11,6 +11,9 @@ Version 0.3.0
   * Updated documentation on extract() / without().
   * Improved error checking in extract() / without() - now ensures that the
     symbols passed to ... are atomic
+  * Added extract_rows.re() and without_rows.re() for extracting rows from a
+    dataframe whereby some variable in the data frame (default: rownames) 
+    matches a regex pattern
 
 Version 0.2.0
 ------------------------------------------------------------------------------
