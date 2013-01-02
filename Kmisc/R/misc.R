@@ -1117,4 +1117,3 @@ getObjects <- function( env ) {
   names( objs ) <- objects(env)
   return(objs)
 }
-

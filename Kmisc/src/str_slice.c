@@ -30,7 +30,7 @@ SEXP str_slice(SEXP x, SEXP n) {
         for( int i=0; i < num_substr; i++ ) {
 
             // allocate memory for a string
-            char* elt = malloc( sizeof(char) * (len_substr+1) );
+            char* elt = R_alloc( len_substr+1, sizeof(char)  );
 
             // Push items onto the element
             for( int j=0; j < len_substr; j++ ) {
@@ -42,7 +42,6 @@ SEXP str_slice(SEXP x, SEXP n) {
             elt[len_substr] = '\0';
 
             SET_STRING_ELT( substring, i, mkChar(elt) );
-            free( elt );
         }
         
         // Set the list element to the substring

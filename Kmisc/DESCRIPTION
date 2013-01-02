@@ -26,3 +26,4 @@ Collate:
     'str_slice.R'
     'clean_doc.R'
     'str_sort.R'
+    'extract_rows.R'

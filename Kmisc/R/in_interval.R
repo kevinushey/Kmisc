@@ -31,4 +31,3 @@ in.interval <- function(x, lo, hi, include.lower=TRUE, include.upper=FALSE) {
         )
   
 }
-
