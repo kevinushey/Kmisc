@@ -15,10 +15,7 @@
 #' ## get all rows in dat with a 1, 2, 3 or 4 in the name
 #' extract_rows.re( dat, "[1-4]" )
 extract_rows.re <- function(df, regex, match_var=rownames(df), perl=TRUE, ...) {
-  
-  return( df[ match_var %in% 
-                grep( regex, match_var, value=TRUE, perl=perl, ... ), 
-              ,drop=FALSE ] )
+  return( df[ grep( regex, match_var, perl=perl, ... ), ] )
 }
 
 #' Exclude Rows from a Data Frame Based on Regex Matching
@@ -38,7 +35,5 @@ extract_rows.re <- function(df, regex, match_var=rownames(df), perl=TRUE, ...) {
 #' ## get all rows in dat with a 1, 2, 3 or 4 in the name
 #' without_rows.re( dat, "[0-4]" )
 without_rows.re <- function(df, regex, match_var=rownames(df), perl=TRUE, ...) {
-  return( df[ match_var %nin% 
-                grep( regex, match_var, value=TRUE, perl=perl, ... ), 
-              ,drop=FALSE ] )
+  return( df[ 1:nrow(df) %nin% grep( regex, match_var, perl=perl, ... ), ] )
 }

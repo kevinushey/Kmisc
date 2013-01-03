@@ -11,8 +11,6 @@
   \item{pattern}{a regular expression pattern to match
   against \code{names(dat)}}
 
-  \item{value}{boolean. passed to \code{grep}}
-
   \item{perl}{boolean. use perl-compatible regular
   expressions?}
 

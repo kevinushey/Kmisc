@@ -2,7 +2,7 @@
 \alias{extract.re}
 \title{Extract Variable from a Data Frame / List, with Regular Expressions}
 \usage{
-  extract.re(dat, pattern, value = TRUE, perl = TRUE, ...)
+  extract.re(dat, pattern, perl = TRUE, ...)
 }
 \arguments{
   \item{dat}{\code{list} or \code{data.frame} object, or

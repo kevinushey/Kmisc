@@ -168,8 +168,8 @@ extract <- function( dat, ... ) {
 #' @param ... optional arguments passed to grep
 #' @export
 #' @seealso \code{\link{grep}}, \code{\link{regex}}
-extract.re <- function( dat, pattern, value=TRUE, perl=TRUE, ... ) {
-  return( dat[ names(dat) %in% grep( pattern, names(dat), value=value, perl=perl, ... ) ] )
+extract.re <- function( dat, pattern, perl=TRUE, ... ) {
+  return( dat[ grep( pattern, names(dat), perl=perl, ... ) ] )
 }
 
 #' Remove Variables from a List / Data Frame
@@ -238,13 +238,12 @@ without <- function( dat, ... ) {
 #' 
 #' @param dat \code{list} or \code{data.frame} object, or other similar object with a \code{names} attribute
 #' @param pattern a regular expression pattern to match against \code{names(dat)}
-#' @param value boolean. passed to \code{grep}
 #' @param perl boolean. use perl-compatible regular expressions?
 #' @param ... optional arguments passed to \code{grep}.
 #' @export
 #' @seealso \code{\link{grep}} \code{\link{regex}}
 without.re <- function( dat, pattern, value=TRUE, perl=TRUE, ... ) {
-  return( dat[ names(dat) %nin% grep( pattern, names(dat), value=value, perl=perl, ... ) ] )
+  return( dat[ 1:ncol(dat) %nin% grep( pattern, names(dat), perl=perl, ... ) ] )
 }
 
 #' Set Working Directory

@@ -27,3 +27,4 @@ Collate:
     'clean_doc.R'
     'str_sort.R'
     'extract_rows.R'
+    'is_sorted.R'
