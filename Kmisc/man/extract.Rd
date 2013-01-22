@@ -1,34 +1,32 @@
 \name{extract}
 \alias{extract}
-\title{Extract Variables from a List / Data Frame}
+\title{Extract Elements from a Named Object}
 \usage{
-  extract(dat, ...)
+  extract(x, ...)
 }
 \arguments{
-  \item{dat}{\code{list} or \code{data.frame} object, or
-  other similar object with a \code{names} attribute}
+  \item{x}{An \R object with a \code{names} attribute.}
 
   \item{...}{an optional number of 'names' to match in
-  \code{dat}}
+  \code{dat}.}
 }
 \description{
-  Extracts variables from a \code{list} / \code{data.frame}
-  / other R object with the names attribute set in a 'lazy'
-  way. The first argument is the R object, while the second
-  is passed and parsed from \code{...}. We return the R
-  object, sans the elements with names matched from
-  \code{...}.
+  Extracts elements from an \R object with the names
+  attribute set in a 'lazy' way. The first argument is the
+  object, while the second is a set of names parsed from
+  \code{...}. We return the object, including only the
+  elements with names matched from \code{...}.
 }
 \details{
-  We can be 'lazy' with how we name the variables. The
+  We can be 'lazy' with how we pass names. The
   \code{\link{name}}s passed to \code{...} are not
   evaluated directly; rather, their character
   representation is taken and used for extraction.
   Furthermore, for a given item submitted, all text before
   a \code{$} is removed.
 
-  First, symbols are parsed as characters, and named of
-  \code{dat} are checked to see if they match any of
+  First, symbols are parsed as characters, and entries in
+  \code{...} are checked to see if they match any of
   \code{names(dat)}. If not, we try to find the variable in
   the local search path, and match that against the names.
   If none of these are successful, we display a warning.

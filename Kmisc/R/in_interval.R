@@ -1,7 +1,7 @@
 #' Determine if Value Lies within Interval
 #' 
 #' This function determines whether elements of a numeric vector \code{x} lie
-#' within boundaries \code{[lo, hi)}. Marginally slower than the R equivalent
+#' within boundaries \code{[lo, hi)}. Marginally slower than the \R equivalent
 #' code \code{x >= lo & x < hi} for small vectors; much faster for very large
 #' vectors.
 #' 
@@ -18,8 +18,8 @@
 #' f <- function(x, lo, hi) {
 #'   return( x >= lo & x < hi )
 #'   }
-#' stopifnot( all( in.interval( x, lo, hi ) == f(x, lo, hi) ) )
-in.interval <- function(x, lo, hi, include.lower=TRUE, include.upper=FALSE) {
+#' stopifnot( all( in_interval( x, lo, hi ) == f(x, lo, hi) ) )
+in_interval <- function(x, lo, hi, include.lower=TRUE, include.upper=FALSE) {
   
   .Call("in_interval", 
         as.numeric(x), 

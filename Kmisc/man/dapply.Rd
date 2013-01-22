@@ -2,23 +2,33 @@
 \alias{dapply}
 \title{Apply a Function over a List}
 \usage{
-  dapply(...)
+  dapply(X, FUN, ...)
 }
 \arguments{
-  \item{...}{the call you might normally supply to
-  \code{\link{lapply}}.}
+  \item{X}{a vector, expression object, or a
+  \code{data.frame}}
+
+  \item{FUN}{function to be applied to each element of
+  \code{X}.}
+
+  \item{...}{optional arguments to \code{FUN}.}
 }
 \description{
   A convenience function that works like \code{lapply}, but
   coerces the output to a \code{data.frame} if possible. We
   set \code{stringsAsFactors=FALSE}, and
   \code{optional=TRUE}, to minimize the amount of automatic
-  coersion R might try to do.
+  coersion \R might try to do.
 }
 \details{
   This function is preferable to \code{\link{sapply}} or
   \code{\link{lapply}} when you explicitly want a data
   frame returned.
+}
+\note{
+  Rather than \code{lapply}, \code{\link{lapply}} is called
+  instead, which simply avoids converting any data frames
+  to lists before execution.
 }
 \examples{
 dat <- data.frame(
@@ -33,8 +43,9 @@ dapply( dat, function(x) {
   } )
 
 dapply( dat, summary )
+str( dapply( dat, summary ) )
 }
 \seealso{
-  \code{\link{lapply}}
+  \code{\link{lapply}}, \code{\link{lapply}}
 }
 

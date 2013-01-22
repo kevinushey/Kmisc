@@ -2,16 +2,24 @@
 \alias{kMerge}
 \title{Merge (Left Join) with Index Retainment}
 \usage{
-  kMerge(x, y, by, ...)
+  kMerge(x, y, by = intersect(names(x), names(y)),
+    by.x = by, by.y = by, ...)
 }
 \arguments{
-  \item{x}{the \code{data.frame} you wish to merge y into}
+  \item{x}{the \code{data.frame} you wish to merge y into.}
 
-  \item{y}{the \code{data.frame} to be merged}
+  \item{y}{the \code{data.frame} to be merged.}
 
-  \item{by}{the variable to merge over}
+  \item{by}{specifications of the columns used for merging.
+  See 'Details' of \code{\link{merge}}.}
 
-  \item{...}{optional arguments passed to merge}
+  \item{by.x}{specifications of the columns used for
+  merging. See 'Details' of \code{\link{merge}}.}
+
+  \item{by.y}{specifications of the columns used for
+  merging. See 'Details' of \code{\link{merge}}.}
+
+  \item{...}{optional arguments passed to \code{merge}.}
 }
 \value{
   \code{data.frame}

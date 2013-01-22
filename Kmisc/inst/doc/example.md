@@ -6,8 +6,8 @@ Quick Introduction to Kmisc
 Kmisc introduces a bunch of utility functions to make the R coding experience
 a bit easier. Some of the most useful functions in the package are shown here.
 
-*Please forgive the vanity / very short namespace-like construct with many names,
-in which I prepend function names with `k`.*
+*Please forgive the vanity / very short namespace-like construct with many 
+names, in which I prepend function names with `k`.*
 
 Install the package with
 
@@ -73,11 +73,11 @@ without( dat, a )
 ```
 
 ```
-##   y
-## 1 1
-## 2 2
-## 3 3
-## 4 4
+##   x y z
+## 1 a 1 A
+## 2 b 2 B
+## 3 c 3 C
+## 4 d 4 D
 ```
 
 ```r
@@ -145,14 +145,14 @@ without.re( dat, "[xy]")
 ```
 
 
-`kReplace`: Replace elements in a vector.
+`swap`: Replace elements in a vector.
 
 
 ```r
 tDat <- dat ## make a temporary copy of dat
 
 ## Replace some elements in tDat$y
-tDat$y <- kReplace( tDat$y, from=c(2, 4), to=c(20, 40) )
+tDat$y <- swap( tDat$y, from=c(2, 4), to=c(20, 40) )
 cbind( dat$y, tDat$y )
 ```
 
@@ -239,13 +239,13 @@ kMerge( dat1, dat2, by="id" )
 ```
 
 
-`in.interval`: A fast C implementation for determing which elements of a 
+`in_interval`: A fast C implementation for determing which elements of a 
 vector `x` lie within an interval `[lo, hi)`.
 
 
 ```r
 x <- runif(10); lo <- 0.5; hi <- 1
-print( data.frame( x=x, inner=in.interval(x, lo, hi) ) )
+print( data.frame( x=x, inner=in_interval(x, lo, hi) ) )
 ```
 
 ```
@@ -271,6 +271,7 @@ introduced a few functions, implemented in C for speed, for two common
 string operations.
 
 `str_rev`: Reverses a character vector; ie, a vector of strings.
+`str_rev2` is there if you need to reverse a potentially unicode string.
 
 
 ```r
@@ -282,8 +283,17 @@ str_rev( c("ABC", "DEF", NA, paste(LETTERS, collapse="") ) )
 ## [3] NA                           "ZYXWVUTSRQPONMLKJIHGFEDCBA"
 ```
 
+```r
+str_rev2( c("はひふへほ") )
+```
+
+```
+## [1] "ほへふひは"
+```
+
 
 `str_slice`: Slices a vector of strings at consecutive indices `n`.
+`str_slice2` exists for potentially unicode strings.
 
 ```r
 str_slice( c("ABCDEF", "GHIJKL", "MNOP", "QR"), 2 )
@@ -301,6 +311,25 @@ str_slice( c("ABCDEF", "GHIJKL", "MNOP", "QR"), 2 )
 ## 
 ## [[4]]
 ## [1] "QR"
+```
+
+```r
+str_slice2( "ははひひふふへへほほ", 2 )
+```
+
+```
+## Error: values must be length 1, but FUN(X[[1]]) result is length 5
+```
+
+
+`str_sort`: sort a string. Doesn't handle unicode strings.
+
+```r
+str_sort(c("はおいれ", "asnoighewgypfuiweb"))
+```
+
+```
+## [1] "いおはれ"           "abeefgghiinopsuwwy"
 ```
 
 
@@ -359,7 +388,7 @@ cat( tmp$html$chart )
 ```
 
 <!-- Table generated in R 2.15.2 by googleVis 0.3.3 package -->
-<!-- Sun Dec 30 21:25:51 2012 -->
+<!-- Mon Jan 21 14:34:16 2013 -->
 
 
 <!-- jsHeader -->
@@ -368,7 +397,7 @@ cat( tmp$html$chart )
 <script type="text/javascript">
  
 // jsData 
-function gvisDataTableID517e23a3ec27 ()
+function gvisDataTableID276d3bba736a ()
 {
   var data = new google.visualization.DataTable();
   var datajson =
@@ -397,13 +426,13 @@ return(data);
 }
  
 // jsDrawChart
-function drawChartTableID517e23a3ec27() {
-  var data = gvisDataTableID517e23a3ec27();
+function drawChartTableID276d3bba736a() {
+  var data = gvisDataTableID276d3bba736a();
   var options = {};
 options["allowHtml"] = true;
 
      var chart = new google.visualization.Table(
-       document.getElementById('TableID517e23a3ec27')
+       document.getElementById('TableID276d3bba736a')
      );
      chart.draw(data,options);
     
@@ -412,14 +441,14 @@ options["allowHtml"] = true;
   
  
 // jsDisplayChart 
-function displayChartTableID517e23a3ec27()
+function displayChartTableID276d3bba736a()
 {
   google.load("visualization", "1", { packages:["table"] }); 
-  google.setOnLoadCallback(drawChartTableID517e23a3ec27);
+  google.setOnLoadCallback(drawChartTableID276d3bba736a);
 }
  
 // jsChart 
-displayChartTableID517e23a3ec27()
+displayChartTableID276d3bba736a()
  
 <!-- jsFooter -->  
 //-->
@@ -427,7 +456,7 @@ displayChartTableID517e23a3ec27()
  
 <!-- divChart -->
   
-<div id="TableID517e23a3ec27"
+<div id="TableID276d3bba736a"
   style="width: 600px; height: 500px;">
 </div>
 
@@ -446,7 +475,9 @@ hImg( file="test.png", width=400, height=300, dpi=72,
       )
 ```
 
-<img class="center" src="test.png" width=400 height=300 />
+```
+## Error: could not find function "kColor"
+```
 
 ```r
 hSvg( file="test.svg", width=400, height=300,
@@ -454,9 +485,9 @@ hSvg( file="test.svg", width=400, height=300,
       )
 ```
 
-<div align='center'>
-<embed src="test.svg" width=400 height=300 type="image/svg+xml" />
-</div>
+```
+## Error: could not find function "kColor"
+```
 
 
 `kCoef, kAnova`: These are functions that produce 'nicer' coefficient output

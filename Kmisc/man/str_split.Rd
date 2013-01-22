@@ -1,17 +1,19 @@
-\name{kSplit}
-\alias{kSplit}
-\title{Split a Vector of Strings Following Regular Structure}
+\name{str_split}
+\alias{str_split}
+\title{Split a Vector of Strings Following a Regular Structure}
 \usage{
-  kSplit(x, sep, names = NULL)
+  str_split(x, sep, names = NULL, ...)
 }
 \arguments{
-  \item{x}{a vector of strings}
+  \item{x}{a vector of strings.}
 
   \item{sep}{the delimiter / \code{\link{regex}} you wish
-  to split your strings on}
+  to split your strings on.}
 
   \item{names}{optional: a vector of names to pass to the
-  returned \code{data.frame}}
+  returned \code{data.frame}.}
+
+  \item{...}{optional arguments passed to \code{strsplit}.}
 }
 \description{
   This function takes a vector of strings following a
@@ -22,13 +24,13 @@
   \code{data.frame}.
 }
 \examples{
-dat <- kSplit(
+dat <- str_split(
   c("regular_structure", "in_my", "data_here"),
   sep="_",
   names=c("apple", "banana")
 )
 x <- c("somewhat_different.structure", "in_this.guy")
-kSplit( x, "[_\\\\.]" )
+str_split( x, "[_\\\\.]" )
 }
 \seealso{
   \code{\link{strsplit}}

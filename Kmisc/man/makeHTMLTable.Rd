@@ -9,7 +9,7 @@
 }
 \arguments{
   \item{x}{the \code{data.frame} / \code{matrix} you want
-  to convert to an HTML table}
+  to convert to an HTML table.}
 
   \item{attr}{attributes to be passed to the \code{<table>}
   tag, as raw HTML.}
@@ -18,13 +18,13 @@
   for largers cells.}
 
   \item{col.spans}{a matrix specifying desired column
-  spans, for larger cells}
+  spans, for larger cells.}
 
   \item{use.row.names}{if you submit an object with row
-  names, use those names in construction of the table}
+  names, use those names in construction of the table.}
 
   \item{use.col.names}{if you submit an object with column
-  names, use those names in construction of the table}
+  names, use those names in construction of the table.}
 
   \item{clean}{boolean. if \code{TRUE}, rounds all numeric
   values to 2 decimal places for better printing}
@@ -32,7 +32,7 @@
   \item{replace.periods}{replace periods with spaces?}
 }
 \description{
-  Function for making HTML tables from an R 'table-like'
+  Function for making HTML tables from an \R 'table-like'
   object; ie, a \code{data.frame} or a \code{matrix}. It
   simply parses the item as an HTML table.
 }

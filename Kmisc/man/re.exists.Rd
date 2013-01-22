@@ -2,10 +2,19 @@
 \alias{re.exists}
 \title{Check whether Regular Expression was Found}
 \usage{
-  re.exists(...)
+  re.exists(pattern, x, perl = TRUE, ...)
 }
 \arguments{
-  \item{...}{passed to \code{ \link{grep} }.}
+  \item{pattern}{regex pattern passed to \code{grep}.}
+
+  \item{x}{vector on which we attempt to match
+  \code{pattern} on.}
+
+  \item{perl}{boolean. use perl-compatible regular
+  expressions?}
+
+  \item{...}{additional arguments passed to \code{
+  \link{grep} }.}
 }
 \description{
   Checks whether a match was found for a given regular

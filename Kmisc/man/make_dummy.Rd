@@ -1,11 +1,11 @@
-\name{kMakeDummy}
-\alias{kMakeDummy}
-\title{Make Dummy Variables from Factor}
+\name{make_dummy}
+\alias{make_dummy}
+\title{Make Dummy Variables from a Factor}
 \usage{
-  kMakeDummy(x)
+  make_dummy(x)
 }
 \arguments{
-  \item{x}{a variable coercable to \code{factor}.}
+  \item{x}{an object coercable to \code{factor}.}
 }
 \description{
   This functions converts a single factor into dummy
@@ -15,6 +15,6 @@
 }
 \examples{
 x <- factor( rep( c("a", "b", "c", "d"), each=25 ) )
-kMakeDummy(x)
+make_dummy(x)
 }
 

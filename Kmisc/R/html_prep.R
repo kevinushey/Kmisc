@@ -5,10 +5,10 @@
 #' printing of items in the environment \code{html}.
 #' @param ... a set of kHTML objects (strings).
 #' @method print kHTML
+#' @S3method print kHTML
 #' @seealso \code{\link{html}}
 #' @export
 #' @examples
-#' data(html)
 #' html$br()
 print.kHTML <- function(...) {
   cat( ... )
@@ -26,7 +26,7 @@ print.kHTML <- function(...) {
 #' 'data', which is generated for a \code{p} HTML tag.
 #' 
 #' @export
-#' @param tag the HTML tag to use
+#' @param tag the HTML tag to use.
 #' @param ... a collection of named and unnamed arguments;
 #'  named arguments are parsed as attributes of the tag,
 #'  unnamed arguments are pasted together into the inner data of the tag.
@@ -96,7 +96,6 @@ attachHTML <- function() {
     warning("HTML functions already attached!")
     invisible()
   } else {
-    data("html")
     myFuns <- c(
       paste( sep="", "h", 1:6),
       "tr", "td", "th", "ul", "ol", "li", "p", "span", "br", "strong", "em", "a",

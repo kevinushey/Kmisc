@@ -2,15 +2,15 @@
 \alias{kAnova}
 \title{Nicely Formatted ANOVA Table}
 \usage{
-  kAnova(fit, test = "LRT", replace.periods = TRUE)
+  kAnova(fit, test = "LRT", swap.periods = TRUE)
 }
 \arguments{
-  \item{fit}{the model fit to generate an ANOVA table for}
+  \item{fit}{the model fit to generate an ANOVA table for.}
 
   \item{test}{the type of test to perform. default is
-  likelihood-ratio test (LRT)}
+  likelihood-ratio test (LRT).}
 
-  \item{replace.periods}{replace periods with spaces?}
+  \item{swap.periods}{swap periods with spaces?}
 }
 \description{
   Returns a nicely formatted ANOVA table. See

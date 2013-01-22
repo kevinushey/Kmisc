@@ -18,6 +18,9 @@
   Test if an object is sorted, without the cost of sorting
   it. Wrapper to \code{\link{is.unsorted}}.
 }
+\examples{
+stopifnot( is.sorted(1, 2, 4) )
+}
 \seealso{
   \code{\link{is.unsorted}}
 }

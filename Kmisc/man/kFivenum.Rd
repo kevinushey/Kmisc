@@ -2,11 +2,13 @@
 \alias{kFivenum}
 \title{Fivenum with Names}
 \usage{
-  kFivenum(x)
+  kFivenum(x, na.rm = TRUE)
 }
 \arguments{
   \item{x}{numeric, maybe including \code{NA}s and
-  \code{Inf}s}
+  \code{Inf}s.}
+
+  \item{na.rm}{logical. remove NAs?}
 }
 \value{
   \code{data.frame} version of five number summary

@@ -1,6 +1,6 @@
 #' Make HTML Table from R 'table-like' Object
 #' 
-#' Function for making HTML tables from an R 'table-like' object; ie, a
+#' Function for making HTML tables from an \R 'table-like' object; ie, a
 #' \code{data.frame} or a \code{matrix}. It simply parses the item as an HTML table.
 #'
 #' The row.spans and col.spans argument can be specified as a matrix to
@@ -10,14 +10,14 @@
 #' 
 #' Note that the default behavior is to \code{'clean'} your data; this rounds
 #' numeric output to two decimal places so it prints more nicely.
-#' @param x the \code{data.frame} / \code{matrix} you want to convert to an HTML table
+#' @param x the \code{data.frame} / \code{matrix} you want to convert to an HTML table.
 #' @param attr attributes to be passed to the \code{<table>} tag, as raw HTML.
 #' @param row.spans a matrix specifying desired row.spans, for largers cells.
-#' @param col.spans a matrix specifying desired column spans, for larger cells
+#' @param col.spans a matrix specifying desired column spans, for larger cells.
 #' @param use.row.names if you submit an object with row names, use those names in 
-#' construction of the table
+#' construction of the table.
 #' @param use.col.names if you submit an object with column names, use those names in
-#' construction of the table
+#' construction of the table.
 #' @param clean boolean. if \code{TRUE}, rounds all numeric values to 2 decimal places for better printing
 #' @param replace.periods replace periods with spaces?
 #' @export
@@ -71,7 +71,7 @@ makeHTMLTable <- function( x,
   }
   
   if( use.col.names == TRUE ) {
-    x <- kFactorToChar( x )
+    x <- factor_to_char( x )
     if( replace.periods ) {
       colnames(x) <- gsub( "\\.", " ", colnames(x) )
     }

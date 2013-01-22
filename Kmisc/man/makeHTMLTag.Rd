@@ -5,7 +5,7 @@
   makeHTMLTag(tag, ...)
 }
 \arguments{
-  \item{tag}{the HTML tag to use}
+  \item{tag}{the HTML tag to use.}
 
   \item{...}{a collection of named and unnamed arguments;
   named arguments are parsed as attributes of the tag,

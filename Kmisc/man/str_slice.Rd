@@ -25,6 +25,10 @@
 \note{
   Underlying code is written in C for fast execution.
 }
+\examples{
+x <- c("ABCD", "EFGH", "IJKLMN")
+str_slice(x, 2)
+}
 \seealso{
   \code{\link{str_slice2}}, for slicing a UTF-8 encoded
   vector.

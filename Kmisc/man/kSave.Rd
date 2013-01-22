@@ -28,6 +28,6 @@ dat <- data.frame( x=c(1,2,3), y=c('a','b','c') )
 kSave( dat, file="dat.txt" )
 ## the file 'dat.rda' is written as well - let's see if it exists
 dat2 <- kLoad( "dat.rda" )
-identical(dat, dat2) ## TRUE
+stopifnot( identical(dat, dat2) ) ## TRUE
 }
 

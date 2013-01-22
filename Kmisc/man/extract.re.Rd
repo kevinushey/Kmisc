@@ -1,27 +1,24 @@
 \name{extract.re}
 \alias{extract.re}
-\title{Extract Variable from a Data Frame / List, with Regular Expressions}
+\title{Extract Elements from a Named Object with Regular Expressions}
 \usage{
-  extract.re(dat, pattern, perl = TRUE, ...)
+  extract.re(x, pattern, perl = TRUE, ...)
 }
 \arguments{
-  \item{dat}{\code{list} or \code{data.frame} object, or
-  other similar object with a \code{names} attribute}
+  \item{x}{An \R object with a \code{names} attribute.}
 
   \item{pattern}{a regular expression pattern to match
-  against \code{names(dat)}}
-
-  \item{value}{boolean. passed to \code{grep}}
+  against \code{names(x)}.}
 
   \item{perl}{boolean. use perl-compatible regular
   expressions?}
 
-  \item{...}{optional arguments passed to grep}
+  \item{...}{optional arguments passed to \code{grep}.}
 }
 \description{
-  Extract variables from a \code{list} / \code{data.frame},
-  whereby the variables matching \code{pattern} are
-  returned.
+  Extract elements from an \R object, whereby elements in
+  the object whose names attribute matches the regular
+  expression supplied, are returned.
 }
 \seealso{
   \code{\link{grep}}, \code{\link{regex}}

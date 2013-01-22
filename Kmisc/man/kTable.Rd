@@ -7,14 +7,14 @@
     left.label = NULL, top.label = NULL, google = FALSE)
 }
 \arguments{
-  \item{x}{the \code{x} variable to build a table on}
+  \item{x}{the \code{x} variable to build a table on.}
 
   \item{y}{optional: the \code{y} variable to build a table
   on. Used for 2x2 contingency tables.}
 
   \item{deparse.level}{passed to \code{table};
   \code{deparse.level=2} allows us to pass through variable
-  names}
+  names.}
 
   \item{top.left.cell}{the string to set in the top left
   cell of the table.}
@@ -29,11 +29,11 @@
 
   \item{left.label}{the label to use for the rows;
   typically parsed from \code{x}. Only used for 2D tables
-  (ie, when \code{y} is not null)}
+  (ie, when \code{y} is not null).}
 
   \item{top.label}{the label to use for the columns;
   typically parsed from \code{y}. Only used for 2D tables
-  (ie, when \code{y} is not null)}
+  (ie, when \code{y} is not null).}
 
   \item{google}{used if you plan on passing the table to
   \code{gvistable} from the \code{googleVis} package.}

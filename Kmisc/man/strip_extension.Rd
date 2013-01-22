@@ -1,14 +1,14 @@
-\name{kStripExtension}
-\alias{kStripExtension}
+\name{strip_extension}
+\alias{strip_extension}
 \title{Strip File Extension}
 \usage{
-  kStripExtension(x, lvl = 1)
+  strip_extension(x, lvl = 1)
 }
 \arguments{
-  \item{x}{the file name, including extension}
+  \item{x}{the file name, including extension.}
 
   \item{lvl}{the number of \code{'.'} used in defining the
-  file extension}
+  file extension.}
 }
 \description{
   Strips the extension from a file name. By default, we
@@ -19,6 +19,6 @@
 }
 \examples{
 x <- "path_to_file.tar.gz"
-kStripExtension(x, lvl=2)
+strip_extension(x, lvl=2)
 }
 

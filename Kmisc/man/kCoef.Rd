@@ -3,7 +3,7 @@
 \title{Nicely Formatted Model Coefficient Output}
 \usage{
   kCoef(fit, remove_underscore = TRUE,
-    remove_dollar = TRUE, replace_periods = TRUE)
+    remove_dollar = TRUE, swap_periods = TRUE)
 }
 \arguments{
   \item{fit}{the model fit we wish to generate coefficients
@@ -15,7 +15,7 @@
   \item{remove_dollar}{remove all elements before and
   including a $ in a variable name?}
 
-  \item{replace_periods}{replace periods with spaces?}
+  \item{swap_periods}{swap periods with spaces?}
 }
 \value{
   a matrix of coefficients with nicely formatted names.
@@ -27,12 +27,15 @@
   arguments for parsing of variable names.
 }
 \details{
-  NOTE: The names given assume default contrasts in your
-  model fit; ie, the default is \code{contr.treatment},
-  where each level of a factor is compared to a reference.
+  NOTE:
 
   Models with interaction effects are currently not
   handled.
+}
+\note{
+  The names given assume default contrasts in your model
+  fit; ie, the default is \code{contr.treatment}, where
+  each level of a factor is compared to a reference.
 }
 \examples{
 ## How the remove_underscore and remove_dollar arguments act:

@@ -1,15 +1,15 @@
-\name{kColor}
-\alias{kColor}
+\name{gradient}
+\alias{gradient}
 \title{Generate Gradient from Continuous Variable}
 \usage{
-  kColor(x, m = 10,
+  gradient(x, m = 10,
     cols = c("darkorange", "grey60", "darkblue"))
 }
 \arguments{
-  \item{x}{a continuous variable to generate colors over}
+  \item{x}{a continuous variable to generate colors over.}
 
   \item{m}{the number of distinct colors you wish to pull
-  from the pallete}
+  from the pallete.}
 
   \item{cols}{the colors to interpolate over. passed to
   \code{\link{colorRampPalette}}.}
@@ -22,7 +22,7 @@
 }
 \examples{
 dat <- data.frame(y=rnorm(100), x=rnorm(100))
-with( dat, plot( y ~ x, col=kColor(y) ) )
+with( dat, plot( y ~ x, col=gradient(y) ) )
 }
 \seealso{
   \code{\link{colorRampPalette}}

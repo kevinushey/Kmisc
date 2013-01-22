@@ -2,10 +2,19 @@
 \alias{lg}
 \title{length( grep( ... ) )}
 \usage{
-  lg(...)
+  lg(pattern, x, perl = TRUE, ...)
 }
 \arguments{
-  \item{...}{passed to \code{\link{grep}}.}
+  \item{pattern}{regex pattern passed to \code{grep}.}
+
+  \item{x}{a vector on which we attempt to match
+  \code{pattern} on.}
+
+  \item{perl}{boolean. use perl-compatible regular
+  expressions?}
+
+  \item{...}{additional arguments passed to
+  \code{\link{grep}}.}
 }
 \description{
   This is a wrapper to a \code{length( grep( ... ) )}. See

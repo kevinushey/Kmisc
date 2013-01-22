@@ -14,7 +14,6 @@
   environment \code{html}.
 }
 \examples{
-data(html)
 html$br()
 }
 \seealso{

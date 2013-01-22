@@ -22,9 +22,9 @@
 }
 \description{
   Directs output of \code{write.table} to the clipboard.
-  This can be useful if you want to quickly write some R
+  This can be useful if you want to quickly write some \R
   table out and paste it into some other file, eg. a Word
-  document, Excel table, etc.
+  document, Excel table, and so on.
 }
 \seealso{
   \code{\link{write.table}}

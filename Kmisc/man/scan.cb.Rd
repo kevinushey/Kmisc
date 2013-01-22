@@ -16,4 +16,7 @@
   Wraps to \code{\link{scan}}. By default, we assume the
   data is \code{character}, and delimit by new lines.
 }
+\seealso{
+  \code{\link{scan}}
+}
 

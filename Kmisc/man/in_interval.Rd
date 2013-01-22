@@ -1,8 +1,8 @@
-\name{in.interval}
-\alias{in.interval}
+\name{in_interval}
+\alias{in_interval}
 \title{Determine if Value Lies within Interval}
 \usage{
-  in.interval(x, lo, hi, include.lower = TRUE,
+  in_interval(x, lo, hi, include.lower = TRUE,
     include.upper = FALSE)
 }
 \arguments{
@@ -21,7 +21,7 @@
 \description{
   This function determines whether elements of a numeric
   vector \code{x} lie within boundaries \code{[lo, hi)}.
-  Marginally slower than the R equivalent code \code{x >=
+  Marginally slower than the \R equivalent code \code{x >=
   lo & x < hi} for small vectors; much faster for very
   large vectors.
 }
@@ -35,6 +35,6 @@ x <- runif(100); lo <- 0.5; hi <- 1
 f <- function(x, lo, hi) {
   return( x >= lo & x < hi )
   }
-stopifnot( all( in.interval( x, lo, hi ) == f(x, lo, hi) ) )
+stopifnot( all( in_interval( x, lo, hi ) == f(x, lo, hi) ) )
 }
 

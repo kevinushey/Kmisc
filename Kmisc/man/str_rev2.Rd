@@ -5,7 +5,7 @@
   str_rev2(x)
 }
 \arguments{
-  \item{x}{a character vector}
+  \item{x}{a character vector.}
 }
 \description{
   Reverses a vector of 'strings' (a character vector). This

@@ -7,7 +7,7 @@
 #' non-ASCII characters. For a 'safe' version of \code{str_rev} that handles
 #' unicode characters, see \code{\link{str_rev2}}.
 #' @export
-#' @param x a character vector
+#' @param x a character vector.
 #' @seealso \code{\link{str_rev2}}
 #' @examples
 #' x <- c("ABC", "DEF", "GHIJ")
@@ -28,7 +28,7 @@ str_rev <- function(x) {
 #' see \code{\link{str_rev2}}.
 #' 
 #' @export
-#' @param x a character vector
+#' @param x a character vector.
 #' @seealso \code{\link{str_rev}}
 #' @examples
 #' x <- c("ABC", "DEF", "GHIJ")

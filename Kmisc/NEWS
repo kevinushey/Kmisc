@@ -5,15 +5,21 @@ Version 0.3.0
   * Added str_rev2(), for reversing of UTF-8 strings (str_rev() remains for
     speed reasons when using ASCII characters). Similarily with str_slice()
     and str_slice2().
-  * Added str_sort(), a function for sorting a (possibly UTF-8 encoded) 
-    string lexically.
-  * Reintroduced Rcpp dependency and will keep it from here on out.
+  * Added str_sort(), a function for sorting a (UTF-8) string lexically.
   * Updated documentation on extract() / without().
   * Improved error checking in extract() / without() - now ensures that the
     symbols passed to ... are atomic
   * Added extract_rows.re() and without_rows.re() for extracting rows from a
     dataframe whereby some variable in the data frame (default: rownames) 
     matches a regex pattern
+  * Added anat() / anatomy() functions for fast str()-like calling on large
+    data.frames
+  * Added clean_doc(), a helper function that deletes all documentation in
+    the current working directory - used for cleaning up orphaned docs,
+    assuming you're writing documentation with roxygen2
+  * Added is.sorted(), which is really just !is.unsorted() but seems the
+    more 'logical' question in many cases
+  * Added 'rcpp_apply_generator', a function for generating Rcpp-apply
 
 Version 0.2.0
 ------------------------------------------------------------------------------

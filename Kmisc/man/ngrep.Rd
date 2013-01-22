@@ -2,12 +2,19 @@
 \alias{ngrep}
 \title{Inverse grep}
 \usage{
-  ngrep(pattern, x, ...)
+  ngrep(pattern, x, perl = TRUE, value = FALSE, ...)
 }
 \arguments{
   \item{pattern}{regular expression pattern}
 
   \item{x}{vector of items to match against}
+
+  \item{perl}{boolean. use perl-compatible regular
+  expressions?}
+
+  \item{value}{logical. if \code{TRUE}, we return the
+  actual values matched; otherwise we return the indices of
+  the matches.}
 
   \item{...}{passed to grep}
 }
@@ -16,16 +23,12 @@
   supplied
 }
 \description{
-  From a vector \code{x}, return only the elements that do
-  not satisfy a particular regular expression statement;
-  ie, remove all elements that are matched by
-  \code{pattern}.
+  From a vector \code{x}, return the indices of elements
+  that do not match \code{pattern}.
 }
 \details{
-  Note that, by default, \code{grep} returns the location
-  of matches, rather than the actual matches themselves.
-  \code{ngrep} only returns matched elements, not the
-  location of matches.
+  Use \code{value=TRUE} to return the actual non-matched
+  elements.
 }
 \examples{
 some_files <- c("output_file.tar.gz", "old_log1.txt", "old_log2.txt")

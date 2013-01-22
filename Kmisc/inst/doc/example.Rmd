@@ -6,8 +6,8 @@ Quick Introduction to Kmisc
 Kmisc introduces a bunch of utility functions to make the R coding experience
 a bit easier. Some of the most useful functions in the package are shown here.
 
-*Please forgive the vanity / very short namespace-like construct with many names,
-in which I prepend function names with `k`.*
+*Please forgive the vanity / very short namespace-like construct with many 
+names, in which I prepend function names with `k`.*
 
 Install the package with
 
@@ -56,13 +56,13 @@ extract.re( dat, "[xy]")
 without.re( dat, "[xy]")
 ```
 
-`kReplace`: Replace elements in a vector.
+`swap`: Replace elements in a vector.
 
 ```{r, tidy=FALSE}
 tDat <- dat ## make a temporary copy of dat
 
 ## Replace some elements in tDat$y
-tDat$y <- kReplace( tDat$y, from=c(2, 4), to=c(20, 40) )
+tDat$y <- swap( tDat$y, from=c(2, 4), to=c(20, 40) )
 cbind( dat$y, tDat$y )
 ```
 
@@ -93,12 +93,12 @@ merge( dat1, dat2, by="id", all.x=TRUE, sort=TRUE )
 kMerge( dat1, dat2, by="id" )
 ```
 
-`in.interval`: A fast C implementation for determing which elements of a 
+`in_interval`: A fast C implementation for determing which elements of a 
 vector `x` lie within an interval `[lo, hi)`.
 
 ```{r tidy=FALSE}
 x <- runif(10); lo <- 0.5; hi <- 1
-print( data.frame( x=x, inner=in.interval(x, lo, hi) ) )
+print( data.frame( x=x, inner=in_interval(x, lo, hi) ) )
 ```
 
 Fast String Operations
@@ -109,14 +109,23 @@ introduced a few functions, implemented in C for speed, for two common
 string operations.
 
 `str_rev`: Reverses a character vector; ie, a vector of strings.
+`str_rev2` is there if you need to reverse a potentially unicode string.
 
 ```{r tidy=FALSE}
 str_rev( c("ABC", "DEF", NA, paste(LETTERS, collapse="") ) )
+str_rev2( c("はひふへほ") )
 ```
 
 `str_slice`: Slices a vector of strings at consecutive indices `n`.
+`str_slice2` exists for potentially unicode strings.
 ```{r tidy=FALSE}
 str_slice( c("ABCDEF", "GHIJKL", "MNOP", "QR"), 2 )
+str_slice2( "ははひひふふへへほほ", 2 )
+```
+
+`str_sort`: sort a string. Doesn't handle unicode strings.
+```{r, tidy=FALSE}
+str_sort(c("はおいれ", "asnoighewgypfuiweb"))
 ```
 
 The cool R Markdown / HTML Stuff

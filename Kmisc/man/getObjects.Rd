@@ -12,7 +12,7 @@
 }
 \description{
   Get all objects within an environment. Useful for
-  inspecting the objects available in a particular hidden
+  inspecting the objects available in a particular
   environment.
 }
 \examples{

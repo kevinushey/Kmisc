@@ -5,9 +5,10 @@
   read.cb(sep = "\t", ...)
 }
 \arguments{
-  \item{sep}{the delimiter used in the copied text}
+  \item{sep}{the delimiter used in the copied text.}
 
-  \item{...}{args to pass to \code{read.table}.}
+  \item{...}{optional arguments passed to
+  \code{read.table}.}
 }
 \description{
   Convenience function for reading tabular data from the

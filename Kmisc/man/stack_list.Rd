@@ -1,11 +1,11 @@
-\name{kStackList}
-\alias{kStackList}
+\name{stack_list}
+\alias{stack_list}
 \title{Stack a List of DataFrame-like Objects}
 \usage{
-  kStackList(list, which = TRUE)
+  stack_list(list, which = TRUE)
 }
 \arguments{
-  \item{list}{a list of data.frames}
+  \item{list}{a list of data frames.}
 
   \item{which}{boolean. add a column \code{which} built
   from row names?}
@@ -25,6 +25,6 @@ x <- data.frame( x=c(1, 2, 3) )
 rownames(x) <- c("apple", "banana", "cherry")
 y <- data.frame( x=c('a', 'b', 'c') )
 rownames(y) <- c("date", "eggplant", "fig")
-kStackList( list(x, y) )
+stack_list( list(x, y) )
 }
 

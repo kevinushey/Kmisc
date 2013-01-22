@@ -8,6 +8,8 @@
 #' @param strictly logical indicating if the check should be for strictly increasing values.
 #' @export
 #' @seealso \code{\link{is.unsorted}}
+#' @examples
+#' stopifnot( is.sorted(1, 2, 4) )
 is.sorted <- function(x, na.rm=FALSE, strictly=FALSE) {
   return( !is.unsorted(x, na.rm=na.rm, strictly=strictly) )
 }
