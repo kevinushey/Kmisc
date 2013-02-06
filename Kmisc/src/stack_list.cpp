@@ -5,10 +5,10 @@ inline
 CharacterVector stack_char( List& X, int index ) {
   
   std::vector< std::string > out;
-  for( unsigned int i=0; i < X.size(); i++ ) {
+  for( int i=0; i < X.size(); i++ ) {
     List tmp = as<List>( X[i] );
     std::vector< std::string > tmp2 = tmp[index];
-    for( unsigned int j=0; j < tmp2.size(); j++ ) {
+    for( int j=0; j < tmp2.size(); j++ ) {
       out.push_back( tmp2[j] );
     }
   }
@@ -21,10 +21,10 @@ inline
 NumericVector stack_numeric( List& X, int index ) {
   
   std::vector<double> out;
-  for( unsigned int i=0; i < X.size(); i++ ) {
+  for( int i=0; i < X.size(); i++ ) {
     List tmp = as<List>( X[i] );
     std::vector<double> tmp2 = tmp[index];
-    for( unsigned int j=0; j < tmp2.size(); j++ ) {
+    for( int j=0; j < tmp2.size(); j++ ) {
       out.push_back( tmp2[j] );
     }
   }
@@ -37,10 +37,10 @@ inline
 IntegerVector stack_int( List& X, int index ) {
   
   std::vector<int> out;
-  for( unsigned int i=0; i < X.size(); i++ ) {
+  for( int i=0; i < X.size(); i++ ) {
     List tmp = as<List>( X[i] );
     std::vector<int> tmp2 = tmp[index];
-    for( unsigned int j=0; j < tmp2.size(); j++ ) {
+    for( int j=0; j < tmp2.size(); j++ ) {
       out.push_back( tmp2[j] );
     }
   }
@@ -53,10 +53,10 @@ inline
 LogicalVector stack_bool( List& X, int index ) {
   
   std::vector< bool > out;
-  for( unsigned int i=0; i < X.size(); i++ ) {
+  for( int i=0; i < X.size(); i++ ) {
     List tmp = as<List>( X[i] );
     std::vector< bool > tmp2 = tmp[index];
-    for( unsigned int j=0; j < tmp2.size(); j++ ) {
+    for( int j=0; j < tmp2.size(); j++ ) {
       out.push_back( tmp2[j] );
     }
   }
@@ -69,10 +69,10 @@ inline
 RawVector stack_raw( List& X, int index ) {
   
   std::vector< unsigned char > out;
-  for( unsigned int i=0; i < X.size(); i++ ) {
+  for( int i=0; i < X.size(); i++ ) {
     List tmp = as<List>( X[i] );
     std::vector< unsigned char > tmp2 = tmp[index];
-    for( unsigned int j=0; j < tmp2.size(); j++ ) {
+    for( int j=0; j < tmp2.size(); j++ ) {
       out.push_back( tmp2[j] );
     }
   }
@@ -93,7 +93,7 @@ List stack_list_df( List& X,
   List out(num_elem);
   
   // loop through the columns to generate the stacked DF
-  for( unsigned int i=0; i < num_elem; i++ ) {
+  for( int i=0; i < num_elem; i++ ) {
     
     if( classes[i] == "character" ) {
       CharacterVector tmp = stack_char(X, i);
@@ -120,9 +120,9 @@ List stack_list_df( List& X,
   if( keep_list_index ) {
     std::vector<int> list_indices;
     int counter = 1;
-    for( unsigned int i=0; i < X.size(); i++ ) {
+    for( int i=0; i < X.size(); i++ ) {
       List tmp = as<List>( X[i] );
-      for( unsigned int j=0; j < ::Rf_length( tmp[0] ); j++ ) {
+      for( int j=0; j < ::Rf_length( tmp[0] ); j++ ) {
         list_indices.push_back(counter);
       }
       counter++;
@@ -133,9 +133,9 @@ List stack_list_df( List& X,
   // get row names to assign to vector of df
   if( make_row_names ) {
     std::vector< std::string > row_names;
-    for( unsigned int i=0; i < X.size(); i++ ) {
+    for( int i=0; i < X.size(); i++ ) {
       std::vector< std::string > rownames = as<std::vector< std::string > >( as<List>( X[i] ).attr("row.names") );
-      for( unsigned int j=0; j < rownames.size(); j++ ) {
+      for( int j=0; j < rownames.size(); j++ ) {
         row_names.push_back( rownames[j] );
       } 
     }
