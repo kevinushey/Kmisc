@@ -316,6 +316,7 @@ kSvg <- function(file=NULL, width=4, height=4, class=NULL) {
 #' @param dpi the number of dots per inch used. Default is high to ensure plots are crisp on all displays
 #' @param dim passed to \code{par( mfrow )}; used if making multiple base-R plots
 #' @param scale the scale factor to use when scaling plots for web display.
+#' @param device the device to use for the plot call.
 #' @param ... optional arguments passed to \code{\link{png}}
 #' @export
 #' @examples
@@ -332,14 +333,17 @@ hImg <- function( my_plot,
                   dpi=300,
                   dim=NULL,
                   scale=100,
+                  device="png",
                   ... ) {
   
-  png( file, 
-       width=width/scale, 
-       height=height/scale, 
-       res=dpi, 
-       units="in", 
-       ... )
+  device <- match.fun(device)
+  
+  device( file, 
+          width=width/scale, 
+          height=height/scale, 
+          res=dpi, 
+          units="in", 
+          ... )
   
   if( !is.null(dim) ) {
     if( length(dim) != 2 ) stop("must specifiy 2-length dimension")

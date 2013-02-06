@@ -26,7 +26,8 @@ to <- c(10, 20)
 swap( x, from, to )
 
 ## alternatively, we can submit a named character vector
-## we translate from value to name
+## we translate from value to name. note that this forces
+## a conversion to character
 names(from) <- to
 swap( x, from )
 

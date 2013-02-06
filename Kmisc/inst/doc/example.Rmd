@@ -1,3 +1,9 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Introduction to Kmisc}
+\usepackage[utf8]{inputenc}
+-->
+
 <link rel="stylesheet" href="markdown.css">
 
 Quick Introduction to Kmisc
@@ -5,13 +11,6 @@ Quick Introduction to Kmisc
 
 Kmisc introduces a bunch of utility functions to make the R coding experience
 a bit easier. Some of the most useful functions in the package are shown here.
-
-*Please forgive the vanity / very short namespace-like construct with many 
-names, in which I prepend function names with `k`.*
-
-Install the package with
-
-    install.packages("Kmisc")
 
 ```{r, tidy=FALSE}
 set.seed(123)
@@ -70,7 +69,7 @@ cbind( dat$y, tDat$y )
 
 Why have this function when `sapply` still does much the same? I always get
 frustrated with the fact that either an `array` or a `list` is returned
-by sapply, but never a `data.frame` .
+by sapply, but never a `data.frame`.
 
 ```{r, tidy=FALSE}
 
@@ -123,7 +122,7 @@ str_slice( c("ABCDEF", "GHIJKL", "MNOP", "QR"), 2 )
 str_slice2( "ははひひふふへへほほ", 2 )
 ```
 
-`str_sort`: sort a string. Doesn't handle unicode strings.
+`str_sort`: sort a string.
 ```{r, tidy=FALSE}
 str_sort(c("はおいれ", "asnoighewgypfuiweb"))
 ```
@@ -172,16 +171,16 @@ cat( tmp$html$chart )
 `hImg, hSvg`: These utility functions do the work of simultaneously writing a
 plot to file, and then producing the HTML code needed to embed that plot in
 the page. Once again, we require `results='asis'` in the chunk options. I
-also show off the nice little `kColor` function.
+also show off the nice little `gradient` function.
 
 ```{r results='asis', tidy=FALSE}
 x <- rnorm(100); y <- x + runif(100)
 ## note that the default resolution is high for PNGs
 hImg( file="test.png", width=400, height=300, dpi=72,
-      xyplot( y ~ x, col=kColor(x+y) )
+      xyplot( y ~ x, col=gradient(x+y) )
       )
 hSvg( file="test.svg", width=400, height=300,
-      xyplot( y ~ x, col=kColor(x+y) )
+      xyplot( y ~ x, col=gradient(x+y) )
       )
 ```
 
@@ -202,15 +201,10 @@ coef( summary( myFit ) )
 kCoef( myFit )
 ```
 
-`html`: Custom HTML in an R Markdown document. We can load a bunch of utility
-functions for HTML markup with `data(html)`; the functions are all hidden
-inside that environment so as to not gum up the main namespace. You could,
-of course, attach them if you wanted, with `attach(html)`, but you would
-then be masking functions like `table`.
+`html`: Custom HTML in an R Markdown document.
 
 ```{r results='asis', tidy=FALSE}
-data(html)
-with(html,
+html(
      table( class="my-favourite-table",
             tr(
               td("Apples"),
@@ -222,18 +216,4 @@ with(html,
               )
             )
      )
-```
-
-`attachHTML, detachHTML`: If you want to avoid using the `with` syntax, you can also load a
-namespace of 'common' HTML functions, or just generate your own.
-
-```{r results='asis', tidy=FALSE}
-attachHTML()
-span( style="color: red;",
-      "This is some red text."
-      )
-article <- Kmisc:::makeHTMLTag("article")
-article( class="class", id="id", p("Some text") )
-detachHTML()
-
 ```

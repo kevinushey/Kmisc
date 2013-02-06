@@ -1,42 +1,68 @@
-Version 0.3.0
-------------------------------------------------------------------------------
+Version 0.4.0
+------------------------------------------------------------
+  * Package now requires Rcpp.
+  * 'factor_to_char' now has a fast C implementation
+  * Added 'split_runs', an Rcpp function for splitting a 
+    numeric or character vector by the runs observed.
+  * Made an Rcpp implementation of 'stack_list', for fast 
+    stacking of data.frames and lists.
+  * Fixed bug in 'swap' function.
+  * Added 'grid.text2', a function that generates text with
+    a simple background. Useful for overlaying simple 
+    formulas / results on a plot.
 
-  * Fixed compatibility issues with old versions of R (no calls to paste0()).
-  * Added str_rev2(), for reversing of UTF-8 strings (str_rev() remains for
-    speed reasons when using ASCII characters). Similarily with str_slice()
+Version 0.3.0
+------------------------------------------------------------
+
+  * Fixed compatibility issues with old versions of R (no 
+    calls to paste0()).
+  * Added str_rev2(), for reversing of UTF-8 strings 
+    (str_rev() remains for speed reasons when using 
+    ASCII characters). Similarily with str_slice()
     and str_slice2().
-  * Added str_sort(), a function for sorting a (UTF-8) string lexically.
+  * Added str_sort(), a function for sorting a (UTF-8) 
+    string lexically.
   * Updated documentation on extract() / without().
-  * Improved error checking in extract() / without() - now ensures that the
-    symbols passed to ... are atomic
-  * Added extract_rows.re() and without_rows.re() for extracting rows from a
-    dataframe whereby some variable in the data frame (default: rownames) 
-    matches a regex pattern
-  * Added anat() / anatomy() functions for fast str()-like calling on large
-    data.frames
-  * Added clean_doc(), a helper function that deletes all documentation in
-    the current working directory - used for cleaning up orphaned docs,
-    assuming you're writing documentation with roxygen2
-  * Added is.sorted(), which is really just !is.unsorted() but seems the
-    more 'logical' question in many cases
-  * Added 'rcpp_apply_generator', a function for generating Rcpp-apply
+  * Improved error checking in extract() / without() - now 
+    ensures that the symbols passed to ... are atomic
+  * Added extract_rows.re() and without_rows.re() for 
+    extracting rows from a dataframe whereby some variable 
+    in the data frame (default: rownames) matches a regex 
+    pattern
+  * Added anat() / anatomy() functions for fast str()-like 
+    calling on large data.frames
+  * Added clean_doc(), a helper function that deletes all 
+    documentation in the current working directory - used 
+    for cleaning up orphaned docs, assuming you're 
+    writing documentation with roxygen2
+  * Added is.sorted(), which is really just !is.unsorted() 
+    but seems the more 'logical' question in many cases
+  * Added 'rcpp_apply_generator', a function for generating
+    fast apply-type functions through Rcpp
 
 Version 0.2.0
-------------------------------------------------------------------------------
-
-  * Added some useful string operations: str_rev() and str_slice(). These
-    functions are written in C for fast execution.
-  * Added in.interval(), a function for checking whether each element of
-    a vector x lies within an interval [lo, hi).
-  * Added extract.re(), without.re() for extracting named objects; objects with
-    names matching / not-matching the RE supplied are returned
-  * Fixed bug with HTML tag functions handling of functions as arguments
-  * Functions no longer depend on Rcpp - may be reintroduced in future
+------------------------------------------------------------
+  * Added some useful string operations: str_rev() and 
+    str_slice(). These functions are written in C for fast 
+    execution.
+  * Added in.interval(), a function for checking whether 
+    each element of a vector x lies within an interval 
+    [lo, hi).
+  * Added extract.re(), without.re() for extracting named 
+    objects; objects with names matching / not-matching 
+    the RE supplied are returned
+  * Fixed bug with HTML tag functions handling of functions 
+    as arguments
+  * Functions no longer depend on Rcpp - may be 
+    reintroduced in future
   * Minor changes to code for R <2.15.0 compatibility
   * Updated documentation + DESCRIPTION for clarity
   * Package now byte compiles by default
-  * Introduced attachHTML(), detachHTML() functions for attaching commonly
-    used HTML functions (ie, they do not mask any base package functions)
-  * Exported makeHTMLTag() function, added documentation + examples
+  * Introduced attachHTML(), detachHTML() functions for 
+    attaching commonly used HTML functions (ie, they 
+    do not mask any base package functions)
+  * Exported makeHTMLTag() function, added documentation + 
+    examples
   * Fixed bug in read.cb() for Mac systems
-  * Added scan.cb(), for getting non-tabular data from clipboard
+  * Added scan.cb(), for getting non-tabular data from 
+    clipboard

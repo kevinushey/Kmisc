@@ -20,5 +20,6 @@
 x <- rnorm(100)
 y <- ifelse( x + runif(100) > 1, 1, 0 )
 myFit <- glm( y ~ x, family="binomial" )
+kAnova( myFit )
 }
 

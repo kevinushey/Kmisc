@@ -167,16 +167,11 @@ extract <- function( x, ... ) {
           )
       })
       return(tmp)
-      
     }
-    
     return(xx)
-    
   })
-  
   x <- x[ names(x) %in% unlist(args) ]
   return( x )
-  
 }
 
 #' Extract Elements from a Named Object with Regular Expressions
@@ -420,8 +415,12 @@ cat.cb <- function( dat, ... ) {
 #' - the primary bonus is the automatic coersion to a \code{data.frame}.
 #' @param x a vector of strings.
 #' @param sep the delimiter / \code{\link{regex}} you wish to split your strings on.
+#' @param fixed logical. If \code{TRUE}, we match \code{sep} exactly; 
+#' otherwise, we use regular expressions.
+#' @param perl logical. Should perl-compatible regexps be used?
+#' @param useBytes logical. If \code{TRUE}, matching is done byte-by-byte rather than
+#' character-by-character.
 #' @param names optional: a vector of names to pass to the returned \code{data.frame}.
-#' @param ... optional arguments passed to \code{strsplit}.
 #' @seealso \code{\link{strsplit}}
 #' @export
 #' @examples
@@ -432,9 +431,17 @@ cat.cb <- function( dat, ... ) {
 #' )
 #' x <- c("somewhat_different.structure", "in_this.guy")
 #' str_split( x, "[_\\.]" )
-str_split <- function(x, sep, names=NULL, ...) {
+str_split <- function(x, sep, fixed=FALSE, perl=TRUE, useBytes=FALSE, names=NULL) {
+  
   x <- as.character(x)
-  tmp <- unlist( strsplit( x, sep, ... ) )
+  
+  ## ensure that this will work as planned
+  tmp <- strsplit( unique(x), sep, fixed=fixed, perl=perl, useBytes=useBytes )
+  if( length( unique( lapply( tmp, length ) ) ) != 1 ) {
+    stop("non-equal lengths for each entry of x post-splitting")
+  }
+    
+  tmp <- unlist( strsplit( x, sep, fixed=fixed, perl=perl, useBytes=useBytes ) )
   tmp <- as.data.frame( 
     matrix( tmp, ncol = (length(tmp) / length(x)), byrow=T ),
     stringsAsFactors=FALSE, optional=TRUE 
@@ -467,7 +474,8 @@ str_split <- function(x, sep, names=NULL, ...) {
 #' swap( x, from, to )
 #' 
 #' ## alternatively, we can submit a named character vector
-#' ## we translate from value to name
+#' ## we translate from value to name. note that this forces
+#' ## a conversion to character
 #' names(from) <- to
 #' swap( x, from )
 #' 
@@ -476,80 +484,41 @@ str_split <- function(x, sep, names=NULL, ...) {
 #' swap(x, c(1, 2), c("a", "b") )
 #' 
 swap <- function( vec, from, to=names(from), ... ) {
-  if( all( as.character(to) == names(from) ) && 
-        is.numeric(vec) && 
-        all( names(from) == as.numeric( names(from) ) ) ) {
-    tmp <- as.numeric( to[ match( vec, from, ... ) ] )
-  } else {
-    tmp <- to[ match( vec, from, ... ) ]
-  }
-  
+  tmp <- to[ match( vec, from, ... ) ]
   tmp[ is.na(tmp) ] <- vec[ is.na(tmp) ]
-  
   return( tmp )
-}
-
-#' Stack a List of DataFrame-like Objects
-#' 
-#' Function for stacking a list, where each component of the list
-#' is a \code{data.frame} or a \code{matrix} containing potentially differing 
-#' number of rows, but the same columns. The main 'extra' is handling of 
-#' row names, which are passed on into the stacked data frame. 
-#' These are passed into a column called \code{which} to protect from 
-#' problems with non-unique row names, and also to avoid appending 
-#' numbers onto these row names as well.
-#' @param list a list of data frames.
-#' @param which boolean. add a column \code{which} built from row names?
-#' @export
-#' @examples
-#' x <- data.frame( x=c(1, 2, 3) )
-#' rownames(x) <- c("apple", "banana", "cherry")
-#' y <- data.frame( x=c('a', 'b', 'c') )
-#' rownames(y) <- c("date", "eggplant", "fig")
-#' stack_list( list(x, y) )
-stack_list <- function( list, which=TRUE ) {
-  stopifnot( all( sapply( list, class ) %in% c("data.frame", "matrix") ) )
-  tmp <- do.call( rbind, list )
-  if( "which" %in% colnames(tmp) )
-    stop("ERROR: 'which' is already a column name in your data!")
-  if( isTRUE(which) ) { 
-    tmp$which <- gsub( "\\.[0-9]+$", "", rownames( tmp ))
-  }
-  rownames(tmp) <- NULL
-  return(tmp)  
 }
 
 #' Converts Characters to Factors in an Object
 #' 
 #' Converts characters to factors in an object. Leaves non-character
 #' elements untouched. Objects that can be subscripted with \code{[[}
-#' are supported.
-#' @param x an object.
-#' @param ... optional arguments passed to \code{\link{factor}}.
+#' are supported. 
+#' 
+#' We iterate through all elements in the object (e.g. if
+#' it is a list) and convert anything that is a factor into a character.
+#' @param X an object.
 #' @export
-char_to_factor <- function( x, ... ) {
-  for( i in 1:length(x) ) {
-    if( is.character( x[[i]] ) ) {
-      x[[i]] <- factor( x[[i]], ... )
-    } 
-  }
-  return(x)
+factor_to_char <- function( X ) {
+  return( .Call("factor_to_char", X, PACKAGE="Kmisc") )
 }
-  
+
 #' Converts Factors to Characters in an Object
 #' 
 #' Converts factors to characters in an object. Leaves non-factor elements
 #' untouched. Objects that can be subscripted with \code{[[}
 #' are supported.
-#' @param x an object.
+#' @param X an object.
+#' @param ... optional arguments passed to \code{factor}.
 #' @export
-factor_to_char <- function(x) {
-  for( i in 1:length(x) ) {
-    if( is.factor( x[[i]] ) ) {
-      x[[i]] <- as.character( x[[i]] )
-    } 
-  }
-  return(x)
+char_to_factor <- function(X, ...) {
+  return( rapply( X, how="replace", function(x) {
+    if( is.character(x) ) {
+      return( factor(x, ...) )
+    } else {
+      return( x )
+    }
+  }) )
 }
 
 #' Make Dummy Variables from a Factor
@@ -644,8 +613,8 @@ strip_extension <- function(x, lvl=1) {
 #' saving that object. Often, we would prefer to assign the \code{load}ed 
 #' object to a new variable name. Hence, this function.
 #' 
-#' If multiple arguments are supplied, they will be \code{paste}d together,
-#' with \code{collapse=""}.
+#' If multiple arguments are supplied, they will be concatenated through
+#' \code{file.path}.
 #' @param ... args to pass to \code{load}
 #' @seealso \code{\link{load}}
 #' @export
@@ -658,8 +627,12 @@ strip_extension <- function(x, lvl=1) {
 #' ## we protect ourselves from 'forgetting' the name of the
 #' ## object we saved
 kLoad <- function( ... ) {
-  get( load( paste(..., sep="", collapse="") ) )
+  get( load( file.path( ... ) ) )
 }
+
+#' @rdname kLoad
+#' @export
+getload <- kLoad
 
 #' Write out and Save a Tabular File
 #' 
@@ -1113,14 +1086,14 @@ kCoef <- function( fit,
 #' Returns a nicely formatted ANOVA table. 
 #' See \code{\link{kCoef}} for other details.
 #' @param fit the model fit to generate an ANOVA table for.
-#' @param test the type of test to perform. 
-#' default is likelihood-ratio test (LRT).
+#' @param test the type of test to perform. default is likelihood-ratio test (LRT).
 #' @param swap.periods swap periods with spaces?
 #' @export
 #' @examples
 #' x <- rnorm(100)
 #' y <- ifelse( x + runif(100) > 1, 1, 0 )
 #' myFit <- glm( y ~ x, family="binomial" )
+#' kAnova( myFit )
 kAnova <- function( fit, test="LRT", swap.periods=TRUE ) {
   
   f <- function(x) {

@@ -3,7 +3,7 @@
 \title{Print Plot to File and Return HTML}
 \usage{
   hImg(my_plot, file, width = 400, height = 300, dpi = 300,
-    dim = NULL, scale = 100, ...)
+    dim = NULL, scale = 100, device = "png", ...)
 }
 \arguments{
   \item{my_plot}{a plot object, or code that generates a
@@ -23,6 +23,8 @@
 
   \item{scale}{the scale factor to use when scaling plots
   for web display.}
+
+  \item{device}{the device to use for the plot call.}
 
   \item{...}{optional arguments passed to
   \code{\link{png}}}

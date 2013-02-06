@@ -5,9 +5,7 @@
   attachHTML()
 }
 \description{
-  Calling this function will attach HTML tagging functions
-  that do not mask any functions available in the 'base' R
-  packages.
+  Calling this function will attach HTML tagging functions.
 }
 \seealso{
   \code{\link{detachHTML}}

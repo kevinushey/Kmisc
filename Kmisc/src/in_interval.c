@@ -7,8 +7,8 @@ SEXP in_interval( SEXP x, SEXP lo, SEXP hi,
   int len = Rf_length(x);
   double lower = REAL(lo)[0], upper = REAL(hi)[0], *xp = REAL(x);
   
-  char inc_lower = asLogical(include_lower);
-  char inc_upper = asLogical(include_upper);
+  int inc_lower = asLogical(include_lower);
+  int inc_upper = asLogical(include_upper);
   
   SEXP out = PROTECT( NEW_LOGICAL( len ) );
   int *outp = LOGICAL(out);

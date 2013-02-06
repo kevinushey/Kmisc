@@ -17,24 +17,24 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name html
-#' @usage data(html)
+#' @name .html
+#' @rdname html_tags
+#' @usage data(.html)
 #' @format An environment of functions, with names corresponding to their tag.
 #' @examples
 #' 
 #' ## All un-named arguments are interpreted as 'data' to paste (in order),
 #' ## while all named arguments are interpreted as HTML attributes to give to
 #' ## the tag.
-#' data(html)
 #' myName <- "Kevin"
-#' with( html, strong( style="color: red;", "Hi, ", myName, "!" ) )
+#' html( strong( style="color: red;", "Hi, ", myName, "!" ) )
 #' 
-#' with( html, table( id="my-favorite-table", 
+#' html( table( id="my-favorite-table", 
 #'   tr( td(myName, class="blue") ) ) 
 #'   )
 #'   
 #' ## See all of the HTML tags currently available
-#' print( objects(html) )
+#' print( objects(.html) )
 #' 
 #' ## make your own!
 #' article <- makeHTMLTag("article")

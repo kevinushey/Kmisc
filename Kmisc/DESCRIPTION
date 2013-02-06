@@ -1,22 +1,27 @@
 Package: Kmisc
 Type: Package
 Title: Miscellaneous functions intended to improve the R coding experience
-Version: 0.3.0
-Date: 2013-01-08
+Version: 0.4.0
+Date: 2013-02-05
 Author: Kevin Ushey
 Maintainer: Kevin Ushey <kevinushey@gmail.com>
 Description: A collection of functions for common data reshaping operations, as
     well as functions for table and plot generation for R Markdown documents.
 License: GPL (>= 2)
 LazyData: TRUE
+LinkingTo: Rcpp
 Depends:
-    lattice
+    R (>= 2.15.1),
+    lattice,
+    grid,
+    Rcpp (>= 0.10.1)
 Suggests:
     Rcpp,
     ggplot2,
     knitr,
     googleVis
 ByteCompile: TRUE
+VignetteBuilder: knitr
 Collate:
     'misc.R'
     'html.R'
@@ -35,3 +40,9 @@ Collate:
     'bwplot2.R'
     'Rcpp_gen_makevars.R'
     'rcpp_apply_generator.R'
+    'grid.text2.R'
+    'update_date.R'
+    'RcppExports.R'
+    'split_runs.R'
+    'stack_list.R'
+    'html_attach.R'

@@ -14,7 +14,7 @@
   environment \code{html}.
 }
 \examples{
-html$br()
+.html$br()
 }
 \seealso{
   \code{\link{html}}

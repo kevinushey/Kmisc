@@ -1,8 +1,11 @@
 \name{kLoad}
+\alias{getload}
 \alias{kLoad}
 \title{Load and Assign an R Object}
 \usage{
   kLoad(...)
+
+  getload(...)
 }
 \arguments{
   \item{...}{args to pass to \code{load}}
@@ -18,7 +21,7 @@
 }
 \details{
   If multiple arguments are supplied, they will be
-  \code{paste}d together, with \code{collapse=""}.
+  concatenated through \code{file.path}.
 }
 \examples{
 dat <- data.frame( x = c(1,2,3), y=c('a','b','c') )

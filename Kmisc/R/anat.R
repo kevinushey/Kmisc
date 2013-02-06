@@ -10,6 +10,7 @@
 #' @param n number of elements to print from each vector.
 #' @export
 #' @examples
+#' \dontrun{ 
 #' local({
 #'   bigDF <- as.data.frame( matrix( factor(1:1E3), nrow=1E3, ncol=1E3 ) )
 #'   sink( tmp <- tempfile() )
@@ -18,13 +19,14 @@
 #'   sink()
 #'   unlink(tmp)
 #'   print( rbind( str, anat ) )
-#' })
+#' }) 
+#' }
 anat <- function(df, n=3) {
   
   if( !is.data.frame(df) || 
         any( unlist( lapply( df, function(x) { !is.atomic(x) } ) ) )
       ) {
-    utils::str(df)
+    return( utils::str(df) )
   }
   
   ## handle extra classes for df object
@@ -115,26 +117,6 @@ anat <- function(df, n=3) {
   
 }
 
-#' Display the Anatomy of a Data Frame
-#' 
-#' This function displays the 'anatomy' of a data frame. In practice, it's used
-#' to implement a faster version of \code{str} for data frames built entirely
-#' of atomic vectors, as \code{str.data.frame} is very slow for large data 
-#' frames. If there are non-atomic vectors in \code{df}, we throw an error
-#' and instruct the user to check \code{str} (and ask why they have a 
-#' data frame with non-atomic elements).
-#' 
-#' @param df an object inheriting class \code{data.frame}.
-#' @param n number of elements to print from each vector.
+#' @rdname anat
 #' @export
-#' @examples
-#' local({
-#'   bigDF <- as.data.frame( matrix( factor(1:1E3), nrow=1E3, ncol=1E3 ) )
-#'   sink( tmp <- tempfile() )
-#'   str <- system.time( str(bigDF, list.len=1E3) )
-#'   anat <- system.time( anat(bigDF) )
-#'   sink()
-#'   unlink(tmp)
-#'   print( rbind( str, anat ) )
-#' })
 anatomy <- anat

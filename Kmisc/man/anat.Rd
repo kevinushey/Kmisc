@@ -1,8 +1,11 @@
 \name{anat}
 \alias{anat}
+\alias{anatomy}
 \title{Display the Anatomy of a Data Frame}
 \usage{
   anat(df, n = 3)
+
+  anatomy(df, n = 3)
 }
 \arguments{
   \item{df}{an object inheriting class \code{data.frame}.}
@@ -18,6 +21,7 @@
   \code{df}, we fall back to \code{base::str}.
 }
 \examples{
+\dontrun{
 local({
   bigDF <- as.data.frame( matrix( factor(1:1E3), nrow=1E3, ncol=1E3 ) )
   sink( tmp <- tempfile() )
@@ -27,5 +31,6 @@ local({
   unlink(tmp)
   print( rbind( str, anat ) )
 })
+}
 }
 

@@ -25,11 +25,6 @@
   lo & x < hi} for small vectors; much faster for very
   large vectors.
 }
-\note{
-  Underlying code is written in C for fast execution. See
-  \url{http://stackoverflow.com/questions/13970333/fast-vectorized-function-to-check-if-a-value-is-in-an-interval}
-  for some discussion.
-}
 \examples{
 x <- runif(100); lo <- 0.5; hi <- 1
 f <- function(x, lo, hi) {

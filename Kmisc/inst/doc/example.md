@@ -318,11 +318,12 @@ str_slice2( "ははひひふふへへほほ", 2 )
 ```
 
 ```
-## Error: values must be length 1, but FUN(X[[1]]) result is length 5
+## [[1]]
+## [1] "はは" "ひひ" "ふふ" "へへ" "ほほ"
 ```
 
 
-`str_sort`: sort a string. Doesn't handle unicode strings.
+`str_sort`: sort a string.
 
 ```r
 str_sort(c("はおいれ", "asnoighewgypfuiweb"))
@@ -388,7 +389,7 @@ cat( tmp$html$chart )
 ```
 
 <!-- Table generated in R 2.15.2 by googleVis 0.3.3 package -->
-<!-- Mon Jan 21 14:34:16 2013 -->
+<!-- Tue Jan 22 20:54:57 2013 -->
 
 
 <!-- jsHeader -->
@@ -397,7 +398,7 @@ cat( tmp$html$chart )
 <script type="text/javascript">
  
 // jsData 
-function gvisDataTableID276d3bba736a ()
+function gvisDataTableIDfe1c48740dea ()
 {
   var data = new google.visualization.DataTable();
   var datajson =
@@ -426,13 +427,13 @@ return(data);
 }
  
 // jsDrawChart
-function drawChartTableID276d3bba736a() {
-  var data = gvisDataTableID276d3bba736a();
+function drawChartTableIDfe1c48740dea() {
+  var data = gvisDataTableIDfe1c48740dea();
   var options = {};
 options["allowHtml"] = true;
 
      var chart = new google.visualization.Table(
-       document.getElementById('TableID276d3bba736a')
+       document.getElementById('TableIDfe1c48740dea')
      );
      chart.draw(data,options);
     
@@ -441,14 +442,14 @@ options["allowHtml"] = true;
   
  
 // jsDisplayChart 
-function displayChartTableID276d3bba736a()
+function displayChartTableIDfe1c48740dea()
 {
   google.load("visualization", "1", { packages:["table"] }); 
-  google.setOnLoadCallback(drawChartTableID276d3bba736a);
+  google.setOnLoadCallback(drawChartTableIDfe1c48740dea);
 }
  
 // jsChart 
-displayChartTableID276d3bba736a()
+displayChartTableIDfe1c48740dea()
  
 <!-- jsFooter -->  
 //-->
@@ -456,7 +457,7 @@ displayChartTableID276d3bba736a()
  
 <!-- divChart -->
   
-<div id="TableID276d3bba736a"
+<div id="TableIDfe1c48740dea"
   style="width: 600px; height: 500px;">
 </div>
 
@@ -464,30 +465,28 @@ displayChartTableID276d3bba736a()
 `hImg, hSvg`: These utility functions do the work of simultaneously writing a
 plot to file, and then producing the HTML code needed to embed that plot in
 the page. Once again, we require `results='asis'` in the chunk options. I
-also show off the nice little `kColor` function.
+also show off the nice little `gradient` function.
 
 
 ```r
 x <- rnorm(100); y <- x + runif(100)
 ## note that the default resolution is high for PNGs
 hImg( file="test.png", width=400, height=300, dpi=72,
-      xyplot( y ~ x, col=kColor(x+y) )
+      xyplot( y ~ x, col=gradient(x+y) )
       )
 ```
 
-```
-## Error: could not find function "kColor"
-```
+<img class="center" src="test.png" width=400 height=300 />
 
 ```r
 hSvg( file="test.svg", width=400, height=300,
-      xyplot( y ~ x, col=kColor(x+y) )
+      xyplot( y ~ x, col=gradient(x+y) )
       )
 ```
 
-```
-## Error: could not find function "kColor"
-```
+<div align='center'>
+<embed src="test.svg" width=400 height=300 type="image/svg+xml" />
+</div>
 
 
 `kCoef, kAnova`: These are functions that produce 'nicer' coefficient output
@@ -530,16 +529,11 @@ kCoef( myFit )
 ```
 
 
-`html`: Custom HTML in an R Markdown document. We can load a bunch of utility
-functions for HTML markup with `data(html)`; the functions are all hidden
-inside that environment so as to not gum up the main namespace. You could,
-of course, attach them if you wanted, with `attach(html)`, but you would
-then be masking functions like `table`.
+`html`: Custom HTML in an R Markdown document.
 
 
 ```r
-data(html)
-with(html,
+html(
      table( class="my-favourite-table",
             tr(
               td("Apples"),
@@ -554,29 +548,4 @@ with(html,
 ```
 
 <table class='my-favourite-table'><tr><td>Apples</td><td>Bananas</td></tr><tr><td>20</td><td>30</td></tr></table>
-
-
-`attachHTML, detachHTML`: If you want to avoid using the `with` syntax, you can also load a
-namespace of 'common' HTML functions, or just generate your own.
-
-
-```r
-attachHTML()
-span( style="color: red;",
-      "This is some red text."
-      )
-```
-
-<span style='color: red;'>This is some red text.</span>
-
-```r
-article <- Kmisc:::makeHTMLTag("article")
-article( class="class", id="id", p("Some text") )
-```
-
-<article class='class' id='id'><p>Some text</p></article>
-
-```r
-detachHTML()
-```
 
