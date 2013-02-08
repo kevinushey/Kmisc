@@ -12,7 +12,8 @@
   to split your strings on.}
 
   \item{fixed}{logical. If \code{TRUE}, we match \code{sep}
-  exactly; otherwise, we use regular expressions.}
+  exactly; otherwise, we use regular expressions. Has
+  priority over \code{perl}.}
 
   \item{perl}{logical. Should perl-compatible regexps be
   used?}
@@ -32,7 +33,7 @@
   \code{data.frame}.
 }
 \examples{
-dat <- str_split(
+str_split(
   c("regular_structure", "in_my", "data_here"),
   sep="_",
   names=c("apple", "banana")

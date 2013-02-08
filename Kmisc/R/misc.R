@@ -416,7 +416,7 @@ cat.cb <- function( dat, ... ) {
 #' @param x a vector of strings.
 #' @param sep the delimiter / \code{\link{regex}} you wish to split your strings on.
 #' @param fixed logical. If \code{TRUE}, we match \code{sep} exactly; 
-#' otherwise, we use regular expressions.
+#' otherwise, we use regular expressions. Has priority over \code{perl}.
 #' @param perl logical. Should perl-compatible regexps be used?
 #' @param useBytes logical. If \code{TRUE}, matching is done byte-by-byte rather than
 #' character-by-character.
@@ -424,7 +424,7 @@ cat.cb <- function( dat, ... ) {
 #' @seealso \code{\link{strsplit}}
 #' @export
 #' @examples
-#' dat <- str_split( 
+#' str_split( 
 #'   c("regular_structure", "in_my", "data_here"), 
 #'   sep="_", 
 #'   names=c("apple", "banana") 
@@ -435,13 +435,11 @@ str_split <- function(x, sep, fixed=FALSE, perl=TRUE, useBytes=FALSE, names=NULL
   
   x <- as.character(x)
   
-  ## ensure that this will work as planned
-  tmp <- strsplit( unique(x), sep, fixed=fixed, perl=perl, useBytes=useBytes )
-  if( length( unique( lapply( tmp, length ) ) ) != 1 ) {
+  tmp <- strsplit( x, sep, fixed=fixed, perl=perl, useBytes=useBytes )
+  if( length( unique( unlist( lapply( tmp, length ) ) ) ) > 1 ) {
     stop("non-equal lengths for each entry of x post-splitting")
   }
-    
-  tmp <- unlist( strsplit( x, sep, fixed=fixed, perl=perl, useBytes=useBytes ) )
+  tmp <- unlist( tmp )
   tmp <- as.data.frame( 
     matrix( tmp, ncol = (length(tmp) / length(x)), byrow=T ),
     stringsAsFactors=FALSE, optional=TRUE 
