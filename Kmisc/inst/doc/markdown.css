@@ -2,22 +2,12 @@ body {
    font-family: sans-serif;
    background-color: white;
    font-size: 12px;
-   margin: 0;
-   margin-left: auto;
-   margin-right: auto;
-   padding-left:40px;
-   padding-right:40px;
-   padding-top:20px;
-   padding-bottom:20px;
-   max-width:700px;
-   border: 20px solid #DDD;
 }
 
 table, th, td {
   
   font-size: 14px;
-  font-family: "Droid Sans MS", "DejaVu Sans MS", sans-serif;
-  padding: 6px;
+  font-family: "Droid Sans MS", "DejaVu Sans MS", "Consolas", "Lucida Console", sans-serif;
   text-align: right;
   
 }
@@ -273,7 +263,8 @@ hr {
 
   @page {
     size: auto;
-    margin: 20mm 14mm 20mm 14mm;
+    margin-left: 1in;
+    margin-right: 1in;
   }
   
   p { 

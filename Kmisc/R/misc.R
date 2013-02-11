@@ -88,7 +88,8 @@ us <- function(x, split="", ...) { unlist( strsplit( x, split=split, ...) ) }
 #' @param x an \R object.
 #' @param y an \R object.
 #' @param ... additional arguments passed to \code{\link{identical}}.
-"%identical%" <- function(x, y, ...) {
+#' @export
+"%identical_to%" <- function(x, y, ...) {
   return( identical(x, y, ...) )
 }
 
@@ -398,7 +399,8 @@ write.cb <- function( dat,
 #' This function writes data to the clipboard, using \code{\link{cat}}.
 #' @param dat data to be written to the clipboard.
 #' @param ... optional arguments passed to \code{cat}.
-#' @seealso \code{\link{write.cb}}
+#' @seealso \code{\link{write.cb}}, \code{\link{cat}}
+#' @export
 cat.cb <- function( dat, ... ) {
   if( Sys.info()["sysname"] == "Darwin" ) {
     cat( dat, file=pipe("pbcopy"), ... )
@@ -487,11 +489,10 @@ swap <- function( vec, from, to=names(from), ... ) {
   return( tmp )
 }
 
-#' Converts Characters to Factors in an Object
+#' Converts Factors to Characters in an Object
 #' 
-#' Converts characters to factors in an object. Leaves non-character
-#' elements untouched. Objects that can be subscripted with \code{[[}
-#' are supported. 
+#' Converts factors to characters in an object. Leaves non-character
+#' elements untouched.
 #' 
 #' We iterate through all elements in the object (e.g. if
 #' it is a list) and convert anything that is a factor into a character.
@@ -501,11 +502,10 @@ factor_to_char <- function( X ) {
   return( .Call("factor_to_char", X, PACKAGE="Kmisc") )
 }
 
-#' Converts Factors to Characters in an Object
+#' Converts Characters to Factors in an Object
 #' 
-#' Converts factors to characters in an object. Leaves non-factor elements
-#' untouched. Objects that can be subscripted with \code{[[}
-#' are supported.
+#' Converts characters to factors in an object. Leaves non-factor elements
+#' untouched.
 #' @param X an object.
 #' @param ... optional arguments passed to \code{factor}.
 #' @export
@@ -674,7 +674,7 @@ kSave <- function( x, file, lvl=1, Rext=".rda", ... ) {
 #' The function requires you to specify the \code{by} argument; ie, you must have
 #' a shared column in your data frames \code{x} and \code{y}.
 #' 
-#' @param x the \code{data.frame} you wish to merge y into.
+#' @param x the \code{data.frame} you wish to merge \code{y} into.
 #' @param y the \code{data.frame} to be merged.
 #' @param by specifications of the columns used for merging. See 'Details' of \code{\link{merge}}.
 #' @param by.x specifications of the columns used for merging. See 'Details' of \code{\link{merge}}.
