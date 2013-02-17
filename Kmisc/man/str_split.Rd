@@ -39,7 +39,7 @@ str_split(
   names=c("apple", "banana")
 )
 x <- c("somewhat_different.structure", "in_this.guy")
-str_split( x, "[_\\\\.]" )
+str_split( x, "[_\\\\.]", names=c("first", "second", "third") )
 }
 \seealso{
   \code{\link{strsplit}}

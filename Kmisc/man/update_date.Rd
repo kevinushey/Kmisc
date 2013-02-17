@@ -9,7 +9,7 @@
 }
 \description{
   This function for package authors updates the time in the
-  DESCRIPTION file to the current date, as discovered
-  through \code{Sys.Date}().
+  \code{DESCRIPTION} file to the current date, as
+  discovered through \code{Sys.Date()}.
 }
 

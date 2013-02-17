@@ -1,8 +1,8 @@
 Package: Kmisc
 Type: Package
 Title: Miscellaneous functions intended to improve the R coding experience
-Version: 0.4.1
-Date: 2013-02-08
+Version: 0.4.0
+Date: 2013-02-17
 Author: Kevin Ushey
 Maintainer: Kevin Ushey <kevinushey@gmail.com>
 Description: A collection of functions for common data reshaping operations, as
@@ -11,7 +11,6 @@ License: GPL (>= 2)
 LazyData: TRUE
 LinkingTo: Rcpp
 Depends:
-    R (>= 3.0.0),
     lattice,
     grid,
     Rcpp (>= 0.10.1)
@@ -46,3 +45,6 @@ Collate:
     'split_runs.R'
     'stack_list.R'
     'html_attach.R'
+    'pp_plot.R'
+    'package.R'
+    'pad.R'

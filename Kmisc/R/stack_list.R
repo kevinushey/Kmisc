@@ -11,7 +11,7 @@
 #' numbers onto these row names as well.
 #' 
 #' Note that information on factors is lost by default; they will be
-#' converted to either characters or their internal integer representations.
+#' converted either to characters or their internal integer representations.
 #' 
 #' @param list a list of data frames, or a list of lists with each element of
 #' the same length.
@@ -34,8 +34,8 @@
 #' rownames(tmp2) <- 1:nrow(tmp2)
 #' all.equal( tmp1[,1:3], tmp2 )
 stack_list <- function( list, 
-                        make_row_names=typeof( attr( list[[1]], "row.names" ) )=="character",
                         name="row_names",
+                        make_row_names=typeof( attr( list[[1]], "row.names" ) )=="character",
                         keep_list_index=TRUE,
                         index_name="list_index",
                         coerce_factors=TRUE

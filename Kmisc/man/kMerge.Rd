@@ -1,12 +1,13 @@
 \name{kMerge}
 \alias{kMerge}
-\title{Merge (Left Join) with Index Retainment}
+\title{Merge (Left Join) with Order Retainment}
 \usage{
   kMerge(x, y, by = intersect(names(x), names(y)),
     by.x = by, by.y = by, ...)
 }
 \arguments{
-  \item{x}{the \code{data.frame} you wish to merge y into.}
+  \item{x}{the \code{data.frame} you wish to merge \code{y}
+  into.}
 
   \item{y}{the \code{data.frame} to be merged.}
 

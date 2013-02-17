@@ -14,6 +14,6 @@
   \code{\link{cat}}.
 }
 \seealso{
-  \code{\link{write.cb}}
+  \code{\link{write.cb}}, \code{\link{cat}}
 }
 

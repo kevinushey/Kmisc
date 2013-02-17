@@ -1,6 +1,6 @@
 \name{factor_to_char}
 \alias{factor_to_char}
-\title{Converts Characters to Factors in an Object}
+\title{Converts Factors to Characters in an Object}
 \usage{
   factor_to_char(X)
 }
@@ -8,9 +8,8 @@
   \item{X}{an object.}
 }
 \description{
-  Converts characters to factors in an object. Leaves
-  non-character elements untouched. Objects that can be
-  subscripted with \code{[[} are supported.
+  Converts factors to characters in an object. Leaves
+  non-character elements untouched.
 }
 \details{
   We iterate through all elements in the object (e.g. if it

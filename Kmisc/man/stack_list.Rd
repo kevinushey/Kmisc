@@ -2,10 +2,10 @@
 \alias{stack_list}
 \title{Stack a List of DataFrame-like Objects}
 \usage{
-  stack_list(list,
+  stack_list(list, name = "row_names",
     make_row_names = typeof(attr(list[[1]], "row.names")) == "character",
-    name = "row_names", keep_list_index = TRUE,
-    index_name = "list_index", coerce_factors = TRUE)
+    keep_list_index = TRUE, index_name = "list_index",
+    coerce_factors = TRUE)
 }
 \arguments{
   \item{list}{a list of data frames, or a list of lists
@@ -42,7 +42,7 @@
   avoid appending numbers onto these row names as well.
 
   Note that information on factors is lost by default; they
-  will be converted to either characters or their internal
+  will be converted either to characters or their internal
   integer representations.
 }
 \examples{

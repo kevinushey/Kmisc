@@ -80,19 +80,6 @@ us <- function(x, split="", ...) { unlist( strsplit( x, split=split, ...) ) }
   return( !(x %in% y) )
 }
 
-#' Test Objects for Exact Equality
-#' 
-#' The safe and reliable way to test two objects for being exactly equal.
-#' Wrapper to \code{\link{identical}}.
-#' 
-#' @param x an \R object.
-#' @param y an \R object.
-#' @param ... additional arguments passed to \code{\link{identical}}.
-#' @export
-"%identical_to%" <- function(x, y, ...) {
-  return( identical(x, y, ...) )
-}
-
 #' Inverse grep
 #' 
 #' From a vector \code{x}, return the indices of elements that do not
@@ -432,7 +419,7 @@ cat.cb <- function( dat, ... ) {
 #'   names=c("apple", "banana") 
 #' )
 #' x <- c("somewhat_different.structure", "in_this.guy")
-#' str_split( x, "[_\\.]" )
+#' str_split( x, "[_\\.]", names=c("first", "second", "third") )
 str_split <- function(x, sep, fixed=FALSE, perl=TRUE, useBytes=FALSE, names=NULL) {
   
   x <- as.character(x)
@@ -662,7 +649,7 @@ kSave <- function( x, file, lvl=1, Rext=".rda", ... ) {
   
 }
 
-#' Merge (Left Join) with Index Retainment
+#' Merge (Left Join) with Order Retainment
 #' 
 #' \code{merge} will mangle the order of the data frames it is merging. This is
 #' a simple modification to ensure that the order in data frame \code{x} is preserved
