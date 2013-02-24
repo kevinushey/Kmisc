@@ -1,6 +1,6 @@
 <!--
-% \VignetteEngine{knitr}
-% \VignetteIndexEntry{Introduction to Kmisc}
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Introduction to Kmisc}
 \usepackage[utf8]{inputenc}
 -->
 

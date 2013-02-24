@@ -80,36 +80,6 @@ us <- function(x, split="", ...) { unlist( strsplit( x, split=split, ...) ) }
   return( !(x %in% y) )
 }
 
-#' Inverse grep
-#' 
-#' From a vector \code{x}, return the indices of elements that do not
-#' match \code{pattern}.
-#' 
-#' Use \code{value=TRUE} to return the actual non-matched elements.
-#' 
-#' @param pattern regular expression pattern
-#' @param x vector of items to match against
-#' @param perl boolean. use perl-compatible regular expressions?
-#' @param value logical. if \code{TRUE}, we return the actual values matched;
-#' otherwise we return the indices of the matches.
-#' @param ... passed to grep
-#' @return the elements in \code{x} that did not match the pattern supplied
-#' @seealso \code{\link{grep}} \code{\link{regex}}
-#' @export
-#' @examples
-#' some_files <- c("output_file.tar.gz", "old_log1.txt", "old_log2.txt")
-#' ## get the non-log files
-#' files_I_want <- ngrep( "_log[0-9]+\\.txt$", some_files )
-ngrep <- function(pattern, x, perl=TRUE, value=FALSE, ...) {
-  if( isTRUE(value) ) {
-    x[ x %nin% grep(pattern, x, value=TRUE, perl=perl, ...) ]
-  } else {
-    tmp <- 1:length(x)
-    return( tmp[ tmp %nin% grep(pattern, x, value=FALSE, perl=perl, ...)])
-  }
-}
-  
-
 #' Extract Elements from a Named Object
 #' 
 #' Extracts elements from an \R object
@@ -497,13 +467,23 @@ factor_to_char <- function( X ) {
 #' @param ... optional arguments passed to \code{factor}.
 #' @export
 char_to_factor <- function(X, ...) {
-  return( rapply( X, how="replace", function(x) {
-    if( is.character(x) ) {
-      return( factor(x, ...) )
+  
+  if( is.list(X) ) {
+    return( rapply( X, how="replace", function(x) {
+      if( is.character(x) ) {
+        return( factor(x, ...) )
+      } else {
+        return( x )
+      }
+    }))
+  } else {
+    if( is.character(X) ) {
+      return( factor(X, ...) )
     } else {
-      return( x )
+      return( X )
     }
-  }) )
+  }
+  
 }
 
 #' Make Dummy Variables from a Factor
@@ -658,9 +638,6 @@ kSave <- function( x, file, lvl=1, Rext=".rda", ... ) {
 #' data frame \code{y}, we can merge in the parts of \code{y} whose index matches
 #' with that of \code{x}, while preserving the ordering of \code{x}.
 #' 
-#' The function requires you to specify the \code{by} argument; ie, you must have
-#' a shared column in your data frames \code{x} and \code{y}.
-#' 
 #' @param x the \code{data.frame} you wish to merge \code{y} into.
 #' @param y the \code{data.frame} to be merged.
 #' @param by specifications of the columns used for merging. See 'Details' of \code{\link{merge}}.
@@ -682,12 +659,12 @@ kSave <- function( x, file, lvl=1, Rext=".rda", ... ) {
 #' kMerge(x, y, by="id")
 kMerge <- function( x, y, by=intersect( names(x), names(y) ), by.x=by, by.y=by, ... ) {
   
-  kName <- paste(by, "_orig", sep="")
-  x[,kName] <- 1:nrow(x)
-  tmp <- merge( x=x, y=y, by=by, all.x = TRUE, ... )
-  tmp <- tmp[order(tmp[,kName]),]
-  tmp <- tmp[,!(names(tmp) %in% kName)]
-  tmp
+  x[["__KMERGE_TMP__"]] <- 1:nrow(x)
+  tmp <- merge( x=x, y=y, by=by, by.x=by.x, by.y=by.y, all.x = TRUE, ... )
+  tmp <- tmp[order(tmp[["__KMERGE_TMP__"]]),]
+  tmp <- tmp[ names(tmp) !=  "__KMERGE_TMP__"]
+  rownames(tmp) <- 1:nrow(tmp)
+  return( tmp )
   
 }
 

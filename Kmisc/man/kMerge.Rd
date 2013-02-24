@@ -35,11 +35,6 @@
   \code{y} whose index matches with that of \code{x}, while
   preserving the ordering of \code{x}.
 }
-\details{
-  The function requires you to specify the \code{by}
-  argument; ie, you must have a shared column in your data
-  frames \code{x} and \code{y}.
-}
 \examples{
 x <- data.frame( id=5:1, nums=rnorm(5) )
 y <- data.frame( id=1:3, labels=c(1, 2, 2) )

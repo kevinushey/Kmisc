@@ -1,3 +1,17 @@
+Version 0.5.0
+------------------------------------------------------------
+  * Implemented 'fast_factor', a function for the fast 
+    generation of factors from atomic vector types.
+  * Added 'rcpp_tapply_generator', which allows one to
+    define functions to be called in a 'tapply' like manner:
+    split by a factor grouping variable.
+  * Fixed a bug in setting the row names of 'kMerge'.
+  * Added 'pad', a function for padding various R objects
+    with NAs.
+  * Added 'remove_chars' and 'remove_digits' as utility
+    regex functions for removing characters/digits from a
+    character vector.
+
 Version 0.4.0
 ------------------------------------------------------------
   * Package now requires Rcpp.
@@ -5,11 +19,12 @@ Version 0.4.0
   * Added 'split_runs', an Rcpp function for splitting a 
     numeric or character vector by the runs observed.
   * Made an Rcpp implementation of 'stack_list', for fast 
-    stacking of data.frames and lists.
+    stacking of lists of data.frames.
   * Fixed bug in 'swap' function.
   * Added 'grid.text2', a function that generates text with
     a simple background. Useful for overlaying simple 
     formulas / results on a plot.
+  * Fixed bugs with 'kMerge'.
 
 Version 0.3.0
 ------------------------------------------------------------

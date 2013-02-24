@@ -1,7 +1,6 @@
 <!--
-% \VignetteEngine{knitr}
-% \VignetteIndexEntry{Introduction to Kmisc}
-\usepackage[utf8]{inputenc}
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Introduction to Kmisc}
 -->
 
 <link rel="stylesheet" href="markdown.css">
@@ -245,11 +244,11 @@ kMerge( dat1, dat2, by="id" )
 
 ```
 ##   id x       y        z
-## 5  5 a  0.2374       NA
-## 4  4 a  1.2181  0.63296
+## 1  5 a  0.2374       NA
+## 2  4 a  1.2181  0.63296
 ## 3  3 b -1.3388       NA
-## 2  2 b  0.6608 -0.06082
-## 1  1 b -0.5229  0.68375
+## 4  2 b  0.6608 -0.06082
+## 5  1 b -0.5229  0.68375
 ```
 
 
@@ -305,7 +304,7 @@ system.time( stack_list(dfs) )
 
 ```
 ##    user  system elapsed 
-##   0.007   0.000   0.007
+##    0.02    0.00    0.02
 ```
 
 ```r
@@ -314,7 +313,7 @@ system.time( do.call(rbind, dfs) )
 
 ```
 ##    user  system elapsed 
-##   0.278   0.006   0.285
+##    0.23    0.00    0.24
 ```
 
 
@@ -338,14 +337,6 @@ str_rev( c("ABC", "DEF", NA, paste(LETTERS, collapse="") ) )
 ## [3] NA                           "ZYXWVUTSRQPONMLKJIHGFEDCBA"
 ```
 
-```r
-str_rev2( c("はひふへほ", "abcdef") )
-```
-
-```
-## [1] "ほへふひは" "fedcba"
-```
-
 
 `str_slice`: Slices a vector of strings at consecutive indices `n`.
 `str_slice2` exists for potentially unicode strings.
@@ -366,15 +357,6 @@ str_slice( c("ABCDEF", "GHIJKL", "MNOP", "QR"), 2 )
 ## 
 ## [[4]]
 ## [1] "QR"
-```
-
-```r
-str_slice2( "ハッピー", 2 )
-```
-
-```
-## [[1]]
-## [1] "ハッ" "ピー"
 ```
 
 
@@ -444,7 +426,7 @@ cat( tmp$html$chart )
 ```
 
 <!-- Table generated in R 2.15.2 by googleVis 0.3.3 package -->
-<!-- Fri Feb  8 12:22:44 2013 -->
+<!-- Thu Feb 21 08:48:03 2013 -->
 
 
 <!-- jsHeader -->
@@ -453,7 +435,7 @@ cat( tmp$html$chart )
 <script type="text/javascript">
  
 // jsData 
-function gvisDataTableIDfff1467ca031 ()
+function gvisDataTableID173c7480784b ()
 {
   var data = new google.visualization.DataTable();
   var datajson =
@@ -482,13 +464,13 @@ return(data);
 }
  
 // jsDrawChart
-function drawChartTableIDfff1467ca031() {
-  var data = gvisDataTableIDfff1467ca031();
+function drawChartTableID173c7480784b() {
+  var data = gvisDataTableID173c7480784b();
   var options = {};
 options["allowHtml"] = true;
 
      var chart = new google.visualization.Table(
-       document.getElementById('TableIDfff1467ca031')
+       document.getElementById('TableID173c7480784b')
      );
      chart.draw(data,options);
     
@@ -497,14 +479,14 @@ options["allowHtml"] = true;
   
  
 // jsDisplayChart 
-function displayChartTableIDfff1467ca031()
+function displayChartTableID173c7480784b()
 {
   google.load("visualization", "1", { packages:["table"] }); 
-  google.setOnLoadCallback(drawChartTableIDfff1467ca031);
+  google.setOnLoadCallback(drawChartTableID173c7480784b);
 }
  
 // jsChart 
-displayChartTableIDfff1467ca031()
+displayChartTableID173c7480784b()
  
 <!-- jsFooter -->  
 //-->
@@ -512,7 +494,7 @@ displayChartTableIDfff1467ca031()
  
 <!-- divChart -->
   
-<div id="TableIDfff1467ca031"
+<div id="TableID173c7480784b"
   style="width: 600px; height: 500px;">
 </div>
 

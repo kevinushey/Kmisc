@@ -1,8 +1,8 @@
 Package: Kmisc
 Type: Package
 Title: Miscellaneous functions intended to improve the R coding experience
-Version: 0.4.0
-Date: 2013-02-17
+Version: 0.5.0
+Date: 2013-02-21
 Author: Kevin Ushey
 Maintainer: Kevin Ushey <kevinushey@gmail.com>
 Description: A collection of functions for common data reshaping operations, as
@@ -13,10 +13,10 @@ LinkingTo: Rcpp
 Depends:
     lattice,
     grid,
-    Rcpp (>= 0.10.1)
+    Rcpp (>= 0.10.1),
+    knitr
 Suggests:
     ggplot2,
-    knitr,
     googleVis,
     testthat
 ByteCompile: TRUE
@@ -46,5 +46,8 @@ Collate:
     'stack_list.R'
     'html_attach.R'
     'pp_plot.R'
-    'package.R'
     'pad.R'
+    'remove_char_digit.R'
+    'regex.R'
+    'rcpp_tapply_generator.R'
+    'fast_factor.R'

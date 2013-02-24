@@ -74,12 +74,10 @@ anyBig(x, 2)
 anyBig(x, 1)
 ## example with boost's gcd. silly but demonstrative.
 ## intended to be applied to matrices with 2 rows and n columns
-gcdApply <- rcpp_apply_generator(
+gcdApply <- rcpp_apply_generator( returnType="int",
   includes="<boost/math/common_factor.hpp>",
   fun='
-  NumericVector tmp1 = x;
-  std::vector<int> tmp = as< std::vector< int > >(tmp1);
-  return boost::math::gcd( tmp[0], tmp[1] );
+  return boost::math::gcd( (int)x[0], (int)x[1] );
   ')
 M <- matrix( c(4, 6, 20, 25, 10, 100), nrow=2 )
 gcdApply(M, 2)

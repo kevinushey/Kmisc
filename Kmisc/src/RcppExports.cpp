@@ -5,6 +5,16 @@
 
 using namespace Rcpp;
 
+// fast_factor
+SEXP fast_factor(SEXP x);
+RcppExport SEXP Kmisc_fast_factor(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    SEXP x = Rcpp::as<SEXP >(xSEXP);
+    SEXP __result = fast_factor(x);
+    return Rcpp::wrap(__result);
+END_RCPP
+}
 // split_runs_numeric
 List split_runs_numeric(NumericVector X);
 RcppExport SEXP Kmisc_split_runs_numeric(SEXP XSEXP) {

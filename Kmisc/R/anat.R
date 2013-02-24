@@ -70,8 +70,10 @@ anat <- function(df, n=3) {
     }
   })
   
+  levs_statement <- ifelse( levs[!is.na(levs)] > 1, " levels", " level" )
+  levs_dots <- ifelse( levs[!is.na(levs)] > n, ", ... ", "" )
   classes[ !is.na(levs) ] <- paste( sep="",
-    classes[ !is.na(levs) ], " w/ ", levs[!is.na(levs)], " levels"
+    classes[ !is.na(levs) ], " w/ ", levs[!is.na(levs)], levs_statement
   )
   
   formatted_classes <- format( classes )
