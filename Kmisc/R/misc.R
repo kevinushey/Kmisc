@@ -393,17 +393,14 @@ cat.cb <- function( dat, ... ) {
 str_split <- function(x, sep, fixed=FALSE, perl=TRUE, useBytes=FALSE, names=NULL) {
   
   x <- as.character(x)
-  
   tmp <- strsplit( x, sep, fixed=fixed, perl=perl, useBytes=useBytes )
   if( length( unique( unlist( lapply( tmp, length ) ) ) ) > 1 ) {
     stop("non-equal lengths for each entry of x post-splitting")
   }
-  tmp <- unlist( tmp )
-  tmp <- as.data.frame( 
-    matrix( tmp, ncol = (length(tmp) / length(x)), byrow=T ),
-    stringsAsFactors=FALSE, optional=TRUE 
-    )
-  
+  tmp <- unlist(tmp)
+  tmp <- as.data.frame( matrix( tmp, ncol=length(tmp)/length(x), byrow=TRUE ),
+                        stringsAsFactors=FALSE, optional=TRUE
+  )
   if( !is.null(names) ) {
     names(tmp) <- names
   } else {
@@ -411,6 +408,7 @@ str_split <- function(x, sep, fixed=FALSE, perl=TRUE, useBytes=FALSE, names=NULL
   }
   
   return(tmp)
+  
 }
 
 #' Swap Elements in a Vector
@@ -1112,4 +1110,24 @@ getObjects <- function( env ) {
   })
   names( objs ) <- objects(env)
   return(objs)
+}
+
+#' Remove NA Entries from a Vector
+#' 
+#' This function removes all \code{NA} entries from a vector.
+#' 
+#' For \code{data.frames}, we use \code{complete.cases} to remove \code{NA}s,
+#' and hence remove all rows for which an \code{NA} value in encountered.
+#' 
+#' @param x An (atomic) vector, or a list / data.frame.
+#' @export
+remove_na <- function(x) {
+  if( is.data.frame(x) ) {
+    return( x[complete.cases(x),] )
+  } else if( is.list(x) ) {
+    return( lapply(x, remove_na) )
+  } else {
+    return( x[ !is.na(x) ] )
+  }
+  
 }
