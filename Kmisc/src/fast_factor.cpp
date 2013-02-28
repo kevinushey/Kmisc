@@ -8,7 +8,7 @@ IntegerVector fast_factor_template( const Vector<RTYPE>& x ) {
   IntegerVector out = match( x, sorted );
   
   // handle NAs
-  if( Vector<RTYPE>::is_na( (*sorted.begin()) ) ) {
+  if( Vector<RTYPE>::is_na( *sorted.begin() ) ) {
     
     out = out - 1;
     // we replace all 0's with NAs in the output

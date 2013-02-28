@@ -6,7 +6,7 @@
 #' @param x An object of atomic type \code{integer}, \code{numeric},
 #' \code{character} or \code{logical}.
 #' @export
-fast_factor <- function(x) {
+factor_ <- function(x) {
   
   if( is.factor(x) ) {
     return(x)
