@@ -51,3 +51,4 @@ Collate:
     'regex.R'
     'rcpp_tapply_generator.R'
     'fast_factor.R'
+    'split_file.R'
