@@ -6,7 +6,7 @@
 #' 
 #' @param file The location of the file we are splitting.
 #' @param column The column (by index) to split over.
-#' @param The file separator. Must be a single character.
+#' @param sep The file separator. Must be a single character.
 #' @param outDir The directory to output the files. We default to the 
 #' sub-directory \code{split} of the current working directory.
 #' @param prepend A string to prepend to the output file names; typically an 

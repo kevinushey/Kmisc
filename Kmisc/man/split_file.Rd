@@ -11,7 +11,8 @@
 
   \item{column}{The column (by index) to split over.}
 
-  \item{The}{file separator. Must be a single character.}
+  \item{sep}{The file separator. Must be a single
+  character.}
 
   \item{outDir}{The directory to output the files. We
   default to the sub-directory \code{split} of the current
