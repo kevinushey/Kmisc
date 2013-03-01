@@ -15,6 +15,22 @@ BEGIN_RCPP
     return Rcpp::wrap(__result);
 END_RCPP
 }
+// split_file
+void split_file(std::string path, std::string dir, std::string basename, std::string path_sep, std::string sep, std::string file_ext, int column);
+RcppExport SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP, SEXP path_sepSEXP, SEXP sepSEXP, SEXP file_extSEXP, SEXP columnSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    std::string path = Rcpp::as<std::string >(pathSEXP);
+    std::string dir = Rcpp::as<std::string >(dirSEXP);
+    std::string basename = Rcpp::as<std::string >(basenameSEXP);
+    std::string path_sep = Rcpp::as<std::string >(path_sepSEXP);
+    std::string sep = Rcpp::as<std::string >(sepSEXP);
+    std::string file_ext = Rcpp::as<std::string >(file_extSEXP);
+    int column = Rcpp::as<int >(columnSEXP);
+    split_file(path, dir, basename, path_sep, sep, file_ext, column);
+    return R_NilValue;
+END_RCPP
+}
 // split_runs_numeric
 List split_runs_numeric(NumericVector X);
 RcppExport SEXP Kmisc_split_runs_numeric(SEXP XSEXP) {

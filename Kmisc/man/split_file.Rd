@@ -1,10 +1,10 @@
 \name{split_file}
 \alias{split_file}
-\title{Split a File by Unique Entries in a Column with Awk}
+\title{Split a File by Unique Entries in a Column}
 \usage{
   split_file(file, column, sep = "\t",
-    outDir = file.path(getwd(), "split"), prepend = "",
-    dots = 1)
+    outDir = file.path(dirname(file), "split"),
+    prepend = "", dots = 1)
 }
 \arguments{
   \item{file}{The location of the file we are splitting.}
@@ -14,9 +14,7 @@
   \item{sep}{The file separator. Must be a single
   character.}
 
-  \item{outDir}{The directory to output the files. We
-  default to the sub-directory \code{split} of the current
-  working directory.}
+  \item{outDir}{The directory to output the files.}
 
   \item{prepend}{A string to prepend to the output file
   names; typically an identifier for what the column is
