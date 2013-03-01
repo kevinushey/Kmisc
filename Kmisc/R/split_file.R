@@ -25,6 +25,8 @@ split_file <- function( file,
     stop("No file available at", file)
   }
   
+  file <- normalizePath(file)
+  
   if( missing(column) ) {
     stop("You must specify a column index to split over")
   }
