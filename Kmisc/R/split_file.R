@@ -35,10 +35,10 @@ split_file <- function( file,
   
   if( length( fgrep(".", basename(file)) ) > 0 ) {
     file_split <- unlist( strsplit( file, ".", fixed=TRUE ) )
-    file_ext <- paste( sep=".", file_split[ (length(file_split)-dots+1):length(file_split) ] )
-    file_name <- file_split[ 1:(length(file_split)-dots) ]
+    file_ext <- paste( collapse=".", file_split[ (length(file_split)-dots+1):length(file_split) ] )
+    file_name <- strip_extension( basename(file), lvl=dots )
   } else {
-    file_name <- basename(file)
+    file_name <- strip_extension( basename(file), lvl=dots )
     file_ext <- ""
   }
   
@@ -78,7 +78,9 @@ split_file <- function( file,
       files[[ line_split[column] ]] <- 
         file( open="w", 
               file.path( outDir, 
-                         paste( sep="", file_name, "_", prepend, line_split[column], ".", file_ext )
+                         paste( sep="", file_name, "_", prepend, line_split[column], 
+                                if( nchar(file_ext) > 0 ) ".", 
+                                file_ext )
               )
         )
     }
