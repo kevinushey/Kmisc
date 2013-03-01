@@ -2,7 +2,7 @@
 \alias{split_file}
 \title{Split a File by Unique Entries in a Column with Awk}
 \usage{
-  split_file(file, column,
+  split_file(file, column, sep = "\t",
     outDir = file.path(getwd(), "split"), prepend = "",
     dots = 1)
 }
@@ -10,6 +10,8 @@
   \item{file}{The location of the file we are splitting.}
 
   \item{column}{The column (by index) to split over.}
+
+  \item{The}{file separator. Must be a single character.}
 
   \item{outDir}{The directory to output the files. We
   default to the sub-directory \code{split} of the current
@@ -28,11 +30,5 @@
   according to unique entries in a column. The name of the
   entry being split over is appended to the file name
   (before the file extension).
-}
-\details{
-  This function requires the command line tools \code{awk},
-  \code{uniq} and \code{sort} to be available. If you're
-  running Windows, please either install cygwin, or have
-  Rtools installed and available on your PATH.
 }
 
