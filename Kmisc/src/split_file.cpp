@@ -100,7 +100,8 @@ void split_file( std::string path,
 	// close the other file connections
 	for( std::map< std::string, std::ofstream*>::iterator itr = files.begin(); itr != files.end(); itr++ ) {
 		itr->second->close();
-		files.erase(itr);
+		delete itr->second;
 	}
+	files.clear();
 
 }
