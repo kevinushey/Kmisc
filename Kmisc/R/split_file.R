@@ -12,13 +12,15 @@
 #' identifier for what the column is being split over.
 #' @param dots The number of dots used in making up the file extension.
 #' If there are no dots in the file name, this argument is ignored.
+#' @param verbose Be chatty?
 #' @export
 split_file <- function( file, 
                         column,
                         sep="\t",
                         outDir=file.path( dirname(file), "split"), 
                         prepend="", 
-                        dots=1 ) {
+                        dots=1,
+                        verbose=TRUE) {
   
   if( !file.exists(file) ) {
     stop("No file available at", file)
@@ -55,7 +57,8 @@ split_file <- function( file,
          .Platform$file.sep,
          sep,
          file_ext,
-         column)
+         column,
+         verbose)
   
   return( invisible(NULL) )
   

@@ -1,9 +1,26 @@
 #include <Rcpp.h>
 #include <iostream>
 #include <fstream>
-#include <boost/algorithm/string.hpp>
 
 using namespace Rcpp;
+
+inline
+std::vector<std::string> split(std::string str, const char delim) {
+    
+    std::vector<std::string> v;
+    std::string tmp;
+
+    for(std::string::const_iterator i = str.begin(); i != str.end(); ++i) {
+        if(*i != delim && i != str.end()) {
+            tmp += *i; 
+        } else {
+            v.push_back(tmp);
+            tmp = ""; 
+        }   
+    }   
+
+    return v;
+}
 
 inline bool in( std::string& elem, std::map< std::string, std::ofstream*>& x ) {
 	if( x.find(elem) == x.end() ) {
@@ -20,17 +37,21 @@ void split_file( std::string path,
 		std::string path_sep,
 		std::string sep,
 		std::string file_ext,
-		int column ) {
+		int column,
+    bool chatty) {
 
 	// space for a line, and a line post-split
 	std::string line;
 	std::vector< std::string > line_split;
 	std::map< std::string, std::ofstream* > files;
+  const char delim = *sep.c_str();
 
 	// input file connections
 	std::ifstream conn;
 	conn.open( path.c_str() );
 
+  int counter = 0;
+  
 	if( conn.is_open() ) {
 
 		while( conn.good() ) {
@@ -44,8 +65,8 @@ void split_file( std::string path,
 			}
 
 			// split it to a vector
-			boost::split( line_split, line, boost::is_any_of(sep) );
-
+			line_split = split(line, delim);
+      
 			// check the value of the 'column'th item
 			std::string col_item = line_split[column-1];
 
@@ -58,6 +79,12 @@ void split_file( std::string path,
 
 			// write the line to the appropriate ofstream
 			*files[col_item] << line << std::endl;
+      
+      // write out the counter?
+      counter++;
+      if( chatty & counter % 100000 == 0 ) {
+        Rcout << "line: " << counter << std::endl;
+      }
 
 		}
 
