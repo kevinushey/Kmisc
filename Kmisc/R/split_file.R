@@ -12,6 +12,7 @@
 #' identifier for what the column is being split over.
 #' @param dots The number of dots used in making up the file extension.
 #' If there are no dots in the file name, this argument is ignored.
+#' @param skip Integer; number of rows to skip (e.g. to avoid a header).
 #' @param verbose Be chatty?
 #' @export
 split_file <- function( file, 
@@ -20,6 +21,7 @@ split_file <- function( file,
                         outDir=file.path( dirname(file), "split"), 
                         prepend="", 
                         dots=1,
+                        skip=0,
                         verbose=TRUE) {
   
   if( !file.exists(file) ) {
@@ -51,14 +53,15 @@ split_file <- function( file,
   prepend <- as.character(prepend)
   
   .Call( "Kmisc_split_file",
-         file,
-         outDir,
-         file_name,
+         as.character(file),
+         as.character(outDir),
+         as.character(file_name),
          .Platform$file.sep,
-         sep,
-         file_ext,
-         column,
-         verbose)
+         as.character(sep),
+         as.character(file_ext),
+         as.integer(column),
+         as.integer(skip),
+         as.logical(verbose) )
   
   return( invisible(NULL) )
   

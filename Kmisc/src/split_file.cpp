@@ -5,16 +5,16 @@
 
 using namespace Rcpp;
 
-inline std::string get_item( std::string line, const char* delim, int column ) {
+inline std::string get_item( std::string& line, const char* delim, int column ) {
 
-  char* line_cast = const_cast<char*>( line.c_str() );
+	char* line_cast = const_cast<char*>( line.c_str() );
 	const char* pch = strtok(line_cast, delim);
 	int counter = 0;
 	while( TRUE ) {
 		if( counter == column-1 ) {
 			return( std::string(pch) );
 		}
-    pch = strtok(NULL, delim);
+		pch = strtok(NULL, delim);
 		counter++;
 	}
 	return( "get_line is broken" );
@@ -36,11 +36,11 @@ void split_file( std::string path,
 		std::string sep,
 		std::string file_ext,
 		int column,
+    int skip,
 		bool chatty) {
 
-	// space for a line, and a line post-split
+	// space for a line, and a file map
 	std::string line;
-	std::vector< std::string > line_split;
 	std::map< std::string, std::ofstream* > files;
 	const char* delim = sep.c_str();
 
@@ -53,6 +53,13 @@ void split_file( std::string path,
 	if( conn.is_open() ) {
 
 		while( conn.good() ) {
+      
+      // skip lines
+      if( skip > 0 ) {
+        for( int i=0; i < skip; i++ ) {
+          std::getline( conn, line );
+        }
+      }
 
 			// read in a line of input
 			std::getline( conn, line );
@@ -63,11 +70,12 @@ void split_file( std::string path,
 			}
 
 			// check the value of the 'column'th item
-      std::string str_copy;
-      str_copy = line.c_str();
+			// we copy the string so that strtok doesn't mangle it
+			std::string str_copy;
+			str_copy = line.c_str();
 			std::string col_item = get_item(str_copy, delim, column);
 
-			// if it has not yet been found, open a new file connection to
+			// if it has not yet been found, open a new file connection
 			if( !in( col_item, files ) ) {
 				Rcout << "Opening new file for column entry: " << col_item << std::endl;
 				std::string file_path =  dir + path_sep + basename + "_" + col_item + file_ext;
@@ -90,6 +98,7 @@ void split_file( std::string path,
 	// close the other file connections
 	for( std::map< std::string, std::ofstream*>::iterator itr = files.begin(); itr != files.end(); itr++ ) {
 		itr->second->close();
+		files.erase(itr);
 	}
 
 }
