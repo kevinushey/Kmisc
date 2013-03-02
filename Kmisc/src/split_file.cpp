@@ -37,7 +37,7 @@ void split_file( std::string path,
 		std::string file_ext,
 		int column,
     int skip,
-		bool chatty) {
+		bool verbose) {
 
 	// space for a line, and a file map
 	std::string line;
@@ -77,7 +77,9 @@ void split_file( std::string path,
 
 			// if it has not yet been found, open a new file connection
 			if( !in( col_item, files ) ) {
-				Rcout << "Opening new file for column entry: " << col_item << std::endl;
+        if( verbose ) {
+				  Rcout << "Opening new file for column entry: " << col_item << std::endl;
+        }
 				std::string file_path =  dir + path_sep + basename + "_" + col_item + file_ext;
 				files[col_item] = new std::ofstream( file_path.c_str() );
 			}
@@ -87,7 +89,7 @@ void split_file( std::string path,
 
 			// write out the counter?
 			counter++;
-			if( chatty & counter % 100000 == 0 ) {
+			if( verbose & counter % 100000 == 0 ) {
 				Rcout << "line: " << counter << std::endl;
 			}
 

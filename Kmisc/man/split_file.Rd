@@ -4,7 +4,7 @@
 \usage{
   split_file(file, column, sep = "\t",
     outDir = file.path(dirname(file), "split"),
-    prepend = "", dots = 1, verbose = TRUE)
+    prepend = "", dots = 1, skip = 0, verbose = TRUE)
 }
 \arguments{
   \item{file}{The location of the file we are splitting.}
@@ -23,6 +23,9 @@
   \item{dots}{The number of dots used in making up the file
   extension. If there are no dots in the file name, this
   argument is ignored.}
+
+  \item{skip}{Integer; number of rows to skip (e.g. to
+  avoid a header).}
 
   \item{verbose}{Be chatty?}
 }
