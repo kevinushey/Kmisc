@@ -13,4 +13,4 @@ unrowname <- function(x) {
 expect_identical( 
   stack_list(dat)[,1:length(dat[[1]])], 
   factor_to_char( unrowname( do.call( rbind, dat ) ) ) 
-  )
+)
