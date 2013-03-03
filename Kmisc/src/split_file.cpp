@@ -51,23 +51,20 @@ void split_file( std::string path,
 	int counter = 0;
 
 	if( conn.is_open() ) {
-
-		while( conn.good() ) {
-
-			// skip lines
-			if( skip > 0 ) {
-				for( int i=0; i < skip; i++ ) {
-					std::getline( conn, line );
-				}
+    
+    // skip lines
+		if( skip > 0 ) {
+			for( int i=0; i < skip; i++ ) {
+				std::getline( conn, line );
 			}
+		}
 
-			// read in a line of input
-			std::getline( conn, line );
+    while( std::getline( conn, line ) ) {
 
 			// make sure that the line is not empty
-			if( line == "" ) {
-				continue;
-			}
+			// if( line == "" ) {
+			// 	continue;
+			// }
 
 			// check the value of the 'column'th item
 			// we copy the string so that strtok doesn't mangle it
