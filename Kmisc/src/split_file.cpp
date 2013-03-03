@@ -10,17 +10,17 @@ inline std::string get_item( std::string& line, const char* delim, int column ) 
 	char* line_cast = const_cast<char*>( line.c_str() );
 	const char* pch = strtok(line_cast, delim);
 	int counter = 0;
-	while( TRUE ) {
+	while( true ) {
 		if( counter == column-1 ) {
 			return( std::string(pch) );
 		}
 		pch = strtok(NULL, delim);
 		counter++;
 	}
-	return( "get_line is broken" );
+	stop( "get_line is broken" );
 }
 
-inline bool in( std::string& elem, std::map< std::string, std::ofstream*>& x ) {
+inline bool in( std::string& elem, std::map<std::string, std::ofstream*>& x ) {
 	if( x.find(elem) == x.end() ) {
 		return false;
 	} else {
@@ -36,7 +36,7 @@ void split_file( std::string path,
 		std::string sep,
 		std::string file_ext,
 		int column,
-    int skip,
+		int skip,
 		bool verbose) {
 
 	// space for a line, and a file map
@@ -53,13 +53,13 @@ void split_file( std::string path,
 	if( conn.is_open() ) {
 
 		while( conn.good() ) {
-      
-      // skip lines
-      if( skip > 0 ) {
-        for( int i=0; i < skip; i++ ) {
-          std::getline( conn, line );
-        }
-      }
+
+			// skip lines
+			if( skip > 0 ) {
+				for( int i=0; i < skip; i++ ) {
+					std::getline( conn, line );
+				}
+			}
 
 			// read in a line of input
 			std::getline( conn, line );
@@ -75,11 +75,11 @@ void split_file( std::string path,
 			str_copy = line.c_str();
 			std::string col_item = get_item(str_copy, delim, column);
 
-			// if it has not yet been found, open a new file connection
+			// if a column entry has not yet been found, open a new file connection
 			if( !in( col_item, files ) ) {
-        if( verbose ) {
-				  Rcout << "Opening new file for column entry: " << col_item << std::endl;
-        }
+				if( verbose ) {
+					Rcout << "Opening new file for column entry: " << col_item << std::endl;
+				}
 				std::string file_path =  dir + path_sep + basename + "_" + col_item + file_ext;
 				files[col_item] = new std::ofstream( file_path.c_str() );
 			}
@@ -88,8 +88,8 @@ void split_file( std::string path,
 			*files[col_item] << line << std::endl;
 
 			// write out the counter?
-			counter++;
 			if( verbose & counter % 100000 == 0 ) {
+				counter++;
 				Rcout << "line: " << counter << std::endl;
 			}
 
@@ -98,9 +98,10 @@ void split_file( std::string path,
 	}
 
 	// close the other file connections
-	for( std::map< std::string, std::ofstream*>::iterator itr = files.begin(); itr != files.end(); itr++ ) {
-		itr->second->close();
-		delete itr->second;
+  typedef std::map<std::string, std::ofstream*>::iterator MItr;
+	for( MItr it = files.begin(); it != files.end(); it++ ) {
+		it->second->close();
+		delete it->second;
 	}
 	files.clear();
 

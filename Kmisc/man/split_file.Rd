@@ -30,9 +30,15 @@
   \item{verbose}{Be chatty?}
 }
 \description{
-  This script calls \code{awk} in order to split a file
-  according to unique entries in a column. The name of the
-  entry being split over is appended to the file name
-  (before the file extension).
+  This script splits a delimited file by unique entries in
+  a selected column. The name of the entry being split over
+  is appended to the file name (before the file extension).
+}
+\details{
+  This function should help users out in the unfortunate
+  case that the data they are attempted to read is too
+  large to fit into RAM. By splitting the file into
+  multiple, smaller files, we hope that each file,
+  post-splitting, is now small enough to fit into RAM.
 }
 

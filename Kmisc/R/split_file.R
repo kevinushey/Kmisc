@@ -1,8 +1,13 @@
 #' Split a File by Unique Entries in a Column
 #' 
-#' This script calls \code{awk} in order to split a file according to
-#' unique entries in a column. The name of the entry being split over is
+#' This script splits a delimited file by
+#' unique entries in a selected column. The name of the entry being split over is
 #' appended to the file name (before the file extension).
+#' 
+#' This function should help users out in the unfortunate case that the data
+#' they are attempted to read is too large to fit into RAM. By splitting the
+#' file into multiple, smaller files, we hope that each file, post-splitting,
+#' is now small enough to fit into RAM.
 #' 
 #' @param file The location of the file we are splitting.
 #' @param column The column (by index) to split over.
@@ -24,19 +29,22 @@ split_file <- function( file,
                         skip=0,
                         verbose=TRUE) {
   
+  file <- normalizePath(file)
   if( !file.exists(file) ) {
     stop("No file available at", file)
   }
   
-  file <- normalizePath(file)
+  if( !file.exists(outDir) ) {
+    cat("A new directory was created for the post-split files at:\n\t", outDir)
+    dir.create( outDir, showWarnings=FALSE)
+  }
+  outDir <- normalizePath(outDir)
   
   if( missing(column) ) {
     stop("You must specify a column index to split over")
   }
   
-  dir.create( outDir, showWarnings=FALSE)
-  
-  if( length( fgrep(".", basename(file)) ) > 0 ) {
+  if( length( grep(".", basename(file), fixed=TRUE) ) > 0 ) {
     file_split <- unlist( strsplit( file, ".", fixed=TRUE ) )
     file_ext <- paste( sep="", collapse=".", ".", file_split[ (length(file_split)-dots+1):length(file_split) ] )
     file_name <- strip_extension( basename(file), lvl=dots )
@@ -52,7 +60,7 @@ split_file <- function( file,
   
   prepend <- as.character(prepend)
   
-  .Call( "Kmisc_split_file",
+  invisible( .Call( "Kmisc_split_file",
          as.character(file),
          as.character(outDir),
          as.character(file_name),
@@ -61,8 +69,7 @@ split_file <- function( file,
          as.character(file_ext),
          as.integer(column),
          as.integer(skip),
-         as.logical(verbose) )
-  
-  return( invisible(NULL) )
+         as.logical(verbose),
+         PACKAGE="Kmisc" ) )
   
 }
