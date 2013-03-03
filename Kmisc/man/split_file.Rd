@@ -40,5 +40,10 @@
   large to fit into RAM. By splitting the file into
   multiple, smaller files, we hope that each file,
   post-splitting, is now small enough to fit into RAM.
+
+  The focus is on efficient splitting of 'well-mannered'
+  files, so if you have comments, quoted delimiters, cell
+  entries that have paragraphs of unicode text, or other
+  wacky things this is probably not the function for you.
 }
 

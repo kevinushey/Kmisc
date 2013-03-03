@@ -9,6 +9,10 @@
 #' file into multiple, smaller files, we hope that each file, post-splitting,
 #' is now small enough to fit into RAM.
 #' 
+#' The focus is on efficient splitting of 'well-mannered' files, so if you
+#' have comments, quoted delimiters, cell entries that have paragraphs of 
+#' unicode text, or other wacky things this is probably not the function for you.
+#' 
 #' @param file The location of the file we are splitting.
 #' @param column The column (by index) to split over.
 #' @param sep The file separator. Must be a single character.
