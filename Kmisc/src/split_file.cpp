@@ -18,6 +18,7 @@ inline std::string get_item( std::string& line, const char* delim, int column ) 
 		counter++;
 	}
 	stop( "get_line is broken" );
+	return( "get_line is broken" );
 }
 
 inline bool in( std::string& elem, std::map<std::string, std::ofstream*>& x ) {
@@ -85,7 +86,7 @@ void split_file( std::string path,
 			*files[col_item] << line << std::endl;
 
 			// write out the counter?
-			if( verbose & counter % 100000 == 0 ) {
+			if( verbose && counter % 100000 == 0 ) {
 				counter++;
 				Rcout << "line: " << counter << std::endl;
 			}

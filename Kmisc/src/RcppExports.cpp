@@ -5,6 +5,20 @@
 
 using namespace Rcpp;
 
+// extract_rows_from_file
+void extract_rows_from_file(std::string input_file_name, std::string output_file_name, std::string delim, std::vector< std::string > items_to_keep, int column_to_check);
+RcppExport SEXP Kmisc_extract_rows_from_file(SEXP input_file_nameSEXP, SEXP output_file_nameSEXP, SEXP delimSEXP, SEXP items_to_keepSEXP, SEXP column_to_checkSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    std::string input_file_name = Rcpp::as<std::string >(input_file_nameSEXP);
+    std::string output_file_name = Rcpp::as<std::string >(output_file_nameSEXP);
+    std::string delim = Rcpp::as<std::string >(delimSEXP);
+    std::vector< std::string > items_to_keep = Rcpp::as<std::vector< std::string > >(items_to_keepSEXP);
+    int column_to_check = Rcpp::as<int >(column_to_checkSEXP);
+    extract_rows_from_file(input_file_name, output_file_name, delim, items_to_keep, column_to_check);
+    return R_NilValue;
+END_RCPP
+}
 // fast_factor
 SEXP fast_factor(SEXP x);
 RcppExport SEXP Kmisc_fast_factor(SEXP xSEXP) {
