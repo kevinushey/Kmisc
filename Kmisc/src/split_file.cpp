@@ -93,9 +93,10 @@ void split_file(
 
 			// write out the counter?
 			if( verbose && (counter % 100000 == 0) ) {
-				counter++;
 				Rcout << "line: " << counter << std::endl;
 			}
+
+			counter++;
 
 		}
 
