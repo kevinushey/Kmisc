@@ -30,7 +30,8 @@ inline bool in( std::string& elem, std::map<std::string, std::ofstream*>& x ) {
 }
 
 // [[Rcpp::export]]
-void split_file( std::string path,
+void split_file(
+		std::string path,
 		std::string dir,
 		std::string basename,
 		std::string path_sep,
@@ -91,7 +92,7 @@ void split_file( std::string path,
 			// *files[col_item] << line << std::endl;
 
 			// write out the counter?
-			if( verbose && counter % 100000 == 0 ) {
+			if( verbose && (counter % 100000 == 0) ) {
 				counter++;
 				Rcout << "line: " << counter << std::endl;
 			}
