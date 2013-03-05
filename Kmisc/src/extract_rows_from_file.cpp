@@ -41,28 +41,28 @@ void extract_rows_from_file(
 
 	std::ifstream conn;
 	conn.open( input_file_name.c_str() );
-  
+
 	std::ofstream out_conn( output_file_name.c_str() );
-  
-  if( !out_conn.is_open() ) {
-    stop("Couldn't open the output file!");
-  }
+
+	if( !out_conn.is_open() ) {
+		stop("Couldn't open the output file!");
+	}
 
 	if( conn.is_open() ) {
-    // Rcout << "Successfully opened file." << std::endl;
+		// Rcout << "Successfully opened file." << std::endl;
 		while( std::getline(conn, line) ) {
 
 			// copy the string
 			line_copy = line.c_str();
 			item_to_check = get_item( line_copy, delim, column_to_check );
-      // Rcout << "The item we're checking is: " << item_to_check << std::endl;
+			// Rcout << "The item we're checking is: " << item_to_check << std::endl;
 			if( in( item_to_check, items_to_keep ) ) {
-        // Rcout << "Copying line" << std::endl;
+				// Rcout << "Copying line" << std::endl;
 				out_conn << line << std::endl;
 			}
 		}
 	} else {
-    stop("Couldn't open File!\nInput file path: " + input_file_name);
+		stop("Couldn't open File!\nInput file path: " + input_file_name);
 	}
 
 	conn.close();
