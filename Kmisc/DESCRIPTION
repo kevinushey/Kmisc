@@ -53,3 +53,4 @@ Collate:
     'fast_factor.R'
     'split_file.R'
     'extract_rows_from_file.R'
+    'awk.R'

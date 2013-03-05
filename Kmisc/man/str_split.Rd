@@ -16,7 +16,7 @@
   priority over \code{perl}.}
 
   \item{perl}{logical. Should perl-compatible regexps be
-  used?}
+  used? Ignored when \code{fixed} is \code{TRUE}.}
 
   \item{useBytes}{logical. If \code{TRUE}, matching is done
   byte-by-byte rather than character-by-character.}

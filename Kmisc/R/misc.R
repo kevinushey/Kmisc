@@ -376,7 +376,8 @@ cat.cb <- function( dat, ... ) {
 #' @param sep the delimiter / \code{\link{regex}} you wish to split your strings on.
 #' @param fixed logical. If \code{TRUE}, we match \code{sep} exactly; 
 #' otherwise, we use regular expressions. Has priority over \code{perl}.
-#' @param perl logical. Should perl-compatible regexps be used?
+#' @param perl logical. Should perl-compatible regexps be used? Ignored when
+#' \code{fixed} is \code{TRUE}.
 #' @param useBytes logical. If \code{TRUE}, matching is done byte-by-byte rather than
 #' character-by-character.
 #' @param names optional: a vector of names to pass to the returned \code{data.frame}.
@@ -391,6 +392,10 @@ cat.cb <- function( dat, ... ) {
 #' x <- c("somewhat_different.structure", "in_this.guy")
 #' str_split( x, "[_\\.]", names=c("first", "second", "third") )
 str_split <- function(x, sep, fixed=FALSE, perl=TRUE, useBytes=FALSE, names=NULL) {
+  
+  if( fixed ) {
+    perl <- FALSE
+  }
   
   x <- as.character(x)
   tmp <- strsplit( x, sep, fixed=fixed, perl=perl, useBytes=useBytes )

@@ -12,7 +12,7 @@ write.table( dat,
              )
 
 extract_rows_from_file( tmp, out, column=2, sep="\t", keep="a" )
-dat_sub <- read.table( out, header=FALSE, as.is=TRUE )
+dat_sub <- read.table( out, sep="\t", header=FALSE, as.is=TRUE )
 names(dat_sub) <- c("x", "y")
 
 expect_true( all.equal( dat_sub, dat[ dat$y == "a", ] ) )

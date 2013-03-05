@@ -38,11 +38,13 @@ void extract_rows_from_file(
 	std::string line;
 	std::string line_copy;
 	std::string item_to_check;
+	std::string end_line = "\n";
 
 	std::ifstream conn;
 	conn.open( input_file_name.c_str() );
 
 	std::ofstream out_conn( output_file_name.c_str() );
+	std::ostreambuf_iterator<char> out_itr( out_conn );
 
 	if( !out_conn.is_open() ) {
 		stop("Couldn't open the output file!");
@@ -58,7 +60,8 @@ void extract_rows_from_file(
 			// Rcout << "The item we're checking is: " << item_to_check << std::endl;
 			if( in( item_to_check, items_to_keep ) ) {
 				// Rcout << "Copying line" << std::endl;
-				out_conn << line << std::endl;
+				std::copy( line.begin(), line.end(), out_itr );
+				std::copy( end_line.begin(), end_line.end(), out_itr );
 			}
 		}
 	} else {

@@ -42,7 +42,9 @@ void split_file( std::string path,
 
 	// space for a line, and a file map
 	std::string line;
+	std::string end_line = "\n";
 	std::map< std::string, std::ofstream* > files;
+	std::map< std::string, std::ostreambuf_iterator<char>* > file_itrs;
 	const char* delim = sep.c_str();
 
 	// input file connections
@@ -52,15 +54,15 @@ void split_file( std::string path,
 	int counter = 0;
 
 	if( conn.is_open() ) {
-    
-    // skip lines
+
+		// skip lines
 		if( skip > 0 ) {
 			for( int i=0; i < skip; i++ ) {
 				std::getline( conn, line );
 			}
 		}
 
-    while( std::getline( conn, line ) ) {
+		while( std::getline( conn, line ) ) {
 
 			// make sure that the line is not empty
 			// if( line == "" ) {
@@ -80,10 +82,13 @@ void split_file( std::string path,
 				}
 				std::string file_path =  dir + path_sep + basename + "_" + col_item + file_ext;
 				files[col_item] = new std::ofstream( file_path.c_str() );
+				file_itrs[col_item] = new std::ostreambuf_iterator<char>( *files[col_item] );
 			}
 
 			// write the line to the appropriate ofstream
-			*files[col_item] << line << std::endl;
+			copy( line.begin(), line.end(), *file_itrs[col_item] );
+			copy( end_line.begin(), end_line.end(), *file_itrs[col_item] );
+			// *files[col_item] << line << std::endl;
 
 			// write out the counter?
 			if( verbose && counter % 100000 == 0 ) {
@@ -96,11 +101,17 @@ void split_file( std::string path,
 	}
 
 	// close the other file connections
-  typedef std::map<std::string, std::ofstream*>::iterator MItr;
+	typedef std::map<std::string, std::ofstream*>::iterator MItr;
 	for( MItr it = files.begin(); it != files.end(); it++ ) {
 		it->second->close();
 		delete it->second;
 	}
 	files.clear();
+
+	typedef std::map<std::string, std::ostreambuf_iterator<char>*>::iterator NItr;
+	for( NItr it = file_itrs.begin(); it != file_itrs.end(); it++ ) {
+		delete it->second;
+	}
+	file_itrs.clear();
 
 }
