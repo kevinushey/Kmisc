@@ -40,7 +40,7 @@ void extract_rows_from_file(
 	std::string item_to_check;
 
 	std::ifstream conn;
-	conn.open( input_file_name.c_str() );
+	conn.open( input_file_name.c_str(), std::ios_base::binary );
 
 	std::ofstream out_conn( output_file_name.c_str() );
 	std::ostreambuf_iterator<char> out_itr( out_conn );

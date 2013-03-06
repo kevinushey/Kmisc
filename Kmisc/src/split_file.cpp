@@ -49,7 +49,7 @@ void split_file(
 
 	// input file connections
 	std::ifstream conn;
-	conn.open( path.c_str() );
+	conn.open( path.c_str(), std::ios_base::binary );
 
 	int counter = 0;
 
