@@ -43,7 +43,6 @@ void split_file(
 
 	// space for a line, and a file map
 	std::string line;
-	std::string end_line = "\n";
 	std::map< std::string, std::ofstream* > files;
 	std::map< std::string, std::ostreambuf_iterator<char>* > file_itrs;
 	const char* delim = sep.c_str();
@@ -88,7 +87,7 @@ void split_file(
 
 			// write the line to the appropriate ofstream
 			copy( line.begin(), line.end(), *file_itrs[col_item] );
-			copy( end_line.begin(), end_line.end(), *file_itrs[col_item] );
+			*file_itrs[col_item] = '\n';
 			// *files[col_item] << line << std::endl;
 
 			// write out the counter?

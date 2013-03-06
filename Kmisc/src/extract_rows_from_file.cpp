@@ -38,7 +38,6 @@ void extract_rows_from_file(
 	std::string line;
 	std::string line_copy;
 	std::string item_to_check;
-	std::string end_line = "\n";
 
 	std::ifstream conn;
 	conn.open( input_file_name.c_str() );
@@ -61,7 +60,7 @@ void extract_rows_from_file(
 			if( in( item_to_check, items_to_keep ) ) {
 				// Rcout << "Copying line" << std::endl;
 				std::copy( line.begin(), line.end(), out_itr );
-				std::copy( end_line.begin(), end_line.end(), out_itr );
+				out_itr = '\n';
 			}
 		}
 	} else {
