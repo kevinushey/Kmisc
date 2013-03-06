@@ -8,7 +8,7 @@ inline std::string get_item( std::string& line, std::string& delim, int column )
 	char* line_cast = const_cast<char*>( line.c_str() );
 	const char* pch = strtok(line_cast, delim.c_str());
 	int counter = 0;
-	while( true ) {
+	while( pch != NULL ) {
 		if( counter == column-1 ) {
 			return( std::string(pch) );
 		}
