@@ -5,7 +5,7 @@
 
 using namespace Rcpp;
 
-inline std::string get_item( std::string& line, const char* delim, int column ) {
+std::string get_item( std::string& line, const char* delim, const int column ) {
 
 	char* line_cast = const_cast<char*>( line.c_str() );
 	const char* pch = strtok(line_cast, delim);
@@ -15,17 +15,24 @@ inline std::string get_item( std::string& line, const char* delim, int column ) 
 			return( std::string(pch) );
 		}
 		pch = strtok(NULL, delim);
-		counter++;
+		++counter;
 	}
 	stop( "get_line is broken" );
 	return( "get_line is broken" );
 }
 
-inline bool in( std::string& elem, std::map<std::string, std::ofstream*>& x ) {
+inline bool in( const std::string& elem, const std::map<std::string, std::ofstream*>& x ) {
 	if( x.find(elem) == x.end() ) {
 		return false;
 	} else {
 		return true;
+	}
+}
+
+inline void print_counter( int& counter, const bool& verbose ) {
+	if( verbose ) {
+		Rcout << "i = " << counter << std::endl;
+		++counter;
 	}
 }
 
@@ -57,7 +64,7 @@ void split_file(
 
 		// skip lines
 		if( skip > 0 ) {
-			for( int i=0; i < skip; i++ ) {
+			for( int i=0; i < skip; ++i ) {
 				std::getline( conn, line );
 			}
 		}
@@ -91,11 +98,7 @@ void split_file(
 			// *files[col_item] << line << std::endl;
 
 			// write out the counter?
-			if( verbose && (counter % 100000 == 0) ) {
-				Rcout << "line: " << counter << std::endl;
-			}
-
-			counter++;
+			print_counter(counter, verbose);
 
 		}
 
@@ -103,14 +106,14 @@ void split_file(
 
 	// close the other file connections
 	typedef std::map<std::string, std::ofstream*>::iterator MItr;
-	for( MItr it = files.begin(); it != files.end(); it++ ) {
+	for( MItr it = files.begin(); it != files.end(); ++it ) {
 		it->second->close();
 		delete it->second;
 	}
 	files.clear();
 
 	typedef std::map<std::string, std::ostreambuf_iterator<char>*>::iterator NItr;
-	for( NItr it = file_itrs.begin(); it != file_itrs.end(); it++ ) {
+	for( NItr it = file_itrs.begin(); it != file_itrs.end(); ++it ) {
 		delete it->second;
 	}
 	file_itrs.clear();

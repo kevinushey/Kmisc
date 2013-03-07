@@ -3,7 +3,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-inline std::string get_item( std::string& line, std::string& delim, int column ) {
+std::string get_item( std::string& line, std::string& delim, int column ) {
 
 	char* line_cast = const_cast<char*>( line.c_str() );
 	const char* pch = strtok(line_cast, delim.c_str());
@@ -13,7 +13,7 @@ inline std::string get_item( std::string& line, std::string& delim, int column )
 			return( std::string(pch) );
 		}
 		pch = strtok(NULL, delim.c_str());
-		counter++;
+		++counter;
 	}
 	stop( "get_line is broken" );
 	return( "get_line is broken" );
@@ -39,9 +39,7 @@ void extract_rows_from_file(
 	std::string line_copy;
 	std::string item_to_check;
 
-	std::ifstream conn;
-	conn.open( input_file_name.c_str(), std::ios_base::binary );
-
+	std::ifstream conn( input_file_name.c_str(), std::ios_base::binary );
 	std::ofstream out_conn( output_file_name.c_str() );
 	std::ostreambuf_iterator<char> out_itr( out_conn );
 

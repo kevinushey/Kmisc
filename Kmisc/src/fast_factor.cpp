@@ -12,7 +12,7 @@ IntegerVector fast_factor_template( const Vector<RTYPE>& x ) {
     
     out = out - 1;
     // we replace all 0's with NAs in the output
-    for( IntegerVector::iterator it = out.begin(); it != out.end(); it++ ) {
+    for( IntegerVector::iterator it = out.begin(); it != out.end(); ++it ) {
       if( (*it) == 0 ) {
         (*it) = NA_INTEGER;
       }
@@ -41,4 +41,5 @@ SEXP fast_factor( SEXP x ) {
     case LGLSXP: return fast_factor_template<INTSXP>( x );
   }
   stop("fast_factor not implemented for this object type");
+  return R_NilValue;
 }

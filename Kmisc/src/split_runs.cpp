@@ -12,7 +12,7 @@ List split_runs_numeric( NumericVector X ) {
   // initial stuff
   curr_nums.push_back( X[0] );
   
-  for( NumericVector::iterator it = X.begin()+1; it != X.end(); it++ ) {
+  for( NumericVector::iterator it = X.begin()+1; it != X.end(); ++it ) {
     if( (*it) != (*(it-1)) ) {
       all_nums.push_back( curr_nums );
       curr_nums.clear();
@@ -38,7 +38,7 @@ List split_runs_character( std::vector< std::string > X ) {
   // initial stuff
   curr_nums.push_back( X[0] );
   
-  for( std::vector< std::string >::iterator it = X.begin() + 1; it != X.end(); it++ ) {
+  for( std::vector< std::string >::iterator it = X.begin() + 1; it != X.end(); ++it ) {
     if( *it != *(it-1) ) {
       all_nums.push_back( curr_nums );
       curr_nums.clear();
@@ -63,7 +63,7 @@ List split_runs_one( std::string x ) {
   std::string curr_str;
   curr_str.append( x, 0, 1 );
   
-  for( std::string::const_iterator it = x.begin()+1; it != x.end(); it++ ) {
+  for( std::string::const_iterator it = x.begin()+1; it != x.end(); ++it ) {
     if( *it != *(it-1) ) {
       out.push_back( curr_str );
       curr_str.erase();

@@ -8,7 +8,7 @@ SEXP str_rev( SEXP x ) {
   PROTECT( out = allocVector( STRSXP, len ) );
   
   // Loop through each string
-  for( int i=0; i < len; i++ ) {
+  for( int i=0; i < len; ++i ) {
     
     // Get the current element of the string
     int len_elt = Rf_length( STRING_ELT(x, i) );
@@ -18,7 +18,7 @@ SEXP str_rev( SEXP x ) {
     char* elt_rev = R_alloc( len_elt+1, sizeof(char) );
     
     // Reverse 'elt'
-    for( int j=0; j < len_elt; j++ ) {
+    for( int j=0; j < len_elt; ++j ) {
       elt_rev[j] = element[ len_elt - j - 1];
     }
     
