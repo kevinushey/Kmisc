@@ -125,7 +125,7 @@ List stack_list_df( List& X,
       for( int j=0; j < ::Rf_length( tmp[0] ); ++j ) {
         list_indices.push_back(counter);
       }
-      counter++;
+      ++counter;
     }
     out["index"] = wrap( list_indices );
   }
