@@ -34,13 +34,13 @@ melt_ <- function(data, id.vars) {
   }
   
   ## coerce factors to characters
-  if( any( unlist( lapply( data, is.factor ) ) ) ) {
+  if( any( sapply( data, is.factor ) ) ) {
     warning("factors coerced to characters")
     data <- factor_to_char(data)
   }
   
   ## check and coerce the types of the measure.vars
-  types <- unlist( lapply( data[measure.vars], typeof ) )
+  types <- sapply( data[measure.vars], typeof )
   if( length( unique( types ) ) > 1 ) {
     if( "character" %in% types ) {
       warning("Coercing types of measure vars to 'character'")
