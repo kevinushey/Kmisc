@@ -43,6 +43,7 @@ void split_file(
 		std::string basename,
 		std::string path_sep,
 		std::string sep,
+		std::string prepend,
 		std::string file_ext,
 		int column,
 		int skip,
@@ -87,7 +88,7 @@ void split_file(
 				if( verbose ) {
 					Rcout << "Opening new file for column entry: " << col_item << std::endl;
 				}
-				std::string file_path =  dir + path_sep + basename + "_" + col_item + file_ext;
+				std::string file_path =  dir + path_sep + basename + "_" + prepend + col_item + file_ext;
 				files[col_item] = new std::ofstream( file_path.c_str() );
 				file_itrs[col_item] = new std::ostreambuf_iterator<char>( *files[col_item] );
 			}

@@ -62,15 +62,13 @@ split_file <- function( file,
     prepend <- prepend[1]
   }
   
-  prepend <- as.character(prepend)
-  file_ext <- paste( prepend, file_ext, sep="" )
-  
   invisible( .Call( "Kmisc_split_file",
          as.character(file),
          as.character(outDir),
          as.character(file_name),
          .Platform$file.sep,
          as.character(sep),
+         as.character(prepend),
          as.character(file_ext),
          as.integer(column),
          as.integer(skip),
