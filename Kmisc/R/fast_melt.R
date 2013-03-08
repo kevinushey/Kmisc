@@ -1,11 +1,13 @@
 #' Melt a Data Frame
 #' 
-#' Inspired by \code{reshape2::melt.data.frame}, this function will melt a 
+#' Inspired by \code{reshape2:::melt.data.frame}, this function will melt a 
 #' \code{data.frame} for the special case in which we have \code{n}
 #' identification variables but only 1 value variable. This function
 #' is built for speed and can melt large \code{data.frame}s faster than
-#' \code{reshape2::melt}; however, the benefit is only seen for \code{data.frame}
-#' that are at least 1 million rows and larger.
+#' \code{reshape2:::melt}.
+#' 
+#' If items to be stacked are not of the same internal type, they will be
+#' promoted in the order \code{logical} -> \code{integer} -> \code{numeric} -> \code{character}.
 #' 
 #' @param data The \code{data.frame} to melt.
 #' @param id.vars Vector of id variables. Can be integer (variable index) or
@@ -29,6 +31,29 @@ melt_ <- function(data, id.vars) {
     measure.vars <- which( names(data) %nin% id.vars )
   } else {
     measure.vars <- which( 1:length(data) %nin% id.vars )
+  }
+  
+  ## coerce factors to characters
+  if( any( unlist( lapply( data, is.factor ) ) ) ) {
+    warning("factors coerced to characters")
+    data <- factor_to_char(data)
+  }
+  
+  ## check and coerce the types of the measure.vars
+  types <- unlist( lapply( data[measure.vars], typeof ) )
+  if( length( unique( types ) ) > 1 ) {
+    if( "character" %in% types ) {
+      warning("Coercing types of measure vars to 'character'")
+      data[measure.vars] <- lapply( data[measure.vars], as.character )
+    } else if( "double" %in% types ) {
+      warning("Coercing types of measure vars to 'numeric'")
+      data[measure.vars] <- lapply( data[measure.vars], as.numeric )
+    } else if( "integer" %in% types ) {
+      warning("Coercing types of measure vars to 'integer'")
+      data[measure.vars] <- lapply( data[measure.vars], as.integer )
+    } else {
+      stop("Unhandled type in the measure vars of your data")
+    }
   }
   
   out <- .Call("melt_dataframe",

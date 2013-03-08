@@ -21,5 +21,15 @@ for( i in 1:ncol(tmp1) ) {
 microbenchmark(
   melt( dat, c("x", "y") ),
   melt_( dat, c("x", "y") ),
-  times=5
+  times=1
 )
+
+dat$x <- as.factor( dat$x )
+expect_warning( tmp <- melt_(dat, c("x", "y")) )
+
+dat$zc <- as.integer( dat$zc )
+expect_warning( tmp <- melt_(dat, c("x", "y")) )
+dat$zb <- as.character( dat$zb )
+expect_warning( tmp <- melt_(dat, c("x", "y")) )
+dat$zb <- sample( c(TRUE, FALSE), nrow(dat), replace=TRUE )
+tmp <- melt_(dat, c("x", "y"))

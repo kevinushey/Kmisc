@@ -12,14 +12,17 @@
   not included here are assumed stackable.}
 }
 \description{
-  Inspired by \code{reshape2::melt.data.frame}, this
+  Inspired by \code{reshape2:::melt.data.frame}, this
   function will melt a \code{data.frame} for the special
   case in which we have \code{n} identification variables
   but only 1 value variable. This function is built for
   speed and can melt large \code{data.frame}s faster than
-  \code{reshape2::melt}; however, the benefit is only seen
-  for \code{data.frame} that are at least 1 million rows
-  and larger.
+  \code{reshape2:::melt}.
+}
+\details{
+  If items to be stacked are not of the same internal type,
+  they will be promoted in the order \code{logical} ->
+  \code{integer} -> \code{numeric} -> \code{character}.
 }
 \examples{
 n <- 20
