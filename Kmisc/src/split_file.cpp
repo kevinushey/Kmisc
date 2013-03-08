@@ -29,8 +29,8 @@ inline bool in( const std::string& elem, const std::map<std::string, std::ofstre
 	}
 }
 
-inline void print_counter( int& counter, const bool& verbose ) {
-	if( verbose ) {
+inline void print_counter( int& counter ) {
+	if ( (counter % 100000) == 0 ) {
 		Rcout << "i = " << counter << std::endl;
 		++counter;
 	}
@@ -98,7 +98,9 @@ void split_file(
 			// *files[col_item] << line << std::endl;
 
 			// write out the counter?
-			print_counter(counter, verbose);
+			if( verbose ) {
+				print_counter(counter);
+			}
 
 		}
 
