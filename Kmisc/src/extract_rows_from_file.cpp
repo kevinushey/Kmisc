@@ -20,6 +20,7 @@ std::string get_item( std::string& line, std::string& delim, int column ) {
 }
 
 inline bool in( std::string& item, std::vector< std::string >& list ) {
+
 	if( std::find( list.begin(), list.end(), item ) != list.end() ) {
 		return true;
 	} else {
@@ -28,7 +29,7 @@ inline bool in( std::string& item, std::vector< std::string >& list ) {
 }
 
 // [[Rcpp::export]]
-void extract_rows_from_file(
+void extract_rows_from_file_to_file(
 		std::string input_file_name,
 		std::string output_file_name,
 		std::string delim,
@@ -67,5 +68,41 @@ void extract_rows_from_file(
 
 	conn.close();
 	out_conn.close();
+
+}
+
+// [[Rcpp::export]]
+std::vector<std::string> extract_rows_from_file(
+		std::string input_file_name,
+		std::string delim,
+		std::vector< std::string > items_to_keep,
+		int column_to_check ) {
+
+	std::string line;
+	std::string line_copy;
+	std::string item_to_check;
+	std::vector<std::string> output;
+
+	std::ifstream conn( input_file_name.c_str(), std::ios_base::binary );
+
+	if( conn.is_open() ) {
+		// Rcout << "Successfully opened file." << std::endl;
+		while( std::getline(conn, line) ) {
+
+			// copy the string
+			line_copy = line.c_str();
+			item_to_check = get_item( line_copy, delim, column_to_check );
+			// Rcout << "The item we're checking is: " << item_to_check << std::endl;
+			if( in( item_to_check, items_to_keep ) ) {
+				// Rcout << "Copying line" << std::endl;
+				output.push_back(line);
+			}
+		}
+	} else {
+		stop("Couldn't open File!\nInput file path: " + input_file_name);
+	}
+
+	conn.close();
+	return output;
 
 }

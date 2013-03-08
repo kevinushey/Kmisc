@@ -2,12 +2,14 @@
 \alias{extract_rows_from_file}
 \title{Extract Rows from File}
 \usage{
-  extract_rows_from_file(file, out, column, sep, keep)
+  extract_rows_from_file(file, out = NULL, column, sep,
+    keep)
 }
 \arguments{
   \item{file}{The input file to extract rows from.}
 
-  \item{out}{The location to output the file.}
+  \item{out}{The location to output the file. If this is
+  \code{NULL}, we write to stdout.}
 
   \item{column}{The column to check, indexed from 1.}
 

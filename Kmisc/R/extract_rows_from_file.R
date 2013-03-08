@@ -5,7 +5,8 @@
 #' that line to file if it is.
 #' 
 #' @param file The input file to extract rows from.
-#' @param out The location to output the file.
+#' @param out The location to output the file. If this is \code{NULL}, we
+#' write to stdout.
 #' @param column The column to check, indexed from 1.
 #' @param sep The delimiter used in \code{file}. Must be a single character.
 #' @param keep A character vector containing all items that we want to check
@@ -13,7 +14,7 @@
 #' @export
 extract_rows_from_file <- function(
   file,
-  out,
+  out=NULL,
   column,
   sep,
   keep
@@ -27,7 +28,7 @@ extract_rows_from_file <- function(
     stop("No file exists at file location", normalizePath(file))
   }
   file <- normalizePath(file)
-  out <- suppressWarnings( normalizePath(out) )
+  if( !is.null(out) ) out <- suppressWarnings( normalizePath(out) )
   
   if( missing(column) ) {
     stop("You must specify an integer for 'column'")
@@ -41,16 +42,25 @@ extract_rows_from_file <- function(
     stop("'sep' must be a single character")
   }
   
-  if( length(out) > 1 ) {
+  if( !is.null(out) && length(out) > 1 ) {
     stop("'out' must be a character of length one")
   }
   
-  invisible( .Call( "Kmisc_extract_rows_from_file",
-                 as.character(file),
-                 as.character(out),
-                 as.character(sep),
-                 as.character(keep),
-                 as.integer(column)
-  ))
+  if( !is.null(out) ) {
+    invisible( .Call( "Kmisc_extract_rows_from_file_to_file",
+                      as.character(file),
+                      as.character(out),
+                      as.character(sep),
+                      as.character(keep),
+                      as.integer(column)
+    ) )
+  } else {
+    return( .Call( "Kmisc_extract_rows_from_file",
+                      as.character(file),
+                      as.character(sep),
+                      as.character(keep),
+                      as.integer(column)
+                      ) )
+  }
   
 }

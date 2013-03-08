@@ -22,3 +22,7 @@ dat_sub <- read.table( out, header=FALSE, as.is=TRUE )
 names(dat_sub) <- c("x", "y")
 
 expect_true( all.equal( dat_sub$x, dat$x[ dat$y %in% c("a", "e") ] ) )
+
+dat <- str_split( extract_rows_from_file( tmp, column=2, sep="\t", keep=c("a", "e") ),
+                  "\t" )
+expect_true( all( dat[,2] == dat_sub[,2] ) )
