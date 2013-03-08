@@ -55,3 +55,4 @@ Collate:
     'extract_rows_from_file.R'
     'awk.R'
     'fast_melt.R'
+    'chunk.R'
