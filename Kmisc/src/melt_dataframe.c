@@ -17,7 +17,7 @@ SEXP rep_each_char( SEXP x, int each ) {
 }
 
 #ifndef HANDLE_CASE
-#define HANDLE_CASE( __RTYPE__, __CTYPE__, __ACCESSOR__ ) \
+# define HANDLE_CASE( __RTYPE__, __CTYPE__, __ACCESSOR__ ) \
 case __RTYPE__: { \
 	PROTECT( out = Rf_allocVector( __RTYPE__, len*times ) ); \
 	__CTYPE__* ptr = __ACCESSOR__(x); \
@@ -56,10 +56,7 @@ SEXP stack_vector( SEXP x, int times ) {
 	Rf_error("Stacking not implemented for vector of this RTYPE");
 	return R_NilValue;
 }
-
-#endif HANDLE_CASE
-#ifdef HANDLE_CASE
-#undef HANDLE_CASE
+# undef HANDLE_CASE
 #endif
 
 SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
@@ -75,7 +72,7 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	SEXP value_SEXP;
 
 #ifndef HANDLE_CASE
-#define HANDLE_CASE( __RTYPE__, __CTYPE__, __ACCESSOR__ ) \
+# define HANDLE_CASE( __RTYPE__, __CTYPE__, __ACCESSOR__ ) \
 	case __RTYPE__: { \
 		PROTECT( value_SEXP = Rf_allocVector( __RTYPE__, value_len ) ); \
 		int counter = 0; \
@@ -112,8 +109,8 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	default:
 		Rf_error("Unsupported RTYPE encountered");
 	}
-#endif HANDLE_CASE
-#undef HANDLE_CASE
+# undef HANDLE_CASE
+# endif
 
 	// generate the id variables, and assign them on generation
 	for( int i=0; i < nColStack; ++i ) {
