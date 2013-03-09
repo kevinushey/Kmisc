@@ -22,8 +22,8 @@
 #' bwplot2( x ~ y , dat)
 bwplot2 <- function( form, 
                      data=NULL, 
-                     xlab = NULL, 
-                     ylab = NULL, 
+                     xlab=NULL, 
+                     ylab=NULL, 
                      main=NULL, 
                      n=10, 
                      ... ) {
@@ -43,19 +43,21 @@ bwplot2 <- function( form,
     ylab <- gsub( ".*\\$", "", terms[1] )
   }
   
-  if( is.null(data) ) {
-    data <- gsub( "\\$.*", "", terms[1] )
-    data <- get(data)
-  }
-  
   xterm <- gsub( ".*\\$", "", terms[2] )
   yterm <- gsub( ".*\\$", "", terms[1] )
   zterm <- gsub( ".*\\$", "", terms[3] )
   
-  tDat <- data.frame(
-    y = data[[yterm]],
-    x = data[[xterm]]
-  )
+  if( is.null(data) ) {
+    tDat <- data.frame(
+      y = eval( form[[2]] ),
+      x = eval( form[[3]] )
+    )
+  } else {
+    tDat <- data.frame(
+      y = data[[yterm]],
+      x = data[[xterm]]
+    )
+  }
   
   if( !is.na(zterm) ) tDat$z <- data[[zterm]]
   
@@ -94,7 +96,6 @@ bwplot2 <- function( form,
                panel.bwplot(bDat$x, bDat$y, fill="lavender", pch = "|", ...)
                
                ## plot only the values for which we have <n points
-               
                cDat$x[ cDat$num > n ] <- NA
                
                panel.stripplot(cDat$x, cDat$y, 
