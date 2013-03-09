@@ -1,6 +1,7 @@
 <!--
 %\VignetteEngine{knitr}
 %\VignetteIndexEntry{Introduction to Kmisc}
+\usepackage[utf8]{inputenc}
 -->
 
 <link rel="stylesheet" href="markdown.css">
@@ -14,7 +15,16 @@ a bit easier. Some of the most useful functions in the package are shown here.
 
 ```r
 set.seed(123)
-suppressPackageStartupMessages( library(Kmisc) )
+library(Kmisc)
+```
+
+```
+## Loading required package: Rcpp
+```
+
+```r
+library(lattice)
+library(grid)
 dat <- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
 ```
 
@@ -36,7 +46,6 @@ dat[ !(names(dat) %in% c('x', 'z')) ]
 ```
 
 ```r
-
 ## I always find that syntax awkward. Let's use Kmisc::without instead.
 without( dat, x, z )
 ```
@@ -50,7 +59,6 @@ without( dat, x, z )
 ```
 
 ```r
-
 ## what if there is a variable 'x' in the global environment?
 x <- "a"
 without( dat, x, z )
@@ -304,7 +312,7 @@ system.time( stack_list(dfs) )
 
 ```
 ##    user  system elapsed 
-##    0.02    0.00    0.02
+##   0.007   0.000   0.007
 ```
 
 ```r
@@ -313,7 +321,7 @@ system.time( do.call(rbind, dfs) )
 
 ```
 ##    user  system elapsed 
-##    0.23    0.00    0.24
+##   0.274   0.008   0.281
 ```
 
 
@@ -335,6 +343,14 @@ str_rev( c("ABC", "DEF", NA, paste(LETTERS, collapse="") ) )
 ```
 ## [1] "CBA"                        "FED"                       
 ## [3] NA                           "ZYXWVUTSRQPONMLKJIHGFEDCBA"
+```
+
+```r
+str_rev2( c("はひふへほ", "abcdef") )
+```
+
+```
+## [1] "ほへふひは" "fedcba"
 ```
 
 
@@ -359,6 +375,15 @@ str_slice( c("ABCDEF", "GHIJKL", "MNOP", "QR"), 2 )
 ## [1] "QR"
 ```
 
+```r
+str_slice2( "ハッピー", 2 )
+```
+
+```
+## [[1]]
+## [1] "ハッ" "ピー"
+```
+
 
 `str_sort`: sort a string.
 
@@ -371,11 +396,193 @@ str_sort("asnoighewgypfuiweb")
 ```
 
 
+File I/O
+-----
+
+Sometimes, you get really large data files that just aren't going to fit into
+RAM. You really wish you could split them up in a structured way, transform
+them in some way, and then put them back together. One might consider a more
+'enterprise' edition of the split-apply-combine framework (Hadoop and friends),
+but the alternative is to use C++ to munge through a text file and pull out
+things that we actually want.
+
+`split_file`: This function splits a delimited file into multiple files, according to
+unique entries in a chosen column.
+
+`extract_rows_from_file`: From a delimited text file, extract only the rows for
+which the entries in a particular column match some set of items that you
+wish to keep.
+
+C++ Function Generators
+-----
+
+These functions wrap around generated source code to produce useful, fast
+functions very quickly.
+
+`Rcpp_tapply_generator`: See the example.
+
+```r
+dat <- data.frame( y=rnorm(100), x=sample(letters[1:5], 100, TRUE) )
+tMean <- Rcpp_tapply_generator("return mean(x);")
+```
+
+```
+## C++ source code will be written to /var/folders/m7/_xnnz_b53kjgggkb1drc1f8c0000gn/T//RtmpFnGqLp/file44d2360cbe17.cpp .
+## Compiling...
+## Done!
+```
+
+```r
+with( dat, tMean(y, x) )
+```
+
+```
+##      a      b      c      d      e 
+## 0.3928 0.1372 0.1822 0.2425 0.4269
+```
+
+```r
+with( dat, tapply(y, x, mean) )
+```
+
+```
+##      a      b      c      d      e 
+## 0.3928 0.1372 0.1822 0.2425 0.4269
+```
+
+
+`Rcpp_apply_generator`: An apply function generator tailored to 2D matrices.
+
+```r
+aMean <- Rcpp_apply_generator("return mean(x);")
+```
+
+```
+## C++ source code will be written to /var/folders/m7/_xnnz_b53kjgggkb1drc1f8c0000gn/T//RtmpFnGqLp/file44d22366379b.cpp .
+## Compiling...
+## Done!
+```
+
+```r
+mat <- matrix( rnorm(100), nrow=10 )
+aMean(mat, 2)
+```
+
+```
+##  [1] -0.565927 -0.759320 -0.420093  0.056437  0.303959 -0.456341  0.295674
+##  [8] -0.006245 -0.690274 -0.529645
+```
+
+```r
+apply(mat, 2, mean)
+```
+
+```
+##  [1] -0.565927 -0.759320 -0.420093  0.056437  0.303959 -0.456341  0.295674
+##  [8] -0.006245 -0.690274 -0.529645
+```
+
+
+Faster Common Operations through C and C++
+-----
+
+`tapply_`: This function operates like `tapply` but works faster through a 
+faster factor generating function, as well as an optimized split. Note that
+it is however restricted to the (common) case of your value and grouping
+variables being column vectors.
+
+```r
+library(microbenchmark)
+y <- rnorm(1000); x <- sample(letters[1:5], 1000, TRUE)
+tapply(y, x, mean)
+```
+
+```
+##        a        b        c        d        e 
+## -0.02844  0.02682  0.04725  0.03514 -0.04972
+```
+
+```r
+tapply_(y, x, mean)
+```
+
+```
+##        a        b        c        d        e 
+## -0.02844  0.02682  0.04725  0.03514 -0.04972
+```
+
+```r
+microbenchmark(
+  tapply(y, x, mean),
+  tapply_(y, x, mean),
+  tMean(y, x)
+  )
+```
+
+```
+## Unit: microseconds
+##                  expr    min     lq median     uq    max
+## 1 tapply_(y, x, mean)  75.31  78.10  79.93  82.19 1083.3
+## 2  tapply(y, x, mean) 449.23 457.49 464.52 478.92 1448.0
+## 3         tMean(y, x)  64.84  67.49  69.72  72.23  116.8
+```
+
+
+`melt_`: This function operates like `reshape2:::melt`, but works almost
+entirely through the R API and hence is much faster. However, we're limited
+to stacking only one final 'value' vector.
+
+```r
+dat <- data.frame(
+  id=LETTERS[1:5],
+  x1=rnorm(5),
+  x2=rnorm(5),
+  x3=rnorm(5)
+)
+print(dat)
+```
+
+```
+##   id       x1      x2      x3
+## 1  A -1.68462 -1.6016 -0.1789
+## 2  B  0.07443  1.3885 -2.6993
+## 3  C  0.68199  0.5719 -0.1031
+## 4  D  0.30652  1.0557 -1.6084
+## 5  E  0.80863  0.8882 -0.1994
+```
+
+```r
+melt_(dat, id.vars="id")
+```
+
+```
+## Warning: factors coerced to characters
+```
+
+```
+##    id names    value
+## 1   A    x1 -1.68462
+## 2   B    x1  0.07443
+## 3   C    x1  0.68199
+## 4   D    x1  0.30652
+## 5   E    x1  0.80863
+## 6   A    x2 -1.60164
+## 7   B    x2  1.38850
+## 8   C    x2  0.57186
+## 9   D    x2  1.05565
+## 10  E    x2  0.88817
+## 11  A    x3 -0.17885
+## 12  B    x3 -2.69932
+## 13  C    x3 -0.10313
+## 14  D    x3 -1.60841
+## 15  E    x3 -0.19938
+```
+
 The cool R Markdown / HTML Stuff
 -----
 
-The real point of releasing this package is due to the HTML helper functions
-I've made. I've found them especially useful in laying out R Markdown documents,
+Next, a set of helper HTML generating functions.
+I've found them especially useful in laying out R Markdown documents,
 and also controlling more finely CSS styling and such.
 
 `makeHTMLTable`: Converts a `data.frame` or `matrix` into an HTML table.
@@ -402,7 +609,7 @@ y <- factor( rbinom(100, 3, 0.3) )
 p1t( kTable( x, top.left.cell="foo" ) )
 ```
 
-<table class='oneDtable' ><tr><td >foo</td><td >Count (%)</td></tr><tr><td >0</td><td >61 (61.0%)</td></tr><tr><td >1</td><td >36 (36.0%)</td></tr><tr><td >2</td><td > 3 (3.00%)</td></tr><tr><td >Total</td><td >100</td></tr></table> 
+<table class='oneDtable' ><tr><td >foo</td><td >Count (%)</td></tr><tr><td >0</td><td >72 (72.0%)</td></tr><tr><td >1</td><td >24 (24.0%)</td></tr><tr><td >2</td><td > 4 (4.00%)</td></tr><tr><td >Total</td><td >100</td></tr></table> 
 
 ```r
 pxt( kTable(x, y, 
@@ -412,7 +619,7 @@ pxt( kTable(x, y,
             ) )
 ```
 
-<table class='twoDtable' ><tr><td colspan=2 rowspan=2 >foo</td><td colspan=4 >bar</td><td ></td></tr><tr><td >0</td><td >1</td><td >2</td><td >3</td><td >Total</td></tr><tr><td rowspan=3 >baz</td><td >0</td><td >17 (58.6%)</td><td >25 (59.5%)</td><td >17 (65.3%)</td><td >2 (66.6%)</td><td >61</td></tr><tr><td >1</td><td >10 (34.4%)</td><td >16 (38.0%)</td><td > 9 (34.6%)</td><td >1 (33.3%)</td><td >36</td></tr><tr><td >2</td><td > 2 (6.89%)</td><td > 1 (2.38%)</td><td > 0 (0.00%)</td><td >0 (0.00%)</td><td >3</td></tr><tr><td ></td><td >Total</td><td >29</td><td >42</td><td >26</td><td >3</td><td >100</td></tr></table> 
+<table class='twoDtable' ><tr><td colspan=2 rowspan=2 >foo</td><td colspan=4 >bar</td><td ></td></tr><tr><td >0</td><td >1</td><td >2</td><td >3</td><td >Total</td></tr><tr><td rowspan=3 >baz</td><td >0</td><td >23 (79.3%)</td><td >37 (75.5%)</td><td >9 (52.9%)</td><td >3 (60.0%)</td><td >72</td></tr><tr><td >1</td><td > 5 (17.2%)</td><td >10 (20.4%)</td><td >7 (41.1%)</td><td >2 (40.0%)</td><td >24</td></tr><tr><td >2</td><td > 1 (3.44%)</td><td > 2 (4.08%)</td><td >1 (5.88%)</td><td >0 (0.00%)</td><td >4</td></tr><tr><td ></td><td >Total</td><td >29</td><td >49</td><td >17</td><td >5</td><td >100</td></tr></table> 
 
 
 `kTable` with `google=TRUE`: Generate a 1D table output with the `googleVis`
@@ -425,8 +632,8 @@ tmp <- gvisTable( kTable(x, google=TRUE) )
 cat( tmp$html$chart )
 ```
 
-<!-- Table generated in R 2.15.2 by googleVis 0.3.3 package -->
-<!-- Thu Feb 21 08:48:03 2013 -->
+<!-- Table generated in R 2.15.3 by googleVis 0.3.3 package -->
+<!-- Sat Mar  9 14:00:31 2013 -->
 
 
 <!-- jsHeader -->
@@ -435,22 +642,22 @@ cat( tmp$html$chart )
 <script type="text/javascript">
  
 // jsData 
-function gvisDataTableID173c7480784b ()
+function gvisDataTableID44d22c0d7d10 ()
 {
   var data = new google.visualization.DataTable();
   var datajson =
 [
  [
  "0",
-"61 (61.0%)" 
+"72 (72.0%)" 
 ],
 [
  "1",
-"36 (36.0%)" 
+"24 (24.0%)" 
 ],
 [
  "2",
-" 3 (3.00%)" 
+" 4 (4.00%)" 
 ],
 [
  "Total",
@@ -464,13 +671,13 @@ return(data);
 }
  
 // jsDrawChart
-function drawChartTableID173c7480784b() {
-  var data = gvisDataTableID173c7480784b();
+function drawChartTableID44d22c0d7d10() {
+  var data = gvisDataTableID44d22c0d7d10();
   var options = {};
 options["allowHtml"] = true;
 
      var chart = new google.visualization.Table(
-       document.getElementById('TableID173c7480784b')
+       document.getElementById('TableID44d22c0d7d10')
      );
      chart.draw(data,options);
     
@@ -479,14 +686,14 @@ options["allowHtml"] = true;
   
  
 // jsDisplayChart 
-function displayChartTableID173c7480784b()
+function displayChartTableID44d22c0d7d10()
 {
   google.load("visualization", "1", { packages:["table"] }); 
-  google.setOnLoadCallback(drawChartTableID173c7480784b);
+  google.setOnLoadCallback(drawChartTableID44d22c0d7d10);
 }
  
 // jsChart 
-displayChartTableID173c7480784b()
+displayChartTableID44d22c0d7d10()
  
 <!-- jsFooter -->  
 //-->
@@ -494,7 +701,7 @@ displayChartTableID173c7480784b()
  
 <!-- divChart -->
   
-<div id="TableID173c7480784b"
+<div id="TableID44d22c0d7d10"
   style="width: 600px; height: 500px;">
 </div>
 
@@ -543,11 +750,11 @@ coef( summary( myFit ) )
 
 ```
 ##             Estimate Std. Error t value  Pr(>|t|)
-## (Intercept)  0.55452    0.05728  9.6815 7.920e-16
-## x            1.03122    0.02855 36.1191 2.714e-57
-## zb          -0.21696    0.07961 -2.7255 7.645e-03
-## zc           0.02635    0.07999  0.3294 7.426e-01
-## zd           0.01673    0.07935  0.2109 8.335e-01
+## (Intercept)  0.56425    0.06421  8.7870 6.453e-14
+## x            0.99799    0.02905 34.3554 2.258e-55
+## zb          -0.05407    0.09057 -0.5969 5.520e-01
+## zc           0.03466    0.09080  0.3817 7.035e-01
+## zd          -0.09670    0.09064 -1.0668 2.887e-01
 ```
 
 ```r
@@ -558,11 +765,11 @@ kCoef( myFit )
 
 ```
 ##             Estimate Std. Error t value  Pr(>|t|)
-## (Intercept)  0.55452    0.05728  9.6815 7.920e-16
-## x            1.03122    0.02855 36.1191 2.714e-57
-## z: a -> b   -0.21696    0.07961 -2.7255 7.645e-03
-## z: a -> c    0.02635    0.07999  0.3294 7.426e-01
-## z: a -> d    0.01673    0.07935  0.2109 8.335e-01
+## (Intercept)  0.56425    0.06421  8.7870 6.453e-14
+## x            0.99799    0.02905 34.3554 2.258e-55
+## z: a -> b   -0.05407    0.09057 -0.5969 5.520e-01
+## z: a -> c    0.03466    0.09080  0.3817 7.035e-01
+## z: a -> d   -0.09670    0.09064 -1.0668 2.887e-01
 ```
 
 

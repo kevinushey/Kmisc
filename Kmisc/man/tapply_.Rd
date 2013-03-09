@@ -2,7 +2,7 @@
 \alias{tapply_}
 \title{Faster tapply}
 \usage{
-  tapply_(X, INDEX, FUN = NULL, ...)
+  tapply_(X, INDEX, FUN = NULL, ..., simplify = TRUE)
 }
 \arguments{
   \item{X}{An atomic vector.}
@@ -15,6 +15,9 @@
   at \code{\link{lapply}}.}
 
   \item{...}{Optional arguments to pass to \code{FUN}.}
+
+  \item{simplify}{boolean; if \code{TRUE}, we unlist the
+  output and hence return a named vector of values.}
 }
 \description{
   This function acts as a faster version of \code{tapply}

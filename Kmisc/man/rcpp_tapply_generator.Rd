@@ -1,8 +1,13 @@
 \name{rcpp_tapply_generator}
 \alias{rcpp_tapply_generator}
+\alias{Rcpp_tapply_generator}
 \title{Rcpp tapply Generator}
 \usage{
   rcpp_tapply_generator(fun, includes = NULL,
+    depends = NULL, inline = TRUE, returnType = "double",
+    name = NULL, file = NULL, additional = NULL)
+
+  Rcpp_tapply_generator(fun, includes = NULL,
     depends = NULL, inline = TRUE, returnType = "double",
     name = NULL, file = NULL, additional = NULL)
 }
@@ -11,10 +16,10 @@
   It must be in terms of a variable \code{x}.}
 
   \item{includes}{Other C++ libraries to include. For
-  example, to include boost/math.hpp, you could pass
-  c("<boost/math.hpp>"). Rcpp is included by default,
-  unless RcppArmadillo is included as well (since Rcpp is
-  included as part of the RcppArmadillo include)}
+  example, to include \code{boost/math.hpp}, you could pass
+  \code{c("<boost/math.hpp>")}. Rcpp is included by
+  default, unless RcppArmadillo is included as well (since
+  Rcpp is included as part of the RcppArmadillo include)}
 
   \item{depends}{Other libraries to link to. Linking is
   done through Rcpp attributes.}
@@ -44,7 +49,7 @@
   \code{tapply}.
 }
 \details{
-  Note that we simplify if a different format than
+  Note that we simplify differently than base \R
   \code{tapply}: when \code{simplify=TRUE}, we call
   \code{unlist} on the output; hence, a named vector is
   returned.

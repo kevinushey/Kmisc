@@ -5,14 +5,14 @@
 #' variable. Note that we restrict ourselves to the case where we return
 #' a scalar as output; rather than the more general output of \code{tapply}.
 #' 
-#' Note that we simplify if a different format than \code{tapply}: when
+#' Note that we simplify differently than base \R \code{tapply}: when
 #' \code{simplify=TRUE}, we call \code{unlist} on the output; hence,
 #' a named vector is returned.
 #' 
 #' @param fun A character string defining the C++ function. It must be
 #' in terms of a variable \code{x}.
-#' @param includes Other C++ libraries to include. For example, to include boost/math.hpp,
-#' you could pass c("<boost/math.hpp>"). Rcpp is included by default, unless RcppArmadillo
+#' @param includes Other C++ libraries to include. For example, to include \code{boost/math.hpp},
+#' you could pass \code{c("<boost/math.hpp>")}. Rcpp is included by default, unless RcppArmadillo
 #' is included as well (since Rcpp is included as part of the RcppArmadillo include)
 #' @param depends Other libraries to link to. Linking is done through Rcpp attributes.
 #' @param returnType The return type of your function; note that we require that
@@ -142,3 +142,7 @@ rcpp_tapply_generator <- function( fun,
   })
   
 }
+
+#' @rdname rcpp_tapply_generator
+#' @export
+Rcpp_tapply_generator <- rcpp_tapply_generator
