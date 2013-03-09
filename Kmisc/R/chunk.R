@@ -9,6 +9,10 @@
 #' @param by The difference between consecutive elements.
 #' @export
 chunk <- function(min, max, size, by=1) {
+  if( missing(max) ) {
+    max <- min
+    min <- 1
+  }
   n <- ceiling( (max-min) / (size*by) )
   out <- vector("list", n)
   lower <- min
