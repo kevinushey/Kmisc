@@ -13,8 +13,8 @@ fast_factor <- function(x) {
     .Call('Kmisc_fast_factor', PACKAGE = 'Kmisc', x)
 }
 
-split_file <- function(path, dir, basename, path_sep, sep, file_ext, column, skip, verbose) {
-    invisible(.Call('Kmisc_split_file', PACKAGE = 'Kmisc', path, dir, basename, path_sep, sep, file_ext, column, skip, verbose))
+split_file <- function(path, dir, basename, path_sep, sep, prepend, file_ext, column, skip, verbose) {
+    invisible(.Call('Kmisc_split_file', PACKAGE = 'Kmisc', path, dir, basename, path_sep, sep, prepend, file_ext, column, skip, verbose))
 }
 
 split_runs_numeric <- function(X) {

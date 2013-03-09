@@ -320,6 +320,7 @@ kSvg <- function(file=NULL, width=4, height=4, class=NULL) {
 #' @param ... optional arguments passed to \code{\link{png}}
 #' @export
 #' @examples
+#' library(lattice)
 #' ## generate an xyplot, write it to file, and return HTML 
 #' ## code that sources the generated image
 #' dat <- data.frame( x = rnorm(100), y = rnorm(100) )
@@ -370,6 +371,7 @@ hImg <- function( my_plot,
 #' @param ... passed to \code{svg}
 #' @export
 #' @examples
+#' library(lattice)
 #' ## generate an xyplot, write it to file, and return HTML code that
 #' ## sources the generated image
 #' dat <- data.frame( x = rnorm(100), y = rnorm(100) )

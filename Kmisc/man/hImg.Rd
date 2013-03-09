@@ -41,6 +41,7 @@
   The \code{png} device is used.
 }
 \examples{
+library(lattice)
 ## generate an xyplot, write it to file, and return HTML
 ## code that sources the generated image
 dat <- data.frame( x = rnorm(100), y = rnorm(100) )

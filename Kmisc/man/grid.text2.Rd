@@ -67,14 +67,14 @@
 \description{
   This function produces text as does \code{grid.text}, but
   also generates a background rectangle through
-  \code{grid.rect}. Helpful for plotting eg. overlaying
+  \code{grid.rect}. Helpful for plotting e.g. overlaying
   correlation statistics on a plot, where you'd like the
   element to stand out a little more.
 }
 \examples{
 x <- rnorm(10)
 y <- rnorm(10)
-xyplot( y ~ x,
+lattice::xyplot( y ~ x,
         panel = function(x, y, ...) {
           panel.xyplot(x, y, ...)
           grid.text2("some text\\nwith a nice\\nbackground")

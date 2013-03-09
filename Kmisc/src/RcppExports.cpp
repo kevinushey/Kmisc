@@ -43,8 +43,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // split_file
-void split_file(std::string path, std::string dir, std::string basename, std::string path_sep, std::string sep, std::string file_ext, int column, int skip, bool verbose);
-RcppExport SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP, SEXP path_sepSEXP, SEXP sepSEXP, SEXP file_extSEXP, SEXP columnSEXP, SEXP skipSEXP, SEXP verboseSEXP) {
+void split_file(std::string path, std::string dir, std::string basename, std::string path_sep, std::string sep, std::string prepend, std::string file_ext, int column, int skip, bool verbose);
+RcppExport SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP, SEXP path_sepSEXP, SEXP sepSEXP, SEXP prependSEXP, SEXP file_extSEXP, SEXP columnSEXP, SEXP skipSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
     std::string path = Rcpp::as<std::string >(pathSEXP);
@@ -52,11 +52,12 @@ BEGIN_RCPP
     std::string basename = Rcpp::as<std::string >(basenameSEXP);
     std::string path_sep = Rcpp::as<std::string >(path_sepSEXP);
     std::string sep = Rcpp::as<std::string >(sepSEXP);
+    std::string prepend = Rcpp::as<std::string >(prependSEXP);
     std::string file_ext = Rcpp::as<std::string >(file_extSEXP);
     int column = Rcpp::as<int >(columnSEXP);
     int skip = Rcpp::as<int >(skipSEXP);
     bool verbose = Rcpp::as<bool >(verboseSEXP);
-    split_file(path, dir, basename, path_sep, sep, file_ext, column, skip, verbose);
+    split_file(path, dir, basename, path_sep, sep, prepend, file_ext, column, skip, verbose);
     return R_NilValue;
 END_RCPP
 }

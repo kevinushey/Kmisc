@@ -2,7 +2,7 @@
 #' 
 #' This function produces text as does \code{grid.text}, but also generates
 #' a background rectangle through \code{grid.rect}. Helpful for plotting
-#' eg. overlaying correlation statistics on a plot, where you'd like the
+#' e.g. overlaying correlation statistics on a plot, where you'd like the
 #' element to stand out a little more.
 #' 
 #' @param label A character or \code{\link{expression}} vector. 
@@ -37,7 +37,7 @@
 #' @examples
 #' x <- rnorm(10)
 #' y <- rnorm(10)
-#' xyplot( y ~ x,
+#' lattice::xyplot( y ~ x,
 #'         panel = function(x, y, ...) {
 #'           panel.xyplot(x, y, ...)
 #'           grid.text2("some text\nwith a nice\nbackground")
@@ -82,7 +82,7 @@ grid.text2 <- function(label,
   strWidth <- stringWidth(label)
   strHeight <- stringHeight(label)
   
-  if( isTRUE( just[1] == "left" )| isTRUE( hjust == 0 ) ) {
+  if( isTRUE( just[1] == "left" ) | isTRUE( hjust == 0 ) ) {
     x_rect <- x - widthAdj * 0.5 
   }
   
