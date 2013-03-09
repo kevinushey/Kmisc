@@ -11,13 +11,16 @@ License: GPL (>= 2)
 LazyData: TRUE
 LinkingTo: Rcpp
 Depends:
+    Rcpp (>= 0.10.1)
+Imports:
     lattice,
-    grid,
-    Rcpp (>= 0.10.1),
     knitr
 Suggests:
+    lattice,
+    grid,
     ggplot2,
     googleVis,
+    knitr,
     testthat
 ByteCompile: TRUE
 VignetteBuilder: knitr

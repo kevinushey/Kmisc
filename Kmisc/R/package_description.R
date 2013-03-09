@@ -7,6 +7,7 @@
 #' @name Kmisc
 #' @docType package
 #' @useDynLib Kmisc
+#' @import lattice grid knitr
 #' @seealso \code{\link{html}}
 NULL
 

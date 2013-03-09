@@ -14,7 +14,9 @@ a bit easier. Some of the most useful functions in the package are shown here.
 
 ```{r, tidy=FALSE}
 set.seed(123)
-suppressPackageStartupMessages( library(Kmisc) )
+library(Kmisc)
+library(lattice)
+library(grid)
 dat <- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
 
 ```
