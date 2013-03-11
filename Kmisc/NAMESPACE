@@ -1,6 +1,7 @@
 export("%nin%")
 export(anat)
 export(anatomy)
+export(any.na)
 export(attachHTML)
 export(awk)
 export(bwplot2)
