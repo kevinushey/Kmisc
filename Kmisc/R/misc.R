@@ -67,19 +67,6 @@ re.exists <- function(pattern, x, perl=TRUE, ... ) {
 #' us(x, "_")
 us <- function(x, split="", ...) { unlist( strsplit( x, split=split, ...) ) }
 
-#' Inverse Value Matching
-#' 
-#' Complement of \code{\link{\%in\%}}. Returns the elements of \code{x} that are
-#' not in \code{y}.
-#' @usage x \%nin\% y
-#' @param x a vector
-#' @param y a vector
-#' @rdname nin
-#' @export
-"%nin%" <- function(x, y) {
-  return( !(x %in% y) )
-}
-
 #' Extract Elements from a Named Object
 #' 
 #' Extracts elements from an \R object

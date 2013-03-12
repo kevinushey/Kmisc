@@ -9,7 +9,7 @@
 #' @param how The simplification to use if \code{x} is a list. See
 #' \code{\link{rapply}} for more details.
 #' @export
-any.na <- function(x, how="unlist") {
+any_na <- function(x, how="unlist") {
   if( is.list(x) ) {
     return( rapply( x, how=how, Kmisc:::any_NA ) )
   } else {

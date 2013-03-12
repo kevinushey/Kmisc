@@ -61,3 +61,4 @@ Collate:
     'chunk.R'
     'tapply_.R'
     'any.na.R'
+    'value_matching.R'
