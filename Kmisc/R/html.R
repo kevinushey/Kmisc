@@ -6,10 +6,14 @@
 #' The row.spans and col.spans argument can be specified as a matrix to
 #' set the row or column span of a certain cell to be >1, if desired.
 #' See \code{\link{pxt}} for an example implementation.
-#' It will also handle 'boxes', eg cells with both rowspan and colspan > 1.
+#' It will also handle 'boxes', e.g. cells with both rowspan and colspan > 1.
 #' 
-#' Note that the default behavior is to \code{'clean'} your data; this rounds
-#' numeric output to two decimal places so it prints more nicely.
+#' Note that the default behavior is to \code{'clean'} numeric input; this prints
+#' numeric values with a maximum of four digits; ie, through the \code{"\%.4G"} format
+#' specifier. Alternatively,
+#' you can use a format specifier (as used in \code{sprintf}) to ensure numbers
+#' are formatted and displayed as desired.
+#' 
 #' @param x the \code{data.frame} / \code{matrix} you want to convert to an HTML table.
 #' @param attr attributes to be passed to the \code{<table>} tag, as raw HTML.
 #' @param row.spans a matrix specifying desired row.spans, for largers cells.
@@ -18,7 +22,8 @@
 #' construction of the table.
 #' @param use.col.names if you submit an object with column names, use those names in
 #' construction of the table.
-#' @param clean boolean. if \code{TRUE}, rounds all numeric values to 2 decimal places for better printing
+#' @param clean boolean. if \code{TRUE}, we print all numeric values with 4 digits.
+#' Alternatively, we can pass a format specifier as used by \code{\link{sprintf}}.
 #' @param replace.periods replace periods with spaces?
 #' @export
 #' @examples
@@ -30,7 +35,7 @@ makeHTMLTable <- function( x,
                            col.spans=0,
                            use.row.names=FALSE,
                            use.col.names=FALSE,
-                           clean=FALSE,
+                           clean=TRUE,
                            replace.periods=TRUE 
                            ) {
   
@@ -52,8 +57,8 @@ makeHTMLTable <- function( x,
   ## an excessive number of decimal places.
   
   if( clean == TRUE || length( grep("^\\%", clean ) ) > 0 ) {
-    if( clean==TRUE ) {
-      clean <- "%.2f"
+    if( clean == TRUE ) {
+      clean <- "%.4G"
     }
     my_rownames <- rownames(x)
     x <- as.data.frame( lapply( x, function(xx) {
