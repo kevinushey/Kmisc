@@ -1,6 +1,6 @@
 #' Value Matching
 #' 
-#' These are a couple mostly self-explanatory extensions to \code{\%in\%}.
+#' These are a couple of mostly self-explanatory wrappers around \code{\%in\%}.
 #' 
 #' \code{\%nin\%} returns a logical vector indicating if there is
 #' no match for its left operand. It is the inverse of \code{x \%in\% y}.
