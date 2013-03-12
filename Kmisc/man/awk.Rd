@@ -2,25 +2,25 @@
 \alias{awk}
 \title{A Simple Front-end to Awk}
 \usage{
-  awk(code, BEGIN = NULL, END = NULL, vars = NULL,
-    fs = NULL, file, out = TRUE, verbose = FALSE)
+  awk(code, file, BEGIN = NULL, END = NULL, vars = NULL,
+    fs = NULL, out = TRUE, verbose = FALSE)
 }
 \arguments{
   \item{code}{The \code{awk} code you want to put in the
   main execution block.}
 
-  \item{BEGIN}{A block of code to run as though it were
+  \item{file}{The file we are running \code{awk} on.}
+
+  \item{BEGIN}{A block of code to include as though it were
   within the \code{BEGIN} block.}
 
-  \item{END}{A block of code to run as though it were
+  \item{END}{A block of code to include as though it were
   within the \code{END} block.}
 
   \item{vars}{A named list, whereby variables are assigned
   so that \code{name=value}.}
 
   \item{fs}{The field separator (passed to \code{-F}).}
-
-  \item{file}{The file we are running \code{awk} on.}
 
   \item{out}{The location to output the result of the
   computation. If this is \code{TRUE}, we intern the
@@ -32,5 +32,25 @@
 }
 \description{
   This function provides a simple front-end to \code{awk}.
+}
+\examples{
+dat <- data.frame(
+  x=1:10,
+  y=letters[1:10],
+  z=LETTERS[1:10]
+)
+
+tempfile <- tempfile()
+
+write.table(dat,
+  file=tempfile,
+  row.names=FALSE,
+  col.names=FALSE,
+  quote=FALSE
+)
+
+x <- awk("print $1", tempfile)
+## note that it is read in as type 'character'
+print( cbind( x, dat$x ) )
 }
 
