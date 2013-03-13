@@ -5,16 +5,6 @@
 
 using namespace Rcpp;
 
-// any_NA
-bool any_NA(SEXP x);
-RcppExport SEXP Kmisc_any_NA(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    SEXP x = Rcpp::as<SEXP >(xSEXP);
-    bool __result = any_NA(x);
-    return Rcpp::wrap(__result);
-END_RCPP
-}
 // extract_rows_from_file_to_file
 void extract_rows_from_file_to_file(std::string input_file_name, std::string output_file_name, std::string delim, std::vector< std::string > items_to_keep, int column_to_check);
 RcppExport SEXP Kmisc_extract_rows_from_file_to_file(SEXP input_file_nameSEXP, SEXP output_file_nameSEXP, SEXP delimSEXP, SEXP items_to_keepSEXP, SEXP column_to_checkSEXP) {

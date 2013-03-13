@@ -19,8 +19,8 @@
   against.}
 }
 \description{
-  These are a couple mostly self-explanatory extensions to
-  \code{\%in\%}.
+  These are a couple of mostly self-explanatory wrappers
+  around \code{\%in\%}.
 }
 \details{
   \code{\%nin\%} returns a logical vector indicating if

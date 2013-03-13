@@ -60,5 +60,5 @@ Collate:
     'fast_melt.R'
     'chunk.R'
     'tapply_.R'
-    'any.na.R'
     'value_matching.R'
+    'any_na.R'

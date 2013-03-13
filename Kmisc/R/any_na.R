@@ -11,8 +11,11 @@
 #' @export
 any_na <- function(x, how="unlist") {
   if( is.list(x) ) {
-    return( rapply( x, how=how, Kmisc:::any_NA ) )
+    f <- function(x) {
+      .Call("any_na", x, PACKAGE="Kmisc")
+    }
+    return( rapply( x, how=how, f ) )
   } else {
-    return( .Call("Kmisc_any_NA", x, PACKAGE="Kmisc") )
+    return( .Call("any_na", x, PACKAGE="Kmisc") )
   }
 }
