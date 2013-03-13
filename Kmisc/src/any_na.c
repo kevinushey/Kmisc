@@ -39,4 +39,5 @@ SEXP any_na( SEXP x ) {
 	}
 	}
 	Rf_error("Unrecognized RTYPE");
+	return x;
 }
