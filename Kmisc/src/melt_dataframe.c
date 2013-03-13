@@ -1,4 +1,5 @@
 #include <R.h>
+#include <Rdefines.h>
 #include <Rinternals.h>
 
 SEXP rep_each_char( SEXP x, int each ) {
@@ -7,9 +8,12 @@ SEXP rep_each_char( SEXP x, int each ) {
 	int len = Rf_length(x);
 	PROTECT( out = Rf_allocVector( STRSXP, len*each ) );
 	int counter=0;
+	SEXP* ptr = STRING_PTR(x);
+	SEXP* out_ptr = STRING_PTR(out);
 	for( int i=0; i < len; ++i ) {
 		for( int j=0; j < each; j++ ) {
-			SET_STRING_ELT( out, counter, STRING_ELT( x, i ) );
+			out_ptr[counter] = ptr[i];
+			//SET_STRING_ELT( out, counter, ptr[i] );
 			++counter;
 		}
 	}
@@ -42,9 +46,12 @@ SEXP stack_vector( SEXP x, int times ) {
 	HANDLE_CASE( LGLSXP, int, LOGICAL );
 	case STRSXP: {
 		PROTECT( out = Rf_allocVector( STRSXP, len*times ) );
+		SEXP* x_ptr = STRING_PTR(x);
+		SEXP* out_ptr = STRING_PTR(out);
 		for( int i=0; i < times; ++i ) {
 			for( int j=0; j < len; ++j ) {
-				SET_STRING_ELT( out, counter, STRING_ELT(x, j) );
+				out_ptr[counter] = x_ptr[j];
+				//SET_STRING_ELT( out, counter, STRING_ELT(x, j) );
 				++counter;
 			}
 		}
@@ -63,9 +70,11 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	int nColStack = Rf_length(x_stack);
 	int nColRep = Rf_length(x_rep);
 	int nRow = Rf_length( VECTOR_ELT(x_stack, 0) );
+	int out_nRow = nRow * nColRep;
+	int out_nCol = nColStack + 2;
 
 	SEXP out;
-	PROTECT( out = Rf_allocVector( VECSXP, nColStack+2 ) );
+	PROTECT( out = Rf_allocVector( VECSXP, out_nCol ) );
 
 	// populate the value array
 	SEXP value_SEXP;
@@ -74,9 +83,9 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	case RTYPE: { \
 		PROTECT( value_SEXP = Rf_allocVector( RTYPE, value_len ) ); \
 		int counter = 0; \
+		CTYPE* ptr_val = ACCESSOR( value_SEXP ); \
 		for( int i=0; i < nColRep; ++i ) { \
 			CTYPE* ptr = ACCESSOR( VECTOR_ELT( x_rep, i ) ); \
-			CTYPE* ptr_val = ACCESSOR( value_SEXP ); \
 			for( int j=0; j < nRow; ++j ) { \
 				ptr_val[counter] = ptr[j]; \
 				++counter; \
@@ -97,8 +106,11 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 		PROTECT( value_SEXP = Rf_allocVector( STRSXP, value_len ) );
 		for( int i=0; i < nColRep; ++i ) {
 			SEXP curr_str_vec = VECTOR_ELT( x_rep, i );
+			SEXP* value_SEXP_ptr = STRING_PTR( value_SEXP );
+			SEXP* curr_str_vec_ptr = STRING_PTR(curr_str_vec);
 			for( int j=0; j < nRow; ++j ) {
-				SET_STRING_ELT( value_SEXP, counter, STRING_ELT( curr_str_vec, j ) );
+				value_SEXP_ptr[counter] = curr_str_vec_ptr[j];
+				//SET_STRING_ELT( value_SEXP, counter, STRING_ELT( curr_str_vec, j ) );
 				++counter;
 			}
 		}
@@ -115,11 +127,36 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	}
 
 	// assign the names, values
-	SET_VECTOR_ELT( out, nColStack, rep_each_char( Rf_getAttrib( x_rep, Rf_install("names") ), nRow ) );
+	SET_VECTOR_ELT( out, nColStack, rep_each_char( Rf_getAttrib( x_rep, R_NamesSymbol ), nRow ) );
 	SET_VECTOR_ELT( out, nColStack+1, value_SEXP );
+	UNPROTECT(1); // value_SEXP
 
-	UNPROTECT(2);
+	// set the row names
+	SEXP row_names;
+	PROTECT( row_names = NEW_INTEGER(out_nRow) );
+	int* row_names_ptr = INTEGER(row_names);
+	for( int i=0; i < out_nRow; ++i ) {
+		row_names_ptr[i] = i+1;
+	}
+	setAttrib( out, R_RowNamesSymbol, row_names );
+	UNPROTECT(1);
 
+	// set the class to data.frame
+	setAttrib( out, R_ClassSymbol, mkString("data.frame") );
+
+	// set the names
+	SEXP names = getAttrib( x_stack, R_NamesSymbol );
+	SEXP names_out;
+	PROTECT( names_out = allocVector( STRSXP, out_nCol ) );
+	for( int i=0; i < nColStack; ++i ) {
+		SET_STRING_ELT( names_out, i, STRING_ELT( names, i ) );
+	}
+	SET_STRING_ELT( names_out, nColStack, mkChar("names") );
+	SET_STRING_ELT( names_out, nColStack+1, mkChar("value") );
+	setAttrib( out, R_NamesSymbol, names_out );
+	UNPROTECT(1);
+
+	UNPROTECT(1); // out
 	return out;
 
 }

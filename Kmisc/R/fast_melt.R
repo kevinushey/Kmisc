@@ -12,7 +12,7 @@
 #' @param data The \code{data.frame} to melt.
 #' @param id.vars Vector of id variables. Can be integer (variable index) or
 #' string (variable name). All variables not included here are assumed
-#' stackable.
+#' stackable, and will be coerced as needed.
 #' @export
 #' @examples
 #' n <- 20
@@ -34,7 +34,9 @@ melt_ <- function(data, id.vars) {
   }
   
   ## coerce factors to characters
-  if( any( sapply( data, is.factor ) ) ) {
+  if( any( sapply( 1:ncol(data), function(i) {
+    is.factor( data[[i]] )
+  } ) ) ) {
     warning("factors coerced to characters")
     data <- factor_to_char(data)
   }
@@ -56,16 +58,11 @@ melt_ <- function(data, id.vars) {
     }
   }
   
-  out <- .Call("melt_dataframe",
+  return( .Call("melt_dataframe",
                data[id.vars],
                data[measure.vars],
                nrow(data),
                PACKAGE="Kmisc"
-               )
-  attr(out, "class") <- "data.frame"
-  attr(out, "row.names") <- 1:length( out[[1]] )
-  attr(out, "names") <- c( names(data[id.vars]), c("names", "value") )
-  
-  return(out)
+               ) )
   
 }

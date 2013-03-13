@@ -9,7 +9,8 @@
 
   \item{id.vars}{Vector of id variables. Can be integer
   (variable index) or string (variable name). All variables
-  not included here are assumed stackable.}
+  not included here are assumed stackable, and will be
+  coerced as needed.}
 }
 \description{
   Inspired by \code{reshape2:::melt.data.frame}, this

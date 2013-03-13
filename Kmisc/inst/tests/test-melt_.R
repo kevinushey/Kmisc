@@ -2,7 +2,7 @@ library(testthat)
 library(reshape2)
 library(microbenchmark)
 
-n <- 1E4
+n <- 1E6
 dat <- data.frame( stringsAsFactors=FALSE,
                    x=sample(letters, n, TRUE), 
                    y=sample(LETTERS, n, TRUE),
@@ -21,15 +21,24 @@ for( i in 1:ncol(tmp1) ) {
 microbenchmark(
   melt( dat, c("x", "y") ),
   melt_( dat, c("x", "y") ),
-  times=1
+  .Call("melt_dataframe", dat[1:2], dat[3:5], nrow(dat) ),
+  times=10
 )
 
 dat$x <- as.factor( dat$x )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
+tmp <- melt_(dat, c("x", "y"))
 
 dat$zc <- as.integer( dat$zc )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
+tmp <- melt_(dat, c("x", "y")) 
+
 dat$zb <- as.character( dat$zb )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
+tmp <- melt_(dat, c("x", "y"))
+
 dat$zb <- sample( c(TRUE, FALSE), nrow(dat), replace=TRUE )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
+tmp <- melt_(dat, c("x", "y"))
+
+rm( list=ls() )
