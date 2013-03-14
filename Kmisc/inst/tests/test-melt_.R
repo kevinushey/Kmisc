@@ -3,7 +3,7 @@ library(reshape2)
 library(microbenchmark)
 library(Kmisc)
 
-n <- 1E6
+n <- 1E4
 dat <- data.frame( stringsAsFactors=FALSE,
                    x=sample(letters, n, TRUE), 
                    y=sample(LETTERS, n, TRUE),
