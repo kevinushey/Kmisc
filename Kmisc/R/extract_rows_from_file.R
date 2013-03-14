@@ -25,7 +25,7 @@ extract_rows_from_file <- function(
   }
   
   if( !file.exists(file) ) {
-    stop("No file exists at file location", normalizePath(file))
+    stop("No file exists at file location: '", normalizePath(file, mustWork=FALSE), "'")
   }
   file <- normalizePath(file)
   if( !is.null(out) ) out <- suppressWarnings( normalizePath(out) )
