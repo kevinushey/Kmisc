@@ -5,7 +5,7 @@
 #' appended to the file name (before the file extension).
 #' 
 #' This function should help users out in the unfortunate case that the data
-#' they are attempted to read is too large to fit into RAM. By splitting the
+#' they have attempted to read is too large to fit into RAM. By splitting the
 #' file into multiple, smaller files, we hope that each file, post-splitting,
 #' is now small enough to fit into RAM.
 #' 
@@ -23,6 +23,7 @@
 #' If there are no dots in the file name, this argument is ignored.
 #' @param skip Integer; number of rows to skip (e.g. to avoid a header).
 #' @param verbose Be chatty?
+#' @seealso \code{\link{extract_rows_from_file}}
 #' @export
 split_file <- function( file, 
                         column,

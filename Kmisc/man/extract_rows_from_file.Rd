@@ -9,7 +9,8 @@
   \item{file}{The input file to extract rows from.}
 
   \item{out}{The location to output the file. If this is
-  \code{NULL}, we write to stdout.}
+  \code{NULL}, we redirect output back into the \R
+  session.}
 
   \item{column}{The column to check, indexed from 1.}
 
@@ -24,6 +25,9 @@
   This function reads through a delimited file on disk,
   determines if the entry at the specified column is in a
   character vector of items, and writes that line to file
-  if it is.
+  (or to \R) if it is.
+}
+\seealso{
+  \code{\link{split_file}}
 }
 

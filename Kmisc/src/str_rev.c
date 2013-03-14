@@ -1,7 +1,7 @@
+#define USE_RINTERNALS
+
 #include <R.h>
 #include <Rdefines.h>
-
-#define USE_RINTERNALS
 
 SEXP str_rev( SEXP x ) {
   

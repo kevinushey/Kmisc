@@ -1,7 +1,7 @@
+#define USE_RINTERNALS
+
 #include <R.h>
 #include <Rinternals.h>
-
-#define USE_RINTERNALS
 
 SEXP recurse_factor_to_char( SEXP X, SEXP parent, int i ) {
   

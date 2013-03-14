@@ -1,7 +1,7 @@
+#define USE_RINTERNALS
+
 #include <R.h>
 #include <Rinternals.h>
-
-#define USE_RINTERNALS
 
 SEXP rep_row_names( SEXP x, int times ) {
 	SEXP out;

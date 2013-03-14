@@ -1,7 +1,7 @@
+#define USE_RINTERNALS
+
 #include <R.h>
 #include <Rinternals.h>
-
-#define USE_RINTERNALS
 
 SEXP any_na( SEXP x ) {
 	SEXP out;

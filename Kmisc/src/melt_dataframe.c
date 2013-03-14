@@ -1,7 +1,7 @@
+#define USE_RINTERNALS
+
 #include <R.h>
 #include <Rinternals.h>
-
-#define USE_RINTERNALS
 
 SEXP rep_each_char( SEXP x, int each ) {
 
@@ -45,20 +45,7 @@ SEXP stack_vector( SEXP x, int times ) {
 	HANDLE_CASE( INTSXP, int, INTEGER );
 	HANDLE_CASE( REALSXP, double, REAL );
 	HANDLE_CASE( LGLSXP, int, LOGICAL );
-	case STRSXP: {
-		PROTECT( out = allocVector( STRSXP, len*times ) );
-		SEXP* x_ptr = STRING_PTR(x);
-		SEXP* out_ptr = STRING_PTR(out);
-		for( int i=0; i < times; ++i ) {
-			for( int j=0; j < len; ++j ) {
-				out_ptr[counter] = x_ptr[j];
-				//SET_STRING_ELT( out, counter, STRING_ELT(x, j) );
-				++counter;
-			}
-		}
-		UNPROTECT(1);
-		return out;
-	}
+  HANDLE_CASE( STRSXP, SEXP, STRING_PTR );
 	}
 
 	error("Stacking not implemented for vector of this RTYPE");
