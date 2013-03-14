@@ -1,9 +1,11 @@
 #include <R.h>
 #include <Rdefines.h>
 
+#define USE_RINTERNALS
+
 SEXP str_rev( SEXP x ) {
   
-  int len = Rf_length(x);
+  int len = length(x);
   SEXP out;
   PROTECT( out = allocVector( STRSXP, len ) );
   
@@ -11,7 +13,7 @@ SEXP str_rev( SEXP x ) {
   for( int i=0; i < len; ++i ) {
     
     // Get the current element of the string
-    int len_elt = Rf_length( STRING_ELT(x, i) );
+    int len_elt = length( STRING_ELT(x, i) );
     const char* element = CHAR( STRING_ELT(x, i) );
     
     // Allocate space for the reversed string

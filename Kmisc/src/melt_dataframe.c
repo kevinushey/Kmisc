@@ -1,12 +1,13 @@
 #include <R.h>
-#include <Rdefines.h>
 #include <Rinternals.h>
+
+#define USE_RINTERNALS
 
 SEXP rep_each_char( SEXP x, int each ) {
 
 	SEXP out;
-	int len = Rf_length(x);
-	PROTECT( out = Rf_allocVector( STRSXP, len*each ) );
+	int len = length(x);
+	PROTECT( out = allocVector( STRSXP, len*each ) );
 	int counter=0;
 	SEXP* ptr = STRING_PTR(x);
 	SEXP* out_ptr = STRING_PTR(out);
@@ -23,7 +24,7 @@ SEXP rep_each_char( SEXP x, int each ) {
 
 #define HANDLE_CASE( RTYPE, CTYPE, ACCESSOR ) \
 case RTYPE: { \
-	PROTECT( out = Rf_allocVector( RTYPE, len*times ) ); \
+	PROTECT( out = allocVector( RTYPE, len*times ) ); \
 	CTYPE* ptr = ACCESSOR(x); \
 	CTYPE* out_ptr = ACCESSOR(out); \
 	for( int i=0; i < times; ++i ) { \
@@ -38,14 +39,14 @@ case RTYPE: { \
 
 SEXP stack_vector( SEXP x, int times ) {
 	SEXP out;
-	int len = Rf_length(x);
+	int len = length(x);
 	int counter = 0;
 	switch( TYPEOF(x) ) {
 	HANDLE_CASE( INTSXP, int, INTEGER );
 	HANDLE_CASE( REALSXP, double, REAL );
 	HANDLE_CASE( LGLSXP, int, LOGICAL );
 	case STRSXP: {
-		PROTECT( out = Rf_allocVector( STRSXP, len*times ) );
+		PROTECT( out = allocVector( STRSXP, len*times ) );
 		SEXP* x_ptr = STRING_PTR(x);
 		SEXP* out_ptr = STRING_PTR(out);
 		for( int i=0; i < times; ++i ) {
@@ -60,28 +61,28 @@ SEXP stack_vector( SEXP x, int times ) {
 	}
 	}
 
-	Rf_error("Stacking not implemented for vector of this RTYPE");
+	error("Stacking not implemented for vector of this RTYPE");
 	return R_NilValue;
 }
 #undef HANDLE_CASE
 
 SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 
-	int nColStack = Rf_length(x_stack);
-	int nColRep = Rf_length(x_rep);
-	int nRow = Rf_length( VECTOR_ELT(x_stack, 0) );
+	int nColStack = length(x_stack);
+	int nColRep = length(x_rep);
+	int nRow = length( VECTOR_ELT(x_stack, 0) );
 	int out_nRow = nRow * nColRep;
 	int out_nCol = nColStack + 2;
 
 	SEXP out;
-	PROTECT( out = Rf_allocVector( VECSXP, out_nCol ) );
+	PROTECT( out = allocVector( VECSXP, out_nCol ) );
 
 	// populate the value array
 	SEXP value_SEXP;
 
 #define HANDLE_CASE( RTYPE, CTYPE, ACCESSOR ) \
 	case RTYPE: { \
-		PROTECT( value_SEXP = Rf_allocVector( RTYPE, value_len ) ); \
+		PROTECT( value_SEXP = allocVector( RTYPE, value_len ) ); \
 		int counter = 0; \
 		CTYPE* ptr_val = ACCESSOR( value_SEXP ); \
 		for( int i=0; i < nColRep; ++i ) { \
@@ -103,7 +104,7 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	HANDLE_CASE( LGLSXP, int, LOGICAL );
 	case STRSXP: {
 		int counter = 0;
-		PROTECT( value_SEXP = Rf_allocVector( STRSXP, value_len ) );
+		PROTECT( value_SEXP = allocVector( STRSXP, value_len ) );
 		for( int i=0; i < nColRep; ++i ) {
 			SEXP curr_str_vec = VECTOR_ELT( x_rep, i );
 			SEXP* value_SEXP_ptr = STRING_PTR( value_SEXP );
@@ -117,7 +118,7 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 		break;
 	}
 	default:
-		Rf_error("Unsupported RTYPE encountered");
+		error("Unsupported RTYPE encountered");
 	}
 #undef HANDLE_CASE
 
@@ -127,13 +128,13 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	}
 
 	// assign the names, values
-	SET_VECTOR_ELT( out, nColStack, rep_each_char( Rf_getAttrib( x_rep, R_NamesSymbol ), nRow ) );
+	SET_VECTOR_ELT( out, nColStack, rep_each_char( getAttrib( x_rep, R_NamesSymbol ), nRow ) );
 	SET_VECTOR_ELT( out, nColStack+1, value_SEXP );
 	UNPROTECT(1); // value_SEXP
 
 	// set the row names
 	SEXP row_names;
-	PROTECT( row_names = NEW_INTEGER(out_nRow) );
+	PROTECT( row_names = allocVector(INTSXP, out_nRow) );
 	int* row_names_ptr = INTEGER(row_names);
 	for( int i=0; i < out_nRow; ++i ) {
 		row_names_ptr[i] = i+1;

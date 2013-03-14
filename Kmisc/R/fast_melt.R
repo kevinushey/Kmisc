@@ -1,19 +1,16 @@
 #' Melt a Data Frame
 #' 
-#' Inspired by \code{reshape2:::melt.data.frame}, this function will melt a 
-#' \code{data.frame} for the special case in which we have \code{n}
-#' identification variables but only 1 value variable. This function
-#' is built for speed and can melt large \code{data.frame}s faster than
-#' \code{reshape2:::melt}.
+#' Inspired by \code{reshape2:::melt}, we melt \code{data.frame}s for the
+#' special case in which we have multiple id variables and a single
+#' value variable, and \code{matrix}s. This function is built for speed.
 #' 
 #' If items to be stacked are not of the same internal type, they will be
-#' promoted in the order \code{logical} -> \code{integer} -> \code{numeric} -> \code{character}.
+#' promoted in the order \code{logical} > \code{integer} > \code{numeric} > \code{character}.
 #' 
 #' @param data The \code{data.frame} to melt.
 #' @param id.vars Vector of id variables. Can be integer (variable index) or
 #' string (variable name). All variables not included here are assumed
 #' stackable, and will be coerced as needed.
-#' @export
 #' @examples
 #' n <- 20
 #' tmp <- data.frame( stringsAsFactors=FALSE,
@@ -25,7 +22,15 @@
 #' )
 #'   
 #' out2 <- melt_(tmp, c("x", "y"))
+#' @export
 melt_ <- function(data, id.vars) {
+  UseMethod("melt_")
+}
+
+#' @rdname melt_
+#' @method melt_ data.frame
+#' @S3method melt_ data.frame
+melt_.data.frame <- function(data, id.vars) {
   
   if( is.character(id.vars) ) {
     measure.vars <- which( names(data) %nin% id.vars )
@@ -42,7 +47,10 @@ melt_ <- function(data, id.vars) {
   }
   
   ## check and coerce the types of the measure.vars
-  types <- sapply( data[measure.vars], typeof )
+  types <- sapply( measure.vars, function(x) {
+    typeof( data[[x]] )
+  } )
+  
   if( length( unique( types ) ) > 1 ) {
     if( "character" %in% types ) {
       warning("Coercing types of measure vars to 'character'")
@@ -59,10 +67,19 @@ melt_ <- function(data, id.vars) {
   }
   
   return( .Call("melt_dataframe",
-               data[id.vars],
-               data[measure.vars],
-               nrow(data),
-               PACKAGE="Kmisc"
-               ) )
+                data[id.vars],
+                data[measure.vars],
+                PACKAGE="Kmisc"
+  ) )
   
+}
+
+#' @rdname melt_
+#' @method melt_ matrix
+#' @S3method melt_ matrix
+melt_.matrix <- function( data, id.vars ) {
+  if( !missing(id.vars) ) {
+    warning("data is a matrix; id.vars argument ignored")
+  }
+  return( .Call("melt_matrix", data, PACKAGE="Kmisc") )
 }

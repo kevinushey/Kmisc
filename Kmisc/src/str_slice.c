@@ -1,6 +1,8 @@
 #include <R.h>
 #include <Rdefines.h>
 
+#define USE_RINTERNALS
+
 SEXP str_slice(SEXP x, SEXP n) {
     
     // Treat x as a vector of characters
@@ -17,7 +19,7 @@ SEXP str_slice(SEXP x, SEXP n) {
         const char* xx = CHAR(STRING_ELT( x, k ) );
 
         // The length of the string supplied
-        int len = Rf_length( STRING_ELT( x, k ) );
+        int len = length( STRING_ELT( x, k ) );
 
         // The number of substrings
         int num_substr = len / len_substr;

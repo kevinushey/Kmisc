@@ -1,11 +1,12 @@
 #include <R.h>
 #include <Rinternals.h>
-#include <Rdefines.h>
+
+#define USE_RINTERNALS
 
 SEXP any_na( SEXP x ) {
 	SEXP out;
-	PROTECT(out = NEW_LOGICAL(1));
-	int len = Rf_length(x);
+	PROTECT(out = allocVector(LGLSXP, 1));
+	int len = length(x);
 	switch( TYPEOF(x) ) {
 	case REALSXP: {
 		double* ptr = REAL(x);
@@ -59,6 +60,6 @@ SEXP any_na( SEXP x ) {
 		return out;
 	}
 	}
-	Rf_error("Unrecognized RTYPE");
+	error("Unrecognized RTYPE");
 	return x;
 }

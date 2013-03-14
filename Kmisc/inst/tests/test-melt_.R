@@ -1,6 +1,7 @@
 library(testthat)
 library(reshape2)
 library(microbenchmark)
+library(Kmisc)
 
 n <- 1E6
 dat <- data.frame( stringsAsFactors=FALSE,
@@ -21,7 +22,7 @@ for( i in 1:ncol(tmp1) ) {
 microbenchmark(
   melt( dat, c("x", "y") ),
   melt_( dat, c("x", "y") ),
-  .Call("melt_dataframe", dat[1:2], dat[3:5], nrow(dat) ),
+  .Call("melt_dataframe", dat[1:2], dat[3:5], PACKAGE="Kmisc" ),
   times=10
 )
 
@@ -42,3 +43,25 @@ expect_warning( tmp <- melt_(dat, c("x", "y")) )
 tmp <- melt_(dat, c("x", "y"))
 
 rm( list=ls() )
+
+## matrix tests
+x <- matrix(1:24, nrow=4)
+rownames(x) <- 1:4
+colnames(x) <- letters[1:6]
+melt_(x)
+melt(x)
+expect_true( all( melt(x) == melt_(x) ) )
+
+rownames(x) <- NULL
+expect_true( all( melt_(x) == melt(x) ) )
+colnames(x) <- NULL
+expect_true( all( melt_(x) == melt(x) ) )
+
+x <- matrix( letters[1:16], nrow=2)
+expect_true( all( melt(x) == melt_(x) ) )
+
+microbenchmark( melt(x), melt_(x) )
+
+x <- matrix( rnorm(1E5), ncol=1E2 )
+expect_true( all( melt(x) == melt_(x) ) )
+microbenchmark( melt(x), melt_(x), times=5 )

@@ -1,8 +1,14 @@
 \name{melt_}
 \alias{melt_}
+\alias{melt_.data.frame}
+\alias{melt_.matrix}
 \title{Melt a Data Frame}
 \usage{
   melt_(data, id.vars)
+
+  \method{melt_}{data.frame} (data, id.vars)
+
+  \method{melt_}{matrix} (data, id.vars)
 }
 \arguments{
   \item{data}{The \code{data.frame} to melt.}
@@ -13,17 +19,15 @@
   coerced as needed.}
 }
 \description{
-  Inspired by \code{reshape2:::melt.data.frame}, this
-  function will melt a \code{data.frame} for the special
-  case in which we have \code{n} identification variables
-  but only 1 value variable. This function is built for
-  speed and can melt large \code{data.frame}s faster than
-  \code{reshape2:::melt}.
+  Inspired by \code{reshape2:::melt}, we melt
+  \code{data.frame}s for the special case in which we have
+  multiple id variables and a single value variable, and
+  \code{matrix}s. This function is built for speed.
 }
 \details{
   If items to be stacked are not of the same internal type,
-  they will be promoted in the order \code{logical} ->
-  \code{integer} -> \code{numeric} -> \code{character}.
+  they will be promoted in the order \code{logical} >
+  \code{integer} > \code{numeric} > \code{character}.
 }
 \examples{
 n <- 20

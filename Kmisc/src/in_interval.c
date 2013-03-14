@@ -1,5 +1,7 @@
 #include <R.h>
-#include <Rdefines.h>
+#include <Rinternals.h>
+
+#define USE_RINTERNALS
 
 SEXP in_interval( SEXP x, SEXP lo, SEXP hi, 
         SEXP include_lower, SEXP include_upper ) {
@@ -10,7 +12,7 @@ SEXP in_interval( SEXP x, SEXP lo, SEXP hi,
   int inc_lower = asLogical(include_lower);
   int inc_upper = asLogical(include_upper);
   
-  SEXP out = PROTECT( NEW_LOGICAL( len ) );
+  SEXP out = PROTECT( allocVector( LGLSXP, len ) );
   int *outp = LOGICAL(out);
   
   if( inc_lower == 1 && inc_upper == 1 ) {
