@@ -89,7 +89,7 @@ rcpp_tapply_generator <- function( fun,
     if( "RcppArmadillo" %in% depends ) {
       include_Rcpp <- FALSE
     }
-    depends <- paste("// [[Rcpp::depends(", paste(depends, collapse=", "), ")",
+    depends <- paste("// [[Rcpp::depends(", paste(depends, collapse=", "), ")]]",
                      sep="" )
     depends <- paste( sep="", depends, "\n" )
   }
