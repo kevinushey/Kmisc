@@ -10,7 +10,8 @@
 #' @param data The \code{data.frame} to melt.
 #' @param id.vars Vector of id variables. Can be integer (variable index) or
 #' string (variable name). All variables not included here are assumed
-#' stackable, and will be coerced as needed.
+#' stackable, and will be coerced as needed. Only used for \code{data} of class
+#' \code{data.frame}.
 #' @examples
 #' n <- 20
 #' tmp <- data.frame( stringsAsFactors=FALSE,
