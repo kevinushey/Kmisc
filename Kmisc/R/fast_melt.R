@@ -1,11 +1,11 @@
-#' Melt a Data Frame
+#' Make a 'Wide' data set 'Long'
 #' 
-#' Inspired by \code{reshape2:::melt}, we melt \code{data.frame}s for the
-#' special case in which we have multiple id variables and a single
-#' value variable, and \code{matrix}s. This function is built for speed.
+#' Inspired by \code{reshape2:::melt}, we melt \code{data.frame}s and 
+#' \code{matrix}s. This function is built for speed.
 #' 
 #' If items to be stacked are not of the same internal type, they will be
-#' promoted in the order \code{logical} > \code{integer} > \code{numeric} > \code{character}.
+#' promoted in the order \code{logical} > \code{integer} > \code{numeric} > 
+#' \code{character}.
 #' 
 #' @param data The \code{data.frame} to melt.
 #' @param id.vars Vector of id variables. Can be integer (variable index) or
