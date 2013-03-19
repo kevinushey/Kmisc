@@ -12,7 +12,7 @@ SEXP rep_each_char( SEXP x, int each ) {
 	SEXP* ptr = STRING_PTR(x);
 	SEXP* out_ptr = STRING_PTR(out);
 	for( int i=0; i < len; ++i ) {
-		for( int j=0; j < each; j++ ) {
+		for( int j=0; j < each; ++j ) {
 			out_ptr[counter] = ptr[i];
 			//SET_STRING_ELT( out, counter, ptr[i] );
 			++counter;
