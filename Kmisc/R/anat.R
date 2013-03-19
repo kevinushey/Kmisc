@@ -23,10 +23,14 @@
 #' }
 anat <- function(df, n=3) {
   
-  if( !is.data.frame(df) || 
-        any( unlist( lapply( df, function(x) { !is.atomic(x) } ) ) )
-      ) {
+  if( !is.data.frame(df) ) {
+    warning("df is not a data.frame; returning utils::str(df)")
     return( utils::str(df) )
+  } else {
+    if( any( sapply( 1:length(df), function(i) { !is.atomic(df[[i]]) } ) ) ) {
+      warning("df is a data.frame, but there are non-atomic columns; returning utils::str(df)")
+      return( utils::str(df) )
+    }
   }
   
   ## handle extra classes for df object
