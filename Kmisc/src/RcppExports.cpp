@@ -42,6 +42,16 @@ BEGIN_RCPP
     return Rcpp::wrap(__result);
 END_RCPP
 }
+// fast_table
+SEXP fast_table(SEXP x);
+RcppExport SEXP Kmisc_fast_table(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    SEXP x = Rcpp::as<SEXP >(xSEXP);
+    SEXP __result = fast_table(x);
+    return Rcpp::wrap(__result);
+END_RCPP
+}
 // split_file
 void split_file(std::string path, std::string dir, std::string basename, std::string path_sep, std::string sep, std::string prepend, std::string file_ext, int column, int skip, bool verbose);
 RcppExport SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP, SEXP path_sepSEXP, SEXP sepSEXP, SEXP prependSEXP, SEXP file_extSEXP, SEXP columnSEXP, SEXP skipSEXP, SEXP verboseSEXP) {
