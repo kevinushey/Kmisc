@@ -2,7 +2,7 @@
 \alias{melt_}
 \alias{melt_.data.frame}
 \alias{melt_.matrix}
-\title{Melt a Data Frame}
+\title{Make a 'Wide' data set 'Long'}
 \usage{
   melt_(data, id.vars)
 
@@ -21,9 +21,8 @@
 }
 \description{
   Inspired by \code{reshape2:::melt}, we melt
-  \code{data.frame}s for the special case in which we have
-  multiple id variables and a single value variable, and
-  \code{matrix}s. This function is built for speed.
+  \code{data.frame}s and \code{matrix}s. This function is
+  built for speed.
 }
 \details{
   If items to be stacked are not of the same internal type,
