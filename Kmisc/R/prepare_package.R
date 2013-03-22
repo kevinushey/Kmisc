@@ -67,9 +67,10 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   ## check the package
   if(check) {
     system( paste("R CMD check", paste(sep='', "../", pkg_name, "_", pkg_version, ".tar.gz")))
+    system( paste("rm -rf", paste0(pkg_name, ".Rcheck")) )
   }
   
-  if(install) {
+  if(build && install) {
     system( paste("R CMD INSTALL --preclean --no-multiarch", paste(sep='', "../", pkg_name, "_", pkg_version, ".tar.gz")))
   }
   
