@@ -16,6 +16,7 @@
 \description{
   This function prepares the package such that all the C /
   C++ source files are concatenated into one file (for each
-  source). This increases compilation time.
+  source). This increases compilation time, and produces a
+  tarball that can be used for submission to CRAN.
 }
 

@@ -6,5 +6,5 @@
 #' @param x A numeric, integer, or character vector.
 #' @export
 counts <- function(x) {
-  return( .Call("Kmisc_fast_table", x, PACKAGE="Kmisc"))
+  return( .Call("Kmisc_counts", x, PACKAGE="Kmisc"))
 }

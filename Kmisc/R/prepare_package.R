@@ -2,7 +2,8 @@
 #' 
 #' This function prepares the package such that all the C / C++ source files
 #' are concatenated into one file (for each source). This increases
-#' compilation time.
+#' compilation time, and produces a tarball that can be used for submission
+#' to CRAN.
 #' 
 #' @param build Build the package with \code{R CMD build}?
 #' @param check Check the package with \code{R CMD check}?
@@ -47,7 +48,7 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
     }
   }
   
-  cat("Concatendating file...\n")
+  cat("Concatenating source files...\n")
   concatenate_src("c$", ".c")
   concatenate_src("cpp$", ".cpp")
   
@@ -73,6 +74,6 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   }
   
   ## remove the build dir
-  system( "rm -rf", buildDir )
+  system( paste("rm -rf", buildDir) )
   
 }

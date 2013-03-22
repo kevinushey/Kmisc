@@ -62,5 +62,5 @@ Collate:
     'tapply_.R'
     'value_matching.R'
     'any_na.R'
-    'table_.R'
     'prepare_package.R'
+    'counts.R'
