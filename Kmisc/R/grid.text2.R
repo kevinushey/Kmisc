@@ -66,8 +66,6 @@ grid.text2 <- function(label,
                        heightAdj=unit(0.05, "npc")
                        ) {
   
-  require(grid)
-  
   if( !is.unit(x) ) {
     x <- unit(x, "npc")
   }

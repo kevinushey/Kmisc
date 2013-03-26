@@ -64,8 +64,6 @@ rcpp_apply_generator <- function( fun,
                                   file=NULL,
                                   additional=NULL ) {
   
-  require("Rcpp")
-  
   if( getRversion() < "2.15.1" ||
         packageVersion("Rcpp") < "0.10.1"
       ) {

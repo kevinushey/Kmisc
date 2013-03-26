@@ -7,7 +7,8 @@
 #' 
 #' @param build Build the package with \code{R CMD build}?
 #' @param check Check the package with \code{R CMD check}?
-#' @param install Install the package with \code{R CMD INSTALL}?
+#' @param install Install the package with \code{R CMD INSTALL}? Only be
+#' done if \code{build} is \code{TRUE} as well.
 prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   
   cat("Copying files to build directory...\n")
@@ -21,7 +22,7 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   pkg_version <- gsub("Version: ", "", grep("^Version:", DESCRIPTION, value=TRUE))
   
   ## copy the files to a 'build' directory
-  buildDir <- paste(sep='', "../", pkg_name, "_", pkg_version, "_build")
+  buildDir <- paste(sep='', "../", pkg_name, "_", pkg_version, "_tmp_build")
   if( file.exists(buildDir) ) {
     system( paste("rm -rf", shQuote(buildDir)) )
   }
@@ -30,11 +31,12 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   
   ## in the build directory, 'cat' all the src files together
   ## have a separate file for .c, .cpp files
-  
   src_files <- list.files( full.names=TRUE, paste( sep='',
                                   buildDir, "/src"
   ) )
   
+  ## regex: the regex to match for picking up files
+  ## ext: the file extension to use on the outputted file
   concatenate_src <- function(regex, ext) {
     files <- grep( regex, src_files, value=TRUE )
     final <- paste( sep='', buildDir, "/src/", pkg_name, "_", gsub("\\.", "", ext), ext )
@@ -43,7 +45,7 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
     files <- files[ !(files %in% grep("RcppExports", files, value=TRUE)) ]
     for( file in files ) {
       system( paste("cat", shQuote(file), ">>", shQuote(final)) )
-      system( paste("echo '' >>", shQuote(final) ) )
+      system( paste("echo '' >>", shQuote(final) ) ) ## adds a newline just in case
       system( paste("rm", file) )
     }
   }
@@ -57,21 +59,26 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
     file.remove(file)
   }
   
-  cat("Building:\n\n")
+  cat("Building... ")
   ## build the package
   if(build) {
-    system( paste("R CMD build", paste(sep='', "../", pkg_name, "_", pkg_version, "_build") ) )
+    system( paste("R CMD build", paste(sep='', "../", pkg_name, "_", pkg_version, "_tmp_build") ) )
     system( paste("mv", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz"), "../") )
+    cat("Done!\n\n")
   }
   
   ## check the package
   if(check) {
+    cat("Running R CMD check...\n\n")
     system( paste("R CMD check", paste(sep='', "../", pkg_name, "_", pkg_version, ".tar.gz")))
     system( paste("rm -rf", paste0(pkg_name, ".Rcheck")) )
   }
   
+  ## install the package
   if(build && install) {
+    cat("Installing package...\n\n")
     system( paste("R CMD INSTALL --preclean --no-multiarch", paste(sep='', "../", pkg_name, "_", pkg_version, ".tar.gz")))
+    cat("Done!\n")
   }
   
   ## remove the build dir

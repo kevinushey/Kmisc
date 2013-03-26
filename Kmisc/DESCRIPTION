@@ -2,7 +2,7 @@ Package: Kmisc
 Type: Package
 Title: Miscellaneous functions intended to improve the R coding experience
 Version: 0.5.0
-Date: 2013-02-21
+Date: 2013-03-26
 Author: Kevin Ushey
 Maintainer: Kevin Ushey <kevinushey@gmail.com>
 Description: A collection of functions for common data reshaping operations, as
@@ -14,14 +14,13 @@ Depends:
     Rcpp (>= 0.10.1)
 Imports:
     lattice,
-    knitr
+    grid
 Suggests:
-    lattice,
-    grid,
     ggplot2,
-    googleVis,
     knitr,
-    testthat
+    googleVis,
+    testthat,
+    microbenchmark
 ByteCompile: TRUE
 VignetteBuilder: knitr
 Collate:
@@ -65,3 +64,4 @@ Collate:
     'prepare_package.R'
     'counts.R'
     'sys.R'
+    'manhattan_plot.R'

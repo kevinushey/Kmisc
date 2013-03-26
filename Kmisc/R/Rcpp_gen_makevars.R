@@ -7,8 +7,6 @@
 #' @param src the location to output the Makevars.
 Rcpp_gen_makevars <- function(src=file.path( getwd(), "src" )) {
   
-  require("Rcpp")
-  
   skeleton <- system.file("skeleton", package = "Rcpp")
   Makevars <- file.path(src, "Makevars")
   if (!file.exists(Makevars)) {

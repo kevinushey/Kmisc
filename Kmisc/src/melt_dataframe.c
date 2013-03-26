@@ -23,19 +23,19 @@ SEXP rep_each_char( SEXP x, int each ) {
 }
 
 #define HANDLE_CASE( RTYPE, CTYPE, ACCESSOR ) \
-case RTYPE: { \
-	PROTECT( out = allocVector( RTYPE, len*times ) ); \
-	CTYPE* ptr = ACCESSOR(x); \
-	CTYPE* out_ptr = ACCESSOR(out); \
-	for( int i=0; i < times; ++i ) { \
-		for( int j=0; j < len; ++j ) { \
-			out_ptr[counter] = ptr[j]; \
-			++counter; \
+		case RTYPE: { \
+			PROTECT( out = allocVector( RTYPE, len*times ) ); \
+			CTYPE* ptr = ACCESSOR(x); \
+			CTYPE* out_ptr = ACCESSOR(out); \
+			for( int i=0; i < times; ++i ) { \
+				for( int j=0; j < len; ++j ) { \
+					out_ptr[counter] = ptr[j]; \
+					++counter; \
+				} \
+			} \
+			UNPROTECT(1); \
+			return out; \
 		} \
-	} \
-	UNPROTECT(1); \
-	return out; \
-} \
 
 SEXP stack_vector( SEXP x, int times ) {
 	SEXP out;
@@ -45,7 +45,7 @@ SEXP stack_vector( SEXP x, int times ) {
 	HANDLE_CASE( INTSXP, int, INTEGER );
 	HANDLE_CASE( REALSXP, double, REAL );
 	HANDLE_CASE( LGLSXP, int, LOGICAL );
-  HANDLE_CASE( STRSXP, SEXP, STRING_PTR );
+	HANDLE_CASE( STRSXP, SEXP, STRING_PTR );
 	}
 
 	error("Stacking not implemented for vector of this RTYPE");
@@ -68,19 +68,19 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	SEXP value_SEXP;
 
 #define HANDLE_CASE( RTYPE, CTYPE, ACCESSOR ) \
-	case RTYPE: { \
-		PROTECT( value_SEXP = allocVector( RTYPE, value_len ) ); \
-		int counter = 0; \
-		CTYPE* ptr_val = ACCESSOR( value_SEXP ); \
-		for( int i=0; i < nColRep; ++i ) { \
-			CTYPE* ptr = ACCESSOR( VECTOR_ELT( x_rep, i ) ); \
-			for( int j=0; j < nRow; ++j ) { \
-				ptr_val[counter] = ptr[j]; \
-				++counter; \
+		case RTYPE: { \
+			PROTECT( value_SEXP = allocVector( RTYPE, value_len ) ); \
+			int counter = 0; \
+			CTYPE* ptr_val = ACCESSOR( value_SEXP ); \
+			for( int i=0; i < nColRep; ++i ) { \
+				CTYPE* ptr = ACCESSOR( VECTOR_ELT( x_rep, i ) ); \
+				for( int j=0; j < nRow; ++j ) { \
+					ptr_val[counter] = ptr[j]; \
+					++counter; \
+				} \
 			} \
+			break; \
 		} \
-		break; \
-	} \
 
 
 	int value_len = nColRep * nRow;

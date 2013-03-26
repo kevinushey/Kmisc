@@ -526,7 +526,6 @@ make_dummy <- function(x) {
 #' data(iris)
 #' kmeans_plot(iris[,1:4])
 kmeans_plot <- function( dat, nmax=20, ... ) {
-  require( lattice )
   kVar <- rep(0,nmax)
   for( i in 1:nmax ) {
     tmp <- kmeans( dat, i )

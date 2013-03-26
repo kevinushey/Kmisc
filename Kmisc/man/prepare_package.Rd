@@ -11,7 +11,8 @@
   \item{check}{Check the package with \code{R CMD check}?}
 
   \item{install}{Install the package with \code{R CMD
-  INSTALL}?}
+  INSTALL}? Only be done if \code{build} is \code{TRUE} as
+  well.}
 }
 \description{
   This function prepares the package such that all the C /
