@@ -1,133 +1,28 @@
 # Generate HTML tag environment
 # 
-# Generates the environment used for the HTML utility functions. Included
-# as means of documentation for where the HTML utility functions come from.
+# Generates the environment used for the HTML utility functions.
 .html <- new.env()
-.html_tags <- scan( what=character(), sep="\n", strip.white=TRUE, quiet=TRUE,
-                   text="<a>
-                   <abbr>
-                   <acronym>
-                   <address>
-                   <applet>
-                   <area>
-                   <b>
-                   <base>
-                   <basefont>
-                   <bdo>
-                   <big>
-                   <blockquote>
-                   <body>
-                   <br>
-                   <button>
-                   <caption>
-                   <center>
-                   <cite>
-                   <code>
-                   <col>
-                   <colgroup>
-                   <dd>
-                   <del>
-                   <dfn>
-                   <dir>
-                   <div>
-                   <dl>
-                   <dt>
-                   <em>
-                   <fieldset>
-                   <font>
-                   <form>
-                   <frame>
-                   <frameset>
-                   <h1>
-                   <h2>
-                   <h3>
-                   <h4>
-                   <h5>
-                   <h6>
-                   <head>
-                   <hr>
-                   <html>
-                   <i>
-                   <iframe>
-                   <img>
-                   <input>
-                   <ins>
-                   <isindex>
-                   <kbd>
-                   <label>
-                   <legend>
-                   <li>
-                   <link>
-                   <map>
-                   <menu>
-                   <meta>
-                   <noframes>
-                   <noscript>
-                   <object>
-                   <ol>
-                   <optgroup>
-                   <option>
-                   <p>
-                   <param>
-                   <pre>
-                   <q>
-                   <s>
-                   <samp>
-                   <script>
-                   <select>
-                   <small>
-                   <span>
-                   <strike>
-                   <strong>
-                   <style>
-                   <sub>
-                   <sup>
-                   <table>
-                   <tbody>
-                   <td>
-                   <textarea>
-                   <tfoot>
-                   <th>
-                   <thead>
-                   <title>
-                   <tr>
-                   <tt>
-                   <u>
-                   <ul>
-                   <var>
-                   <article>
-                   <aside>
-                   <audio>
-                   <bdi>
-                   <canvas>
-                   <command>
-                   <datalist>
-                   <details>
-                   <embed>
-                   <figcaption>
-                   <figure>
-                   <footer>
-                   <header>
-                   <hgroup>
-                   <keygen>
-                   <mark>
-                   <meter>
-                   <nav>
-                   <output>
-                   <progress>
-                   <rp>
-                   <rt>
-                   <ruby>
-                   <section>
-                   <summary>
-                   <time>
-                   <track>
-                   <video>
-                   <wbr>")
-.tags <- sort( gsub( "(<)(.*?)(>)", "\\2", .html_tags, perl=TRUE ) )
+.tags <- c(
+  "a", "abbr", "acronym", "address", "applet", "area", "article", 
+  "aside", "audio", "b", "base", "basefont", "bdi", "bdo", "big", 
+  "blockquote", "body", "br", "button", "canvas", "caption", "center", 
+  "cite", "code", "col", "colgroup", "command", "datalist", "dd", 
+  "del", "details", "dfn", "dir", "div", "dl", "dt", "em", "embed", 
+  "fieldset", "figcaption", "figure", "font", "footer", "form", 
+  "frame", "frameset", "h1", "h2", "h3", "h4", "h5", "h6", "head", 
+  "header", "hgroup", "hr", "html", "i", "iframe", "img", "input", 
+  "ins", "isindex", "kbd", "keygen", "label", "legend", "li", "link", 
+  "map", "mark", "menu", "meta", "meter", "nav", "noframes", "noscript", 
+  "object", "ol", "optgroup", "option", "output", "p", "param", 
+  "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "script", 
+  "section", "select", "small", "span", "strike", "strong", "style", 
+  "sub", "summary", "sup", "table", "tbody", "td", "textarea", 
+  "tfoot", "th", "thead", "time", "title", "tr", "track", "tt", 
+  "u", "ul", "var", "video", "wbr"
+)
+
 for( tag in .tags ) {
   assign( tag, makeHTMLTag(tag), envir=.html )
 }
 
 rm(.tags)
-rm(.html_tags)

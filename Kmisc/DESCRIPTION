@@ -10,9 +10,8 @@ Description: A collection of functions for common data reshaping operations, as
 License: GPL (>= 2)
 LazyData: TRUE
 LinkingTo: Rcpp
-Depends:
-    Rcpp (>= 0.10.1)
 Imports:
+    Rcpp (>= 0.10.1),
     lattice,
     grid
 Suggests:

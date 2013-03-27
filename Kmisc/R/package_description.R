@@ -7,6 +7,6 @@
 #' @name Kmisc
 #' @docType package
 #' @useDynLib Kmisc
-#' @import lattice grid
+#' @import lattice grid Rcpp
 #' @seealso \code{\link{html}}
 NULL

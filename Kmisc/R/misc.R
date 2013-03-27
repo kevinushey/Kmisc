@@ -1,7 +1,7 @@
 ## user name, nice date for file output
 tmp <- gsub( "-", "", Sys.Date() )
-.Date <<- substring( tmp, 3, nchar(tmp) )
-.User.Name <<- paste( Sys.info()[c("sysname", "machine")], collapse="_" )
+.Date <- substring( tmp, 3, nchar(tmp) )
+.User.Name <- paste( Sys.info()[c("sysname", "machine")], collapse="_" )
 
 #' Number of non-NA unique elements in a vector
 #'  
