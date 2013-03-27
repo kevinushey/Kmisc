@@ -65,3 +65,4 @@ Collate:
     'counts.R'
     'sys.R'
     'manhattan_plot.R'
+    'html_tags.R'

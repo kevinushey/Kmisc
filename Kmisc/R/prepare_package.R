@@ -59,7 +59,7 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
     file.remove(file)
   }
   
-  cat("Building... ")
+  cat("Building...\n\n")
   ## build the package
   if(build) {
     system( paste("R CMD build", paste(sep='', "../", pkg_name, "_", pkg_version, "_tmp_build") ) )

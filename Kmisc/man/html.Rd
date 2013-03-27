@@ -19,7 +19,7 @@ html(
   h1("Welcome!"),
   div(class="header", table( tr( td("nested elements are ok") ) ) ),
   footer(class="foot", "HTML5 footer")
-  )
+)
 }
 \seealso{
   \code{\link{makeHTMLTag}}, for making your own tags.

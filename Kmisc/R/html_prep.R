@@ -13,7 +13,7 @@
 #'   h1("Welcome!"),
 #'   div(class="header", table( tr( td("nested elements are ok") ) ) ),
 #'   footer(class="foot", "HTML5 footer")
-#'   )
+#' )
 html <- function(..., file="") {
   dotArgs <- match.call(expand.dots=FALSE)$`...`
   for( item in dotArgs ) {
@@ -32,7 +32,7 @@ html <- function(..., file="") {
 #' @S3method print kHTML
 #' @seealso \code{\link{html}}
 #' @examples
-#' .html$br()
+#' Kmisc:::.html$br()
 print.kHTML <- function(...) {
   cat( ... )
 }
@@ -105,16 +105,3 @@ makeHTMLTag <- function(tag, ...) {
   } )
   
 }
-
-# Generate HTML tag environment
-# 
-# Generates the environment used for the HTML utility functions. Included
-# as means of documentation for where the HTML utility functions come from.
-# .html <- new.env()
-# html_tags <- scan( what=character(), sep="\n", strip.white=TRUE,
-#                 "./data/html.txt" )
-# tags <- sort( gsub( "(<)(.*?)(>)", "\\2", html_tags, perl=TRUE ) )
-# for( tag in tags ) {
-# assign( tag, makeHTMLTag(tag), envir=.html )
-# }
-# save( .html, file=paste( sep="",  getwd(), "/data/html.rda" ) )

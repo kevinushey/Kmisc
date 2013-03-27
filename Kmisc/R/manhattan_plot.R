@@ -113,35 +113,37 @@ manhattan_plot <- function( pval,
     )
   }
   
-  print( with( dat, 
-               xyplot( -log10(P) ~ relBP,
-                       grid=TRUE,
-                       pch=21,
-                       col="black",
-                       fill=COL,
-                       cex = 1,
-                       scales = list( 
-                         x = list(
-                           relation = "same",
-                           tck = c(1,0),
-                           at = diffs,
-                           labels = kLabel
-                         ) 
-                       ),
-                       panel = function(x, y, ...) {
-                         panel.xyplot(x, y, ...)
-                         panel.abline( h=-log10(0.05/nrow(dat)),
-                                       col="red", lty="dashed" )
-                         panel.abline(h=0, col="black", lwd=8)
-                         
-                       },
-                       key=myKey,
-                       xlim = c( 0, max(dat$relBP) ),
-                       origin = 0,
-                       xlab=xlab,
-                       ylab=ylab,
-                       ...
-               )
-  ) )
+  print( 
+    with( dat, 
+          xyplot( -log10(P) ~ relBP,
+                  grid=TRUE,
+                  pch=21,
+                  col="black",
+                  fill=COL,
+                  cex = 1,
+                  scales = list( 
+                    x = list(
+                      relation = "same",
+                      tck = c(1,0),
+                      at = diffs,
+                      labels = kLabel
+                    ) 
+                  ),
+                  panel = function(x, y, ...) {
+                    panel.xyplot(x, y, ...)
+                    panel.abline( h=-log10(0.05/nrow(dat)),
+                                  col="red", lty="dashed" )
+                    panel.abline(h=0, col="black", lwd=8)
+                    
+                  },
+                  key=myKey,
+                  xlim = c( 0, max(dat$relBP) ),
+                  origin = 0,
+                  xlab=xlab,
+                  ylab=ylab,
+                  ...
+          )
+    ) 
+  )
   
 }
