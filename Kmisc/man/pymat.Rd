@@ -1,0 +1,35 @@
+\name{pymat}
+\alias{pymat}
+\title{Python-style Formatting of Strings.}
+\usage{
+  pymat(x, ..., collapse = "_")
+}
+\arguments{
+  \item{x}{A string with arguments to be replaced in the
+  form of \code{{0}, {1}, ..., {n}}.}
+
+  \item{...}{Arguments to be subsituted into string.}
+
+  \item{collapse}{If vectors of length greater than 1 are
+  passed to \code{...}, then we collapse the vectors with
+  this separator.}
+}
+\description{
+  This function allows Python-style formatting of strings,
+  whereby text of the form \code{{0}, {1}, ..., {n}} is
+  substituted according to the matching argument passed to
+  \code{...}. \code{0} corresponds to the first argument,
+  \code{1} corresponds to the second, and so on.
+}
+\examples{
+pymat(
+  "My favourite fruits are: {0}, {1}, and {2}.",
+  "apple", "banana", "orange"
+)
+
+pymat(
+  "My favourite fruits are: {0}.",
+  c("apple", "banana", "orange"), collapse=", "
+)
+}
+
