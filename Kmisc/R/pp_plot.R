@@ -30,7 +30,7 @@ pp_plot <- function(x, ...) {
     xyplot( o ~ e,
             
             xlim=c(-0.1, max(e)+0.1),
-            ylim=c(-0.1, max(upper_band)*1.1),
+            ylim=c(-0.1, max(upper_band, o)*1.1),
             
             panel = function(x, y) {
               
