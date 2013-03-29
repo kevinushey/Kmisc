@@ -2,6 +2,7 @@
 using namespace Rcpp;
 
 template <int RTYPE>
+inline
 IntegerVector do_counts( const Vector<RTYPE>& x ) {
   return table(x);
 }
