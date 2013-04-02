@@ -14,6 +14,8 @@
 #' the cutoff here.
 #' @param xlab The label to use for the x axis.
 #' @param ylab The label to use for the y axis.
+#' @param transform boolean; if \code{TRUE}, we compute \code{-log10(pval)};
+#'   otherwise, we use \code{pval} as-is.
 #' @param ... Optional arguments passed to \code{xyplot}.
 #' @export
 #' @examples
@@ -30,6 +32,7 @@ manhattan_plot <- function( pval,
                             cutoff=NULL,
                             xlab="Chromosome (base-pair position)",
                             ylab=expression( paste( -log[10]( italic(p) ) ) ),
+                            transform=TRUE,
                             ... ) {
   
   dat <- data.frame(
@@ -120,9 +123,13 @@ manhattan_plot <- function( pval,
     )
   }
   
+  if( transform ) {
+    dat$P <- -log10(dat$P)
+  }
+  
   print( 
     with( dat, 
-          xyplot( -log10(P) ~ relBP,
+          xyplot( P ~ relBP,
                   grid=TRUE,
                   pch=21,
                   col="black",
