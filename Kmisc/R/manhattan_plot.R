@@ -38,14 +38,14 @@ manhattan_plot <- function( pval,
     CHR=chr
   )
   
+  if( !is.null(groups) ) {
+    dat$GROUP <- factor_(groups)
+  }
+  
   ## remove any NAs
   if( any( !complete.cases(dat) ) ) {
     warning("There are NAs in your data; these points are removed for the plot")
     dat <- dat[ complete.cases(dat), ]
-  }
-  
-  if( !is.null(groups) ) {
-    dat$GROUP <- factor_(groups)
   }
   
   dat <- dat[ order(dat$CHR), ]
