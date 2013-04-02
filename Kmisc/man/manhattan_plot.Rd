@@ -5,7 +5,8 @@
   manhattan_plot(pval, bp, chr, groups = NULL,
     cutoff = NULL,
     xlab = "Chromosome (base-pair position)",
-    ylab = expression(paste(-log[10](italic(p)))), ...)
+    ylab = expression(paste(-log[10](italic(p)))),
+    transform = TRUE, ...)
 }
 \arguments{
   \item{pval}{A vector of p-values.}
@@ -28,6 +29,10 @@
 
   \item{ylab}{The label to use for the y axis.}
 
+  \item{transform}{boolean; if \code{TRUE}, we compute
+  \code{-log10(pval)}; otherwise, we use \code{pval}
+  as-is.}
+
   \item{...}{Optional arguments passed to \code{xyplot}.}
 }
 \description{
@@ -41,5 +46,6 @@ bp <- c(1:5E3, 1:5E3)
 chr <- rep(1:22, length.out=1E4)
 groups=rep( c("Phenotype 1", "Phenotype 2"), each=5E3 )
 manhattan_plot( pval, bp, chr, groups )
+manhattan_plot( pval, bp, chr )
 }
 
