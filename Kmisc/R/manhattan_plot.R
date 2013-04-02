@@ -22,6 +22,7 @@
 #' chr <- rep(1:22, length.out=1E4)
 #' groups=rep( c("Phenotype 1", "Phenotype 2"), each=5E3 )
 #' manhattan_plot( pval, bp, chr, groups )
+#' manhattan_plot( pval, bp, chr )
 manhattan_plot <- function( pval,
                             bp,
                             chr,
@@ -36,6 +37,12 @@ manhattan_plot <- function( pval,
     BP=bp,
     CHR=chr
   )
+  
+  ## remove any NAs
+  if( any( !complete.cases(dat) ) ) {
+    warning("There are NAs in your data; these points are removed for the plot")
+    dat <- dat[ complete.cases(dat), ]
+  }
   
   if( !is.null(groups) ) {
     dat$GROUP <- factor_(groups)
@@ -94,7 +101,7 @@ manhattan_plot <- function( pval,
   
   ## generate the key
   if( is.null(groups) ) {
-    myKey <- list()
+    myKey <- NULL
   } else {
     myKey <- list(
       text=list(

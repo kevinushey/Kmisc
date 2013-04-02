@@ -8,7 +8,7 @@
   \item{x}{A string with arguments to be replaced in the
   form of \code{{0}, {1}, ..., {n}}.}
 
-  \item{...}{Arguments to be subsituted into string.}
+  \item{...}{Arguments to be substituted into string.}
 
   \item{collapse}{If vectors of length greater than 1 are
   passed to \code{...}, then we collapse the vectors with
