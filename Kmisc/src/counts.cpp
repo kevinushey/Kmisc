@@ -13,6 +13,7 @@ SEXP counts( SEXP x ) {
   case INTSXP: return do_counts<INTSXP>(x);
   case REALSXP: return do_counts<REALSXP>(x);
   case STRSXP: return do_counts<STRSXP>(x);
+  case LGLSXP: return do_counts<LGLSXP>(x);
   default: {
     stop("unsupported RTYPE");
     return R_NilValue;

@@ -63,3 +63,5 @@ SEXP any_na( SEXP x ) {
 	error("Unrecognized RTYPE");
 	return x;
 }
+
+#undef USE_RINTERNALS

@@ -51,6 +51,7 @@ SEXP stack_vector( SEXP x, int times ) {
 	error("Stacking not implemented for vector of this RTYPE");
 	return R_NilValue;
 }
+
 #undef HANDLE_CASE
 
 SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
@@ -107,6 +108,7 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	default:
 		error("Unsupported RTYPE encountered");
 	}
+  
 #undef HANDLE_CASE
 
 	// generate the id variables, and assign them on generation
@@ -148,3 +150,5 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	return out;
 
 }
+
+#undef USE_RINTERNALS

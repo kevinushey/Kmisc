@@ -56,3 +56,5 @@ SEXP str_slice(SEXP x, SEXP n) {
     return( out );
     
 }
+
+#undef USE_RINTERNALS

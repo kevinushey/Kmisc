@@ -43,3 +43,5 @@ SEXP in_interval( SEXP x, SEXP lo, SEXP hi,
   return out;
   
 }
+
+#undef USE_RINTERNALS

@@ -172,3 +172,5 @@ SEXP melt_matrix( SEXP x ) {
 	return out;
 
 }
+
+#undef USE_RINTERNALS

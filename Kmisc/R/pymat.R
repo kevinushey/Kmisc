@@ -7,7 +7,7 @@
 #' 
 #' @param x A string with arguments to be replaced in the form of
 #'   \code{{0}, {1}, ..., {n}}.
-#' @param ... Arguments to be subsituted into string.
+#' @param ... Arguments to be substituted into string.
 #' @param collapse If vectors of length greater than 1 are passed to \code{...},
 #'   then we collapse the vectors with this separator.
 #' @export
@@ -29,8 +29,7 @@ pymat <- function(x, ..., collapse="_") {
   }
   
   ## collapse vectors passed to dot args
-  dotArgs <- list(...)
-  dotArgs <- sapply( dotArgs, paste, collapse=collapse )
+  dotArgs <- sapply( list(...), paste, collapse=collapse )
   
   i <- 0
   for( arg in dotArgs ) {

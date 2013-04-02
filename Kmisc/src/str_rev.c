@@ -35,3 +35,5 @@ SEXP str_rev( SEXP x ) {
     UNPROTECT(1);
     return out;
 }
+
+#undef USE_RINTERNALS

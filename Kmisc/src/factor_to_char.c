@@ -37,3 +37,5 @@ SEXP factor_to_char( SEXP X_ ) {
     }
   }
 }
+
+#undef USE_RINTERNALS
