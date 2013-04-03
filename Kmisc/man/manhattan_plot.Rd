@@ -30,8 +30,9 @@
   \item{ylab}{The label to use for the y axis.}
 
   \item{transform}{boolean; if \code{TRUE}, we compute
-  \code{-log10(pval)}; otherwise, we use \code{pval}
-  as-is.}
+  \code{-log10(pval)}; otherwise, we use \code{pval} as-is,
+  assuming that \code{pval} has been transformed
+  accordingly.}
 
   \item{...}{Optional arguments passed to \code{xyplot}.}
 }

@@ -1,7 +1,293 @@
+<style>
+body {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+}
+
+table, th, td {
+  
+  font-size: 14px;
+  font-family: "Droid Sans MS", "DejaVu Sans MS", "Consolas", "Lucida Console", sans-serif;
+  text-align: right;
+  
+}
+
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid #9AD;  
+  background-color: #FFFFFF;
+}
+
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+
+tr:nth-child(odd) td {
+  background-color: #FCFCFE;
+}
+
+tr:nth-child(even) td {
+  background-color: #F4F4FF;
+}
+
+.twoDtable tr:nth-last-child(1) td, th {
+  font-weight: bold;
+  text-align: center;
+  background-color: #FBFBFB;
+}
+
+tr:nth-child(1) {
+  font-weight: bold;
+  background-color: #FBFBFB;
+}
+
+tr:nth-child(1) td, th {
+  text-align: center;
+}
+
+/* R-outputted 2x2 tables */
+
+.twoDtable tr:nth-child(2) td {
+  font-weight: bold;
+  text-align: center;
+}
+
+.twoDtable tr:nth-last-child(1) {
+  border-top: 2px solid black;
+}
+
+.twoDtable tr:nth-child(3) td:nth-child(2) {
+  font-weight: bold;
+  text-align: center;
+}
+
+.twoDtable tr td:nth-last-child(1) {
+  border-left: 2px solid black;
+  text-align: center;
+  font-weight: bold;
+}
+
+.twoDtable tr td:nth-child(1) {
+  font-weight: bold;
+  text-align: center;
+}
+
+/* End 2x2 tables */
+
+/* 1D tables */
+
+.oneDtable tr:nth-last-child(1) td {
+  border-top: 2px solid black;
+  font-weight: bold;
+}
+
+/* End 1D tables */
+
+p {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 14px;
+  line-height:125%;
+}
+
+p.question {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  color: red;
+}
+
+p.mono {
+  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+ul, ol {
+  font-family: 'Proxima Nova', sans-serif;
+  font-size: 14px;
+}
+
+.divTable {
+  display: inline-block;
+  width:auto;
+  padding:5px;
+  border-style:solid;
+  border-width:thin;
+  border-radius:10px;
+}
+
+.divTable hr {
+  height: 1px;
+  border: 0;
+  width: 100%;
+}
+
+.divTable .left {
+  margin-left:10px;
+  float:left;
+}
+
+.divTable .right {
+  margin-left:200px;
+  margin-right:10px;
+}
+
+
+
+img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  
+}
+
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+   padding: 5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Helvetica", sans-serif;  
+}
+
+h1 { 
+   font-size:2.6em;
+}
+
+h2 { 
+   font-size:2.2em;
+}
+
+h3 { 
+   font-size:1.8em; 
+}
+
+h4 { 
+   font-size:1.4em; 
+}
+
+h5 { 
+   font-size:1.0em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {  
+   margin-top: 0;
+   border: 1px solid #ccc;
+}
+
+pre code {
+   display: block; 
+   padding: 0.5em;
+   white-space: pre-wrap;
+}
+
+code.r {
+   background-color: #F8F8F8;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+  
+  body { 
+    /* font-size:12pt; */ 
+    max-width:100%; 
+    border: none;
+    padding: none;
+  }
+     
+  a, a:visited { 
+    text-decoration: underline;
+  }
+
+  hr { 
+    visibility: hidden;
+    page-break-before: always;
+  }
+
+  pre, blockquote {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size:8pt;
+    padding-right: 1em; 
+    page-break-inside: avoid;
+    
+  }
+   
+  table {
+	  page-break-inside: avoid;
+	}
+  
+  td {
+    -webkit-print-color-adjust: exact;
+    font-size: 12px;
+  }
+
+  tr, img { 
+    page-break-inside: avoid; 
+  }
+
+  @page {
+    size: auto;
+    margin-left: 1in;
+    margin-right: 1in;
+  }
+  
+  p { 
+    orphans: 3; 
+    widows: 3; 
+  }
+   
+  h2 {
+    page-break-before: always;
+  }
+   
+  h1, h2, h3 { 
+    font-family: serif;
+    page-break-after: avoid; 
+  }
+}
+</style>
+
 <!--
 %\VignetteEngine{knitr}
 %\VignetteIndexEntry{Introduction to Kmisc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 -->
 
 <link rel="stylesheet" href="markdown.css">
@@ -27,9 +313,6 @@ dat <- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
 ## let's remove columns 'x' and 'z' from dat.
 dat[ !(names(dat) %in% c('x', 'z')) ]
 ## I always find that syntax awkward. Let's use Kmisc::without instead.
-without( dat, x, z )
-## what if there is a variable 'x' in the global environment?
-x <- "a"
 without( dat, x, z )
 ## finally, we can also index by $ (note: NOT done by partial matching):
 without( dat, dat$x, dat$z )
@@ -111,6 +394,8 @@ print( data.frame( x=x, inner=in_interval(x, lo, hi) ) )
 e.g. you've run some kind of bootstrap procedure and have all your results
 stored in as a list of data.frames -- even `do.call( rbind, dfs )` can be slow.
 The difference is even more prominent when used on very large lists.
+
+This is partially deprecated by `data.table::rbindlist` now, which has a much faster C implementation.
 
 ```{r tidy=FALSE}
 dfs <- replicate(1E3, 
@@ -208,8 +493,8 @@ microbenchmark(
 ```
 
 `melt_`: This function operates like `reshape2:::melt`, but works almost
-entirely through the R API and hence is much faster. However, we're limited
-to stacking only one final 'value' vector.
+entirely through C and hence is much faster. However, the implementation is
+currently less flexible, and only operates on `data.frame`s and `matrix`s.
 ```{r, tidy=FALSE}
 dat <- data.frame(
   id=LETTERS[1:5],
@@ -250,48 +535,6 @@ pxt( kTable(x, y,
             left.label="baz" 
             ) )
 
-```
-
-`kTable` with `google=TRUE`: Generate a 1D table output with the `googleVis`
-package.
-
-```{r results='asis', tidy=FALSE}
-suppressPackageStartupMessages( library(googleVis) )
-tmp <- gvisTable( kTable(x, google=TRUE) )
-cat( tmp$html$chart )
-```
-
-`hImg, hSvg`: These utility functions do the work of simultaneously writing a
-plot to file, and then producing the HTML code needed to embed that plot in
-the page. Once again, we require `results='asis'` in the chunk options. I
-also show off the nice little `gradient` function.
-
-```{r results='asis', tidy=FALSE}
-x <- rnorm(100); y <- x + runif(100)
-## note that the default resolution is high for PNGs
-hImg( file="test.png", width=400, height=300, dpi=300,
-      xyplot( y ~ x, col=gradient(x+y) )
-      )
-hSvg( file="test.svg", width=400, height=300,
-      xyplot( y ~ x, col=gradient(x+y) )
-      )
-```
-
-`kCoef, kAnova`: These are functions that produce 'nicer' coefficient output
-from a model fit, especially when factors are used. However, they don't work
-quite right for models with interaction effects yet.
-
-```{r tidy=FALSE}
-x <- rnorm(100); y <- x + runif(100)
-z <- factor( rep(c('a','b','c','d'), each=25) )
-
-myFit <- lm( y ~ x + z )
-
-## the vanilla way
-coef( summary( myFit ) )
-
-## nicer parsing of variable names
-kCoef( myFit )
 ```
 
 `html`: Custom HTML in an R Markdown document.

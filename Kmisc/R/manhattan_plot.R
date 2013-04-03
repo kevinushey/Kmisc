@@ -15,7 +15,8 @@
 #' @param xlab The label to use for the x axis.
 #' @param ylab The label to use for the y axis.
 #' @param transform boolean; if \code{TRUE}, we compute \code{-log10(pval)};
-#'   otherwise, we use \code{pval} as-is.
+#'   otherwise, we use \code{pval} as-is, assuming that \code{pval} has been
+#'   transformed accordingly.
 #' @param ... Optional arguments passed to \code{xyplot}.
 #' @export
 #' @examples
@@ -130,7 +131,6 @@ manhattan_plot <- function( pval,
   print( 
     with( dat, 
           xyplot( P ~ relBP,
-                  grid=TRUE,
                   pch=21,
                   col="black",
                   fill=COL,
@@ -147,7 +147,10 @@ manhattan_plot <- function( pval,
                     panel.xyplot(x, y, ...)
                     panel.abline( h=-log10(0.05/nrow(dat)),
                                   col="red", lty="dashed" )
-                    panel.abline(h=0, col="black", lwd=8)
+                    panel.abline(h=0, col="black", lwd=10)
+                    for( i in maxes.cumsum ) {
+                      panel.segments( i, 0, i, 1000, col="grey70", lty="dashed" )
+                    }
                     
                   },
                   key=myKey,
