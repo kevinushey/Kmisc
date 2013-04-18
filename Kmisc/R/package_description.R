@@ -1,3 +1,5 @@
+.Kmisc <- new.env()
+
 #' Kmisc
 #' 
 #' This package contains utility function for some common data reshaping 

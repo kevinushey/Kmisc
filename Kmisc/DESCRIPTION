@@ -67,3 +67,5 @@ Collate:
     'manhattan_plot.R'
     'html_tags.R'
     'pymat.R'
+    'list_to_dataframe.R'
+    'str_split.R'

@@ -32,6 +32,8 @@
 }
 \description{
   This function provides a simple front-end to \code{awk}.
+  It assumes that you have \code{awk} available and in your
+  \code{PATH}.
 }
 \examples{
 dat <- data.frame(

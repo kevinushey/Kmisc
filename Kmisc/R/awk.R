@@ -1,6 +1,9 @@
+.Kmisc$awk <- "awk"
+
 #' A Simple Front-end to Awk
 #' 
-#' This function provides a simple front-end to \code{awk}.
+#' This function provides a simple front-end to \code{awk}. It assumes that
+#' you have \code{awk} available and in your \code{PATH}.
 #' 
 #' @param code The \code{awk} code you want to put in the main execution block.
 #' @param file The file we are running \code{awk} on.
@@ -69,13 +72,11 @@ awk <- function( code, file, BEGIN=NULL, END=NULL, vars=NULL, fs=NULL, out=TRUE,
   } else {
     intern <- FALSE
     out <- suppressWarnings( normalizePath( as.character(out) ) )
-    if( !file.exists(out) ) {
-      stop("No file exists at 'out'")
-    }
   }
   
   awk_call <- paste( sep="",
-                     "awk ",
+                     .Kmisc$awk,
+                     " ",
                      if( !is.null(vars_statement) ) paste(sep="", vars_statement, " "),
                      if( !is.null(fs_statement) ) paste(sep="", fs_statement, " "),
                      "'",
@@ -90,4 +91,15 @@ awk <- function( code, file, BEGIN=NULL, END=NULL, vars=NULL, fs=NULL, out=TRUE,
   
   system( awk_call, intern=intern )
   
+}
+
+#' Set awk
+#' 
+#' Use this function to set the string by which \code{awk} is called; e.g. if
+#' you're using GNU awk (gawk), mawk, and so on.
+#' 
+#' @param awk String denoting the appropriate call for your flavour of \code{awk}.
+#' @export
+awk.set <- function(awk) {
+  .Kmisc$awk <- awk
 }

@@ -1,3 +1,9 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Introduction to Kmisc}
+\usepackage[utf8]{inputenc}
+-->
+
 <style>
 body {
    font-family: sans-serif;
@@ -8,7 +14,7 @@ body {
 table, th, td {
   
   font-size: 14px;
-  font-family: "Droid Sans MS", "DejaVu Sans MS", "Consolas", "Lucida Console", sans-serif;
+  font-family: "Droid Sans Mono", "DejaVu Sans MS", "Consolas", "Lucida Console", sans-serif;
   text-align: right;
   
 }
@@ -153,7 +159,6 @@ img.center {
   
 }
 
-
 tt, code, pre {
    font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
    padding: 5px;
@@ -246,7 +251,6 @@ hr {
     font-size:8pt;
     padding-right: 1em; 
     page-break-inside: avoid;
-    
   }
    
   table {
@@ -283,12 +287,6 @@ hr {
   }
 }
 </style>
-
-<!--
-%\VignetteEngine{knitr}
-%\VignetteIndexEntry{Introduction to Kmisc}
-%\usepackage[utf8]{inputenc}
--->
 
 <link rel="stylesheet" href="markdown.css">
 
@@ -386,8 +384,8 @@ kMerge( dat1, dat2, by="id" )
 vector `x` lie within an interval `[lo, hi)`.
 
 ```{r tidy=FALSE}
-x <- runif(10); lo <- 0.5; hi <- 1
-print( data.frame( x=x, inner=in_interval(x, lo, hi) ) )
+x <- runif(10)*10; lo <- 5; hi <- 10
+print( data.frame( x=x, between_5_and_10=in_interval(x, lo, hi) ) )
 ```
 
 `stack_list`: Use this to stack data.frames in a list. This can be useful if

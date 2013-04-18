@@ -72,7 +72,8 @@ List stack_list_df( List& X,
 		std::vector< std::string > row_names;
 		for( int i=0; i < X.size(); ++i ) {
 			std::vector< std::string > rownames = as<std::vector< std::string > >( as<List>( X[i] ).attr("row.names") );
-			for( int j=0; j < rownames.size(); ++j ) {
+			int rownames_size = rownames.size();
+      for( int j=0; j < rownames_size; ++j ) {
 				row_names.push_back( rownames[j] );
 			}
 		}
