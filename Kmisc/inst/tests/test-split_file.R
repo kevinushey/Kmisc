@@ -18,7 +18,7 @@ for( file in list.files(outPath, full.names=TRUE) ) {
 
 split_file( tempfile, 
             column=1, 
-            sep="\t", 
+#            sep="\t", 
             outDir=outPath,
             verbose=FALSE
             )

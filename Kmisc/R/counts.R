@@ -9,6 +9,7 @@ counts <- function(x) {
   if( is.list(x) ) {
     return( rapply(x, counts, how="list") )
   } else {
-    return( .Call("Kmisc_counts", x, PACKAGE="Kmisc"))
+    #return( .Call("Kmisc_counts", x, PACKAGE="Kmisc"))
+    return( table(x) )
   }
 }

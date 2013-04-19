@@ -72,11 +72,6 @@ void split_file(
 
 		while( std::getline( conn, line ) ) {
 
-			// make sure that the line is not empty
-			// if( line == "" ) {
-			// 	continue;
-			// }
-
 			// check the value of the 'column'th item
 			// we copy the string so that strtok doesn't mangle it
 			std::string str_copy;

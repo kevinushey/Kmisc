@@ -2,7 +2,7 @@
 \alias{split_file}
 \title{Split a File by Unique Entries in a Column}
 \usage{
-  split_file(file, column, sep = "\t",
+  split_file(file, column, sep = NULL,
     outDir = file.path(dirname(file), "split"),
     prepend = "", dots = 1, skip = 0, verbose = TRUE)
 }
@@ -12,7 +12,8 @@
   \item{column}{The column (by index) to split over.}
 
   \item{sep}{The file separator. Must be a single
-  character.}
+  character. If \code{''}, we guess the delimiter from the
+  first line.}
 
   \item{outDir}{The directory to output the files.}
 

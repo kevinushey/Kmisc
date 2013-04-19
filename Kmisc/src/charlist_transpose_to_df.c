@@ -12,10 +12,7 @@ SEXP charlist_transpose_to_df( SEXP x ) {
 
 	for( int j=0; j < out_nCol; ++j ) {
 		SEXP tmp = PROTECT( allocVector( STRSXP, out_nRow ) );
-		//SEXP* tmp_ptr = STRING_PTR(tmp);
 		for( int i=0; i < out_nRow; ++i ) {
-			//tmp_ptr[i] = x_ptrs[i][j];
-			//tmp_ptr[i] = STRING_ELT( VECTOR_ELT( x, i ), j );
 			SET_STRING_ELT( tmp, i, STRING_ELT( VECTOR_ELT( x, i ), j ) );
 		}
 		SET_VECTOR_ELT( out, j, tmp );

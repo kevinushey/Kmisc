@@ -15,7 +15,8 @@
 #' 
 #' @param file The location of the file we are splitting.
 #' @param column The column (by index) to split over.
-#' @param sep The file separator. Must be a single character.
+#' @param sep The file separator. Must be a single character. If \code{''},
+#' we guess the delimiter from the first line.
 #' @param outDir The directory to output the files.
 #' @param prepend A string to prepend to the output file names; typically an 
 #' identifier for what the column is being split over.
@@ -27,7 +28,7 @@
 #' @export
 split_file <- function( file, 
                         column,
-                        sep="\t",
+                        sep=NULL,
                         outDir=file.path( dirname(file), "split"), 
                         prepend="", 
                         dots=1,
@@ -47,6 +48,16 @@ split_file <- function( file,
   
   if( missing(column) ) {
     stop("You must specify a column index to split over")
+  }
+  
+  if( is.null(sep) ) {
+    conn <- file(file)
+    tmp <- readLines(conn, n=skip+1)[skip+1]
+    tmp <- gsub("[^[:space:]]", "", tmp)
+    sep <- names( sort( counts( unlist( strsplit( tmp, "", fixed=TRUE ) ) ), decreasing=TRUE ) )[1]
+    message("Guessing the delimiter is '", sep, "'")
+    close(conn)
+    rm(conn)
   }
   
   if( length( grep(".", basename(file), fixed=TRUE) ) > 0 ) {
