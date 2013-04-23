@@ -50,6 +50,7 @@ split_file <- function( file,
     stop("You must specify a column index to split over")
   }
   
+  ## guess the delimiter
   if( is.null(sep) ) {
     conn <- file(file)
     tmp <- readLines(conn, n=skip+1)[skip+1]

@@ -11,7 +11,8 @@ write.table( dat,
              quote=FALSE
              )
 
-extract_rows_from_file( tmp, out, column=2, sep="\t", keep="a" )
+extract_rows_from_file( tmp, out, column=2, keep="a" )
+extract_rows_from_file( tmp, out, column=2, sep="\t", keep="a")
 dat_sub <- read.table( out, sep="\t", header=FALSE, as.is=TRUE )
 names(dat_sub) <- c("x", "y")
 

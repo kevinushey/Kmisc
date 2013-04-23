@@ -1,6 +1,8 @@
 library(testthat)
 
-dat <- data.frame( x=sample(LETTERS, 1000, TRUE), y=rnorm(1000), stringsAsFactors=FALSE )
+n <- 1E4
+
+dat <- data.frame( x=sample(LETTERS, n, TRUE), y=rnorm(n), stringsAsFactors=FALSE )
 tempfile <- tempfile()
 write.table( dat,
              file=tempfile,

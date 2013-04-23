@@ -9,6 +9,8 @@
 #' redirect output back into the \R session.
 #' @param column The column to check, indexed from 1.
 #' @param sep The delimiter used in \code{file}. Must be a single character.
+#' If no delimiter is specified, we guess the delimiter from the first row
+#' of \code{file}.
 #' @param keep A character vector containing all items that we want to check
 #' and keep within the \code{column}th column of each row.
 #' @seealso \code{\link{split_file}}
@@ -17,7 +19,7 @@ extract_rows_from_file <- function(
   file,
   out=NULL,
   column,
-  sep,
+  sep=NULL,
   keep
   ) {
   
@@ -39,12 +41,23 @@ extract_rows_from_file <- function(
     stop("'column' must be >= 1. (Note that column is 1-indexed)")
   }
   
-  if( length(sep) > 1 | nchar(sep) > 1 ) {
-    stop("'sep' must be a single character")
-  }
-  
   if( !is.null(out) && length(out) > 1 ) {
     stop("'out' must be a character of length one")
+  }
+  
+  ## guess the delimiter
+  if( is.null(sep) ) {
+    conn <- file(file)
+    tmp <- readLines(conn, n=1)[1]
+    tmp <- gsub("[^[:space:]]", "", tmp)
+    sep <- names( sort( counts( unlist( strsplit( tmp, "", fixed=TRUE ) ) ), decreasing=TRUE ) )[1]
+    message("Guessing the delimiter is '", sep, "'")
+    close(conn)
+    rm(conn)
+  }
+  
+  if( length(sep) > 1 | nchar(sep) > 1 ) {
+    stop("'sep' must be a single character")
   }
   
   if( !is.null(out) ) {

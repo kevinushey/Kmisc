@@ -2,8 +2,8 @@
 \alias{extract_rows_from_file}
 \title{Extract Rows from File}
 \usage{
-  extract_rows_from_file(file, out = NULL, column, sep,
-    keep)
+  extract_rows_from_file(file, out = NULL, column,
+    sep = NULL, keep)
 }
 \arguments{
   \item{file}{The input file to extract rows from.}
