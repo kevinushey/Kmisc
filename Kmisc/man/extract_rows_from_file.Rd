@@ -15,7 +15,8 @@
   \item{column}{The column to check, indexed from 1.}
 
   \item{sep}{The delimiter used in \code{file}. Must be a
-  single character.}
+  single character. If no delimiter is specified, we guess
+  the delimiter from the first row of \code{file}.}
 
   \item{keep}{A character vector containing all items that
   we want to check and keep within the \code{column}th
