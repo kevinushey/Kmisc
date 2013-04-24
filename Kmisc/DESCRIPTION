@@ -69,3 +69,4 @@ Collate:
     'pymat.R'
     'list_to_dataframe.R'
     'str_split.R'
+    'swap.R'

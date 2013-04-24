@@ -33,3 +33,7 @@ stack_list_df <- function(X, classes, num_elem, make_row_names, name, keep_list_
     .Call('Kmisc_stack_list_df', PACKAGE = 'Kmisc', X, classes, num_elem, make_row_names, name, keep_list_index, index_name)
 }
 
+swap <- function(vec, from, to) {
+    .Call('Kmisc_swap', PACKAGE = 'Kmisc', vec, from, to)
+}
+

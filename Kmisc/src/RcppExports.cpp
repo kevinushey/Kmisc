@@ -107,3 +107,15 @@ BEGIN_RCPP
     return Rcpp::wrap(__result);
 END_RCPP
 }
+// swap
+SEXP swap(SEXP vec, SEXP from, SEXP to);
+RcppExport SEXP Kmisc_swap(SEXP vecSEXP, SEXP fromSEXP, SEXP toSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    SEXP vec = Rcpp::as<SEXP >(vecSEXP);
+    SEXP from = Rcpp::as<SEXP >(fromSEXP);
+    SEXP to = Rcpp::as<SEXP >(toSEXP);
+    SEXP __result = swap(vec, from, to);
+    return Rcpp::wrap(__result);
+END_RCPP
+}
