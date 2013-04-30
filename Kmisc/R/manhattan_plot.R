@@ -36,6 +36,15 @@ manhattan_plot <- function( pval,
                             transform=TRUE,
                             ... ) {
   
+  if( is.character(chr) ) {
+    chr <- as.integer( 
+      swap( chr, 
+            c("x", "X", "y", "Y", "M"), 
+            c(23, 23, 24, 24, 25) 
+          ) 
+    )
+  }
+  
   dat <- data.frame(
     P=pval,
     BP=bp,
