@@ -17,6 +17,7 @@
 #' @param transform boolean; if \code{TRUE}, we compute \code{-log10(pval)};
 #'   otherwise, we use \code{pval} as-is, assuming that \code{pval} has been
 #'   transformed accordingly.
+#' @param cex Multiplier for the point size.
 #' @param ... Optional arguments passed to \code{xyplot}.
 #' @export
 #' @examples
@@ -34,6 +35,7 @@ manhattan_plot <- function( pval,
                             xlab="Chromosome (base-pair position)",
                             ylab=expression( paste( -log[10]( italic(p) ) ) ),
                             transform=TRUE,
+                            cex=0.5,
                             ... ) {
   
   if( is.character(chr) ) {
@@ -143,7 +145,7 @@ manhattan_plot <- function( pval,
                   pch=21,
                   col="black",
                   fill=COL,
-                  cex = 1,
+                  cex = cex,
                   scales = list( 
                     x = list(
                       relation = "same",
