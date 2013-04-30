@@ -1,3 +1,4 @@
+library(Kmisc)
 library(testthat)
 
 dat <- do.call(paste, replicate(10, sample(letters, 1E5, TRUE), simplify=FALSE))

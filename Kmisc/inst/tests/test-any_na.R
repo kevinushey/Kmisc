@@ -1,3 +1,4 @@
+library(Kmisc)
 library(testthat)
 
 x <- rnorm(10)

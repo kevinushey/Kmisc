@@ -1,3 +1,4 @@
+library(Kmisc)
 library(testthat)
 
 n <- 1E4

@@ -1,3 +1,4 @@
+library(Kmisc)
 library(testthat)
 set.seed(123)
 

@@ -1,3 +1,4 @@
+library(Kmisc)
 library(testthat)
 
 dat <- data.frame(x=c(1, 2, 3), y=c('a', 'b', 'c'), z=c(10L, 11L, 12L))
