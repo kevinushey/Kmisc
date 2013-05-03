@@ -6,7 +6,7 @@
     cutoff = NULL,
     xlab = "Chromosome (base-pair position)",
     ylab = expression(paste(-log[10](italic(p)))),
-    transform = TRUE, ...)
+    transform = TRUE, cex = 0.5, ...)
 }
 \arguments{
   \item{pval}{A vector of p-values.}
@@ -34,6 +34,8 @@
   assuming that \code{pval} has been transformed
   accordingly.}
 
+  \item{cex}{Multiplier for the point size.}
+
   \item{...}{Optional arguments passed to \code{xyplot}.}
 }
 \description{
@@ -46,7 +48,7 @@ pval <- runif(1E4)
 bp <- c(1:5E3, 1:5E3)
 chr <- rep(1:22, length.out=1E4)
 groups=rep( c("Phenotype 1", "Phenotype 2"), each=5E3 )
-manhattan_plot( pval, bp, chr, groups )
-manhattan_plot( pval, bp, chr )
+manhattan_plot( pval, bp, chr, groups, main="Two Phenotype MH Plot" )
+manhattan_plot( pval, bp, chr, main="Manhattan Plot" )
 }
 

@@ -25,8 +25,8 @@
 #' bp <- c(1:5E3, 1:5E3)
 #' chr <- rep(1:22, length.out=1E4)
 #' groups=rep( c("Phenotype 1", "Phenotype 2"), each=5E3 )
-#' manhattan_plot( pval, bp, chr, groups )
-#' manhattan_plot( pval, bp, chr )
+#' manhattan_plot( pval, bp, chr, groups, main="Two Phenotype MH Plot" )
+#' manhattan_plot( pval, bp, chr, main="Manhattan Plot" )
 manhattan_plot <- function( pval,
                             bp,
                             chr,
@@ -95,7 +95,7 @@ manhattan_plot <- function( pval,
   cols <- cols[c(1, 2, 7, 8, 9, 10, 3, 4, 5, 6, 11, 12)]
   
   if( is.null(groups) ) {
-    cols <- c("grey50", "grey90")
+    cols <- c("grey70", "grey30")
   } else {
     cols <- c(
       cols[seq(1, length.out=lu(dat$GROUP), by=2)],
@@ -111,8 +111,8 @@ manhattan_plot <- function( pval,
   )
   
   ## Generate the labels
-  kLabel <- 1:nCHR
-  kLabel[ kLabel > 12 & kLabel %% 2 == 1 ] <- ""
+  axis_tick_labels <- 1:nCHR
+  axis_tick_labels[ axis_tick_labels > 12 & axis_tick_labels %% 2 == 1 ] <- ""
   
   ## generate the key
   if( is.null(groups) ) {
@@ -123,14 +123,12 @@ manhattan_plot <- function( pval,
         as.character( unique(dat$GROUP) )
       ),
       points=list(
-        col="black",
-        fill=cols[1:lu(dat$GROUP)],
-        pch=21
+        col=cols[1:lu(dat$GROUP)],
+        pch=20
       ),
       points=list(
-        col="black",
-        fill=cols[(lu(dat$GROUP)+1):(2*lu(dat$GROUP))],
-        pch=21
+        col=cols[(lu(dat$GROUP)+1):(2*lu(dat$GROUP))],
+        pch=20
       )
     )
   }
@@ -142,31 +140,31 @@ manhattan_plot <- function( pval,
   print( 
     with( dat, 
           xyplot( P ~ relBP,
-                  pch=21,
-                  col="black",
-                  fill=COL,
-                  cex = cex,
+                  pch=20,
+                  col=COL,
+                  cex=cex,
                   scales = list( 
                     x = list(
                       relation = "same",
                       tck = c(1,0),
                       at = diffs,
-                      labels = kLabel
+                      labels = axis_tick_labels
                     ) 
                   ),
                   panel = function(x, y, ...) {
                     panel.xyplot(x, y, ...)
                     panel.abline( h=-log10(0.05/nrow(dat)),
                                   col="red", lty="dashed" )
-                    panel.abline(h=0, col="black", lwd=10)
+                    #panel.abline(h=0, col="black", lwd=10)
                     for( i in maxes.cumsum ) {
-                      panel.segments( i, 0, i, 1000, col="grey70", lty="dashed" )
+                      panel.segments(i, 0, i, 1000, col="grey85", lty="dashed")
                     }
                     
                   },
                   key=myKey,
-                  xlim = c( 0, max(dat$relBP) ),
-                  origin = 0,
+                  xlim=c(0, max(dat$relBP)),
+                  ylim=c(0, max(dat$P)*1.1),
+                  origin=0,
                   xlab=xlab,
                   ylab=ylab,
                   ...

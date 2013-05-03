@@ -34,7 +34,7 @@
 dat <- data.frame(
   x = rnorm(10),
   y = rnorm(10)
-  )
+)
 
 ## Calculate 0.025, 0.975 quantiles for each column in a data.frame,
 ## and return result as data.frame .
