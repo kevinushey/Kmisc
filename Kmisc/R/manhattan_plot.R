@@ -95,7 +95,7 @@ manhattan_plot <- function( pval,
   cols <- cols[c(1, 2, 7, 8, 9, 10, 3, 4, 5, 6, 11, 12)]
   
   if( is.null(groups) ) {
-    cols <- c("grey70", "grey30")
+    cols <- c("grey50", "grey15")
   } else {
     cols <- c(
       cols[seq(1, length.out=lu(dat$GROUP), by=2)],
