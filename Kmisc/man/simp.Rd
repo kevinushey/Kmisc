@@ -8,10 +8,6 @@
   \item{x}{A vector of values \code{x}.}
 
   \item{y}{A vector of values \code{f(x)}.}
-
-  \item{n}{The number of points at which to evaluate and
-  interpolate over for computing the area under the curve.
-  Must be an even number.}
 }
 \description{
   This function computes the area under the curve using
