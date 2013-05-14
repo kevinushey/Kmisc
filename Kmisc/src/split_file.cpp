@@ -32,8 +32,8 @@ inline bool in( const std::string& elem, const std::map<std::string, std::ofstre
 inline void print_counter( int& counter ) {
 	if ( (counter % 100000) == 0 ) {
 		Rcout << "i = " << counter << std::endl;
-		++counter;
 	}
+  ++counter;
 }
 
 // [[Rcpp::export]]

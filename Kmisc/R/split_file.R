@@ -41,7 +41,7 @@ split_file <- function( file,
   }
   
   if( !file.exists(outDir) ) {
-    cat("A new directory was created for the post-split files at:\n\t", outDir)
+    cat("A new directory was created for the post-split files at:\n\t", outDir, "\n\n")
     dir.create( outDir, showWarnings=FALSE)
   }
   outDir <- normalizePath(outDir)
