@@ -1,11 +1,8 @@
 \name{swap}
 \alias{swap}
-\alias{swap_}
 \title{Swap Elements in a Vector}
 \usage{
   swap(vec, from, to = names(from), ...)
-
-  swap_(vec, from, to = names(from), ...)
 }
 \arguments{
   \item{vec}{the vector of items whose elements you will be
@@ -16,14 +13,15 @@
   \item{to}{the items you will be mapping 'to'. must be
   same length and order as \code{from}.}
 
-  \item{...}{optional arguments passed to \code{match}.
-  Ignored for \code{swap_}.}
+  \item{...}{optional arguments passed to \code{match}.}
 }
 \description{
   This function swaps elements in a vector. See examples
-  for usage. \code{swap_} is a faster implementation, but
-  requires all of \code{vec}, \code{to} and \code{from} to
-  be of the same type.
+  for usage.
+}
+\details{
+  If \code{to} is of different type than \code{from}, it
+  will be coerced to be of the same type.
 }
 \examples{
 x <- c(1, 2, 2, 3)
