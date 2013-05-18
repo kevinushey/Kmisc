@@ -48,7 +48,7 @@ SEXP stack_vector( SEXP x, int times ) {
 	HANDLE_CASE( STRSXP, SEXP, STRING_PTR );
 	}
 
-	error("Stacking not implemented for vector of this RTYPE");
+	error("'x' is of incompatible type '%s'", type2char(TYPEOF(x)));
 	return R_NilValue;
 }
 

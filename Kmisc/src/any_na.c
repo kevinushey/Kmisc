@@ -60,7 +60,7 @@ SEXP any_na( SEXP x ) {
 		return out;
 	}
 	}
-	error("Unrecognized RTYPE");
+	error("'x' is of incompatible type '%s'", type2char( TYPEOF(x) ) );
 	return x;
 }
 

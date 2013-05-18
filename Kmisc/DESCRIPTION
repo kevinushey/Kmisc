@@ -56,7 +56,6 @@ Collate:
     'split_file.R'
     'extract_rows_from_file.R'
     'awk.R'
-    'fast_melt.R'
     'chunk.R'
     'tapply_.R'
     'value_matching.R'
@@ -71,3 +70,4 @@ Collate:
     'str_split.R'
     'swap.R'
     'simp.R'
+    'melt_.R'

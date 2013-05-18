@@ -40,6 +40,6 @@ SEXP fast_factor( SEXP x ) {
 	case STRSXP: return fast_factor_template<STRSXP>( x );
 	case LGLSXP: return fast_factor_template<INTSXP>( x );
 	}
-	stop("fast_factor not implemented for this object type");
+	Rf_error("'x' is of incompatible type '%s'", Rf_type2char( TYPEOF(x) ));
 	return R_NilValue;
 }

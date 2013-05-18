@@ -15,7 +15,7 @@
 //  case STRSXP: return do_counts<STRSXP>(x);
 //  case LGLSXP: return do_counts<LGLSXP>(x);
 //  default: {
-//    stop("unsupported RTYPE");
+//    Rf_error("'x' is of invalid type '%s'", type2char( TYPEOF(x) ));
 //    return R_NilValue;
 //  }
 //  }

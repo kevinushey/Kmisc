@@ -40,6 +40,13 @@ stack_list <- function( list,
                         index_name="list_index",
                         coerce_factors=TRUE
                         ) {
+  
+  .Deprecated(
+    new="rbindlist", 
+    package="data.table", 
+    msg="Deprecated: use the faster data.table::rbindlist instead"
+  )
+  
   len <- length( list[[1]] )
   if( inherits( list[[1]], "data.frame" ) ) {
     

@@ -4,6 +4,10 @@
 #include <Rinternals.h>
 
 SEXP charlist_transpose_to_df( SEXP x ) {
+  
+  if( TYPEOF(x) != VECSXP ) {
+    error("'x' must be a list; type is '%s'", type2char( TYPEOF(x)));
+  }
 
 	int out_nRow = length(x);
 	int out_nCol = length( VECTOR_ELT(x, 0) );

@@ -1,16 +1,17 @@
-#define USE_RINTERNALS
-
 #include <Rcpp.h>
 using namespace Rcpp;
 
-void check_type( SEXP x ) {
+inline void check_type( SEXP x, std::string name ) {
   switch( TYPEOF(x) ) {
     case INTSXP:
     case REALSXP:
     case STRSXP:
       break;
     default:
-      stop("x is of incompatible type %s", type2char( TYPEOF(x) ));
+      Rf_error("Argument '%s' is of incompatible type '%s')", 
+        name.c_str(), 
+        Rf_type2char( TYPEOF(x) )
+      );
   }
 }
 
@@ -35,9 +36,9 @@ Vector<RTYPE> do_swap( const Vector<RTYPE> vec, const Vector<RTYPE>& from, const
 // [[Rcpp::export]]
 SEXP swap( SEXP vec, SEXP from, SEXP to ) {
   
-  check_type(vec);
-  check_type(from);
-  check_type(to);
+  check_type(vec, "vec");
+  check_type(from, "from");
+  check_type(to, "to");
   
   if( TYPEOF(to) > TYPEOF(from) ) {
     from = Rf_coerceVector(from, TYPEOF(to));
@@ -56,5 +57,3 @@ SEXP swap( SEXP vec, SEXP from, SEXP to ) {
   return R_NilValue;
   
 }
-
-#undef USE_RINTERNALS
