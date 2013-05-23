@@ -60,7 +60,7 @@ SEXP any_na( SEXP x ) {
 		return out;
 	}
 	}
-	error("'x' is of incompatible type '%s'", type2char( TYPEOF(x) ) );
+	error("argument is of incompatible type '%s'", type2char( TYPEOF(x) ) );
 	return x;
 }
 

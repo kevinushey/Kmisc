@@ -10,11 +10,11 @@ SEXP list_to_dataframe( SEXP x_, SEXP in_place ) {
   int unprotect_num = 1;
   
   if( TYPEOF(in_place) != LGLSXP || length(in_place) > 1 ) {
-    Rf_error("'in_place' must be a logical vector of length 1; type is '%s'", type2char(TYPEOF(in_place)));
+    error("'in_place' must be a logical vector of length 1; type is '%s'", type2char(TYPEOF(in_place)));
   }
   
 	if( TYPEOF(x_) != VECSXP )
-		Rf_error("'x' must be a list; type is '%s'", type2char(TYPEOF(x_)));
+		error("argument must be a list; type is '%s'", type2char(TYPEOF(x_)));
   
   if( LOGICAL(in_place)[0] ) {
     x = x_;
@@ -27,7 +27,7 @@ SEXP list_to_dataframe( SEXP x_, SEXP in_place ) {
 	int n = length( VECTOR_ELT(x, 0) );
 	for( int i=1; i < m; ++i ) {
 		if( length( VECTOR_ELT(x, i) ) != n ) {
-			Rf_error("not all columns are of equal length");
+			error("not all columns are of equal length");
 		}
 	}
 

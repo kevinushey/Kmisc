@@ -4,7 +4,8 @@ library(microbenchmark)
 
 rm( list=ls() )
 gctorture(TRUE)
-sink( tempfile() )
+tempfile <- tempfile()
+sink( tempfile )
 
 for( i in 1:10 ) {
   
@@ -27,3 +28,4 @@ for( i in 1:10 ) {
 
 sink()
 gctorture(FALSE)
+file.remove(tempfile)

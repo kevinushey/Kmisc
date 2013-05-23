@@ -47,8 +47,9 @@ SEXP stack_vector( SEXP x, int times ) {
 	HANDLE_CASE( LGLSXP, int, LOGICAL );
 	HANDLE_CASE( STRSXP, SEXP, STRING_PTR );
 	}
-
-	error("'x' is of incompatible type '%s'", type2char(TYPEOF(x)));
+  
+  // if we've reached here, we have an unhandled / incompatible SEXP type
+	error("argument is of incompatible type '%s'", type2char(TYPEOF(x)));
 	return R_NilValue;
 }
 
