@@ -5,17 +5,34 @@
 
 using namespace Rcpp;
 
+// counts
+SEXP counts(SEXP x);
+RcppExport SEXP Kmisc_counts(SEXP xSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        SEXP x = Rcpp::as<SEXP >(xSEXP);
+        SEXP __result = counts(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // extract_rows_from_file_to_file
 void extract_rows_from_file_to_file(std::string input_file_name, std::string output_file_name, std::string delim, std::vector< std::string > items_to_keep, int column_to_check);
 RcppExport SEXP Kmisc_extract_rows_from_file_to_file(SEXP input_file_nameSEXP, SEXP output_file_nameSEXP, SEXP delimSEXP, SEXP items_to_keepSEXP, SEXP column_to_checkSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    std::string input_file_name = Rcpp::as<std::string >(input_file_nameSEXP);
-    std::string output_file_name = Rcpp::as<std::string >(output_file_nameSEXP);
-    std::string delim = Rcpp::as<std::string >(delimSEXP);
-    std::vector< std::string > items_to_keep = Rcpp::as<std::vector< std::string > >(items_to_keepSEXP);
-    int column_to_check = Rcpp::as<int >(column_to_checkSEXP);
-    extract_rows_from_file_to_file(input_file_name, output_file_name, delim, items_to_keep, column_to_check);
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string input_file_name = Rcpp::as<std::string >(input_file_nameSEXP);
+        std::string output_file_name = Rcpp::as<std::string >(output_file_nameSEXP);
+        std::string delim = Rcpp::as<std::string >(delimSEXP);
+        std::vector< std::string > items_to_keep = Rcpp::as<std::vector< std::string > >(items_to_keepSEXP);
+        int column_to_check = Rcpp::as<int >(column_to_checkSEXP);
+        extract_rows_from_file_to_file(input_file_name, output_file_name, delim, items_to_keep, column_to_check);
+    }
     return R_NilValue;
 END_RCPP
 }
@@ -23,41 +40,53 @@ END_RCPP
 std::vector<std::string> extract_rows_from_file(std::string input_file_name, std::string delim, std::vector< std::string > items_to_keep, int column_to_check);
 RcppExport SEXP Kmisc_extract_rows_from_file(SEXP input_file_nameSEXP, SEXP delimSEXP, SEXP items_to_keepSEXP, SEXP column_to_checkSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    std::string input_file_name = Rcpp::as<std::string >(input_file_nameSEXP);
-    std::string delim = Rcpp::as<std::string >(delimSEXP);
-    std::vector< std::string > items_to_keep = Rcpp::as<std::vector< std::string > >(items_to_keepSEXP);
-    int column_to_check = Rcpp::as<int >(column_to_checkSEXP);
-    std::vector<std::string> __result = extract_rows_from_file(input_file_name, delim, items_to_keep, column_to_check);
-    return Rcpp::wrap(__result);
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string input_file_name = Rcpp::as<std::string >(input_file_nameSEXP);
+        std::string delim = Rcpp::as<std::string >(delimSEXP);
+        std::vector< std::string > items_to_keep = Rcpp::as<std::vector< std::string > >(items_to_keepSEXP);
+        int column_to_check = Rcpp::as<int >(column_to_checkSEXP);
+        std::vector<std::string> __result = extract_rows_from_file(input_file_name, delim, items_to_keep, column_to_check);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
 // fast_factor
 SEXP fast_factor(SEXP x);
 RcppExport SEXP Kmisc_fast_factor(SEXP xSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    SEXP x = Rcpp::as<SEXP >(xSEXP);
-    SEXP __result = fast_factor(x);
-    return Rcpp::wrap(__result);
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        SEXP x = Rcpp::as<SEXP >(xSEXP);
+        SEXP __result = fast_factor(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
 // split_file
 void split_file(std::string path, std::string dir, std::string basename, std::string path_sep, std::string sep, std::string prepend, std::string file_ext, int column, int skip, bool verbose);
 RcppExport SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP, SEXP path_sepSEXP, SEXP sepSEXP, SEXP prependSEXP, SEXP file_extSEXP, SEXP columnSEXP, SEXP skipSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    std::string path = Rcpp::as<std::string >(pathSEXP);
-    std::string dir = Rcpp::as<std::string >(dirSEXP);
-    std::string basename = Rcpp::as<std::string >(basenameSEXP);
-    std::string path_sep = Rcpp::as<std::string >(path_sepSEXP);
-    std::string sep = Rcpp::as<std::string >(sepSEXP);
-    std::string prepend = Rcpp::as<std::string >(prependSEXP);
-    std::string file_ext = Rcpp::as<std::string >(file_extSEXP);
-    int column = Rcpp::as<int >(columnSEXP);
-    int skip = Rcpp::as<int >(skipSEXP);
-    bool verbose = Rcpp::as<bool >(verboseSEXP);
-    split_file(path, dir, basename, path_sep, sep, prepend, file_ext, column, skip, verbose);
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string path = Rcpp::as<std::string >(pathSEXP);
+        std::string dir = Rcpp::as<std::string >(dirSEXP);
+        std::string basename = Rcpp::as<std::string >(basenameSEXP);
+        std::string path_sep = Rcpp::as<std::string >(path_sepSEXP);
+        std::string sep = Rcpp::as<std::string >(sepSEXP);
+        std::string prepend = Rcpp::as<std::string >(prependSEXP);
+        std::string file_ext = Rcpp::as<std::string >(file_extSEXP);
+        int column = Rcpp::as<int >(columnSEXP);
+        int skip = Rcpp::as<int >(skipSEXP);
+        bool verbose = Rcpp::as<bool >(verboseSEXP);
+        split_file(path, dir, basename, path_sep, sep, prepend, file_ext, column, skip, verbose);
+    }
     return R_NilValue;
 END_RCPP
 }
@@ -65,57 +94,82 @@ END_RCPP
 List split_runs_numeric(NumericVector X);
 RcppExport SEXP Kmisc_split_runs_numeric(SEXP XSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    NumericVector X = Rcpp::as<NumericVector >(XSEXP);
-    List __result = split_runs_numeric(X);
-    return Rcpp::wrap(__result);
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        NumericVector X = Rcpp::as<NumericVector >(XSEXP);
+        List __result = split_runs_numeric(X);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
 // split_runs_character
 List split_runs_character(std::vector< std::string > X);
 RcppExport SEXP Kmisc_split_runs_character(SEXP XSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    std::vector< std::string > X = Rcpp::as<std::vector< std::string > >(XSEXP);
-    List __result = split_runs_character(X);
-    return Rcpp::wrap(__result);
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::vector< std::string > X = Rcpp::as<std::vector< std::string > >(XSEXP);
+        List __result = split_runs_character(X);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
 // split_runs_one
 List split_runs_one(std::string x);
 RcppExport SEXP Kmisc_split_runs_one(SEXP xSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    std::string x = Rcpp::as<std::string >(xSEXP);
-    List __result = split_runs_one(x);
-    return Rcpp::wrap(__result);
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string x = Rcpp::as<std::string >(xSEXP);
+        List __result = split_runs_one(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
 // stack_list_df
 List stack_list_df(List& X, std::vector< std::string > classes, int num_elem, bool make_row_names, std::string name, bool keep_list_index, std::string index_name);
 RcppExport SEXP Kmisc_stack_list_df(SEXP XSEXP, SEXP classesSEXP, SEXP num_elemSEXP, SEXP make_row_namesSEXP, SEXP nameSEXP, SEXP keep_list_indexSEXP, SEXP index_nameSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    List X = Rcpp::as<List >(XSEXP);
-    std::vector< std::string > classes = Rcpp::as<std::vector< std::string > >(classesSEXP);
-    int num_elem = Rcpp::as<int >(num_elemSEXP);
-    bool make_row_names = Rcpp::as<bool >(make_row_namesSEXP);
-    std::string name = Rcpp::as<std::string >(nameSEXP);
-    bool keep_list_index = Rcpp::as<bool >(keep_list_indexSEXP);
-    std::string index_name = Rcpp::as<std::string >(index_nameSEXP);
-    List __result = stack_list_df(X, classes, num_elem, make_row_names, name, keep_list_index, index_name);
-    return Rcpp::wrap(__result);
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        List X = Rcpp::as<List >(XSEXP);
+        std::vector< std::string > classes = Rcpp::as<std::vector< std::string > >(classesSEXP);
+        int num_elem = Rcpp::as<int >(num_elemSEXP);
+        bool make_row_names = Rcpp::as<bool >(make_row_namesSEXP);
+        std::string name = Rcpp::as<std::string >(nameSEXP);
+        bool keep_list_index = Rcpp::as<bool >(keep_list_indexSEXP);
+        std::string index_name = Rcpp::as<std::string >(index_nameSEXP);
+        List __result = stack_list_df(X, classes, num_elem, make_row_names, name, keep_list_index, index_name);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
 // swap
 SEXP swap(SEXP vec, SEXP from, SEXP to);
 RcppExport SEXP Kmisc_swap(SEXP vecSEXP, SEXP fromSEXP, SEXP toSEXP) {
 BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    SEXP vec = Rcpp::as<SEXP >(vecSEXP);
-    SEXP from = Rcpp::as<SEXP >(fromSEXP);
-    SEXP to = Rcpp::as<SEXP >(toSEXP);
-    SEXP __result = swap(vec, from, to);
-    return Rcpp::wrap(__result);
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        SEXP vec = Rcpp::as<SEXP >(vecSEXP);
+        SEXP from = Rcpp::as<SEXP >(fromSEXP);
+        SEXP to = Rcpp::as<SEXP >(toSEXP);
+        SEXP __result = swap(vec, from, to);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
