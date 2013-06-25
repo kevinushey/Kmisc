@@ -71,3 +71,4 @@ Collate:
     'swap.R'
     'simp.R'
     'melt_.R'
+    'apply.R'

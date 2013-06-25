@@ -1,0 +1,37 @@
+#' Apply Wrappers
+#' 
+#' These are thin but clearer wrappers to 
+#' \code{apply(x, 1, FUN, ...)} (row apply) and
+#' \code{apply(x, 2, FUN, ...)} (column apply).
+#' Intended for use with 2D \R \code{matrix}s.
+#' 
+#' See \code{\link{apply}} for more info.
+#' 
+#' @param X A matrix, or a 2D array.
+#' @param FUN The function to be applied.
+#' @param ... Optional arguments to \code{FUN}.
+#' @param drop Boolean. If \code{TRUE}, we 'drop' dimensions so that results
+#'  of dimension \code{n x 1} or \code{1 x n} are coerced to vectors.
+#' @rdname apply
+#' @export
+rowApply <- function(X, FUN, ..., drop=FALSE) {
+  if( drop ) {
+    return( apply(X, 1, FUN, ...) )
+  } else {
+    return( matrix( nrow=nrow(X),
+      apply(X, 1, FUN, ...)
+    ))
+  }
+}
+
+#' @rdname apply
+#' @export
+colApply <- function(X, FUN, ..., drop=FALSE) {
+  if( drop ) {
+    return( apply(X, 2, FUN, ...) )
+  } else {
+    return( matrix( ncol=ncol(X),
+      apply(X, 2, FUN, ...)
+    ))
+  }
+}
