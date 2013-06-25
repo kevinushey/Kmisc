@@ -1,10 +1,15 @@
 #include <Rcpp.h>
+#include <Rdefines.h>
 using namespace Rcpp;
 
 template <int RTYPE>
 inline
 IntegerVector do_counts( const Vector<RTYPE>& x ) {
-  return table(x);
+  IntegerVector output = table(x);
+  if( Rf_isFactor(x) ) {
+    Rf_setAttrib(output, R_NamesSymbol, Rf_getAttrib(x, R_LevelsSymbol));
+  }
+  return output;
 }
 
 // [[Rcpp::export]]
