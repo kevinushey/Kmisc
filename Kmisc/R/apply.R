@@ -18,9 +18,11 @@ rowApply <- function(X, FUN, ..., drop=FALSE) {
   if( drop ) {
     return( apply(X, 1, FUN, ...) )
   } else {
-    return( matrix( nrow=nrow(X),
+    output <- matrix( nrow=nrow(X),
       apply(X, 1, FUN, ...)
-    ))
+    )
+    rownames(output) <- rownames(X)
+    return(output)
   }
 }
 
@@ -30,8 +32,10 @@ colApply <- function(X, FUN, ..., drop=FALSE) {
   if( drop ) {
     return( apply(X, 2, FUN, ...) )
   } else {
-    return( matrix( ncol=ncol(X),
+    output <-  matrix( ncol=ncol(X),
       apply(X, 2, FUN, ...)
-    ))
+    )
+    colnames(output) <- colnames(X)
+    return(output)
   }
 }
