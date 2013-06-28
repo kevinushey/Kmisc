@@ -7,9 +7,6 @@
 #' promoted in the order \code{logical} > \code{integer} > \code{numeric} > 
 #' \code{character}.
 #' 
-#' See \code{\link{melt_.data.frame}} and \code{melt_.matrix} for the S3
-#' dispatched functions.
-#' 
 #' @param data The \code{data.frame} to melt.
 #' @param ... Arguments passed to other methods.
 #' @examples
@@ -22,7 +19,12 @@
 #'   zc=rnorm(n)
 #' )
 #'   
-#' out2 <- melt_(tmp, c("x", "y"))
+#' stopifnot( 
+#'   identical( 
+#'     melt_(tmp, id.vars=c('x', 'y')), 
+#'     melt_(tmp, measure.vars=c('za', 'zb', 'zc')) 
+#'   ) 
+#' )
 #' @export
 melt_ <- function(data, ...) {
   UseMethod("melt_")

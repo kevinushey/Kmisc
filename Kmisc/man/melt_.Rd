@@ -38,9 +38,6 @@
   If items to be stacked are not of the same internal type,
   they will be promoted in the order \code{logical} >
   \code{integer} > \code{numeric} > \code{character}.
-
-  See \code{\link{melt_.data.frame}} and
-  \code{melt_.matrix} for the S3 dispatched functions.
 }
 \examples{
 n <- 20
@@ -52,6 +49,11 @@ tmp <- data.frame( stringsAsFactors=FALSE,
   zc=rnorm(n)
 )
 
-out2 <- melt_(tmp, c("x", "y"))
+stopifnot(
+  identical(
+    melt_(tmp, id.vars=c('x', 'y')),
+    melt_(tmp, measure.vars=c('za', 'zb', 'zc'))
+  )
+)
 }
 
