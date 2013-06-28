@@ -7,11 +7,11 @@
 #' promoted in the order \code{logical} > \code{integer} > \code{numeric} > 
 #' \code{character}.
 #' 
+#' See \code{\link{melt_.data.frame}} and \code{melt_.matrix} for the S3
+#' dispatched functions.
+#' 
 #' @param data The \code{data.frame} to melt.
-#' @param id.vars Vector of id variables. Can be integer (variable index) or
-#' string (variable name). All variables not included here are assumed
-#' stackable, and will be coerced as needed. Only used for \code{data} of class
-#' \code{data.frame}.
+#' @param ... Arguments passed to other methods.
 #' @examples
 #' n <- 20
 #' tmp <- data.frame( stringsAsFactors=FALSE,
@@ -24,19 +24,41 @@
 #'   
 #' out2 <- melt_(tmp, c("x", "y"))
 #' @export
-melt_ <- function(data, id.vars) {
+melt_ <- function(data, ...) {
   UseMethod("melt_")
 }
 
 #' @rdname melt_
+#' @param id.vars Vector of id variables. Can be integer (variable position)
+#'  or string (variable name). If blank, we use all variables not in \code{measure.vars}.
+#' @param measure.vars Vector of measured variables. Can be integer (variable position)
+#'  or string (variable name). If blank, we use all variables not in \code{id.vars}.
+#' @param variable.name Name of variable used to store measured variable names.
+#' @param value.name Name of variable used to store values.
 #' @method melt_ data.frame
 #' @S3method melt_ data.frame
-melt_.data.frame <- function(data, id.vars) {
+melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="name", ..., value.name="value") {
   
-  if( is.character(id.vars) ) {
-    measure.vars <- which( names(data) %nin% id.vars )
-  } else {
-    measure.vars <- which( 1:length(data) %nin% id.vars )
+  if( missing(measure.vars) ) {
+    if( missing(id.vars) ) {
+      stop("one of 'id.vars' and 'measure.vars' must be supplied")
+    }
+    if( is.character(id.vars) ) {
+      measure.vars <- which( names(data) %nin% id.vars )
+    } else {
+      measure.vars <- which( 1:length(data) %nin% id.vars )
+    }
+  }
+  
+  if( missing(id.vars) ) {
+    if( missing(measure.vars) ) {
+      stop("one of 'id.vars' and 'measure.vars' must be supplied")
+    }
+    if( is.character(measure.vars) ) {
+      id.vars <- which( names(data) %nin% measure.vars )
+    } else {
+      id.vars <- which( 1:length(data) %nin% measure.vars )
+    }
   }
   
   ## coerce factors to characters
@@ -68,9 +90,11 @@ melt_.data.frame <- function(data, id.vars) {
   }
   
   return( .Call("melt_dataframe",
-                data[id.vars],
-                data[measure.vars],
-                PACKAGE="Kmisc"
+    data[id.vars],
+    data[measure.vars],
+    variable.name,
+    value.name,
+    PACKAGE="Kmisc"
   ) )
   
 }
@@ -78,9 +102,6 @@ melt_.data.frame <- function(data, id.vars) {
 #' @rdname melt_
 #' @method melt_ matrix
 #' @S3method melt_ matrix
-melt_.matrix <- function( data, id.vars ) {
-  if( !missing(id.vars) ) {
-    warning("data is a matrix; id.vars argument ignored")
-  }
+melt_.matrix <- function( data, ... ) {
   return( .Call("melt_matrix", data, PACKAGE="Kmisc") )
 }

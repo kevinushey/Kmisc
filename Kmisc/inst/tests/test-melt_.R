@@ -5,15 +5,20 @@ library(Kmisc)
 
 n <- 1E4
 dat <- data.frame( stringsAsFactors=FALSE,
-                   x=sample(letters, n, TRUE), 
-                   y=sample(LETTERS, n, TRUE),
-                   za=rnorm(n), 
-                   zb=rnorm(n), 
-                   zc=rnorm(n)
+  x=sample(letters, n, TRUE), 
+  y=sample(LETTERS, n, TRUE),
+  za=rnorm(n), 
+  zb=rnorm(n), 
+  zc=rnorm(n)
 )
 
 tmp1 <- melt( dat, c("x", "y") )
 tmp2 <- melt_(dat, c("x", "y") )
+expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
+expect_identical( 
+  names( melt_(dat, id.vars=c("x", "y"), variable.name="vars", value.name="vals") ),
+  c("x", "y", "vars", "vals")
+)
 
 for( i in 1:ncol(tmp1) ) {
   stopifnot( all( tmp1[,i] == tmp2[,i] ) )
@@ -22,7 +27,6 @@ for( i in 1:ncol(tmp1) ) {
 microbenchmark(
   melt( dat, c("x", "y") ),
   melt_( dat, c("x", "y") ),
-  .Call("melt_dataframe", dat[1:2], dat[3:5], PACKAGE="Kmisc" ),
   times=10
 )
 
@@ -41,6 +45,9 @@ tmp <- melt_(dat, c("x", "y"))
 dat$zb <- sample( c(TRUE, FALSE), nrow(dat), replace=TRUE )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
 tmp <- melt_(dat, c("x", "y"))
+
+## testing new args
+expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
 
 rm( list=ls() )
 

@@ -4,20 +4,30 @@
 \alias{melt_.matrix}
 \title{Make a 'Wide' data set 'Long'}
 \usage{
-  melt_(data, id.vars)
+  melt_(data, ...)
 
-  \method{melt_}{data.frame} (data, id.vars)
+  \method{melt_}{data.frame} (data, id.vars, measure.vars,
+    variable.name = "name", ..., value.name = "value")
 
-  \method{melt_}{matrix} (data, id.vars)
+  \method{melt_}{matrix} (data, ...)
 }
 \arguments{
   \item{data}{The \code{data.frame} to melt.}
 
+  \item{...}{Arguments passed to other methods.}
+
   \item{id.vars}{Vector of id variables. Can be integer
-  (variable index) or string (variable name). All variables
-  not included here are assumed stackable, and will be
-  coerced as needed. Only used for \code{data} of class
-  \code{data.frame}.}
+  (variable position) or string (variable name). If blank,
+  we use all variables not in \code{measure.vars}.}
+
+  \item{measure.vars}{Vector of measured variables. Can be
+  integer (variable position) or string (variable name). If
+  blank, we use all variables not in \code{id.vars}.}
+
+  \item{variable.name}{Name of variable used to store
+  measured variable names.}
+
+  \item{value.name}{Name of variable used to store values.}
 }
 \description{
   Inspired by \code{reshape2:::melt}, we melt
@@ -28,6 +38,9 @@
   If items to be stacked are not of the same internal type,
   they will be promoted in the order \code{logical} >
   \code{integer} > \code{numeric} > \code{character}.
+
+  See \code{\link{melt_.data.frame}} and
+  \code{melt_.matrix} for the S3 dispatched functions.
 }
 \examples{
 n <- 20

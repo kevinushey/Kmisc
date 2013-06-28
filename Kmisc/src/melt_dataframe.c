@@ -55,7 +55,7 @@ SEXP stack_vector( SEXP x, int times ) {
 
 #undef HANDLE_CASE
 
-SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
+SEXP melt_dataframe( SEXP x_stack, SEXP x_rep, SEXP variable_name, SEXP value_name ) {
 
 	int nColStack = length(x_stack);
 	int nColRep = length(x_rep);
@@ -142,8 +142,8 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep ) {
 	for( int i=0; i < nColStack; ++i ) {
 		SET_STRING_ELT( names_out, i, STRING_ELT( names, i ) );
 	}
-	SET_STRING_ELT( names_out, nColStack, mkChar("names") );
-	SET_STRING_ELT( names_out, nColStack+1, mkChar("value") );
+	SET_STRING_ELT( names_out, nColStack, STRING_ELT(variable_name, 0) );
+	SET_STRING_ELT( names_out, nColStack+1, STRING_ELT(value_name, 0) );
 	setAttrib( out, R_NamesSymbol, names_out );
 	UNPROTECT(1);
 
