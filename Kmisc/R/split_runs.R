@@ -1,10 +1,12 @@
 #' Split by Runs
 #' 
-#' Split a numeric vector into a list of runs, such that each entry in the
+#' Split a vector into a list of runs, such that each entry in the
 #' output list is a set of runs encountered. This function accepts two forms
 #' of inputs: either a vector where each element of the vector is of length
 #' 1 (e.g. \code{c("A", "A", "C", "T")}), or a vector of length 1 interpretted
 #' as a long string (e.g. \code{"AAAACCAGGGACGCCGCGGTTGG"}).
+#' 
+#' Factors will be coerced to character before splitting.
 #' 
 #' @param x A numeric or character vector.
 #' @export
@@ -19,6 +21,10 @@
 #' system.time( lapply(z, split_runs) )
 split_runs <- function(x) {
   
+  if( is.factor(x) ) {
+    x <- factor_to_char(x)
+  }
+  
   if( length(x) == 1 ) {
     return( .Call( "Kmisc_split_runs_one", as.character(x), PACKAGE="Kmisc" ) )
   }
@@ -31,6 +37,6 @@ split_runs <- function(x) {
     return( .Call( "Kmisc_split_runs_numeric", x, PACKAGE="Kmisc" ) )
   }
   
-  return("x is of incompatible type")
+  stop("x is of incompatible type")
   
 }

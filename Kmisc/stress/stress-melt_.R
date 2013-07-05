@@ -21,7 +21,6 @@ for( i in 1:10 ) {
   tmp1 <- melt(dat, c("x", "y"))
   tmp2 <- melt_(dat, c("x", "y"))
   
-  
   stopifnot( all( tmp1[1:3] == tmp2[1:3]) )
   
 }
