@@ -15,6 +15,6 @@ the R programming process easier. The functions range from:
 
 Install me in R with `devtools::install_github` with the following call:
 
-    install_github("cdrv", "Kmisc", subdir="Kmisc")
+    install_github("kevinushey", "Kmisc", subdir="Kmisc")
     
 (the `subdir` argument is necessary as I include source tarballs in the base directory, and the actual source itself in this sub-directory)
