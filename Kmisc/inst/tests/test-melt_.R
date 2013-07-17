@@ -32,22 +32,26 @@ microbenchmark(
 
 dat$x <- as.factor( dat$x )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
-tmp <- melt_(dat, c("x", "y"))
 
 dat$zc <- as.integer( dat$zc )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
-tmp <- melt_(dat, c("x", "y")) 
 
 dat$zb <- as.character( dat$zb )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
-tmp <- melt_(dat, c("x", "y"))
 
 dat$zb <- sample( c(TRUE, FALSE), nrow(dat), replace=TRUE )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
-tmp <- melt_(dat, c("x", "y"))
 
 ## testing new args
-expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
+suppressWarnings(
+  expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
+)
+
+## using row.names
+df <- melt_(dat, "row.names")
+df2 <- melt(dat, measure.vars=1:ncol(dat))
+expect_identical( as.character( df2[,1] ), df[,1] )
+expect_identical( df[,2], df2[,2] )
 
 rm( list=ls() )
 
@@ -72,3 +76,4 @@ microbenchmark( melt(x), melt_(x) )
 x <- matrix( rnorm(1E5), ncol=1E2 )
 expect_true( all( melt(x) == melt_(x) ) )
 microbenchmark( melt(x), melt_(x), times=5 )
+

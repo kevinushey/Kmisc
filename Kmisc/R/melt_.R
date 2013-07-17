@@ -41,26 +41,37 @@ melt_ <- function(data, ...) {
 #' @S3method melt_ data.frame
 melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="name", ..., value.name="value") {
   
-  if( missing(measure.vars) ) {
-    if( missing(id.vars) ) {
-      stop("one of 'id.vars' and 'measure.vars' must be supplied")
-    }
-    if( is.character(id.vars) ) {
-      measure.vars <- which( names(data) %nin% id.vars )
-    } else {
-      measure.vars <- which( 1:length(data) %nin% id.vars )
-    }
-  }
+  ## figure out which variables belong to id.vars, measure.vars,
+  ## if one of them is missing
   
-  if( missing(id.vars) ) {
+  if( !missing(id.vars) && identical(id.vars, "row.names") ) {
     if( missing(measure.vars) ) {
-      stop("one of 'id.vars' and 'measure.vars' must be supplied")
+      measure.vars <- names(data)
     }
-    if( is.character(measure.vars) ) {
-      id.vars <- which( names(data) %nin% measure.vars )
-    } else {
-      id.vars <- which( 1:length(data) %nin% measure.vars )
+  } else {
+    
+    if( missing(measure.vars) ) {
+      if( missing(id.vars) ) {
+        stop("one of 'id.vars' and 'measure.vars' must be supplied")
+      }
+      if( is.character(id.vars) ) {
+        measure.vars <- which( names(data) %nin% id.vars )
+      } else {
+        measure.vars <- which( 1:length(data) %nin% id.vars )
+      }
     }
+    
+    if( missing(id.vars) ) {
+      if( missing(measure.vars) ) {
+        stop("one of 'id.vars' and 'measure.vars' must be supplied")
+      }
+      if( is.character(measure.vars) ) {
+        id.vars <- which( names(data) %nin% measure.vars )
+      } else {
+        id.vars <- which( 1:length(data) %nin% measure.vars )
+      }
+    }
+    
   }
   
   ## coerce factors to characters
@@ -91,13 +102,27 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="name", 
     }
   }
   
-  return( .Call("melt_dataframe",
-    data[id.vars],
-    data[measure.vars],
-    variable.name,
-    value.name,
-    PACKAGE="Kmisc"
-  ) )
+  ## separate dispatch for row.names
+  if( identical(id.vars, "row.names") ) {
+    output <- .Call("melt_dataframe",
+      data.frame( x=attr(data, "row.names") ),
+      data[measure.vars],
+      variable.name,
+      value.name,
+      PACKAGE="Kmisc"
+    )
+    
+    return( output[2:ncol(output)] )
+    
+  } else {
+    return( .Call("melt_dataframe",
+      data[id.vars],
+      data[measure.vars],
+      variable.name,
+      value.name,
+      PACKAGE="Kmisc"
+    ) )
+  }
   
 }
 
