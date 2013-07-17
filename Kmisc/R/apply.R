@@ -4,6 +4,8 @@
 #' \code{apply(x, 1, FUN, ...)} (row apply) and
 #' \code{apply(x, 2, FUN, ...)} (column apply).
 #' Intended for use with 2D \R \code{matrix}s.
+#' We do a bit more work to ensure row names,
+#' column names are passed along if appropriate.
 #' 
 #' See \code{\link{apply}} for more info.
 #' 
@@ -14,9 +16,11 @@
 #'  of dimension \code{n x 1} or \code{1 x n} are coerced to vectors.
 #' @rdname apply
 #' @export
-rowApply <- function(X, FUN, ..., drop=FALSE) {
+rowApply <- function(X, FUN, ..., drop=TRUE) {
   if( drop ) {
-    return( apply(X, 1, FUN, ...) )
+    output <- apply(X, 1, FUN, ...)
+    names(output) <- rownames(X)
+    return(output)
   } else {
     output <- matrix( nrow=nrow(X),
       apply(X, 1, FUN, ...)
@@ -28,9 +32,11 @@ rowApply <- function(X, FUN, ..., drop=FALSE) {
 
 #' @rdname apply
 #' @export
-colApply <- function(X, FUN, ..., drop=FALSE) {
+colApply <- function(X, FUN, ..., drop=TRUE) {
   if( drop ) {
-    return( apply(X, 2, FUN, ...) )
+    output <- apply(X, 2, FUN, ...)
+    names(output) <- colnames(X)
+    return(output)
   } else {
     output <-  matrix( ncol=ncol(X),
       apply(X, 2, FUN, ...)

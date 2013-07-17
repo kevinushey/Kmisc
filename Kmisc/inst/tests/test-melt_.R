@@ -14,7 +14,12 @@ dat <- data.frame( stringsAsFactors=FALSE,
 
 tmp1 <- melt( dat, c("x", "y") )
 tmp2 <- melt_(dat, c("x", "y") )
-expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
+
+expect_identical( 
+  melt_(dat, id.vars=c("x", "y")), 
+  melt_(dat, measure.vars=c("za", "zb", "zc")) 
+)
+
 expect_identical( 
   names( melt_(dat, id.vars=c("x", "y"), variable.name="vars", value.name="vals") ),
   c("x", "y", "vars", "vals")
@@ -29,6 +34,13 @@ microbenchmark(
   melt_( dat, c("x", "y") ),
   times=10
 )
+
+## check that melt_ handles NAs
+dat$za[ sample(1:n, n/2) ] <- NA
+dat$zb[ sample(1:n, n/2) ] <- NA
+dat$zc[ sample(1:n, n/2) ] <- NA
+
+expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
 
 dat$x <- as.factor( dat$x )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
