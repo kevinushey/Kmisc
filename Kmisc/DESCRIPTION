@@ -18,6 +18,8 @@ Imports:
 Suggests:
     ggplot2,
     knitr,
+    plyr,
+    reshape2,
     googleVis,
     testthat,
     microbenchmark
@@ -73,3 +75,4 @@ Collate:
     'melt_.R'
     'apply.R'
     'size.R'
+    'labeller.R'
