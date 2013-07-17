@@ -72,3 +72,4 @@ Collate:
     'simp.R'
     'melt_.R'
     'apply.R'
+    'size.R'

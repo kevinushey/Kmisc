@@ -14,9 +14,13 @@ install_svn <- function(url, pkg_name, build_opts="", install_opts="") {
   owd <- getwd()
   on.exit( setwd(owd) )
   setwd(dir)
+  ## check to see if we can call 'svn'
+  invisible( tryCatch( suppressWarnings(system("svn", intern=TRUE)), error=function(e) {
+    stop("'svn' not available for calling from command line")
+  }) )
   system( paste("svn checkout", url) )
   system( paste("R CMD build --no-vignettes --no-manual", pkg_name) )
   pkg_file <- grep( paste0("^", pkg_name, "_(.*?)\\.tar\\.gz$"), list.files(), perl=TRUE, value=TRUE )
   stopifnot( length(pkg_file) == 1 )
-  system( paste("R CMD install --no-multiarch", pkg_file) )
+  system( paste("R CMD INSTALL --no-multiarch", pkg_file) )
 }
