@@ -1,6 +1,6 @@
 #' ggplot2 labeller
 #' 
-#' This function works as a labelling mapper for ggplot2, typically used
+#' This function works as a labelling mapper for \code{ggplot2}, typically used
 #' in \code{facet_grid}. All arguments must be named. Items are mapped as
 #' \code{name => value}, where \code{name} represents the original 
 #' levels of the factor used for facetting.
@@ -10,11 +10,18 @@
 #' @export
 #' @examples
 #' if( require(ggplot2) ) {
-#'   df <- data.frame(x=1:100, y=rnorm(100), grp=rep( c("tau+", "tau-"), each=50 ))
-#'   f <- labeller( )
+#'   df <- data.frame(
+#'     x=1:100, 
+#'     y=rnorm(100), 
+#'     grp=rep( c("tau+", "tau-"), each=50 ) ## levels are "tau+", "tau-"
+#'   )
+#'   f <- labeller(
+#'     `tau-` = 'tau["-"]',
+#'     `tau+` = 'tau["+"]'
+#'   )
 #'   ggplot(df, aes(x=x, y=y)) + 
 #'     geom_point() + 
-#'     facet_grid(". ~ grp", labeller=labeller( `tau+`='tau["+"]', `tau-`='tau["-"]'))
+#'     facet_grid(". ~ grp", labeller=f)
 #' }
 labeller <- function(..., .parse=TRUE) {
   
@@ -33,7 +40,14 @@ labeller <- function(..., .parse=TRUE) {
       stop("mismatch in number of names and number of args; did you pass unnamed arguments to 'labeller'?")
     }
     
-    value <- Kmisc::swap(value, names(list), unlist(list))
+    ## swap
+    
+    #value <- Kmisc::swap(value, n, v)
+    
+    tmp <- v[ match(value, n)]
+    tmp[ is.na(tmp) ] <- value[ is.na(tmp) ]
+    value <- tmp
+    
     output <- vector("list", length(value))
     for( i in seq_along(output)) {
       output[[i]] <- parse( text=value[[i]] )
