@@ -1,8 +1,11 @@
 \name{without.re}
+\alias{re_without}
 \alias{without.re}
 \title{Remove Elements from a Named Object with Regular Expressions}
 \usage{
   without.re(x, pattern, perl = TRUE, ...)
+
+  re_without(x, pattern, perl = TRUE, ...)
 }
 \arguments{
   \item{x}{An \R object with a \code{names} attribute.}

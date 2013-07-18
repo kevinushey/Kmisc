@@ -1,8 +1,11 @@
 \name{extract.re}
 \alias{extract.re}
+\alias{re_extract}
 \title{Extract Elements from a Named Object with Regular Expressions}
 \usage{
   extract.re(x, pattern, perl = TRUE, ...)
+
+  re_extract(x, pattern, perl = TRUE, ...)
 }
 \arguments{
   \item{x}{An \R object with a \code{names} attribute.}

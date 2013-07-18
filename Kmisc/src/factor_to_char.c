@@ -4,7 +4,7 @@
 #include <Rinternals.h>
 
 SEXP recurse_factor_to_char( SEXP X, SEXP parent, int i ) {
-  
+
   if( TYPEOF(X) == VECSXP ) {
     for( int j=0; j < length(X); ++j ) {
       recurse_factor_to_char( VECTOR_ELT(X, j), X, j );
@@ -15,7 +15,7 @@ SEXP recurse_factor_to_char( SEXP X, SEXP parent, int i ) {
     }
   }
   return X;
-  
+
 }
 
 SEXP factor_to_char( SEXP X_ ) {

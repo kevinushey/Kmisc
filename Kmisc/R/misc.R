@@ -135,6 +135,10 @@ extract.re <- function( x, pattern, perl=TRUE, ... ) {
   return( x[ grep( pattern, names(x), perl=perl, ... ) ] )
 }
 
+#' @rdname extract.re
+#' @export
+re_extract <- extract.re
+
 #' Remove Elements from a Named Object
 #' 
 #' Removes elements from an \R object
@@ -204,6 +208,10 @@ without.re <- function( x, pattern, perl=TRUE, ... ) {
   return( x[ 1:length(x) %nin% grep( pattern, names(x), perl=perl, ... ) ] )
 }
 
+#' @rdname without.re
+#' @export
+re_without <- without.re
+
 #' Set Working Directory
 #' 
 #' A small convenience function that wraps \code{file.path} into a
@@ -258,10 +266,7 @@ cd <- function(...) {
 #' dapply( dat, summary )
 #' str( dapply( dat, summary ) )
 dapply <- function(X, FUN, ...) {
-  
-  return( as.data.frame( stringsAsFactors=FALSE, optional=TRUE,
-                         do.call( cbind, lapply(X, FUN, ...) )
-                         ) )
+  return( list_to_df( lapply(X, FUN, ...), inplace=TRUE ) )
 }
 
 #' Read Tabular Data from the Clipboard

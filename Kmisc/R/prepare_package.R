@@ -11,6 +11,9 @@
 #' done if \code{build} is \code{TRUE} as well.
 prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   
+  owd <- getwd()
+  on.exit( setwd(owd) )
+  
   cat("Copying files to build directory...\n")
   ## check for necessary package files
   files <- list.files()
@@ -22,7 +25,7 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   pkg_version <- gsub("Version: ", "", grep("^Version:", DESCRIPTION, value=TRUE))
   
   ## copy the files to a 'build' directory
-  buildDir <- paste(sep='', "../", pkg_name, "_", pkg_version, "_tmp_build")
+  buildDir <- file.path( tempdir() )
   if( file.exists(buildDir) ) {
     system( paste("rm -rf", shQuote(buildDir)) )
   }
@@ -59,18 +62,18 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
     file.remove(file)
   }
   
+  setwd( normalizePath( file.path( buildDir, "../" ) ) )
+  
   cat("Building...\n\n")
-  ## build the package
   if(build) {
-    system( paste("R CMD build", paste(sep='', "../", pkg_name, "_", pkg_version, "_tmp_build") ) )
-    system( paste("mv", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz"), "../") )
+    system( paste("R CMD build", gsub(".*/", "", buildDir)) )
     cat("Done!\n\n")
   }
   
   ## check the package
   if(check) {
     cat("Running R CMD check...\n\n")
-    system( paste("R CMD check", paste(sep='', "../", pkg_name, "_", pkg_version, ".tar.gz")))
+    system( paste("R CMD check", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz")))
     system( paste("rm -rf", paste0(pkg_name, ".Rcheck")) )
   }
   
@@ -79,6 +82,12 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
     cat("Installing package...\n\n")
     system( paste("R CMD INSTALL --preclean --no-multiarch", paste(sep='', "../", pkg_name, "_", pkg_version, ".tar.gz")))
     cat("Done!\n")
+  }
+  
+  ## move the built package back
+  if( build ) {
+    copyTo <- normalizePath( file.path(owd, "../") )
+    system( paste("mv", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz"), copyTo) )
   }
   
   ## remove the build dir
