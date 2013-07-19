@@ -48,9 +48,9 @@ SEXP list_to_dataframe(SEXP x_, SEXP inplace) {
 		SEXP colnames;
 		PROTECT(colnames = allocVector(STRSXP, m));
 		++unprotect_num;
-		char* str;
-		for (int i = 0; i < m; ++i) {
-			asprintf(&str, "%s%i", "V", i + 1);
+		char str[ (int) log10(m) + 2];
+    for (int i = 0; i < m; ++i) {
+			sprintf(str, "%s%i", "V", i + 1);
 			SET_STRING_ELT(colnames, i, mkChar(str));
 		}
 		setAttrib(x, R_NamesSymbol, colnames);
