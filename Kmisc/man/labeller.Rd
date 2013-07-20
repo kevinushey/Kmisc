@@ -19,18 +19,34 @@
 }
 \examples{
 if( require(ggplot2) ) {
+
   df <- data.frame(
     x=1:100,
     y=rnorm(100),
     grp=rep( c("tau+", "tau-"), each=50 ) ## levels are "tau+", "tau-"
   )
+
   f <- labeller(
     `tau-` = 'tau["-"]',
     `tau+` = 'tau["+"]'
   )
+
   ggplot(df, aes(x=x, y=y)) +
     geom_point() +
     facet_grid(". ~ grp", labeller=f)
+
+  df$grp2 <- factor(rep( c("beta+", "beta-"), each=50 ))
+
+  f <- labeller(
+    `tau-` = 'tau["-"]',
+    `tau+` = 'tau["+"]',
+    `beta+` = 'beta["+"]',
+    `beta-` = 'beta["-"]'
+  )
+
+  ggplot(df, aes(x=x, y=y)) +
+    geom_point() +
+    facet_grid("grp ~ grp2", labeller=f)
 }
 }
 

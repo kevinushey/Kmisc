@@ -8,7 +8,7 @@ inline void check_type( SEXP x, std::string name ) {
     case STRSXP:
       break;
     default:
-      Rf_error("Argument '%s' is of incompatible type '%s')", 
+      Rf_error("Argument '%s' is of incompatible type '%s'", 
         name.c_str(), 
         Rf_type2char( TYPEOF(x) )
       );

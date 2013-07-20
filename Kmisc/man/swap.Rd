@@ -1,8 +1,11 @@
 \name{swap}
 \alias{swap}
+\alias{swap_}
 \title{Swap Elements in a Vector}
 \usage{
   swap(vec, from, to = names(from), ...)
+
+  swap_(vec, ...)
 }
 \arguments{
   \item{vec}{the vector of items whose elements you will be

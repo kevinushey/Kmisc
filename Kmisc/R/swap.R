@@ -31,3 +31,16 @@
 swap <- function( vec, from, to=names(from), ... ) {
   return( .Call( "Kmisc_swap", vec, from, to, PACKAGE="Kmisc" ) )
 }
+
+#' @rdname swap
+#' @export
+#' @examples
+#' x <- c('a', 'a', 'b', 'c')
+#' swap_(x, a="A")
+swap_ <- function(vec, ...) {
+  dotArgs <- match.call(expand.dots=FALSE)$`...`
+  from <- names(dotArgs)
+  to <- unlist( unname( dotArgs ) )
+  return( .Call( "Kmisc_swap", vec, from, to, PACKAGE="Kmisc" ) )
+}
+
