@@ -1,11 +1,8 @@
 \name{swap}
 \alias{swap}
-\alias{swap_}
 \title{Swap Elements in a Vector}
 \usage{
-  swap(vec, from, to = names(from), ...)
-
-  swap_(vec, ...)
+  swap(vec, from, to = names(from))
 }
 \arguments{
   \item{vec}{the vector of items whose elements you will be
@@ -15,8 +12,6 @@
 
   \item{to}{the items you will be mapping 'to'. must be
   same length and order as \code{from}.}
-
-  \item{...}{optional arguments passed to \code{match}.}
 }
 \description{
   This function swaps elements in a vector. See examples
@@ -43,6 +38,6 @@ x <- c(1, NA, 2, 2, 3)
 swap(x, c(1, 2), c("a", "b") )
 }
 \seealso{
-  \code{\link{match}}
+  \code{\link{match}}, \code{\link{swap_}}
 }
 

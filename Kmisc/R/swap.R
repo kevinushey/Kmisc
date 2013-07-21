@@ -9,9 +9,8 @@
 #' @param from the items you will be mapping 'from'.
 #' @param to the items you will be mapping 'to'. must be same length and
 #' order as \code{from}.
-#' @param ... optional arguments passed to \code{match}.
 #' @export
-#' @seealso \code{\link{match}}
+#' @seealso \code{\link{swap_}}
 #' @examples
 #' x <- c(1, 2, 2, 3)
 #' from <- c(1, 2)
@@ -28,19 +27,32 @@
 #' x <- c(1, NA, 2, 2, 3)
 #' swap(x, c(1, 2), c("a", "b") )
 #' 
-swap <- function( vec, from, to=names(from), ... ) {
+swap <- function( vec, from, to=names(from) ) {
   return( .Call( "Kmisc_swap", vec, from, to, PACKAGE="Kmisc" ) )
 }
 
-#' @rdname swap
+#' Swap Elements in a Vector
+#' 
+#' This function swaps elements in a vector. See examples for usage.
+#' 
+#' If \code{to} is of different type than \code{from}, it will be coerced
+#' to be of the same type.
+#' 
+#' @param vec the vector of items whose elemetns you will be replacing.
+#' @param ... A set of named arguments, whereby we translate from \code{names}
+#' to \code{values} of those arguments.
+#' @seealso \code{\link{swap}}
 #' @export
 #' @examples
 #' x <- c('a', 'a', 'b', 'c')
 #' swap_(x, a="A")
 swap_ <- function(vec, ...) {
   dotArgs <- match.call(expand.dots=FALSE)$`...`
-  from <- names(dotArgs)
-  to <- unlist( unname( dotArgs ) )
-  return( .Call( "Kmisc_swap", vec, from, to, PACKAGE="Kmisc" ) )
+  return( .Call( 
+    "Kmisc_swap", 
+    vec, 
+    names(dotArgs),
+    unlist(dotArgs),
+    PACKAGE="Kmisc"
+  ) )
 }
-
