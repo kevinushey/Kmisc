@@ -6,6 +6,7 @@ inline void check_type( SEXP x, std::string name ) {
     case INTSXP:
     case REALSXP:
     case STRSXP:
+    case LGLSXP:
       break;
     default:
       Rf_error("Argument '%s' is of incompatible type '%s'", 
@@ -50,7 +51,7 @@ SEXP swap( SEXP vec, SEXP from, SEXP to ) {
     case INTSXP: return do_swap<INTSXP>(vec, from, to);
     case REALSXP: return do_swap<REALSXP>(vec, from, to);
     case STRSXP: return do_swap<STRSXP>(vec, from, to);
-    //case LGLSXP: return do_swap<LGLSXP>(x, y);
+    case LGLSXP: return Rf_error("Can't swap vectors from logical to logical");
     default: stop("incompatible RTYPE");
   }
   

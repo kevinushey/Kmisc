@@ -38,6 +38,6 @@ x <- c(1, NA, 2, 2, 3)
 swap(x, c(1, 2), c("a", "b") )
 }
 \seealso{
-  \code{\link{match}}, \code{\link{swap_}}
+  \code{\link{swap_}}
 }
 
