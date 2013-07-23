@@ -10,6 +10,8 @@ Description: A collection of functions for common data reshaping operations, as
 License: GPL (>= 2)
 LazyData: TRUE
 LinkingTo: Rcpp
+URL: https://github.com/kevinushey/Kmisc
+BugReports: https://github.com/kevinushey/Kmisc/issues
 Depends:
     Rcpp (>= 0.10.1)
 Imports:

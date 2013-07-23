@@ -51,7 +51,7 @@ SEXP swap( SEXP vec, SEXP from, SEXP to ) {
     case INTSXP: return do_swap<INTSXP>(vec, from, to);
     case REALSXP: return do_swap<REALSXP>(vec, from, to);
     case STRSXP: return do_swap<STRSXP>(vec, from, to);
-    case LGLSXP: return Rf_error("Can't swap vectors from logical to logical");
+    case LGLSXP: stop("Can't swap from logical to logical");
     default: stop("incompatible RTYPE");
   }
   
