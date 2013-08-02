@@ -244,8 +244,6 @@ cd <- function(...) {
 #' This function is preferable to \code{\link{sapply}} or \code{\link{lapply}}
 #' when you explicitly want a data frame returned.
 #' 
-#' @note Rather than \code{lapply}, \code{\link{lapply}} is called instead, which
-#' simply avoids converting any data frames to lists before execution.
 #' @param X a vector, expression object, or a \code{data.frame}
 #' @param FUN function to be applied to each element of \code{X}.
 #' @param ... optional arguments to \code{FUN}.

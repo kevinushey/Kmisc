@@ -25,11 +25,6 @@
   \code{\link{lapply}} when you explicitly want a data
   frame returned.
 }
-\note{
-  Rather than \code{lapply}, \code{\link{lapply}} is called
-  instead, which simply avoids converting any data frames
-  to lists before execution.
-}
 \examples{
 dat <- data.frame(
   x = rnorm(10),

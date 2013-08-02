@@ -69,6 +69,21 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// matches
+IntegerMatrix matches(List x);
+RcppExport SEXP Kmisc_matches(SEXP xSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        List x = Rcpp::as<List >(xSEXP);
+        IntegerMatrix __result = matches(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // split_file
 void split_file(std::string path, std::string dir, std::string basename, std::string path_sep, std::string sep, std::string prepend, std::string file_ext, int column, int skip, bool verbose);
 RcppExport SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP, SEXP path_sepSEXP, SEXP sepSEXP, SEXP prependSEXP, SEXP file_extSEXP, SEXP columnSEXP, SEXP skipSEXP, SEXP verboseSEXP) {

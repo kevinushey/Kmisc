@@ -78,3 +78,6 @@ Collate:
     'apply.R'
     'size.R'
     'labeller.R'
+    'named.R'
+    'matches.R'
+    'replace_function.R'
