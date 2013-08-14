@@ -5,6 +5,6 @@
 ##' 
 ##' @param x An \R object.
 ##' @export
-copy <- function(x) {
+duplicate <- function(x) {
   return( .Call("copy", x, PACKAGE="Kmisc") )
 }

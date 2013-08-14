@@ -1,8 +1,8 @@
-\name{copy}
-\alias{copy}
+\name{duplicate}
+\alias{duplicate}
 \title{Force a Copy of an R Object}
 \usage{
-  copy(x)
+  duplicate(x)
 }
 \arguments{
   \item{x}{An \R object.}
