@@ -21,7 +21,7 @@
 #' system.time( lapply(z, split_runs) )
 split_runs <- function(x) {
   
-  if( is.factor(x) ) {
+  if (is.factor(x)) {
     x <- factor_to_char(x)
   }
   

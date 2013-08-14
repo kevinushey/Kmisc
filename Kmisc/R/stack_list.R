@@ -51,7 +51,7 @@ stack_list <- function( list,
   if( inherits( list[[1]], "data.frame" ) ) {
     
     if( coerce_factors ) {
-      list <- .Call( "factor_to_char", list, PACKAGE="Kmisc" )
+      list <- factor_to_char(list)
     }
     
     classes <- sapply( list[[1]], class )

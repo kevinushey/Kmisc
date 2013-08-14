@@ -18,21 +18,29 @@ SEXP recurse_factor_to_char( SEXP X, SEXP parent, int i ) {
 
 }
 
-SEXP factor_to_char( SEXP X_ ) {
+SEXP factor_to_char( SEXP X_, SEXP inplace_ ) {
+  
+  int inplace = asInteger(inplace_);
+  int numprotect = 0;
   SEXP X;
-  PROTECT( X = duplicate(X_) );
+  if (inplace) {
+    X = X_;
+  } else {
+    PROTECT( X = duplicate(X_) );
+    ++numprotect;
+  }
   if( TYPEOF(X) == VECSXP ) {
     SEXP out = recurse_factor_to_char( X, X, 0);
-    UNPROTECT(1);
+    UNPROTECT(numprotect);
     return out;
   } else {
     if( isFactor(X) ) {
       SEXP out = asCharacterFactor(X);
-      UNPROTECT(1);
+      UNPROTECT(numprotect);
       return out;
     } else {
       warning("X is neither a list nor a factor; no change done");
-      UNPROTECT(1);
+      UNPROTECT(numprotect);
       return X;
     }
   }

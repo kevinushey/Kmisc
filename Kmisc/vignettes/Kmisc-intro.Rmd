@@ -302,7 +302,6 @@ library(Kmisc)
 library(lattice)
 library(grid)
 dat <- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
-
 ```
 
 `without`: This function is used to remove columns from a `list` / `data.frame`.
@@ -360,7 +359,6 @@ frustrated with the fact that either an `array` or a `list` is returned
 by sapply, but never a `data.frame`.
 
 ```{r, tidy=FALSE}
-
 dat <- data.frame( x = rnorm(100), y = rnorm(100), z = rnorm(100) )
 dapply( dat, summary )
 ```

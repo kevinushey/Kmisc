@@ -2,10 +2,14 @@
 \alias{factor_to_char}
 \title{Converts Factors to Characters in an Object}
 \usage{
-  factor_to_char(X)
+  factor_to_char(X, inplace = FALSE)
 }
 \arguments{
   \item{X}{an object.}
+
+  \item{inplace}{Boolean; if \code{TRUE} we modify the
+  object in place.  Useful if you're modifying a list and
+  don't want to force a copy.}
 }
 \description{
   Converts factors to characters in an object. Leaves

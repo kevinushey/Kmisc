@@ -264,7 +264,13 @@ cd <- function(...) {
 #' dapply( dat, summary )
 #' str( dapply( dat, summary ) )
 dapply <- function(X, FUN, ...) {
-  return( list_to_df( lapply(X, FUN, ...), inplace=TRUE ) )
+  tmp <- lapply(X, FUN, ...)
+  nm <- names(tmp[[1]])
+  list_to_df(tmp, inplace=TRUE)
+  if (!is.null(nm)) {
+    attr(tmp, "row.names") <- nm
+  }
+  return(tmp)
 }
 
 #' Read Tabular Data from the Clipboard
@@ -365,9 +371,11 @@ cat.cb <- function( dat, ... ) {
 #' We iterate through all elements in the object (e.g. if
 #' it is a list) and convert anything that is a factor into a character.
 #' @param X an object.
+#' @param inplace Boolean; if \code{TRUE} we modify the object in place.
+#'  Useful if you're modifying a list and don't want to force a copy.
 #' @export
-factor_to_char <- function( X ) {
-  return( .Call("factor_to_char", X, PACKAGE="Kmisc") )
+factor_to_char <- function( X, inplace=FALSE ) {
+  return( .Call("factor_to_char", X, as.logical(inplace), PACKAGE="Kmisc") )
 }
 
 #' Converts Characters to Factors in an Object
