@@ -5,6 +5,22 @@
 
 using namespace Rcpp;
 
+// char_to_factor
+RObject char_to_factor(RObject x_, bool inplace);
+RcppExport SEXP Kmisc_char_to_factor(SEXP x_SEXP, SEXP inplaceSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        RObject x_ = Rcpp::as<RObject >(x_SEXP);
+        bool inplace = Rcpp::as<bool >(inplaceSEXP);
+        RObject __result = char_to_factor(x_, inplace);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // counts
 SEXP counts(SEXP x);
 RcppExport SEXP Kmisc_counts(SEXP xSEXP) {
@@ -55,14 +71,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // fast_factor
-SEXP fast_factor(SEXP x);
-RcppExport SEXP Kmisc_fast_factor(SEXP xSEXP) {
+SEXP fast_factor(SEXP x, SEXP levels);
+RcppExport SEXP Kmisc_fast_factor(SEXP xSEXP, SEXP levelsSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         SEXP x = Rcpp::as<SEXP >(xSEXP);
-        SEXP __result = fast_factor(x);
+        SEXP levels = Rcpp::as<SEXP >(levelsSEXP);
+        SEXP __result = fast_factor(x, levels);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

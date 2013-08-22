@@ -2,9 +2,15 @@
 using namespace Rcpp;
 
 template <int RTYPE>
-IntegerVector fast_factor_template( const Vector<RTYPE>& x ) {
+IntegerVector fast_factor_template( const Vector<RTYPE>& x, SEXP levels, bool isNull ) {
 
-	Vector<RTYPE> sorted = sort_unique(x);
+  Vector<RTYPE> sorted;
+  if (isNull) {
+    sorted = sort_unique(x);
+  } else {
+    sorted = Vector<RTYPE>(levels);
+  }
+  
 	IntegerVector out = match( x, sorted );
 
 	// handle NAs
@@ -32,13 +38,17 @@ IntegerVector fast_factor_template( const Vector<RTYPE>& x ) {
 }
 
 // [[Rcpp::export]]
-SEXP fast_factor( SEXP x ) {
-	int type = TYPEOF(x);
+SEXP fast_factor( SEXP x, SEXP levels ) {
+  int type = TYPEOF(x);
+  if (!Rf_isNull(levels) && TYPEOF(levels) != type) {
+    levels = Rf_coerceVector(levels, type);
+  }
+  bool isNull = Rf_isNull(levels);
 	switch( type ) {
-	case INTSXP: return fast_factor_template<INTSXP>( x );
-	case REALSXP: return fast_factor_template<REALSXP>( x );
-	case STRSXP: return fast_factor_template<STRSXP>( x );
-	case LGLSXP: return fast_factor_template<INTSXP>( x );
+	case INTSXP: return fast_factor_template<INTSXP>(x, levels, isNull);
+	case REALSXP: return fast_factor_template<REALSXP>(x, levels, isNull);
+	case STRSXP: return fast_factor_template<STRSXP>(x, levels, isNull);
+	case LGLSXP: return fast_factor_template<INTSXP>(x, levels, isNull);
 	}
 	Rf_error("argument is of incompatible type '%s'", Rf_type2char( TYPEOF(x) ));
 	return R_NilValue;

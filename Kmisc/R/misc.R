@@ -383,26 +383,12 @@ factor_to_char <- function( X, inplace=FALSE ) {
 #' Converts characters to factors in an object. Leaves non-factor elements
 #' untouched.
 #' @param X an object.
-#' @param ... optional arguments passed to \code{factor}.
+#' @param inplace boolean; if \code{TRUE} the object is modified in place.
+#' Be careful when using this option.
+#' @param ... Ignored.
 #' @export
-char_to_factor <- function(X, ...) {
-  
-  if( is.list(X) ) {
-    return( rapply( X, how="replace", function(x) {
-      if( is.character(x) ) {
-        return( factor(x, ...) )
-      } else {
-        return( x )
-      }
-    }))
-  } else {
-    if( is.character(X) ) {
-      return( factor(X, ...) )
-    } else {
-      return( X )
-    }
-  }
-  
+char_to_factor <- function(X, inplace=FALSE, ...) {
+  return( .Call("Kmisc_char_to_factor", X, inplace, PACKAGE="Kmisc") )
 }
 
 #' Make Dummy Variables from a Factor
