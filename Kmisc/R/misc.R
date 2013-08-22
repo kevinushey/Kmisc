@@ -109,8 +109,8 @@ extract <- function( x, ... ) {
       tmp <- tryCatch( getAnywhere(xx), error=function(e) {
         warning( 
           paste("'", xx, "' not in names(", deparse(substitute(x)), ") nor search path", 
-                sep="", collapse="") 
-          )
+            sep="", collapse="") 
+        )
       })
       return(tmp)
     }
@@ -176,7 +176,7 @@ without <- function( x, ... ) {
       tmp <- tryCatch( getAnywhere(xx), error=function(e) {
         warning( 
           paste("'", xx, "' not in names(", deparse(substitute(x)), ") nor search path", 
-                sep="") 
+            sep="") 
         )
       })
       return(tmp)
@@ -325,24 +325,24 @@ scan.cb <- function( what=character(), sep="\n", ... ) {
 ##' @seealso \code{\link{write.table}}
 ##' 
 write.cb <- function( dat, 
-                      row.names=FALSE, 
-                      col.names=TRUE, 
-                      sep='\t', 
-                      quote=FALSE ) {
+  row.names=FALSE, 
+  col.names=TRUE, 
+  sep='\t', 
+  quote=FALSE ) {
   
   if( Sys.info()["sysname"] == "Darwin" ) {
     write.table( dat, file=pipe("pbcopy"),
-                 row.names=row.names,
-                 col.names=col.names,
-                 sep=sep,
-                 quote=quote
+      row.names=row.names,
+      col.names=col.names,
+      sep=sep,
+      quote=quote
     )
   } else {
     write.table( dat, file="clipboard",
-                 row.names = row.names,
-                 col.names = col.names,
-                 sep = sep,
-                 quote = quote
+      row.names = row.names,
+      col.names = col.names,
+      sep = sep,
+      quote = quote
     )
   }
   
@@ -384,7 +384,7 @@ factor_to_char <- function( X, inplace=FALSE ) {
 ##' untouched.
 ##' @param X an object.
 ##' @param inplace boolean; if \code{TRUE} the object is modified in place.
-##' Be careful when using this option.
+##'   Be careful when using this option.
 ##' @param ... Ignored.
 ##' @export
 char_to_factor <- function(X, inplace=FALSE, ...) {
@@ -522,13 +522,13 @@ getload <- kLoad
 kSave <- function( x, file, lvl=1, Rext=".rda", ... ) {
   
   write.table( x,
-               file = file,
-               ... )
+    file = file,
+    ... )
   
   tmp <- strip_extension( file, lvl=lvl )
   
   save( x,
-        file=paste( tmp, Rext, sep="" )
+    file=paste( tmp, Rext, sep="" )
   )
   
 }
@@ -626,15 +626,15 @@ gradient <- function(x, m=10, cols=c("darkorange","grey60","darkblue") ) {
 ##' my_table <- kTable(x, y, top.left.cell="foo", left.label="bar", top.label="baz")
 ##' pxt( my_table )
 kTable <- function( x, 
-                    y=NULL,
-                    deparse.level=2,
-                    top.left.cell="",
-                    col.names=NULL,
-                    row.names=NULL,
-                    left.label=NULL,
-                    top.label=NULL,
-                    google=FALSE 
-                    ) {
+  y=NULL,
+  deparse.level=2,
+  top.left.cell="",
+  col.names=NULL,
+  row.names=NULL,
+  left.label=NULL,
+  top.label=NULL,
+  google=FALSE 
+) {
   
   if( !is.null(y) & isTRUE(google) ) {
     stop("cannot generate google tables from 2x2 contingency tables")
@@ -687,17 +687,18 @@ kTable <- function( x,
       for( j in 1:ncol(tmp) ) {
         
         tmp[i,j] <- paste( sep="",
-                           paste( sep="",
-                                  rep(" ", times=my_col_nchar[j] - nchar(tmp[i,j])), collapse="" ),
-                           tmp[i,j], 
-                           " (",
-                           substr( 
-                             sprintf("%.3f%%", as.numeric(tmp[i,j]) / my_colSum[j] * 100 ),
-                             1,
-                             4
-                           ),
-                           "%)"
-                             
+          paste( sep="",
+            rep(" ", times=my_col_nchar[j] - nchar(tmp[i,j])), collapse="" 
+          ),
+          tmp[i,j], 
+          " (",
+          substr( 
+            sprintf("%.3f%%", as.numeric(tmp[i,j]) / my_colSum[j] * 100 ),
+            1,
+            4
+          ),
+          "%)"
+          
         )
       }
     }
@@ -709,7 +710,7 @@ kTable <- function( x,
     tmp <- rbind( c( 
       gsub( ".*\\$", "", deparse( substitute( x ) ) ), 
       "Count (%)" 
-      ), tmp )
+    ), tmp )
     
     ## Top-Left cell
     if( top.left.cell != "" ) { 
@@ -717,7 +718,7 @@ kTable <- function( x,
     } else {
       tmp[1,1] <- left.label
     }
-  
+    
   } else {
     
     tmp <- base::table( x, y, deparse.level=deparse.level, useNA=useNA )
@@ -737,17 +738,17 @@ kTable <- function( x,
         if( my_colSum[j] != 0 ) {
           
           tmp[i,j] <- paste( sep="",
-                             paste( sep="",
-                                    rep(" ", times=my_col_nchar[j] - nchar(tmp[i,j])), collapse="" ),
-                             tmp[i,j], 
-                             " (",
-                             substr( 
-                               sprintf("%.3f%%", as.numeric(tmp[i,j]) / my_colSum[j] * 100 ),
-                               1,
-                               4
-                             ),
-                             "%)"
-                             
+            paste( sep="",
+              rep(" ", times=my_col_nchar[j] - nchar(tmp[i,j])), collapse="" ),
+            tmp[i,j], 
+            " (",
+            substr( 
+              sprintf("%.3f%%", as.numeric(tmp[i,j]) / my_colSum[j] * 100 ),
+              1,
+              4
+            ),
+            "%)"
+            
           )
           
         }
@@ -776,7 +777,7 @@ kTable <- function( x,
         gsub( ".*\\$", "", deparse( substitute( x ) ) ),
         gsub( ".*\\$", "", deparse( substitute( y ) ) ),
         sep=" \\ "
-        )
+      )
     } else {
       tmp[1,1] <- top.left.cell
     }
@@ -833,10 +834,10 @@ kTable <- function( x,
 ##' coef( summary( myFit ) )
 ##' kCoef( myFit )
 kCoef <- function( fit, 
-                   remove_underscore=TRUE, 
-                   remove_dollar=TRUE,
-                   swap_periods=TRUE
-                   ) {
+  remove_underscore=TRUE, 
+  remove_dollar=TRUE,
+  swap_periods=TRUE
+) {
   
   if( re.exists( ":", names(fit$coefficients) ) ) {
     warning("kCoef not implemented for models with interaction effects")
@@ -907,8 +908,8 @@ kCoef <- function( fit,
     for( j in 2:length(my_factor_levels[[i]]) ) {
       cName <- my_factor_levels[[i]][j]
       new_factor_names <- c( new_factor_names, 
-                             paste( cFactor, ": ", cRef, " -> ", cName, sep="" )
-                             )
+        paste( cFactor, ": ", cRef, " -> ", cName, sep="" )
+      )
     }
   }
   
@@ -919,13 +920,13 @@ kCoef <- function( fit,
   
   ## swap the row names
   rownames( coef_matrix ) <- swap( rownames( coef_matrix),
-                                       old_factor_names,
-                                       new_factor_names
-                                       )
+    old_factor_names,
+    new_factor_names
+  )
   
   rownames( coef_matrix ) <- swap( rownames( coef_matrix),
-                                       old_interactions,
-                                       new_interactions
+    old_interactions,
+    new_interactions
   )
   
   ## remove underscore stuff?

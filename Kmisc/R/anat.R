@@ -27,7 +27,7 @@ anat <- function(df, n=3) {
     warning("df is not a data.frame; returning utils::str(df)")
     return( utils::str(df) )
   } else {
-    if( any( sapply( 1:length(df), function(i) { !is.atomic(df[[i]]) } ) ) ) {
+    if( any( sapply( seq_along(df), function(i) { !is.atomic(df[[i]]) } ) ) ) {
       warning("df is a data.frame, but there are non-atomic columns; returning utils::str(df)")
       return( utils::str(df) )
     }
@@ -38,7 +38,7 @@ anat <- function(df, n=3) {
   
   if( all( dim( df ) == c(0, 0) ) ) {
     cat( paste( sep="", 
-                class_statement, " with 0 rows and 0 columns\n" ) )
+      class_statement, " with 0 rows and 0 columns\n" ) )
     return( invisible(NULL) )
   }
   
@@ -49,7 +49,7 @@ anat <- function(df, n=3) {
   sapply( 1:ncol(df), function(i) {
     if( !is.atomic( df[[i]] ) ) {
       stop("non-atomic vector in ", deparse( substitute( df ) ),
-           ". consider using 'str' or reforming ", deparse( substitute( df ) ), "."
+        ". consider using 'str' or reforming ", deparse( substitute( df ) ), "."
       )
     }
   })
@@ -83,10 +83,10 @@ anat <- function(df, n=3) {
   formatted_classes <- format( classes )
   
   cat( paste( sep="", 
-              class_statement, " with ",
-              nrow(df), " row", if( nrow(df) > 1 || nrow(df) == 0 ) "s", 
-              " and ", ncol(df), " column", if( ncol(df) > 1 || nrow(df) == 0 ) "s", 
-              ":\n" ) )
+    class_statement, " with ",
+    nrow(df), " row", if( nrow(df) > 1 || nrow(df) == 0 ) "s", 
+    " and ", ncol(df), " column", if( ncol(df) > 1 || nrow(df) == 0 ) "s", 
+    ":\n" ) )
   
   for( i in seq_along(names(df)) ) {
     
@@ -106,16 +106,16 @@ anat <- function(df, n=3) {
     formatted_vec <- paste( sep="", collapse=", ", tmp )
     if( is.factor(var) ) {
       formatted_vec <- paste( sep="", formatted_vec, ": ", 
-                              paste( collapse=", ", as.integer(var) )
-                              )
+        paste( collapse=", ", as.integer(var) )
+      )
     }
     
     out <- paste( sep="", collapse="",
-                  "  $ ", formatted_names[i], ": ",
-                  formatted_classes[i], "  ",
-                  formatted_vec,
-                  if( nrow(df) > n ) { ", ... " },
-                  "\n"
+      "  $ ", formatted_names[i], ": ",
+      formatted_classes[i], "  ",
+      formatted_vec,
+      if( nrow(df) > n ) { ", ... " },
+      "\n"
     )
     
     cat( format(out, )  )

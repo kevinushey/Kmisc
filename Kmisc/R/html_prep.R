@@ -17,9 +17,25 @@
 html <- function(..., file="") {
   dotArgs <- match.call(expand.dots=FALSE)$`...`
   for( item in dotArgs ) {
+    item <- .eval_symbols(item, envir=parent.frame())
     print( eval( item, envir=.html ), file=file )
     cat( "\n", file=file )
   }
+}
+
+.eval_symbols <- function(lang, envir=parent.frame()) {
+  if (is.call(lang) && length(lang) > 1) {
+    for (i in 2:length(lang)) {
+      if (is.call(lang[[i]])) {
+        lang[[i]] <- .eval_symbols( lang[[i]], envir=envir )
+      } else {
+        lang[[i]] <- eval( lang[[i]], envir=envir )
+      }
+    }
+  } else if (is.symbol(lang)) {
+    lang <- eval(lang, envir=envir)
+  }
+  return(lang)
 }
 
 ##' Print kHTML Objects

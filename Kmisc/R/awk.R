@@ -75,16 +75,16 @@ awk <- function( code, file, BEGIN=NULL, END=NULL, vars=NULL, fs=NULL, out=TRUE,
   }
   
   awk_call <- paste( sep="",
-                     .Kmisc$awk,
-                     " ",
-                     if( !is.null(vars_statement) ) paste(sep="", vars_statement, " "),
-                     if( !is.null(fs_statement) ) paste(sep="", fs_statement, " "),
-                     "'",
-                     BEGIN_statement, " ",
-                     code_statement, " ",
-                     END_statement, "' ",
-                     file,
-                     if( !isTRUE(out) ) paste(" >", out)
+    .Kmisc$awk,
+    " ",
+    if( !is.null(vars_statement) ) paste(sep="", vars_statement, " "),
+    if( !is.null(fs_statement) ) paste(sep="", fs_statement, " "),
+    "'",
+    BEGIN_statement, " ",
+    code_statement, " ",
+    END_statement, "' ",
+    file,
+    if( !isTRUE(out) ) paste(" >", out)
   )
   
   if( verbose ) print( awk_call )
