@@ -13,7 +13,7 @@ LinkingTo: Rcpp
 URL: https://github.com/kevinushey/Kmisc
 BugReports: https://github.com/kevinushey/Kmisc/issues
 Depends:
-    Rcpp (>= 0.10.1)
+    Rcpp (>= 0.10.4)
 Imports:
     lattice,
     grid
