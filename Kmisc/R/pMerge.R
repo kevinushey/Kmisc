@@ -1,29 +1,29 @@
-#' Merge a Data Frame 'into' Another
-#' 
-#' This function will merge a data frame \code{df2} 'into' a data frame
-#' \code{df1}, preserving \code{df1} as much as possible in the merger.
-#' Hence I call this a 'preserving' merge, or \code{pMerge}.
-#' 
-#' @param df1 the data.frame which we are preserving
-#' @param df2 the data.frame we are merging into df1
-#' @param by character; name of the variable we are merging over
-#' @param doCheck boolean; set this if you want to perform more extensive 
-#' (but slower) error checking
-#' @export
-#' @examples
-#' df1 <- data.frame( stringsAsFactors=FALSE,
-#'   x=1:1000,
-#'   y=sample(LETTERS, size=1000, replace=TRUE)
-#' )
-#' 
-#' df2 <- data.frame( stringsAsFactors=FALSE,
-#'   x=sample( 1:2000, size=2000, replace=TRUE ),
-#'   z=sample( letters, size=2000, replace=TRUE ),
-#'   q=sample( LETTERS, size=2000, replace=TRUE )
-#' )
-#' 
-#' dMerged <- pMerge( df1, df2, by="x" )
-#' stopifnot( all.equal( df1, dMerged[1:ncol(df1)] ) )
+##' Merge a Data Frame 'into' Another
+##' 
+##' This function will merge a data frame \code{df2} 'into' a data frame
+##' \code{df1}, preserving \code{df1} as much as possible in the merger.
+##' Hence I call this a 'preserving' merge, or \code{pMerge}.
+##' 
+##' @param df1 the data.frame which we are preserving
+##' @param df2 the data.frame we are merging into df1
+##' @param by character; name of the variable we are merging over
+##' @param doCheck boolean; set this if you want to perform more extensive 
+##' (but slower) error checking
+##' @export
+##' @examples
+##' df1 <- data.frame( stringsAsFactors=FALSE,
+##'   x=1:1000,
+##'   y=sample(LETTERS, size=1000, replace=TRUE)
+##' )
+##' 
+##' df2 <- data.frame( stringsAsFactors=FALSE,
+##'   x=sample( 1:2000, size=2000, replace=TRUE ),
+##'   z=sample( letters, size=2000, replace=TRUE ),
+##'   q=sample( LETTERS, size=2000, replace=TRUE )
+##' )
+##' 
+##' dMerged <- pMerge( df1, df2, by="x" )
+##' stopifnot( all.equal( df1, dMerged[1:ncol(df1)] ) )
 pMerge <- function( df1, 
                     df2, 
                     by=intersect( names(df1), names(df2) ), 

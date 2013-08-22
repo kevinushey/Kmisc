@@ -1,25 +1,25 @@
-#' Custom Lattice Boxplot
-#' 
-#' This generates a custom lattice boxplot; we super-impose actual plot points
-#' for groups with a small number of points, and also restrict plotting of the
-#' boxplot for these as well (since they are really rather mis-representative
-#' of the distribution when there are so few points.) The downside is that
-#' functionality is not implemented for multi-panel plots.
-#' 
-#' Axis labels are inferred from the \code{form} object passed in when possible.
-#' 
-#' @param form a formula object as expected by \code{lattice}'s \code{xyplot}.
-#' @param data see \code{\link{xyplot}}.
-#' @param xlab see \code{\link{xyplot}}.
-#' @param ylab see \code{\link{xyplot}}.
-#' @param main see \code{\link{xyplot}}.
-#' @param n number of points necessary for a boxplot to be drawn.
-#' @param ... additional arguments passed to \code{xyplot} call.
-#' @export
-#' @examples
-#' set.seed(123)
-#' dat <- data.frame( y=rnorm(100), x=factor( rbinom(100,size=2,p=0.8) ) )
-#' bwplot2( x ~ y , dat)
+##' Custom Lattice Boxplot
+##' 
+##' This generates a custom lattice boxplot; we super-impose actual plot points
+##' for groups with a small number of points, and also restrict plotting of the
+##' boxplot for these as well (since they are really rather mis-representative
+##' of the distribution when there are so few points.) The downside is that
+##' functionality is not implemented for multi-panel plots.
+##' 
+##' Axis labels are inferred from the \code{form} object passed in when possible.
+##' 
+##' @param form a formula object as expected by \code{lattice}'s \code{xyplot}.
+##' @param data see \code{\link{xyplot}}.
+##' @param xlab see \code{\link{xyplot}}.
+##' @param ylab see \code{\link{xyplot}}.
+##' @param main see \code{\link{xyplot}}.
+##' @param n number of points necessary for a boxplot to be drawn.
+##' @param ... additional arguments passed to \code{xyplot} call.
+##' @export
+##' @examples
+##' set.seed(123)
+##' dat <- data.frame( y=rnorm(100), x=factor( rbinom(100,size=2,p=0.8) ) )
+##' bwplot2( x ~ y , dat)
 bwplot2 <- function( form, 
                      data=NULL, 
                      xlab=NULL, 

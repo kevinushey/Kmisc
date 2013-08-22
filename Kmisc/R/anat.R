@@ -1,26 +1,26 @@
-#' Display the Anatomy of a Data Frame
-#' 
-#' This function displays the 'anatomy' of a data frame. In practice, it's used
-#' to implement a faster version of \code{str} for data frames built entirely
-#' of atomic vectors, as \code{str.data.frame} is very slow for large data 
-#' frames. If there are non-atomic vectors in \code{df}, we fall back to
-#' \code{base::str}.
-#' 
-#' @param df an object inheriting class \code{data.frame}.
-#' @param n number of elements to print from each vector.
-#' @export
-#' @examples
-#' \dontrun{ 
-#' local({
-#'   bigDF <- as.data.frame( matrix( factor(1:1E3), nrow=1E3, ncol=1E3 ) )
-#'   sink( tmp <- tempfile() )
-#'   str <- system.time( str(bigDF, list.len=1E3) )
-#'   anat <- system.time( anat(bigDF) )
-#'   sink()
-#'   unlink(tmp)
-#'   print( rbind( str, anat ) )
-#' }) 
-#' }
+##' Display the Anatomy of a Data Frame
+##' 
+##' This function displays the 'anatomy' of a data frame. In practice, it's used
+##' to implement a faster version of \code{str} for data frames built entirely
+##' of atomic vectors, as \code{str.data.frame} is very slow for large data 
+##' frames. If there are non-atomic vectors in \code{df}, we fall back to
+##' \code{base::str}.
+##' 
+##' @param df an object inheriting class \code{data.frame}.
+##' @param n number of elements to print from each vector.
+##' @export
+##' @examples
+##' \dontrun{ 
+##' local({
+##'   bigDF <- as.data.frame( matrix( factor(1:1E3), nrow=1E3, ncol=1E3 ) )
+##'   sink( tmp <- tempfile() )
+##'   str <- system.time( str(bigDF, list.len=1E3) )
+##'   anat <- system.time( anat(bigDF) )
+##'   sink()
+##'   unlink(tmp)
+##'   print( rbind( str, anat ) )
+##' }) 
+##' }
 anat <- function(df, n=3) {
   
   if( !is.data.frame(df) ) {
@@ -123,6 +123,6 @@ anat <- function(df, n=3) {
   
 }
 
-#' @rdname anat
-#' @export
+##' @rdname anat
+##' @export
 anatomy <- anat

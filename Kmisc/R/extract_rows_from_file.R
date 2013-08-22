@@ -1,20 +1,20 @@
-#' Extract Rows from File
-#' 
-#' This function reads through a delimited file on disk, determines if the
-#' entry at the specified column is in a character vector of items, and writes
-#' that line to file (or to \R) if it is.
-#' 
-#' @param file The input file to extract rows from.
-#' @param out The location to output the file. If this is \code{NULL}, we
-#' redirect output back into the \R session.
-#' @param column The column to check, indexed from 1.
-#' @param sep The delimiter used in \code{file}. Must be a single character.
-#' If no delimiter is specified, we guess the delimiter from the first row
-#' of \code{file}.
-#' @param keep A character vector containing all items that we want to check
-#' and keep within the \code{column}th column of each row.
-#' @seealso \code{\link{split_file}}
-#' @export
+##' Extract Rows from File
+##' 
+##' This function reads through a delimited file on disk, determines if the
+##' entry at the specified column is in a character vector of items, and writes
+##' that line to file (or to \R) if it is.
+##' 
+##' @param file The input file to extract rows from.
+##' @param out The location to output the file. If this is \code{NULL}, we
+##' redirect output back into the \R session.
+##' @param column The column to check, indexed from 1.
+##' @param sep The delimiter used in \code{file}. Must be a single character.
+##' If no delimiter is specified, we guess the delimiter from the first row
+##' of \code{file}.
+##' @param keep A character vector containing all items that we want to check
+##' and keep within the \code{column}th column of each row.
+##' @seealso \code{\link{split_file}}
+##' @export
 extract_rows_from_file <- function(
   file,
   out=NULL,

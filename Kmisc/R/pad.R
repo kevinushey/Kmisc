@@ -1,11 +1,11 @@
-#' Pad an Object with NAs
-#' 
-#' This function pads an \R object (list, data.frame, matrix, atomic vector)
-#' with \code{NA}s. For matrices, lists and data.frames, this occurs by extending
-#' each (column) vector in the object.
-#' @param x An \R object (list, data.frame, matrix, atomic vector).
-#' @param n The final length of each object.
-#' @export
+##' Pad an Object with NAs
+##' 
+##' This function pads an \R object (list, data.frame, matrix, atomic vector)
+##' with \code{NA}s. For matrices, lists and data.frames, this occurs by extending
+##' each (column) vector in the object.
+##' @param x An \R object (list, data.frame, matrix, atomic vector).
+##' @param n The final length of each object.
+##' @export
 pad <- function(x, n) {
   
   if( class(x) == "data.frame" ) {

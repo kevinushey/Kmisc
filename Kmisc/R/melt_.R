@@ -1,44 +1,44 @@
-#' Make a 'Wide' data set 'Long'
-#' 
-#' Inspired by \code{reshape2:::melt}, we melt \code{data.frame}s and 
-#' \code{matrix}s. This function is built for speed.
-#' 
-#' If items to be stacked are not of the same internal type, they will be
-#' promoted in the order \code{logical} > \code{integer} > \code{numeric} > 
-#' \code{character}.
-#' 
-#' @param data The \code{data.frame} to melt.
-#' @param ... Arguments passed to other methods.
-#' @examples
-#' n <- 20
-#' tmp <- data.frame( stringsAsFactors=FALSE,
-#'   x=sample(letters, n, TRUE), 
-#'   y=sample(LETTERS, n, TRUE),
-#'   za=rnorm(n), 
-#'   zb=rnorm(n), 
-#'   zc=rnorm(n)
-#' )
-#'   
-#' stopifnot( 
-#'   identical( 
-#'     melt_(tmp, id.vars=c('x', 'y')), 
-#'     melt_(tmp, measure.vars=c('za', 'zb', 'zc')) 
-#'   ) 
-#' )
-#' @export
+##' Make a 'Wide' data set 'Long'
+##' 
+##' Inspired by \code{reshape2:::melt}, we melt \code{data.frame}s and 
+##' \code{matrix}s. This function is built for speed.
+##' 
+##' If items to be stacked are not of the same internal type, they will be
+##' promoted in the order \code{logical} > \code{integer} > \code{numeric} > 
+##' \code{character}.
+##' 
+##' @param data The \code{data.frame} to melt.
+##' @param ... Arguments passed to other methods.
+##' @examples
+##' n <- 20
+##' tmp <- data.frame( stringsAsFactors=FALSE,
+##'   x=sample(letters, n, TRUE), 
+##'   y=sample(LETTERS, n, TRUE),
+##'   za=rnorm(n), 
+##'   zb=rnorm(n), 
+##'   zc=rnorm(n)
+##' )
+##'   
+##' stopifnot( 
+##'   identical( 
+##'     melt_(tmp, id.vars=c('x', 'y')), 
+##'     melt_(tmp, measure.vars=c('za', 'zb', 'zc')) 
+##'   ) 
+##' )
+##' @export
 melt_ <- function(data, ...) {
   UseMethod("melt_")
 }
 
-#' @rdname melt_
-#' @param id.vars Vector of id variables. Can be integer (variable position)
-#'  or string (variable name). If blank, we use all variables not in \code{measure.vars}.
-#' @param measure.vars Vector of measured variables. Can be integer (variable position)
-#'  or string (variable name). If blank, we use all variables not in \code{id.vars}.
-#' @param variable.name Name of variable used to store measured variable names.
-#' @param value.name Name of variable used to store values.
-#' @method melt_ data.frame
-#' @S3method melt_ data.frame
+##' @rdname melt_
+##' @param id.vars Vector of id variables. Can be integer (variable position)
+##'  or string (variable name). If blank, we use all variables not in \code{measure.vars}.
+##' @param measure.vars Vector of measured variables. Can be integer (variable position)
+##'  or string (variable name). If blank, we use all variables not in \code{id.vars}.
+##' @param variable.name Name of variable used to store measured variable names.
+##' @param value.name Name of variable used to store values.
+##' @method melt_ data.frame
+##' @S3method melt_ data.frame
 melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="name", ..., value.name="value") {
   
   ## figure out which variables belong to id.vars, measure.vars,
@@ -126,9 +126,9 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="name", 
   
 }
 
-#' @rdname melt_
-#' @method melt_ matrix
-#' @S3method melt_ matrix
+##' @rdname melt_
+##' @method melt_ matrix
+##' @S3method melt_ matrix
 melt_.matrix <- function( data, ... ) {
   return( .Call("melt_matrix", data, PACKAGE="Kmisc") )
 }

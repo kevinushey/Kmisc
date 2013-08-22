@@ -1,26 +1,26 @@
-#' Python-style Formatting of Strings.
-#' 
-#' This function allows Python-style formatting of strings, whereby text of
-#' the form \code{{0}, {1}, ..., {n}} is substituted according to the
-#' matching argument passed to \code{...}. \code{0} corresponds to the
-#' first argument, \code{1} corresponds to the second, and so on.
-#' 
-#' @param x A string with arguments to be replaced in the form of
-#'   \code{{0}, {1}, ..., {n}}.
-#' @param ... Arguments to be substituted into string.
-#' @param collapse If vectors of length greater than 1 are passed to \code{...},
-#'   then we collapse the vectors with this separator.
-#' @export
-#' @examples
-#' pymat(
-#'   "My favourite fruits are: {0}, {1}, and {2}.", 
-#'   "apple", "banana", "orange"
-#' )
-#' 
-#' pymat(
-#'   "My favourite fruits are: {0}.", 
-#'   c("apple", "banana", "orange"), collapse=", "
-#' )
+##' Python-style Formatting of Strings.
+##' 
+##' This function allows Python-style formatting of strings, whereby text of
+##' the form \code{{0}, {1}, ..., {n}} is substituted according to the
+##' matching argument passed to \code{...}. \code{0} corresponds to the
+##' first argument, \code{1} corresponds to the second, and so on.
+##' 
+##' @param x A string with arguments to be replaced in the form of
+##'   \code{{0}, {1}, ..., {n}}.
+##' @param ... Arguments to be substituted into string.
+##' @param collapse If vectors of length greater than 1 are passed to \code{...},
+##'   then we collapse the vectors with this separator.
+##' @export
+##' @examples
+##' pymat(
+##'   "My favourite fruits are: {0}, {1}, and {2}.", 
+##'   "apple", "banana", "orange"
+##' )
+##' 
+##' pymat(
+##'   "My favourite fruits are: {0}.", 
+##'   c("apple", "banana", "orange"), collapse=", "
+##' )
 pymat <- function(x, ..., collapse="_") {
   
   ## single strings only

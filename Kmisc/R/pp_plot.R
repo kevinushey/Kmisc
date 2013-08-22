@@ -1,14 +1,14 @@
-#' Construct a Probability-Probability Plot from a Set of P-Values
-#' 
-#' This function constructs a probability-probability plot as based
-#' on a vector of p-values.
-#' @param x A vector of p-values; numbers within the range 0 to 1.
-#' @param ... Optional arguments passed to \code{\link{xyplot}}.
-#' Note that a custom panel function is used for generating the plot
-#' and hence you shouldn't try to generate your own panel function.
-#' @export
-#' @examples
-#' pp_plot( runif(100), main="PP-Plot of 100 random uniforms" )
+##' Construct a Probability-Probability Plot from a Set of P-Values
+##' 
+##' This function constructs a probability-probability plot as based
+##' on a vector of p-values.
+##' @param x A vector of p-values; numbers within the range 0 to 1.
+##' @param ... Optional arguments passed to \code{\link{xyplot}}.
+##' Note that a custom panel function is used for generating the plot
+##' and hence you shouldn't try to generate your own panel function.
+##' @export
+##' @examples
+##' pp_plot( runif(100), main="PP-Plot of 100 random uniforms" )
 pp_plot <- function(x, ...) {
   
   if( any( x < 0 | x > 1 ) ) {

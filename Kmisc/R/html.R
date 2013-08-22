@@ -1,34 +1,34 @@
-#' Make HTML Table from R 'table-like' Object
-#' 
-#' Function for making HTML tables from an \R 'table-like' object; ie, a
-#' \code{data.frame} or a \code{matrix}. It simply parses the item as an HTML table.
-#'
-#' The row.spans and col.spans argument can be specified as a matrix to
-#' set the row or column span of a certain cell to be >1, if desired.
-#' See \code{\link{pxt}} for an example implementation.
-#' It will also handle 'boxes', e.g. cells with both rowspan and colspan > 1.
-#' 
-#' Note that the default behavior is to \code{'clean'} numeric input; this prints
-#' numeric values with a maximum of four digits; ie, through the \code{"\%.4G"} format
-#' specifier. Alternatively,
-#' you can use a format specifier (as used in \code{sprintf}) to ensure numbers
-#' are formatted and displayed as desired.
-#' 
-#' @param x the \code{data.frame} / \code{matrix} you want to convert to an HTML table.
-#' @param attr attributes to be passed to the \code{<table>} tag, as raw HTML.
-#' @param row.spans a matrix specifying desired row.spans, for largers cells.
-#' @param col.spans a matrix specifying desired column spans, for larger cells.
-#' @param use.row.names if you submit an object with row names, use those names in 
-#' construction of the table.
-#' @param use.col.names if you submit an object with column names, use those names in
-#' construction of the table.
-#' @param clean boolean. if \code{TRUE}, we print all numeric values with 4 digits.
-#' Alternatively, we can pass a format specifier as used by \code{\link{sprintf}}.
-#' @param replace.periods replace periods with spaces?
-#' @export
-#' @examples
-#' dat <- data.frame( apple=c(1.2150125, 2, 3), banana=c("a", "b", "c") )
-#' makeHTMLTable( dat ) 
+##' Make HTML Table from R 'table-like' Object
+##' 
+##' Function for making HTML tables from an \R 'table-like' object; ie, a
+##' \code{data.frame} or a \code{matrix}. It simply parses the item as an HTML table.
+##'
+##' The row.spans and col.spans argument can be specified as a matrix to
+##' set the row or column span of a certain cell to be >1, if desired.
+##' See \code{\link{pxt}} for an example implementation.
+##' It will also handle 'boxes', e.g. cells with both rowspan and colspan > 1.
+##' 
+##' Note that the default behavior is to \code{'clean'} numeric input; this prints
+##' numeric values with a maximum of four digits; ie, through the \code{"\%.4G"} format
+##' specifier. Alternatively,
+##' you can use a format specifier (as used in \code{sprintf}) to ensure numbers
+##' are formatted and displayed as desired.
+##' 
+##' @param x the \code{data.frame} / \code{matrix} you want to convert to an HTML table.
+##' @param attr attributes to be passed to the \code{<table>} tag, as raw HTML.
+##' @param row.spans a matrix specifying desired row.spans, for largers cells.
+##' @param col.spans a matrix specifying desired column spans, for larger cells.
+##' @param use.row.names if you submit an object with row names, use those names in 
+##' construction of the table.
+##' @param use.col.names if you submit an object with column names, use those names in
+##' construction of the table.
+##' @param clean boolean. if \code{TRUE}, we print all numeric values with 4 digits.
+##' Alternatively, we can pass a format specifier as used by \code{\link{sprintf}}.
+##' @param replace.periods replace periods with spaces?
+##' @export
+##' @examples
+##' dat <- data.frame( apple=c(1.2150125, 2, 3), banana=c("a", "b", "c") )
+##' makeHTMLTable( dat ) 
 makeHTMLTable <- function( x, 
                            attr=NULL,
                            row.spans=0,
@@ -190,19 +190,19 @@ makeHTMLTable <- function( x,
   
 }
 
-#' Make 1D HTML Table
-#' 
-#' This tabling function is intended for the output of \code{kTable}, as
-#' generated when only one 'data' argument is passed.
-#' @export
-#' @param x a \code{data.frame}, typically output of \code{kTable}.
-#' @param class class to be passed to HTML table; used for CSS styling.
-#' @param id id to be passed to HTML table; used for CSS styling.
-#' @param ... optional arguments passed to \code{\link{makeHTMLTable}}.
-#' @seealso \code{\link{kTable}}, \code{\link{makeHTMLTable}}
-#' @examples
-#' y <- factor( rbinom( 100, 2, 0.2 ) )
-#' p1t( kTable( y ) )
+##' Make 1D HTML Table
+##' 
+##' This tabling function is intended for the output of \code{kTable}, as
+##' generated when only one 'data' argument is passed.
+##' @export
+##' @param x a \code{data.frame}, typically output of \code{kTable}.
+##' @param class class to be passed to HTML table; used for CSS styling.
+##' @param id id to be passed to HTML table; used for CSS styling.
+##' @param ... optional arguments passed to \code{\link{makeHTMLTable}}.
+##' @seealso \code{\link{kTable}}, \code{\link{makeHTMLTable}}
+##' @examples
+##' y <- factor( rbinom( 100, 2, 0.2 ) )
+##' p1t( kTable( y ) )
 p1t <- function( x,
                  class='oneDtable',
                  id=NULL,
@@ -220,20 +220,20 @@ p1t <- function( x,
   
 }
 
-#' Make 2x2 HTML Contingency Table
-#' 
-#' Function for outputting cross-tabulated tables as marked-up HTML.
-#' CSS styling can be used to make these tables look especially nice.
-#' @param x a 2x2 table; typically something returned from \code{kTable(x,y)}
-#' @param class class to be passed to HTML table; used for CSS styling.
-#' @param id id to be passed to HTML table; used for CSS styling.
-#' @param ... optional arguments passed to \code{\link{makeHTMLTable}}.
-#' @export
-#' @seealso \code{\link{kTable}}
-#' @examples
-#' x <- rbinom( 100, 2, 0.2 )
-#' y <- rbinom( 100, 2, 0.2 )
-#' pxt( kTable(x, y) )
+##' Make 2x2 HTML Contingency Table
+##' 
+##' Function for outputting cross-tabulated tables as marked-up HTML.
+##' CSS styling can be used to make these tables look especially nice.
+##' @param x a 2x2 table; typically something returned from \code{kTable(x,y)}
+##' @param class class to be passed to HTML table; used for CSS styling.
+##' @param id id to be passed to HTML table; used for CSS styling.
+##' @param ... optional arguments passed to \code{\link{makeHTMLTable}}.
+##' @export
+##' @seealso \code{\link{kTable}}
+##' @examples
+##' x <- rbinom( 100, 2, 0.2 )
+##' y <- rbinom( 100, 2, 0.2 )
+##' pxt( kTable(x, y) )
 pxt <- function( x, 
                  class='twoDtable', 
                  id=NULL, 
@@ -258,14 +258,14 @@ pxt <- function( x,
   )
 }
 
-#' HTML - Source an Image
-#' 
-#' Convenience function for \code{cat}-ing out HTML markup for an image as 
-#' \code{<img src="..." />}.
-#' @param x path to an image you want to source
-#' @param width width (in pixels) of the image
-#' @param height height (in pixels) of the image
-#' @seealso \code{\link{hImg}}
+##' HTML - Source an Image
+##' 
+##' Convenience function for \code{cat}-ing out HTML markup for an image as 
+##' \code{<img src="..." />}.
+##' @param x path to an image you want to source
+##' @param width width (in pixels) of the image
+##' @param height height (in pixels) of the image
+##' @seealso \code{\link{hImg}}
 kImg <- function(x, width=480, height=480) {
   
   ## If we have a period as the first character, remove it.
@@ -277,14 +277,14 @@ kImg <- function(x, width=480, height=480) {
   
 }
 
-#' HTML - Source an SVG file
-#' 
-#' Convenience function for \code{cat}-ing out HTML markup for an SVG image, using 
-#' \code{<embed>}.
-#' @param file path to the SVG file you want to embed
-#' @param width width (in pixels) of the SVG file (or, more accurately, canvas in which that file is displayed)
-#' @param height height (in pixels) of the SVG file (or, more accurately, canvas in which that file is displayed)
-#' @param class class passed to the \code{<embed>} tag
+##' HTML - Source an SVG file
+##' 
+##' Convenience function for \code{cat}-ing out HTML markup for an SVG image, using 
+##' \code{<embed>}.
+##' @param file path to the SVG file you want to embed
+##' @param width width (in pixels) of the SVG file (or, more accurately, canvas in which that file is displayed)
+##' @param height height (in pixels) of the SVG file (or, more accurately, canvas in which that file is displayed)
+##' @param class class passed to the \code{<embed>} tag
 kSvg <- function(file=NULL, width=4, height=4, class=NULL) {
   
   stopifnot( !is.null(file) )
@@ -304,34 +304,34 @@ kSvg <- function(file=NULL, width=4, height=4, class=NULL) {
   cat("</div>\n")
 }
 
-#' Print Plot to File and Return HTML
-#' 
-#' A convenience function that prints a plot to file, and then returns HTML
-#' to embed that image in the page.
-#' 
-#' The \code{dim} attribute is passed on to \code{par( mfrow='dim' )}; ie, it is used if
-#' you are calling a plot function that writes more than one plot.
-#' 
-#' The \code{png} device is used.
-#' 
-#' @param my_plot a plot object, or code that generates a plot
-#' @param file file location to output image to
-#' @param width width (in pixels) of the plot
-#' @param height height (in pixels) of the plot
-#' @param dpi the number of dots per inch used. Default is high to ensure plots are crisp on all displays
-#' @param dim passed to \code{par( mfrow )}; used if making multiple base-R plots
-#' @param scale the scale factor to use when scaling plots for web display.
-#' @param device the device to use for the plot call.
-#' @param ... optional arguments passed to \code{\link{png}}
-#' @export
-#' @examples
-#' library(lattice)
-#' ## generate an xyplot, write it to file, and return HTML 
-#' ## code that sources the generated image
-#' dat <- data.frame( x = rnorm(100), y = rnorm(100) )
-#' hImg( file = "plot_output.png",
-#'   xyplot( y ~ x, dat )
-#'   )
+##' Print Plot to File and Return HTML
+##' 
+##' A convenience function that prints a plot to file, and then returns HTML
+##' to embed that image in the page.
+##' 
+##' The \code{dim} attribute is passed on to \code{par( mfrow='dim' )}; ie, it is used if
+##' you are calling a plot function that writes more than one plot.
+##' 
+##' The \code{png} device is used.
+##' 
+##' @param my_plot a plot object, or code that generates a plot
+##' @param file file location to output image to
+##' @param width width (in pixels) of the plot
+##' @param height height (in pixels) of the plot
+##' @param dpi the number of dots per inch used. Default is high to ensure plots are crisp on all displays
+##' @param dim passed to \code{par( mfrow )}; used if making multiple base-R plots
+##' @param scale the scale factor to use when scaling plots for web display.
+##' @param device the device to use for the plot call.
+##' @param ... optional arguments passed to \code{\link{png}}
+##' @export
+##' @examples
+##' library(lattice)
+##' ## generate an xyplot, write it to file, and return HTML 
+##' ## code that sources the generated image
+##' dat <- data.frame( x = rnorm(100), y = rnorm(100) )
+##' hImg( file = "plot_output.png",
+##'   xyplot( y ~ x, dat )
+##'   )
 hImg <- function( my_plot, 
                   file, 
                   width=400, 
@@ -362,27 +362,27 @@ hImg <- function( my_plot,
   kImg( file, width=width, height=height )
 }
 
-#' Print SVG to File and Return HTML
-#' 
-#' A convenience function that prints a plot to file, and then returns HTML
-#' to embed that image in the page. Used for SVG images.
-#' 
-#' @param my_plot a plot object, or code that generates a plot
-#' @param file location to output file
-#' @param width width (in pixels) of the plot
-#' @param height height (in pixels) of the plot
-#' @param scale the scale used to scale the plot from inches to pixels, for display in a web browser
-#' @param dim passed to \code{par( mfrow )}; used if making multiple base-R plots
-#' @param ... passed to \code{svg}
-#' @export
-#' @examples
-#' library(lattice)
-#' ## generate an xyplot, write it to file, and return HTML code that
-#' ## sources the generated image
-#' dat <- data.frame( x = rnorm(100), y = rnorm(100) )
-#' hSvg( file = "plot_output.svg",
-#'   xyplot( y ~ x, dat )
-#'   )
+##' Print SVG to File and Return HTML
+##' 
+##' A convenience function that prints a plot to file, and then returns HTML
+##' to embed that image in the page. Used for SVG images.
+##' 
+##' @param my_plot a plot object, or code that generates a plot
+##' @param file location to output file
+##' @param width width (in pixels) of the plot
+##' @param height height (in pixels) of the plot
+##' @param scale the scale used to scale the plot from inches to pixels, for display in a web browser
+##' @param dim passed to \code{par( mfrow )}; used if making multiple base-R plots
+##' @param ... passed to \code{svg}
+##' @export
+##' @examples
+##' library(lattice)
+##' ## generate an xyplot, write it to file, and return HTML code that
+##' ## sources the generated image
+##' dat <- data.frame( x = rnorm(100), y = rnorm(100) )
+##' hSvg( file = "plot_output.svg",
+##'   xyplot( y ~ x, dat )
+##'   )
 hSvg <- function( my_plot, file, width=400, height=300, dim=NULL, scale=100, ... ) {
   
   svg( file, width=width/scale, height=height/scale, ... )

@@ -1,32 +1,32 @@
-#' Make a Manhattan Plot
-#' 
-#' Generates a manhattan plot (a plot of \code{-log10(p-val)}) for a set of 
-#' markers by chromosome and base-pair position.
-#' 
-#' @param pval A vector of p-values.
-#' @param bp A vector of base-pair positions, corresponding to the genomic
-#' location for which that p-value is associated (typically, the SNP location).
-#' @param chr The chromosomal location associated with the p-value.
-#' @param groups A groups vector: used if you want to overlay multiple
-#' manhattan plots.
-#' @param cutoff optional. By default, a Bonferroni cutoff line is drawn
-#' on the plot; if you want to plot a custom cut-off line you can specify
-#' the cutoff here.
-#' @param xlab The label to use for the x axis.
-#' @param ylab The label to use for the y axis.
-#' @param transform boolean; if \code{TRUE}, we compute \code{-log10(pval)};
-#'   otherwise, we use \code{pval} as-is, assuming that \code{pval} has been
-#'   transformed accordingly.
-#' @param cex Multiplier for the point size.
-#' @param ... Optional arguments passed to \code{xyplot}.
-#' @export
-#' @examples
-#' pval <- runif(1E4)
-#' bp <- c(1:5E3, 1:5E3)
-#' chr <- rep(1:22, length.out=1E4)
-#' groups=rep( c("Phenotype 1", "Phenotype 2"), each=5E3 )
-#' manhattan_plot( pval, bp, chr, groups, main="Two Phenotype MH Plot" )
-#' manhattan_plot( pval, bp, chr, main="Manhattan Plot" )
+##' Make a Manhattan Plot
+##' 
+##' Generates a manhattan plot (a plot of \code{-log10(p-val)}) for a set of 
+##' markers by chromosome and base-pair position.
+##' 
+##' @param pval A vector of p-values.
+##' @param bp A vector of base-pair positions, corresponding to the genomic
+##' location for which that p-value is associated (typically, the SNP location).
+##' @param chr The chromosomal location associated with the p-value.
+##' @param groups A groups vector: used if you want to overlay multiple
+##' manhattan plots.
+##' @param cutoff optional. By default, a Bonferroni cutoff line is drawn
+##' on the plot; if you want to plot a custom cut-off line you can specify
+##' the cutoff here.
+##' @param xlab The label to use for the x axis.
+##' @param ylab The label to use for the y axis.
+##' @param transform boolean; if \code{TRUE}, we compute \code{-log10(pval)};
+##'   otherwise, we use \code{pval} as-is, assuming that \code{pval} has been
+##'   transformed accordingly.
+##' @param cex Multiplier for the point size.
+##' @param ... Optional arguments passed to \code{xyplot}.
+##' @export
+##' @examples
+##' pval <- runif(1E4)
+##' bp <- c(1:5E3, 1:5E3)
+##' chr <- rep(1:22, length.out=1E4)
+##' groups=rep( c("Phenotype 1", "Phenotype 2"), each=5E3 )
+##' manhattan_plot( pval, bp, chr, groups, main="Two Phenotype MH Plot" )
+##' manhattan_plot( pval, bp, chr, main="Manhattan Plot" )
 manhattan_plot <- function( pval,
                             bp,
                             chr,

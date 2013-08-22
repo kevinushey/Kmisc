@@ -1,41 +1,41 @@
 .Kmisc$awk <- "awk"
 
-#' A Simple Front-end to Awk
-#' 
-#' This function provides a simple front-end to \code{awk}. It assumes that
-#' you have \code{awk} available and in your \code{PATH}.
-#' 
-#' @param code The \code{awk} code you want to put in the main execution block.
-#' @param file The file we are running \code{awk} on.
-#' @param BEGIN A block of code to include as though it were within the \code{BEGIN} block.
-#' @param END A block of code to include as though it were within the \code{END} block.
-#' @param vars A named list, whereby variables are assigned so that \code{name=value}.
-#' @param fs The field separator (passed to \code{-F}).
-#' @param out The location to output the result of the computation. If this
-#' is \code{TRUE}, we intern the process and bring the results back into the \R 
-#' session. Otherwise, it should be a string specifying the output path for a
-#' file.
-#' @param verbose Output the generated \code{awk} code?
-#' @export
-#' @examples
-#' dat <- data.frame( 
-#'   x=1:10, 
-#'   y=letters[1:10], 
-#'   z=LETTERS[1:10] 
-#' )
-#' 
-#' tempfile <- tempfile()
-#' 
-#' write.table(dat, 
-#'   file=tempfile, 
-#'   row.names=FALSE, 
-#'   col.names=FALSE, 
-#'   quote=FALSE
-#' )
-#' 
-#' x <- awk("print $1", tempfile) 
-#' ## note that it is read in as type 'character'
-#' print( cbind( x, dat$x ) )
+##' A Simple Front-end to Awk
+##' 
+##' This function provides a simple front-end to \code{awk}. It assumes that
+##' you have \code{awk} available and in your \code{PATH}.
+##' 
+##' @param code The \code{awk} code you want to put in the main execution block.
+##' @param file The file we are running \code{awk} on.
+##' @param BEGIN A block of code to include as though it were within the \code{BEGIN} block.
+##' @param END A block of code to include as though it were within the \code{END} block.
+##' @param vars A named list, whereby variables are assigned so that \code{name=value}.
+##' @param fs The field separator (passed to \code{-F}).
+##' @param out The location to output the result of the computation. If this
+##' is \code{TRUE}, we intern the process and bring the results back into the \R 
+##' session. Otherwise, it should be a string specifying the output path for a
+##' file.
+##' @param verbose Output the generated \code{awk} code?
+##' @export
+##' @examples
+##' dat <- data.frame( 
+##'   x=1:10, 
+##'   y=letters[1:10], 
+##'   z=LETTERS[1:10] 
+##' )
+##' 
+##' tempfile <- tempfile()
+##' 
+##' write.table(dat, 
+##'   file=tempfile, 
+##'   row.names=FALSE, 
+##'   col.names=FALSE, 
+##'   quote=FALSE
+##' )
+##' 
+##' x <- awk("print $1", tempfile) 
+##' ## note that it is read in as type 'character'
+##' print( cbind( x, dat$x ) )
 awk <- function( code, file, BEGIN=NULL, END=NULL, vars=NULL, fs=NULL, out=TRUE, verbose=FALSE ) {
   
   code_statement <- paste("{", code, "}")
@@ -93,13 +93,13 @@ awk <- function( code, file, BEGIN=NULL, END=NULL, vars=NULL, fs=NULL, out=TRUE,
   
 }
 
-#' Set awk
-#' 
-#' Use this function to set the string by which \code{awk} is called; e.g. if
-#' you're using GNU awk (gawk), mawk, and so on.
-#' 
-#' @param awk String denoting the appropriate call for your flavour of \code{awk}.
-#' @export
+##' Set awk
+##' 
+##' Use this function to set the string by which \code{awk} is called; e.g. if
+##' you're using GNU awk (gawk), mawk, and so on.
+##' 
+##' @param awk String denoting the appropriate call for your flavour of \code{awk}.
+##' @export
 awk.set <- function(awk) {
   .Kmisc$awk <- awk
 }

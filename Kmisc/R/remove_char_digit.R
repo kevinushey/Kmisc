@@ -1,11 +1,11 @@
-#' Remove Alphabetic Characters from a Character Vector
-#' 
-#' Removes all alphabetic characters from a character vector.
-#' 
-#' @param x A character vector, or vector coercable to character.
-#' @param remove_spaces boolean; if \code{TRUE} we remove all white-space as
-#' well.
-#' @export
+##' Remove Alphabetic Characters from a Character Vector
+##' 
+##' Removes all alphabetic characters from a character vector.
+##' 
+##' @param x A character vector, or vector coercable to character.
+##' @param remove_spaces boolean; if \code{TRUE} we remove all white-space as
+##' well.
+##' @export
 remove_chars <- function(x, remove_spaces=TRUE) {
   
   if( !is.character(x) ) {
@@ -17,14 +17,14 @@ remove_chars <- function(x, remove_spaces=TRUE) {
   return( tmp )
 }
 
-#' Remove Digits from a Character Vector
-#' 
-#' Removes all digits from a character vector.
-#' 
-#' @param x A character vector, or vector coercable to character.
-#' @param remove_spaces boolean; if \code{TRUE} we remove all white-space as
-#' well.
-#' @export
+##' Remove Digits from a Character Vector
+##' 
+##' Removes all digits from a character vector.
+##' 
+##' @param x A character vector, or vector coercable to character.
+##' @param remove_spaces boolean; if \code{TRUE} we remove all white-space as
+##' well.
+##' @export
 remove_digits <- function(x, remove_spaces=TRUE) {
   
   if( !is.character(x) ) {
