@@ -21,7 +21,7 @@
   "u", "ul", "var", "video", "wbr"
 )
 
-for( tag in .tags ) {
+for ( tag in .tags ) {
   assign( tag, makeHTMLTag(tag), envir=.html )
 }
 

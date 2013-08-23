@@ -1,6 +1,5 @@
 library(testthat)
 library(reshape2)
-library(microbenchmark)
 library(Kmisc)
 
 n <- 1E4
@@ -28,12 +27,6 @@ expect_identical(
 for( i in 1:ncol(tmp1) ) {
   stopifnot( all( tmp1[,i] == tmp2[,i] ) )
 }
-
-microbenchmark(
-  melt( dat, c("x", "y") ),
-  melt_( dat, c("x", "y") ),
-  times=10
-)
 
 ## check that melt_ handles NAs
 dat$za[ sample(1:n, n/2) ] <- NA
@@ -89,3 +82,11 @@ x <- matrix( rnorm(1E5), ncol=1E2 )
 expect_true( all( melt(x) == melt_(x) ) )
 microbenchmark( melt(x), melt_(x), times=5 )
 
+m <- matrix(1:1E2, nrow=10)
+
+gctorture(TRUE)
+tmp <- melt_(m)
+gctorture(FALSE)
+tmp2 <- melt_(m)
+
+expect_identical(tmp, tmp2)

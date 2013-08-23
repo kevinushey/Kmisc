@@ -6,7 +6,8 @@
 ##' levels of the factor used for facetting.
 ##' 
 ##' @param ... A set of named arguments.
-##' @param .parse boolean; if \code{TRUE} we \code{parse} the
+##' @param .parse boolean; if \code{TRUE} we \code{parse} the text as
+##'   though it were an expression.
 ##' @export
 ##' @examples
 ##' 
@@ -63,7 +64,7 @@ labeller <- function(..., .parse=TRUE) {
     
     output <- vector("list", length(value))
     for( i in seq_along(output)) {
-      output[[i]] <- parse( text=value[[i]] )
+      output[[i]] <- if (.parse) parse( text=value[[i]] ) else value[[i]]
     }
     return(output)
     

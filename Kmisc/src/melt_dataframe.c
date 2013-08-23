@@ -139,9 +139,15 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep, SEXP variable_name, SEXP value_na
 	SEXP names = getAttrib( x_stack, R_NamesSymbol );
 	SEXP names_out;
 	PROTECT( names_out = allocVector( STRSXP, out_nCol ) );
-	for( int i=0; i < nColStack; ++i ) {
-		SET_STRING_ELT( names_out, i, STRING_ELT( names, i ) );
-	}
+  
+  SEXP* names_ptr = STRING_PTR(names);
+  SEXP* names_out_ptr = STRING_PTR(names_out);
+  for (int i=0; i < nColStack; ++i) {
+    names_out_ptr[i] = names_ptr[i];
+  }
+	// for( int i=0; i < nColStack; ++i ) {
+	// 	SET_STRING_ELT( names_out, i, STRING_ELT( names, i ) );
+	// }
 	SET_STRING_ELT( names_out, nColStack, STRING_ELT(variable_name, 0) );
 	SET_STRING_ELT( names_out, nColStack+1, STRING_ELT(value_name, 0) );
 	setAttrib( out, R_NamesSymbol, names_out );

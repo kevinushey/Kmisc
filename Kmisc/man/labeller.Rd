@@ -7,8 +7,8 @@
 \arguments{
   \item{...}{A set of named arguments.}
 
-  \item{.parse}{boolean; if \code{TRUE} we \code{parse}
-  the}
+  \item{.parse}{boolean; if \code{TRUE} we \code{parse} the
+  text as though it were an expression.}
 }
 \description{
   This function works as a labelling mapper for
