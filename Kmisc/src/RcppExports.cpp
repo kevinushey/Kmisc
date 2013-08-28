@@ -101,6 +101,36 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// readlines
+SEXP readlines(std::string path);
+RcppExport SEXP Kmisc_readlines(SEXP pathSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string path = Rcpp::as<std::string >(pathSEXP);
+        SEXP __result = readlines(path);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// read
+CharacterVector read(std::string path);
+RcppExport SEXP Kmisc_read(SEXP pathSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        std::string path = Rcpp::as<std::string >(pathSEXP);
+        CharacterVector __result = read(path);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // split_file
 void split_file(std::string path, std::string dir, std::string basename, std::string path_sep, std::string sep, std::string prepend, std::string file_ext, int column, int skip, bool verbose);
 RcppExport SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP, SEXP path_sepSEXP, SEXP sepSEXP, SEXP prependSEXP, SEXP file_extSEXP, SEXP columnSEXP, SEXP skipSEXP, SEXP verboseSEXP) {
