@@ -109,7 +109,7 @@ CharacterVector read(std::string path) {
 	}
 	int sz = file_info.st_size;
 #ifdef MAP_POPULATE
-  map = (char*) mmap(0, sz, PROT_READ, MAP_SHARED | MAP_POPULATE | MAP_HUGETLB, fd, 0);
+  map = (char*) mmap(0, sz, PROT_READ, MAP_SHARED | MAP_POPULATE, fd, 0);
 #else
   map = (char*) mmap(0, sz, PROT_READ, MAP_SHARED, fd, 0);
 #endif
