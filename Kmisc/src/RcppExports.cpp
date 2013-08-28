@@ -101,30 +101,16 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// readlines
-SEXP readlines(std::string path);
-RcppExport SEXP Kmisc_readlines(SEXP pathSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        std::string path = Rcpp::as<std::string >(pathSEXP);
-        SEXP __result = readlines(path);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // read
-CharacterVector read(std::string path);
-RcppExport SEXP Kmisc_read(SEXP pathSEXP) {
+SEXP read(std::string path, bool lines);
+RcppExport SEXP Kmisc_read(SEXP pathSEXP, SEXP linesSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         std::string path = Rcpp::as<std::string >(pathSEXP);
-        CharacterVector __result = read(path);
+        bool lines = Rcpp::as<bool >(linesSEXP);
+        SEXP __result = read(path, lines);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

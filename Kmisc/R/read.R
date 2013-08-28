@@ -7,13 +7,13 @@
 ##' @rdname read
 ##' @export
 read <- function(file) {
-  .Call("Kmisc_read", as.character(file), PACKAGE="Kmisc")
+  .Call("Kmisc_read", as.character(file), FALSE, PACKAGE="Kmisc")
 }
 
 ##' @rdname read
 ##' @param file Path to a file.
 ##' @export
 readlines <- function(file) {
-  .Call("Kmisc_readlines", as.character(file), PACKAGE="Kmisc")
+  .Call("Kmisc_read", as.character(file), TRUE, PACKAGE="Kmisc")
 }
 

@@ -25,12 +25,8 @@ matches <- function(x) {
     .Call('Kmisc_matches', PACKAGE = 'Kmisc', x)
 }
 
-readlines <- function(path) {
-    .Call('Kmisc_readlines', PACKAGE = 'Kmisc', path)
-}
-
-read <- function(path) {
-    .Call('Kmisc_read', PACKAGE = 'Kmisc', path)
+read <- function(path, lines) {
+    .Call('Kmisc_read', PACKAGE = 'Kmisc', path, lines)
 }
 
 split_file <- function(path, dir, basename, path_sep, sep, prepend, file_ext, column, skip, verbose) {
