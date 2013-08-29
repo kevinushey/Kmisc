@@ -16,4 +16,8 @@
   (length one for \code{read}, length \code{n} for
   \code{readlines}).
 }
+\examples{
+p <- file.path( R.home(), "NEWS" )
+stopifnot( identical( readLines(p), readlines(p) ) )
+}
 

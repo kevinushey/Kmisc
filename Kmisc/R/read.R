@@ -13,7 +13,9 @@ read <- function(file) {
 ##' @rdname read
 ##' @param file Path to a file.
 ##' @export
+##' @examples
+##' p <- file.path( R.home(), "NEWS" )
+##' stopifnot( identical( readLines(p), readlines(p) ) )
 readlines <- function(file) {
   .Call("Kmisc_read", as.character(file), TRUE, PACKAGE="Kmisc")
 }
-
