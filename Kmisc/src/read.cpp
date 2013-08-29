@@ -1,5 +1,4 @@
 #include <Rcpp.h>
-#define USE_RINTERNALS
 
 #ifdef WIN32         // means WIN64, too
 #undef Realloc
@@ -61,13 +60,13 @@ SEXP read(std::string path, bool lines) {
   DWORD dwFileSize=0;
   const char* fnam = path.c_str();
   hFile = CreateFile(fnam, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
-  if (hFile==INVALID_HANDLE_VALUE) Rf_error("File not found: %s",fnam);
+  if (hFile==INVALID_HANDLE_VALUE) error("File not found: %s",fnam);
   dwFileSize=GetFileSize(hFile,NULL);
-  if (dwFileSize==0) { CloseHandle(hFile); Rf_error("File is empty: %s", fnam); }
+  if (dwFileSize==0) { CloseHandle(hFile); error("File is empty: %s", fnam); }
   size_t filesize = (size_t)dwFileSize;
   int sz = (int) filesize;
   hMap=CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, 0, NULL); // dwFileSize+1 not allowed here, unlike mmap where +1 is zero'd
-  if (hMap==NULL) { CloseHandle(hFile); Rf_error("This is Windows, CreateFileMapping returned error %d for file %s", GetLastError(), fnam); }
+  if (hMap==NULL) { CloseHandle(hFile); error("This is Windows, CreateFileMapping returned error %d for file %s", GetLastError(), fnam); }
   map = (char *)MapViewOfFile(hMap,FILE_MAP_READ,0,0,dwFileSize);
   if (map == NULL) {
       CloseHandle(hMap);
