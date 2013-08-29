@@ -74,12 +74,11 @@ SEXP read(std::string path, bool lines) {
   }
 #endif
 
-	// get the number of rows in the file
-  int n = nrow(map, sz);
-  SEXP output;
+	SEXP output;
   
   // split by '\n'?
   if (lines) {
+    int n = nrow(map, sz);
     output = PROTECT( Rf_allocVector(STRSXP, n) );
     char* pch_old = &map[0];
     char* pch;
