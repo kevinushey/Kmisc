@@ -64,6 +64,7 @@ SEXP read(std::string path, bool lines) {
   if (mmp == NULL) {
       CloseHandle(hMap);
       CloseHandle(hFile);
+  }
 #endif
 
 	if (map == MAP_FAILED) {
