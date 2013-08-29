@@ -1,6 +1,6 @@
 \name{rcpp_tapply_generator}
-\alias{Rcpp_tapply_generator}
 \alias{rcpp_tapply_generator}
+\alias{Rcpp_tapply_generator}
 \title{Rcpp tapply Generator}
 \usage{
   rcpp_tapply_generator(fun, includes = NULL,

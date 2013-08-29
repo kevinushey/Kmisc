@@ -1,6 +1,6 @@
 \name{Rcpp_gen_makevars}
-\alias{Rcpp_gen_makevars}
 \alias{rcpp_gen_makevars}
+\alias{Rcpp_gen_makevars}
 \title{Reproduce Rcpp Makevars Files}
 \usage{
   Rcpp_gen_makevars(src = file.path(getwd(), "src"))
