@@ -2,6 +2,7 @@
 
 #include <R.h>
 #include <Rinternals.h>
+#include <stdbool.h>
 
 SEXP rep_each_char( SEXP x, int each ) {
 
@@ -55,6 +56,29 @@ SEXP stack_vector( SEXP x, int times ) {
 
 #undef HANDLE_CASE
 
+bool diff_types(SEXP x) {
+  int n = length(x);
+  char type = TYPEOF( VECTOR_ELT(x, 0) );
+  for (int i=1; i < n; ++i) {
+    if (TYPEOF( VECTOR_ELT(x, i) ) != type) {
+      return true;
+    }
+  }
+  return false;
+}
+
+char max_type(SEXP x) {
+  char max_type = -1;
+  char tmp = -1;
+  int n = length(x);
+  for (int i=0; i < n; ++i) {
+    if ((tmp = TYPEOF( VECTOR_ELT(x, i) )) > max_type) {
+      max_type = tmp;
+    }
+  }
+  return max_type;
+}
+
 SEXP melt_dataframe( SEXP x_stack, SEXP x_rep, SEXP variable_name, SEXP value_name ) {
 
 	int nColStack = length(x_stack);
@@ -62,8 +86,18 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep, SEXP variable_name, SEXP value_na
 	int nRow = length( VECTOR_ELT(x_stack, 0) );
 	int out_nRow = nRow * nColRep;
 	int out_nCol = nColStack + 2;
-
-	SEXP out;
+  
+  if (diff_types(x_rep)) {
+    char mt = max_type(x_rep);
+    warning("Coercing type of 'value' variables to '%s'", CHAR(type2str(mt))); 
+    for (int i=0; i < nColRep; ++i) {
+      if (TYPEOF( VECTOR_ELT(x_rep, i) ) != mt) {
+        SET_VECTOR_ELT(x_rep, i, coerceVector( VECTOR_ELT(x_rep, i), mt ));
+      }
+    }
+  }
+  
+  SEXP out;
 	PROTECT( out = allocVector( VECSXP, out_nCol ) );
 
 	// populate the value array

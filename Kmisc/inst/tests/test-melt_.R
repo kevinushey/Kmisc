@@ -1,3 +1,4 @@
+library(microbenchmark)
 library(testthat)
 library(reshape2)
 library(Kmisc)
@@ -26,8 +27,8 @@ expect_identical(
 
 for( i in 1:ncol(tmp1) ) {
   stopifnot( all( tmp1[,i] == tmp2[,i] ) )
-}
 
+}
 ## check that melt_ handles NAs
 dat$za[ sample(1:n, n/2) ] <- NA
 dat$zb[ sample(1:n, n/2) ] <- NA

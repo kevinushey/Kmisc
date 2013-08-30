@@ -39,7 +39,7 @@ melt_ <- function(data, ...) {
 ##' @param value.name Name of variable used to store values.
 ##' @method melt_ data.frame
 ##' @S3method melt_ data.frame
-melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="name", ..., value.name="value") {
+melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variable", ..., value.name="value") {
   
   ## figure out which variables belong to id.vars, measure.vars,
   ## if one of them is missing
@@ -83,24 +83,25 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="name", 
   }
   
   ## check and coerce the types of the measure.vars
-  types <- sapply( measure.vars, function(x) {
-    typeof( data[[x]] )
-  } )
-  
-  if( length( unique( types ) ) > 1 ) {
-    if( "character" %in% types ) {
-      warning("Coercing types of measure vars to 'character'")
-      data[measure.vars] <- lapply( data[measure.vars], as.character )
-    } else if( "double" %in% types ) {
-      warning("Coercing types of measure vars to 'numeric'")
-      data[measure.vars] <- lapply( data[measure.vars], as.numeric )
-    } else if( "integer" %in% types ) {
-      warning("Coercing types of measure vars to 'integer'")
-      data[measure.vars] <- lapply( data[measure.vars], as.integer )
-    } else {
-      stop("Unhandled type in the measure vars of your data")
-    }
-  }
+  ## this is now in C
+#   types <- sapply( measure.vars, function(x) {
+#     typeof( data[[x]] )
+#   } )
+#   
+#   if( length( unique( types ) ) > 1 ) {
+#     if( "character" %in% types ) {
+#       warning("Coercing types of measure vars to 'character'")
+#       data[measure.vars] <- lapply( data[measure.vars], as.character )
+#     } else if( "double" %in% types ) {
+#       warning("Coercing types of measure vars to 'numeric'")
+#       data[measure.vars] <- lapply( data[measure.vars], as.numeric )
+#     } else if( "integer" %in% types ) {
+#       warning("Coercing types of measure vars to 'integer'")
+#       data[measure.vars] <- lapply( data[measure.vars], as.integer )
+#     } else {
+#       stop("Unhandled type in the measure vars of your data")
+#     }
+#   }
   
   ## separate dispatch for row.names
   if( identical(id.vars, "row.names") ) {
