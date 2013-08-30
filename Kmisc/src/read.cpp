@@ -92,7 +92,7 @@ SEXP read(std::string path, bool lines) {
     }
     
     if (strchr(map, '\n') == NULL && strchr(map, '\r') == NULL) {
-      Rf_warning("no new-lines found in this file");
+      Rf_warning("incomplete final line found on '%s'", path.c_str());
       PROTECT( output = Rf_allocVector(STRSXP, 1) );
       SET_STRING_ELT(output, 0, Rf_mkCharLen(map, sz));
     } else {
