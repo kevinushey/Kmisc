@@ -1,21 +1,19 @@
-#define USE_RINTERNALS
-
 #include <R.h>
 #include <Rinternals.h>
 #include <stdbool.h>
 
-SEXP rep_each_char( SEXP x, int each ) {
+SEXP rep_each_char( SEXP x, SEXP id_ind_, int each ) {
 
 	SEXP out;
-	int len = length(x);
+  int* id_ind = INTEGER(id_ind_);
+	int len = length(id_ind_);
 	PROTECT( out = allocVector( STRSXP, len*each ) );
 	int counter=0;
 	SEXP* ptr = STRING_PTR(x);
 	SEXP* out_ptr = STRING_PTR(out);
 	for( int i=0; i < len; ++i ) {
 		for( int j=0; j < each; ++j ) {
-			out_ptr[counter] = ptr[i];
-			//SET_STRING_ELT( out, counter, ptr[i] );
+			out_ptr[counter] = ptr[ id_ind[i] ];
 			++counter;
 		}
 	}
@@ -56,87 +54,118 @@ SEXP stack_vector( SEXP x, int times ) {
 
 #undef HANDLE_CASE
 
-bool diff_types(SEXP x) {
-  int n = length(x);
-  char type = TYPEOF( VECTOR_ELT(x, 0) );
+bool diff_types(SEXP x, SEXP val_ind_) {
+  int n = length(val_ind_);
+  int* val_ind = INTEGER(val_ind_);
+  char type = TYPEOF( VECTOR_ELT(x, val_ind[0]) );
   for (int i=1; i < n; ++i) {
-    if (TYPEOF( VECTOR_ELT(x, i) ) != type) {
+    if (TYPEOF( VECTOR_ELT(x, val_ind[i]) ) != type) {
       return true;
     }
   }
   return false;
 }
 
-char max_type(SEXP x) {
+char max_type(SEXP x, SEXP ind_) {
+  int n = length(ind_);
+  int* ind = INTEGER(ind_);
   char max_type = -1;
   char tmp = -1;
-  int n = length(x);
   for (int i=0; i < n; ++i) {
-    if ((tmp = TYPEOF( VECTOR_ELT(x, i) )) > max_type) {
+    // factors should mean we coerce to string
+    if (isFactor(VECTOR_ELT(x, ind[i]))) {
+      if (STRSXP > max_type) {
+        max_type = STRSXP;
+      }
+    } else if ((tmp = TYPEOF( VECTOR_ELT(x, ind[i]) )) > max_type) {
       max_type = tmp;
     }
   }
   return max_type;
 }
 
-SEXP melt_dataframe( SEXP x_stack, SEXP x_rep, SEXP variable_name, SEXP value_name ) {
-
-	int nColStack = length(x_stack);
-	int nColRep = length(x_rep);
-	int nRow = length( VECTOR_ELT(x_stack, 0) );
+SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SEXP value_name ) {
+  
+  int* id_ind = INTEGER(id_ind_);
+  int* val_ind = INTEGER(val_ind_);
+  
+  int nColStack = length(id_ind_);
+	int nColRep = length(val_ind_);
+  
+  int nRow = length( VECTOR_ELT(x, 0) );
 	int out_nRow = nRow * nColRep;
 	int out_nCol = nColStack + 2;
   
-  if (diff_types(x_rep)) {
-    char mt = max_type(x_rep);
-    warning("Coercing type of 'value' variables to '%s'", CHAR(type2str(mt))); 
-    for (int i=0; i < nColRep; ++i) {
-      if (TYPEOF( VECTOR_ELT(x_rep, i) ) != mt) {
-        SET_VECTOR_ELT(x_rep, i, coerceVector( VECTOR_ELT(x_rep, i), mt ));
-      }
-    }
+  char mt = max_type(x, val_ind_);
+  
+  if (diff_types(x, val_ind_)) {
+    warning("Coercing type of 'value' variables to '%s'", CHAR(type2str(mt)));
   }
   
   SEXP out;
-	PROTECT( out = allocVector( VECSXP, out_nCol ) );
+	PROTECT(out = allocVector( VECSXP, out_nCol ));
 
 	// populate the value array
 	SEXP value_SEXP;
 
 #define HANDLE_CASE( RTYPE, CTYPE, ACCESSOR ) \
 		case RTYPE: { \
-			PROTECT( value_SEXP = allocVector( RTYPE, value_len ) ); \
-			int counter = 0; \
+      PROTECT( value_SEXP = allocVector( RTYPE, value_len ) ); \
+      int counter = 0; \
+      SEXP tmp; \
 			CTYPE* ptr_val = ACCESSOR( value_SEXP ); \
+      CTYPE* ptr; \
 			for( int i=0; i < nColRep; ++i ) { \
-				CTYPE* ptr = ACCESSOR( VECTOR_ELT( x_rep, i ) ); \
+        if (TYPEOF( VECTOR_ELT(x, val_ind[i]) ) != mt) { \
+          tmp = PROTECT( coerceVector( VECTOR_ELT(x, val_ind[i]), mt ) ); \
+          ptr = ACCESSOR(tmp); \
+        } else { \
+          ptr = ACCESSOR( VECTOR_ELT( x, val_ind[i] ) ); \
+        } \
 				for( int j=0; j < nRow; ++j ) { \
 					ptr_val[counter] = ptr[j]; \
 					++counter; \
 				} \
+        if (TYPEOF( VECTOR_ELT(x, val_ind[i]) ) != mt) { \
+          UNPROTECT(1); \
+        } \
 			} \
 			break; \
 		} \
 
 
 	int value_len = nColRep * nRow;
-	int value_type = TYPEOF( VECTOR_ELT( x_rep, 0 ) );
-	switch( value_type ) {
+	int value_type = mt;
+  switch( value_type ) {
 	HANDLE_CASE( INTSXP, int, INTEGER );
 	HANDLE_CASE( REALSXP, double, REAL );
 	HANDLE_CASE( LGLSXP, int, LOGICAL );
 	case STRSXP: {
-		int counter = 0;
+    int counter = 0;
+    SEXP* curr_str_vec_ptr;
+    SEXP tmp;
 		PROTECT( value_SEXP = allocVector( STRSXP, value_len ) );
 		for( int i=0; i < nColRep; ++i ) {
-			SEXP curr_str_vec = VECTOR_ELT( x_rep, i );
+#define curr_str_vec (VECTOR_ELT(x, val_ind[i]))
+      if (TYPEOF(curr_str_vec) != STRSXP) {
+        if (isFactor(curr_str_vec)) {
+          PROTECT(tmp = asCharacterFactor(curr_str_vec));
+        } else {
+          PROTECT(tmp = coerceVector(curr_str_vec, STRSXP));
+        }
+        curr_str_vec_ptr = STRING_PTR(tmp);
+      } else {
+        curr_str_vec_ptr = STRING_PTR(curr_str_vec);
+      }
+#undef curr_str_vec
 			SEXP* value_SEXP_ptr = STRING_PTR( value_SEXP );
-			SEXP* curr_str_vec_ptr = STRING_PTR(curr_str_vec);
 			for( int j=0; j < nRow; ++j ) {
 				value_SEXP_ptr[counter] = curr_str_vec_ptr[j];
-				//SET_STRING_ELT( value_SEXP, counter, STRING_ELT( curr_str_vec, j ) );
 				++counter;
 			}
+      if (TYPEOF( VECTOR_ELT(x, val_ind[i]) ) != mt) {
+        UNPROTECT(1);
+      }
 		}
 		break;
 	}
@@ -147,13 +176,18 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep, SEXP variable_name, SEXP value_na
 #undef HANDLE_CASE
 
 	// generate the id variables, and assign them on generation
+  // we need to convert factors if necessary
 	for( int i=0; i < nColStack; ++i ) {
-		SET_VECTOR_ELT( out, i, stack_vector( VECTOR_ELT( x_stack, i ), nColRep ) );
+		SET_VECTOR_ELT( out, i, stack_vector( VECTOR_ELT( x, id_ind[i] ), nColRep ));
+    if (isFactor( VECTOR_ELT(x, id_ind[i]) )) {
+      setAttrib( VECTOR_ELT(out, i), R_ClassSymbol, mkString("factor") );
+      setAttrib( VECTOR_ELT(out, i), R_LevelsSymbol, getAttrib( VECTOR_ELT(x, id_ind[i]), R_LevelsSymbol ) );
+    }
 	}
 
 	// assign the names, values
-	SET_VECTOR_ELT( out, nColStack, rep_each_char( getAttrib( x_rep, R_NamesSymbol ), nRow ) );
-	SET_VECTOR_ELT( out, nColStack+1, value_SEXP );
+	SET_VECTOR_ELT( out, nColStack, rep_each_char( getAttrib( x, R_NamesSymbol ), val_ind_, nRow ) );
+  SET_VECTOR_ELT( out, nColStack+1, value_SEXP );
 	UNPROTECT(1); // value_SEXP
 
 	// set the row names
@@ -164,32 +198,28 @@ SEXP melt_dataframe( SEXP x_stack, SEXP x_rep, SEXP variable_name, SEXP value_na
 		row_names_ptr[i] = i+1;
 	}
 	setAttrib( out, R_RowNamesSymbol, row_names );
-	UNPROTECT(1);
+	UNPROTECT(1); // row_names
 
 	// set the class to data.frame
-	setAttrib( out, R_ClassSymbol, mkString("data.frame") );
+	setAttrib(out, R_ClassSymbol, mkString("data.frame"));
 
 	// set the names
-	SEXP names = getAttrib( x_stack, R_NamesSymbol );
+	SEXP names = getAttrib(x, R_NamesSymbol);
 	SEXP names_out;
-	PROTECT( names_out = allocVector( STRSXP, out_nCol ) );
+	PROTECT(names_out = allocVector( STRSXP, out_nCol ));
   
   SEXP* names_ptr = STRING_PTR(names);
   SEXP* names_out_ptr = STRING_PTR(names_out);
   for (int i=0; i < nColStack; ++i) {
-    names_out_ptr[i] = names_ptr[i];
+    names_out_ptr[i] = names_ptr[ id_ind[i] ];
   }
-	// for( int i=0; i < nColStack; ++i ) {
-	// 	SET_STRING_ELT( names_out, i, STRING_ELT( names, i ) );
-	// }
-	SET_STRING_ELT( names_out, nColStack, STRING_ELT(variable_name, 0) );
+	
+  SET_STRING_ELT( names_out, nColStack, STRING_ELT(variable_name, 0) );
 	SET_STRING_ELT( names_out, nColStack+1, STRING_ELT(value_name, 0) );
 	setAttrib( out, R_NamesSymbol, names_out );
-	UNPROTECT(1);
+	UNPROTECT(1); // names_out
 
 	UNPROTECT(1); // out
-	return out;
+  return out;
 
 }
-
-#undef USE_RINTERNALS

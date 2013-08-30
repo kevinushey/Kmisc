@@ -27,7 +27,6 @@ expect_identical(
 
 for( i in 1:ncol(tmp1) ) {
   stopifnot( all( tmp1[,i] == tmp2[,i] ) )
-
 }
 ## check that melt_ handles NAs
 dat$za[ sample(1:n, n/2) ] <- NA
@@ -37,16 +36,39 @@ dat$zc[ sample(1:n, n/2) ] <- NA
 expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
 
 dat$x <- as.factor( dat$x )
-expect_warning( tmp <- melt_(dat, c("x", "y")) )
+suppressWarnings( stopifnot( identical(
+  factor_to_char(melt_(dat, c('x', 'y'))),
+  factor_to_char(melt(dat, c('x', 'y')))
+) ) )
+
+all.equal(
+  tmp1 <- melt_(dat, c('x', 'y')),
+  tmp2 <- factor_to_char(melt(dat, c('x', 'y')))
+)
+
+dat$x <- as.character(dat$x)
 
 dat$zc <- as.integer( dat$zc )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
+suppressWarnings( stopifnot( identical(
+  melt_(dat, c('x', 'y')),
+  factor_to_char(melt(dat, c('x', 'y')))
+) ) )
 
 dat$zb <- as.character( dat$zb )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
 
+suppressWarnings( stopifnot( identical(
+  melt_(dat, c('x', 'y')),
+  factor_to_char(melt(dat, c('x', 'y')))
+) ) )
+
 dat$zb <- sample( c(TRUE, FALSE), nrow(dat), replace=TRUE )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
+suppressWarnings( stopifnot( identical(
+  melt_(dat, c('x', 'y')),
+  factor_to_char(melt(dat, c('x', 'y')))
+) ) )
 
 ## testing new args
 suppressWarnings(
@@ -60,6 +82,27 @@ expect_identical( as.character( df2[,1] ), df[,1] )
 expect_identical( df[,2], df2[,2] )
 
 rm( list=ls() )
+
+## more tests
+n <- 1E3
+df <- data.frame( stringsAsFactors=FALSE,
+  x=sample(letters, n, TRUE),
+  y=factor(sample(letters, n, TRUE)),
+  z=sample(LETTERS, n, TRUE)
+)
+df <- cbind(
+  df,
+  as.data.frame( replicate(100, rnorm(n), simplify=FALSE) )
+)
+
+names(df) <- c('x', 'y', 'z', paste0("V", 1:100))
+tmp1 <- factor_to_char(melt_(df, id.vars=c('x', 'y', 'z')), inplace=TRUE)
+tmp2 <- factor_to_char(melt(df, id.vars=c('x', 'y', 'z')), inplace=TRUE)
+stopifnot( identical(tmp1, tmp2) )
+microbenchmark( times=5,
+  melt_=melt_(df, id.vars=c('x', 'y', 'z')),
+  melt=melt(df, id.vars=c('x', 'y', 'z'))
+)
 
 ## matrix tests
 x <- matrix(1:24, nrow=4)

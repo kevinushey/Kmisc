@@ -41,89 +41,50 @@ melt_ <- function(data, ...) {
 ##' @S3method melt_ data.frame
 melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variable", ..., value.name="value") {
   
+  ## early, separate dispatch if 'id.vars' == 'row.names'
+  if (!missing(id.vars) && identical(id.vars, "row.names")) {
+    output <- factor_to_char( stack( factor_to_char(data[measure.vars]) ), inplace=TRUE )
+    names(output) <- c(value.name, variable.name)
+    return(output[2:1])
+  }
+  
   ## figure out which variables belong to id.vars, measure.vars,
-  ## if one of them is missing
-  
-  if( !missing(id.vars) && identical(id.vars, "row.names") ) {
-    if( missing(measure.vars) ) {
-      measure.vars <- names(data)
-    }
-  } else {
-    
-    if( missing(measure.vars) ) {
-      if( missing(id.vars) ) {
-        stop("one of 'id.vars' and 'measure.vars' must be supplied")
-      }
-      if( is.character(id.vars) ) {
-        measure.vars <- which( names(data) %nin% id.vars )
-      } else {
-        measure.vars <- which( 1:length(data) %nin% id.vars )
-      }
-    }
-    
+  if( missing(measure.vars) ) {
     if( missing(id.vars) ) {
-      if( missing(measure.vars) ) {
-        stop("one of 'id.vars' and 'measure.vars' must be supplied")
-      }
-      if( is.character(measure.vars) ) {
-        id.vars <- which( names(data) %nin% measure.vars )
-      } else {
-        id.vars <- which( 1:length(data) %nin% measure.vars )
-      }
+      stop("one of 'id.vars' and 'measure.vars' must be supplied")
     }
-    
+    if( is.character(id.vars) ) {
+      id.vars <- which( names(data) %in% id.vars )
+    }
+    measure.vars <- which( 1:length(data) %nin% id.vars )
   }
   
-  ## coerce factors to characters
-  if( any( sapply( 1:ncol(data), function(i) {
-    is.factor( data[[i]] )
-  } ) ) ) {
-    warning("factors coerced to characters")
-    data <- factor_to_char(data)
+  if( missing(id.vars) ) {
+    if( missing(measure.vars) ) {
+      stop("one of 'id.vars' and 'measure.vars' must be supplied")
+    }
+    if( is.character(measure.vars) ) {
+      measure.vars <- which( names(data) %in% measure.vars )
+    }
+    id.vars <- which( 1:length(data) %nin% measure.vars )
   }
   
-  ## check and coerce the types of the measure.vars
-  ## this is now in C
-#   types <- sapply( measure.vars, function(x) {
-#     typeof( data[[x]] )
-#   } )
-#   
-#   if( length( unique( types ) ) > 1 ) {
-#     if( "character" %in% types ) {
-#       warning("Coercing types of measure vars to 'character'")
-#       data[measure.vars] <- lapply( data[measure.vars], as.character )
-#     } else if( "double" %in% types ) {
-#       warning("Coercing types of measure vars to 'numeric'")
-#       data[measure.vars] <- lapply( data[measure.vars], as.numeric )
-#     } else if( "integer" %in% types ) {
-#       warning("Coercing types of measure vars to 'integer'")
-#       data[measure.vars] <- lapply( data[measure.vars], as.integer )
-#     } else {
-#       stop("Unhandled type in the measure vars of your data")
-#     }
-#   }
-  
-  ## separate dispatch for row.names
-  if( identical(id.vars, "row.names") ) {
-    output <- .Call("melt_dataframe",
-      data.frame( x=attr(data, "row.names") ),
-      data[measure.vars],
-      variable.name,
-      value.name,
-      PACKAGE="Kmisc"
-    )
-    
-    return( output[2:ncol(output)] )
-    
-  } else {
-    return( .Call("melt_dataframe",
-      data[id.vars],
-      data[measure.vars],
-      variable.name,
-      value.name,
-      PACKAGE="Kmisc"
-    ) )
+  if (is.character(id.vars)) {
+    id.vars <- which( names(data) %in% measure.vars )
   }
+  
+  if (is.character(measure.vars)) {
+    measure.vars <- which( names(data) %in% measure.vars )
+  }
+  
+  return( .Call("melt_dataframe",
+    data,
+    id.vars-1L,
+    measure.vars-1L,
+    variable.name,
+    value.name,
+    PACKAGE="Kmisc"
+  ) )
   
 }
 

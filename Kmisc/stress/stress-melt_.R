@@ -1,30 +1,35 @@
 library(testthat)
 library(reshape2)
+library(Kmisc)
 library(microbenchmark)
 
-rm( list=ls() )
+n <- 1E2
+dat <- data.frame( stringsAsFactors=FALSE,
+  x=factor(sample(letters, n, TRUE)), 
+  y=sample(LETTERS, n, TRUE),
+  za=rnorm(n),
+  zb=as.integer(rnorm(n)),
+  zc=as.character(rnorm(n)),
+  zd=as.factor(rnorm(n))
+)
+
+old_dat <- duplicate(dat)
+
 gctorture(TRUE)
 tempfile <- tempfile()
 sink( tempfile )
 
 for( i in 1:10 ) {
   
-  n <- 1E2
-  dat <- data.frame( stringsAsFactors=FALSE,
-                     x=sample(letters, n, TRUE), 
-                     y=sample(LETTERS, n, TRUE),
-                     za=rnorm(n), 
-                     zb=rnorm(n), 
-                     zc=rnorm(n)
-  )
-  
-  tmp1 <- melt(dat, c("x", "y"))
+  tmp1 <- .Call("melt_dataframe", dat, (1:2)-1L, (3:6)-1L, "variable", "value", PACKAGE="Kmisc")
   tmp2 <- melt_(dat, c("x", "y"))
   
-  stopifnot( all( tmp1[1:3] == tmp2[1:3]) )
+  stopifnot( identical(tmp1, tmp2) )
+  stopifnot( identical(dat, old_dat) )
   
 }
 
 sink()
 gctorture(FALSE)
+print( readlines(tempfile) )
 file.remove(tempfile)
