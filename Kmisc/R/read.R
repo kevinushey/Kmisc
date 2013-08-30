@@ -7,7 +7,11 @@
 ##' @rdname read
 ##' @export
 read <- function(file) {
-  .Call("Kmisc_read", as.character(file), FALSE, PACKAGE="Kmisc")
+  file <- normalizePath( as.character(file) )
+  if (!file.exists(file)) {
+    stop("no file at file location '", file, "'.")
+  }
+  .Call("Kmisc_read", file, FALSE, PACKAGE="Kmisc")
 }
 
 ##' @rdname read
@@ -17,5 +21,9 @@ read <- function(file) {
 ##' p <- file.path( R.home(), "NEWS" )
 ##' stopifnot( identical( readLines(p), readlines(p) ) )
 readlines <- function(file) {
-  .Call("Kmisc_read", as.character(file), TRUE, PACKAGE="Kmisc")
+  file <- normalizePath( as.character(file) )
+  if (!file.exists(file)) {
+    stop("no file at file location '", file, "'.")
+  }
+  .Call("Kmisc_read", file, TRUE, PACKAGE="Kmisc")
 }

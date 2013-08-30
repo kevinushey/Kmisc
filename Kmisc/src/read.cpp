@@ -41,6 +41,10 @@ SEXP read(std::string path, bool lines) {
   	stop("Could not read file information.");
 	}
 	int sz = file_info.st_size;
+  if (sz <= 0) {
+    SEXP output = Rf_allocVector(STRSXP, 0);
+    return output;
+  }
 #ifdef MAP_POPULATE
   map = (char*) mmap(0, sz, PROT_READ, MAP_SHARED | MAP_POPULATE, fd, 0);
 #else
@@ -78,26 +82,47 @@ SEXP read(std::string path, bool lines) {
   
   // split by '\n'?
   if (lines) {
-    int n = nrow(map, sz);
-    output = PROTECT( Rf_allocVector(STRSXP, n) );
-    char* pch_old = &map[0];
-    char* pch;
-    pch = strchr(map, eol);
-    // avoid reading \r
-    int pch_incr = 1;
-    if (*(pch-1) == '\r') {
-      --pch;
-      ++pch_incr;
+    
+    // incomplete final line?
+    bool read_last_line = false;
+    char last_char = *(map + sz - 1);
+    if (last_char != '\n' && last_char != '\r') {
+      Rf_warning("incomplete final line found on '%s'", path.c_str());
+      read_last_line = true;
     }
-    int i = 0;
-    while (pch != NULL) {
+    
+    if (strchr(map, '\n') == NULL && strchr(map, '\r') == NULL) {
+      Rf_warning("no new-lines found in this file");
+      PROTECT( output = Rf_allocVector(STRSXP, 1) );
+      SET_STRING_ELT(output, 0, Rf_mkCharLen(map, sz));
+    } else {
+      int n = nrow(map, sz);
+      if (read_last_line) {
+        ++n;
+      }
+      output = PROTECT( Rf_allocVector(STRSXP, n) );
+      char* pch_old = &map[0];
+      char* pch;
+      pch = strchr(map, eol);
+      // avoid reading \r
+      int pch_incr = 1;
       if (*(pch-1) == '\r') {
         --pch;
+        ++pch_incr;
       }
-      SET_STRING_ELT(output, i, Rf_mkCharLen(pch_old, (int)((size_t) pch - (size_t) pch_old)));
-      pch_old = pch + pch_incr;
-      pch = strchr(pch_old, eol);
-      ++i;
+      int i = 0;
+      while (pch != NULL) {
+        if (*(pch-1) == '\r') {
+          --pch;
+        }
+        SET_STRING_ELT(output, i, Rf_mkCharLen(pch_old, (int)((size_t) pch - (size_t) pch_old)));
+        pch_old = pch + pch_incr;
+        pch = strchr(pch_old, eol);
+        ++i;
+      }
+      if (read_last_line) {
+        SET_STRING_ELT(output, n-1, Rf_mkChar(pch_old));
+      }
     }
   } else {
     output = PROTECT( Rf_allocVector(STRSXP, 1) );

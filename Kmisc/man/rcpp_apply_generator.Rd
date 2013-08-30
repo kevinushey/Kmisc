@@ -1,6 +1,6 @@
 \name{rcpp_apply_generator}
-\alias{rcpp_apply_generator}
 \alias{Rcpp_apply_generator}
+\alias{rcpp_apply_generator}
 \title{Rcpp Apply Generator}
 \usage{
   rcpp_apply_generator(fun, includes = NULL,

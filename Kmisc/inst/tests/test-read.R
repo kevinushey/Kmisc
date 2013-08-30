@@ -31,7 +31,15 @@ CharacterVector read_lines(std::string path) {
 
 rbenchmark::benchmark( replications=5,
   readlines(tempfile),
-  readLines(tempfile)
+  readLines(tempfile),
+  read_lines(tempfile)
 )
 
 unlink(tempfile)
+
+files <- list.files("~", full.names=TRUE, pattern="py$|R$|Rmd$|tex$")
+for (i in seq_along(files)) {
+  x <- files[i]
+  read(x)
+  stopifnot( identical( readlines(x), readLines(x) ) )
+}
