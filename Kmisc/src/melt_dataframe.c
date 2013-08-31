@@ -1,3 +1,5 @@
+#define USE_RINTERNALS
+
 #include <R.h>
 #include <Rinternals.h>
 #include <stdbool.h>
@@ -21,30 +23,46 @@ SEXP rep_each_char( SEXP x, SEXP id_ind_, int each ) {
 	return out;
 }
 
-#define HANDLE_CASE( RTYPE, CTYPE, ACCESSOR ) \
-		case RTYPE: { \
-			PROTECT( out = allocVector( RTYPE, len*times ) ); \
-			CTYPE* ptr = ACCESSOR(x); \
-			CTYPE* out_ptr = ACCESSOR(out); \
-			for( int i=0; i < times; ++i ) { \
-				for( int j=0; j < len; ++j ) { \
-					out_ptr[counter] = ptr[j]; \
-					++counter; \
-				} \
+// simply using memcpy with strings is dangerous
+#define HANDLE_CASE_STRING \
+  	case STRSXP: { \
+    int counter = 0; \
+		PROTECT( out = allocVector( STRSXP, len*times ) ); \
+		SEXP* ptr = STRING_PTR(x); \
+		SEXP* out_ptr = STRING_PTR(out); \
+		for( int i=0; i < times; ++i ) { \
+			for( int j=0; j < len; ++j ) { \
+				out_ptr[counter] = ptr[j]; \
+				++counter; \
 			} \
-			UNPROTECT(1); \
-			return out; \
 		} \
+		UNPROTECT(1); \
+		return out; \
+		} \
+
+#define HANDLE_CASE(RTYPE, CTYPE) \
+  case RTYPE: { \
+  char sz = sizeof(CTYPE); \
+  PROTECT(out = allocVector(RTYPE, len*times)); \
+  for (int i=0; i < times; ++i) { \
+    memcpy( \
+      (char*) DATAPTR(out) + (i*len*sz), \
+      (char*) DATAPTR(x), \
+      len*sz \
+    ); \
+  } \
+  UNPROTECT(1); \
+  return out; \
+  } \
 
 SEXP stack_vector( SEXP x, int times ) {
 	SEXP out;
 	int len = length(x);
-	int counter = 0;
 	switch( TYPEOF(x) ) {
-	HANDLE_CASE( INTSXP, int, INTEGER );
-	HANDLE_CASE( REALSXP, double, REAL );
-	HANDLE_CASE( LGLSXP, int, LOGICAL );
-	HANDLE_CASE( STRSXP, SEXP, STRING_PTR );
+	HANDLE_CASE( INTSXP, int );
+	HANDLE_CASE( REALSXP, double );
+	HANDLE_CASE( LGLSXP, int );
+	HANDLE_CASE_STRING;
 	}
   
   // if we've reached here, we have an unhandled / incompatible SEXP type
@@ -54,7 +72,11 @@ SEXP stack_vector( SEXP x, int times ) {
 
 #undef HANDLE_CASE
 
+// checks if all values in a VECSXP x are of the same type
 bool diff_types(SEXP x, SEXP val_ind_) {
+  if (TYPEOF(x) != VECSXP) {
+    Rf_error("Expected a VECSXP but got a %s", type2char(TYPEOF(x)));
+  }
   int n = length(val_ind_);
   int* val_ind = INTEGER(val_ind_);
   char type = TYPEOF( VECTOR_ELT(x, val_ind[0]) );
@@ -66,7 +88,11 @@ bool diff_types(SEXP x, SEXP val_ind_) {
   return false;
 }
 
+// get the largest type available within a vector
 char max_type(SEXP x, SEXP ind_) {
+  if (TYPEOF(x) != VECSXP) {
+    Rf_error("Expected a VECSXP but got a %s", type2char(TYPEOF(x)));
+  }
   int n = length(ind_);
   int* ind = INTEGER(ind_);
   char max_type = -1;
@@ -111,21 +137,18 @@ SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SE
 #define HANDLE_CASE( RTYPE, CTYPE, ACCESSOR ) \
 		case RTYPE: { \
       PROTECT( value_SEXP = allocVector( RTYPE, value_len ) ); \
-      int counter = 0; \
       SEXP tmp; \
-			CTYPE* ptr_val = ACCESSOR( value_SEXP ); \
-      CTYPE* ptr; \
 			for( int i=0; i < nColRep; ++i ) { \
         if (TYPEOF( VECTOR_ELT(x, val_ind[i]) ) != mt) { \
           tmp = PROTECT( coerceVector( VECTOR_ELT(x, val_ind[i]), mt ) ); \
-          ptr = ACCESSOR(tmp); \
         } else { \
-          ptr = ACCESSOR( VECTOR_ELT( x, val_ind[i] ) ); \
+          tmp = VECTOR_ELT(x, val_ind[i]); \
         } \
-				for( int j=0; j < nRow; ++j ) { \
-					ptr_val[counter] = ptr[j]; \
-					++counter; \
-				} \
+        memcpy( \
+          (char*) DATAPTR(value_SEXP) + (i*nRow*sizeof(CTYPE)), \
+          (char*) DATAPTR(tmp), \
+          nRow * sizeof(CTYPE) \
+        ); \
         if (TYPEOF( VECTOR_ELT(x, val_ind[i]) ) != mt) { \
           UNPROTECT(1); \
         } \
@@ -223,3 +246,5 @@ SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SE
   return out;
 
 }
+
+#undef USE_RINTERNALS
