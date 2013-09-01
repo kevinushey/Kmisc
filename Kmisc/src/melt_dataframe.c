@@ -134,7 +134,7 @@ SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SE
 	// populate the value array
 	SEXP value_SEXP;
 
-#define HANDLE_CASE( RTYPE, CTYPE, ACCESSOR ) \
+#define HANDLE_CASE( RTYPE, CTYPE ) \
 		case RTYPE: { \
       PROTECT( value_SEXP = allocVector( RTYPE, value_len ) ); \
       SEXP tmp; \
@@ -160,9 +160,9 @@ SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SE
 	int value_len = nColRep * nRow;
 	int value_type = mt;
   switch( value_type ) {
-	HANDLE_CASE( INTSXP, int, INTEGER );
-	HANDLE_CASE( REALSXP, double, REAL );
-	HANDLE_CASE( LGLSXP, int, LOGICAL );
+	HANDLE_CASE( INTSXP, int );
+	HANDLE_CASE( REALSXP, double );
+	HANDLE_CASE( LGLSXP, int );
 	case STRSXP: {
     int counter = 0;
     SEXP* curr_str_vec_ptr;
