@@ -70,11 +70,11 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
   }
   
   if (is.character(id.vars)) {
-    id.vars <- which( names(data) %in% measure.vars )
+    id.vars <- match(id.vars, names(data))
   }
   
   if (is.character(measure.vars)) {
-    measure.vars <- which( names(data) %in% measure.vars )
+    measure.vars <- match(measure.vars, names(data))
   }
   
   if (any_na(id.vars)) {

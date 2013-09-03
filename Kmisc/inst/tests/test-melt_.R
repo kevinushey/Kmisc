@@ -105,6 +105,7 @@ microbenchmark( times=5,
 )
 
 ## tests from Arun
+## see: issue #2
 DF <- data.frame(x=1:5, y=6:10, z=11:15)
 
 m1 <- melt_(DF, id=c("y", "z")) # works!
@@ -119,6 +120,24 @@ expect_identical(
   factor_to_char(melt(DF, id=c("z", "y")))
 )
 
+expect_identical(
+  melt_(DF, m=c("z", "y")),
+  factor_to_char(melt(DF, m=c("z", "y")))
+)
+
+## see: issue #3
+DF <- structure(list(x1 = 1:5, x2 = 6:10, x3 = 11:15, x4 = structure(c(2L, 
+  1L, 5L, 3L, 4L), .Label = c("f", "j", "m", "q", "r"), class = "factor"), 
+  x5 = structure(c(15950, 15951, 15952, 15953, 15954), class = "Date"), 
+  x7 = structure(c(15345, 15344, 15343, 15342, 15341), class = "Date"), 
+  x8 = c("g", "b", "h", "y", "m")), .Names = c("x1", "x2", 
+    "x3", "x4", "x5", "x7", "x8"), class = "data.frame", row.names = c(NA, 
+      -5L))
+
+tmp1 <- melt_(DF, id=c("x1", "x4"), measure="x2")
+tmp2 <- melt(DF, id=c("x1", "x4"), measure="x2")
+tmp2$variable <- as.character(tmp2$variable)
+expect_identical(tmp1, tmp2)
 
 ## matrix tests
 x <- matrix(1:24, nrow=4)
