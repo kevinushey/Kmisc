@@ -81,7 +81,7 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
     stop("Failed to match all of 'id.vars' to variable names in 'data'")
   }
 
-  if (any_na(id.vars)) {
+  if (any_na(measure.vars)) {
     stop("Failed to match all of 'measure.vars' to variable names in 'data'")
   }
   
