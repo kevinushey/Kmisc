@@ -139,8 +139,8 @@ tmp2 <- melt(DF, id=c("x1", "x4"), measure="x2")
 tmp2$variable <- as.character(tmp2$variable)
 expect_identical(tmp1, tmp2)
 
-tmp3 <- melt_(DF, id=c("x1", "x4"), measure=c("x5", "x6"))
-tmp4 <- melt(DF, id=c("x1", "x4"), measure=c("x5", "x6"))
+expect_error(tmp3 <- melt_(DF, id=c("x1", "x4"), measure=c("x5", "x6")))
+expect_error(tmp4 <- melt(DF, id=c("x1", "x4"), measure=c("x5", "x6")))
 
 ## matrix tests
 x <- matrix(1:24, nrow=4)
