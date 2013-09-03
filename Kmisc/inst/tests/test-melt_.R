@@ -104,6 +104,22 @@ microbenchmark( times=5,
   melt=melt(df, id.vars=c('x', 'y', 'z'))
 )
 
+## tests from Arun
+DF <- data.frame(x=1:5, y=6:10, z=11:15)
+
+m1 <- melt_(DF, id=c("y", "z")) # works!
+m2 <- melt_(DF, id=c("z", "y")) # works!
+m3 <- melt_(DF, id=c(1,2)) # works!
+m4 <- melt_(DF, id=c(2,1)) # crashes (same for measure = .)
+
+expect_error(melt_(DF, id=c(2, 1, 4)))
+expect_error(melt_(DF, id=c(0)))
+expect_identical(
+  melt_(DF, id=c("z", "y")),
+  factor_to_char(melt(DF, id=c("z", "y")))
+)
+
+
 ## matrix tests
 x <- matrix(1:24, nrow=4)
 rownames(x) <- 1:4

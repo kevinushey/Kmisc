@@ -54,7 +54,7 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
       stop("one of 'id.vars' and 'measure.vars' must be supplied")
     }
     if( is.character(id.vars) ) {
-      id.vars <- which( names(data) %in% id.vars )
+      id.vars <- match( id.vars, names(data) )
     }
     measure.vars <- which( 1:length(data) %nin% id.vars )
   }
@@ -64,7 +64,7 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
       stop("one of 'id.vars' and 'measure.vars' must be supplied")
     }
     if( is.character(measure.vars) ) {
-      measure.vars <- which( names(data) %in% measure.vars )
+      measure.vars <- match( measure.vars, names(data) )
     }
     id.vars <- which( 1:length(data) %nin% measure.vars )
   }
@@ -77,10 +77,26 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
     measure.vars <- which( names(data) %in% measure.vars )
   }
   
+  if (any_na(id.vars)) {
+    stop("Failed to match all of 'id.vars' to variable names in 'data'")
+  }
+
+  if (any_na(id.vars)) {
+    stop("Failed to match all of 'measure.vars' to variable names in 'data'")
+  }
+  
+  if (any(id.vars < 1) || any(id.vars > length(data))) {
+    stop("one or more of the 'id.vars' indexes beyond column range of data")
+  }
+  
+  if (any(measure.vars < 1) || any(measure.vars > length(data))) {
+    stop("one or more of the 'measure.vars' indexes beyond column range of data")
+  }
+  
   return( .Call("melt_dataframe",
     data,
-    id.vars-1L,
-    measure.vars-1L,
+    as.integer(id.vars-1),
+    as.integer(measure.vars-1),
     variable.name,
     value.name,
     PACKAGE="Kmisc"
