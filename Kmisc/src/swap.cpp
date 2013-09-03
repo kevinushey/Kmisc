@@ -41,6 +41,10 @@ SEXP swap( SEXP vec, SEXP from, SEXP to ) {
   check_type(from, "from");
   check_type(to, "to");
   
+  if (Rf_length(from) != Rf_length(to)) {
+    Rf_warning("lengths of 'from' and 'to' do not match (%d, %d)", Rf_length(from), Rf_length(to));
+  }
+  
   if( TYPEOF(to) > TYPEOF(from) ) {
     from = Rf_coerceVector(from, TYPEOF(to));
   } else if( TYPEOF(from) > TYPEOF(to) ) {

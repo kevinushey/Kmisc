@@ -91,7 +91,7 @@ bool diff_types(SEXP x, SEXP val_ind_) {
 // get the largest type available within a vector
 char max_type(SEXP x, SEXP ind_) {
   if (TYPEOF(x) != VECSXP) {
-    Rf_error("Expected a VECSXP but got a %s", type2char(TYPEOF(x)));
+    Rf_error("Expected a VECSXP but got a '%s'", type2char(TYPEOF(x)));
   }
   int n = length(ind_);
   int* ind = INTEGER(ind_);
@@ -112,6 +112,14 @@ char max_type(SEXP x, SEXP ind_) {
 
 SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SEXP value_name ) {
   
+  if (length(x) == 0) {
+    error("Can't melt a data.frame with 0 columns");
+  }
+  
+  if (length(VECTOR_ELT(x, 0)) == 0) {
+    error("Can't melt a data.frame with 0 rows");
+  }
+  
   int* id_ind = INTEGER(id_ind_);
   int* val_ind = INTEGER(val_ind_);
   
@@ -123,6 +131,9 @@ SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SE
 	int out_nCol = nColStack + 2;
   
   char mt = max_type(x, val_ind_);
+  if (mt > STRSXP) {
+    error("Error: cannot melt data.frames w/ elements of type '%s'", CHAR(type2str(mt)));
+  }
   
   if (diff_types(x, val_ind_)) {
     warning("Coercing type of 'value' variables to '%s'", CHAR(type2str(mt)));
