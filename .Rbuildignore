@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+benchmark/
+Rplots.pdf
+test/
+src-i386/
+src-x86_64/
+stress/
+build/
+incubator/
+old/
