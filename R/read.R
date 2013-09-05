@@ -1,6 +1,6 @@
 ##' Read a File
 ##' 
-##' These functions read a file in. We memory map the file for fast I/O.
+##' These functions read a file into memory. We memory map the file for fast I/O.
 ##' The file is read in as a character vector (length one for \code{read},
 ##' length \code{n} for \code{readlines}).
 ##'  
