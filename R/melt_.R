@@ -41,13 +41,6 @@ melt_ <- function(data, ...) {
 ##' @S3method melt_ data.frame
 melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variable", ..., value.name="value") {
   
-  ## early, separate dispatch if 'id.vars' == 'row.names'
-  if (!missing(id.vars) && identical(id.vars, "row.names")) {
-    output <- factor_to_char( stack( factor_to_char(data[measure.vars]) ), inplace=TRUE )
-    names(output) <- c(value.name, variable.name)
-    return(output[2:1])
-  }
-  
   ## figure out which variables belong to id.vars, measure.vars,
   if( missing(measure.vars) ) {
     if( missing(id.vars) ) {

@@ -28,6 +28,7 @@ expect_identical(
 for( i in 1:ncol(tmp1) ) {
   stopifnot( all( tmp1[,i] == tmp2[,i] ) )
 }
+
 ## check that melt_ handles NAs
 dat$za[ sample(1:n, n/2) ] <- NA
 dat$zb[ sample(1:n, n/2) ] <- NA
@@ -76,7 +77,7 @@ suppressWarnings(
 )
 
 ## using row.names
-df <- melt_(dat, "row.names")
+df <- melt_(dat, m=1:ncol(dat))
 df2 <- melt(dat, measure.vars=1:ncol(dat))
 expect_identical( as.character( df2[,1] ), df[,1] )
 expect_identical( df[,2], df2[,2] )
