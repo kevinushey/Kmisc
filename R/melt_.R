@@ -70,6 +70,10 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
     measure.vars <- match(measure.vars, names(data))
   }
   
+  if (is.null(id.vars)) {
+    id.vars <- integer(0)
+  }
+  
   if (any_na(id.vars)) {
     stop("Failed to match all of 'id.vars' to variable names in 'data'")
   }

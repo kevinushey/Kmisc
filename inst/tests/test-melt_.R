@@ -76,11 +76,15 @@ suppressWarnings(
   expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
 )
 
-## using row.names
-df <- melt_(dat, m=1:ncol(dat))
+## what if we have no id.vars?
+expect_warning(df <- melt_(dat, m=1:ncol(dat)))
 df2 <- melt(dat, measure.vars=1:ncol(dat))
 expect_identical( as.character( df2[,1] ), df[,1] )
 expect_identical( df[,2], df2[,2] )
+
+df <- melt(dat, i=NULL)
+df2 <- melt_(dat, i=NULL)
+expect_identical( factor_to_char(df), df2 )
 
 rm( list=ls() )
 
