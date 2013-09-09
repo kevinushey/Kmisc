@@ -9,3 +9,4 @@ stress/
 build/
 incubator/
 old/
+.idea

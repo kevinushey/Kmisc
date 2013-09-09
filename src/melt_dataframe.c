@@ -80,7 +80,7 @@ SEXP stack_vector( SEXP x, int times ) {
 // checks if all values in a VECSXP x are of the same type
 bool diff_types(SEXP x, SEXP val_ind_) {
   if (TYPEOF(x) != VECSXP) {
-    Rf_error("Expected a VECSXP but got a '%s'", type2char(TYPEOF(x)));
+    error("Expected a VECSXP but got a '%s'", type2char(TYPEOF(x)));
   }
   int n = length(val_ind_);
   int* val_ind = INTEGER(val_ind_);
@@ -96,7 +96,7 @@ bool diff_types(SEXP x, SEXP val_ind_) {
 // get the largest type available within a vector
 char max_type(SEXP x, SEXP ind_) {
   if (TYPEOF(x) != VECSXP) {
-    Rf_error("Expected a VECSXP but got a '%s'", type2char(TYPEOF(x)));
+    error("Expected a VECSXP but got a '%s'", type2char(TYPEOF(x)));
   }
   int n = length(ind_);
   int* ind = INTEGER(ind_);
