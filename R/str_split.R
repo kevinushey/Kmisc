@@ -31,20 +31,13 @@
 ##' str_split( x, "[_\\.]", names=c("first", "second", "third") )
 str_split <- function(x, sep, fixed=FALSE, perl=TRUE, useBytes=FALSE, names=NULL) {
   
-  if (fixed) perl <- FALSE
-  
-  x <- as.character(x)
-  tmp <- strsplit( x, sep, fixed=fixed, perl=perl, useBytes=useBytes )
-  if (length( unique( sapply( tmp, length ) )) > 1 ) {
-    stop("non-equal lengths for each entry of x post-splitting")
-  }
-  tmp <- .Call( "charlist_transpose_to_df", tmp, PACKAGE="Kmisc" )
-  if( !is.null(names) ) {
-    names(tmp) <- names
-  } else {
-    names(tmp) <- paste( "V", 1:ncol(tmp), sep="" )
-  }
-  return(tmp)
+  if (fixed) 
+    perl <- FALSE
+  return( .Call( "charlist_transpose_to_df", 
+    strsplit(as.character(x), sep, fixed=fixed, perl=perl, useBytes=useBytes), 
+    names, 
+    PACKAGE="Kmisc" 
+  ) )
 }
 
 ##' @rdname str_split
