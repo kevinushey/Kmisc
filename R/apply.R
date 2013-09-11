@@ -17,17 +17,20 @@
 ##' @rdname apply
 ##' @export
 rowApply <- function(X, FUN, ..., drop=TRUE) {
-  if( drop ) {
-    output <- apply(X, 1, FUN, ...)
-    names(output) <- rownames(X)
-    return(output)
-  } else {
-    output <- matrix( nrow=nrow(X),
-      apply(X, 1, FUN, ...)
-    )
+  output <- matrix( nrow=nrow(X),
+    apply(X, 1, FUN, ...)
+  )
+  if (ncol(output) > 1) {
     rownames(output) <- rownames(X)
-    return(output)
+  } else {
+    if (drop) {
+      output <- c(output)
+      names(output) <- rownames(X)
+    } else {
+      rownames(output) <- rownames(X)
+    }
   }
+  return(output)
 }
 
 ##' @rdname apply
