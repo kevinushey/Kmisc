@@ -1,8 +1,12 @@
 \name{str_split}
+\alias{split2df}
 \alias{str_split}
 \title{Split a Vector of Strings Following a Regular Structure}
 \usage{
   str_split(x, sep, fixed = FALSE, perl = TRUE,
+    useBytes = FALSE, names = NULL)
+
+  split2df(x, sep, fixed = FALSE, perl = TRUE,
     useBytes = FALSE, names = NULL)
 }
 \arguments{
@@ -31,6 +35,14 @@
   wrapper to \code{\link{strsplit}}, essentially - the
   primary bonus is the automatic coersion to a
   \code{data.frame}.
+}
+\details{
+  Note that the preferred method for reading text data with
+  a single, one character delimiter is through
+  \code{read.table(text=...)} or \code{data.table::fread};
+  however, this function is helpful in the case of
+  non-regular delimiters (that you wish to specify with a
+  regex)
 }
 \examples{
 str_split(
