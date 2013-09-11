@@ -331,12 +331,15 @@ write.cb <- function( dat,
   quote=FALSE ) {
   
   if( Sys.info()["sysname"] == "Darwin" ) {
-    write.table( dat, file=pipe("pbcopy"),
+    file <- pipe("pbcopy")
+    write.table( dat, file=file,
       row.names=row.names,
       col.names=col.names,
       sep=sep,
       quote=quote
     )
+    close(file)
+    rm(file)
   } else {
     write.table( dat, file="clipboard",
       row.names = row.names,
@@ -357,7 +360,10 @@ write.cb <- function( dat,
 ##' @export
 cat.cb <- function( dat, ... ) {
   if( Sys.info()["sysname"] == "Darwin" ) {
-    cat( dat, file=pipe("pbcopy"), ... )
+    file <- pipe("pbcopy")
+    cat( dat, file, ... )
+    close(file)
+    rm(file)
   } else {
     cat( dat, file="clipboard", ... )
   }
