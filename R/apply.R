@@ -17,16 +17,18 @@
 ##' @rdname apply
 ##' @export
 rowApply <- function(X, FUN, ..., drop=TRUE) {
-  output <- matrix( nrow=nrow(X),
-    apply(X, 1, FUN, ...)
-  )
-  if (ncol(output) > 1) {
+  output <- apply(X, 1, FUN, ...)
+  if (is.matrix(output)) {
+    output <- t(output)
     rownames(output) <- rownames(X)
   } else {
     if (drop) {
       output <- c(output)
       names(output) <- rownames(X)
     } else {
+      if (!is.matrix(output)) {
+        output <- matrix(output, nrow=nrow(X))
+      }
       rownames(output) <- rownames(X)
     }
   }
@@ -36,9 +38,10 @@ rowApply <- function(X, FUN, ..., drop=TRUE) {
 ##' @rdname apply
 ##' @export
 colApply <- function(X, FUN, ..., drop=TRUE) {
-  if( drop ) {
+  if (drop) {
     output <- apply(X, 2, FUN, ...)
-    names(output) <- colnames(X)
+    if (!is.matrix(output))
+      names(output) <- colnames(X)
     return(output)
   } else {
     output <-  matrix( ncol=ncol(X),
