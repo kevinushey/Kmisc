@@ -29,6 +29,6 @@ x <- rnorm(100)
 gp <- sample( 1:10, 100, TRUE )
 stopifnot( all(
   tapply(x, gp, mean) == tapply_(x, gp, mean)
-  ) )
+) )
 }
 

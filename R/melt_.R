@@ -92,8 +92,8 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
   
   return( .Call("melt_dataframe",
     data,
-    as.integer(id.vars-1),
-    as.integer(measure.vars-1),
+    as.integer(id.vars-1L),
+    as.integer(measure.vars-1L),
     variable.name,
     value.name,
     PACKAGE="Kmisc"

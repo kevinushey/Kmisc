@@ -18,6 +18,7 @@ factor_ <- function(x, levels=NULL) {
   if( is.logical(x) ) {
     levels(out) <- c("FALSE", "TRUE")
   }
+  
   return( out )
   
 }

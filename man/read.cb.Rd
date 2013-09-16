@@ -2,10 +2,13 @@
 \alias{read.cb}
 \title{Read Tabular Data from the Clipboard}
 \usage{
-  read.cb(sep = "\t", ...)
+  read.cb(sep = "\t", header = TRUE, ...)
 }
 \arguments{
   \item{sep}{the delimiter used in the copied text.}
+
+  \item{header}{boolean; does the first row contain column
+  names?}
 
   \item{...}{optional arguments passed to
   \code{read.table}.}

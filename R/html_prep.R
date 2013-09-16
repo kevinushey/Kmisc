@@ -17,8 +17,8 @@
 html <- function(..., file="") {
   dotArgs <- match.call(expand.dots=FALSE)$`...`
   for( item in dotArgs ) {
-    item <- .eval_symbols(item, envir=parent.frame())
-    print( eval( item, envir=.html ), file=file )
+    item <- .eval_symbols(item)
+    print( eval(item, envir=.html), file=file )
     cat( "\n", file=file )
   }
 }

@@ -15,6 +15,7 @@ BugReports: https://github.com/kevinushey/Kmisc/issues
 Depends:
     Rcpp (>= 0.10.4)
 Imports:
+    data.table,
     lattice,
     grid
 Suggests:

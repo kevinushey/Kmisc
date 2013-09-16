@@ -1,8 +1,12 @@
 \name{extract_rows.re}
 \alias{extract_rows.re}
+\alias{re_extract_rows}
 \title{Extract Rows from a Data Frame / Matrix Based on Regex Matching}
 \usage{
   extract_rows.re(x, regex, match_var = rownames(x),
+    perl = TRUE, ...)
+
+  re_extract_rows(x, regex, match_var = rownames(x),
     perl = TRUE, ...)
 }
 \arguments{

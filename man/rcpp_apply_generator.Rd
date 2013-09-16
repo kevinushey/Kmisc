@@ -56,7 +56,7 @@ squaredSumApply <- rcpp_apply_generator("
   double out = 0;
   for( int i=0; i < x.size(); i++ ) {
     out += x[i];
-    }
+  }
   out = out*out;
   return out;
   ")

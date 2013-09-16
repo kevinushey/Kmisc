@@ -8,7 +8,7 @@
 ##' @export
 pad <- function(x, n) {
   
-  if( class(x) == "data.frame" ) {
+  if (is.data.frame(x)) {
     
     nrow <- nrow(x)
     attr(x, "row.names") <- 1:n
@@ -17,14 +17,22 @@ pad <- function(x, n) {
     }
     return(x)
     
-  } else if( class(x) == "list" ) {
-    
-    max_len <- max( sapply( x, length ) )
-    return( sapply( x, function(xx) {
-      return( c( xx, rep(NA, times=n-max_len)))
-    }) )
-    
-  } else if( class(x) == "matrix" ) {
+  } else if (is.list(x)) {
+    if (missing(n)) {
+      max_len <- max( sapply( x, length ) )
+      return( lapply(x, function(xx) {
+        return( c(xx, rep(NA, times=max_len-length(xx))) )
+      }))
+    } else {
+      return( lapply(x, function(xx) {
+        if (n > length(xx)) {
+          return( c(xx, rep(NA, times=n-length(xx))) )
+        } else {
+          return(xx)
+        }
+      }))
+    }
+  } else if (is.matrix(x)) {
     
     return( rbind( x, matrix(NA, nrow=n-nrow(x), ncol=ncol(x)) ) )
     

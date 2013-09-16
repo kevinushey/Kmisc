@@ -55,6 +55,10 @@ re.exists <- function(pattern, x, perl=TRUE, ... ) {
   length( grep( pattern, x, perl=perl, ... ) ) > 0 
 }
 
+##' @rdname re.exists
+##' @export
+re_exists <- re.exists
+
 ##' unlist( strsplit( ... ) )
 ##' 
 ##' This is a thin wrapper to \code{ unlist( strsplit( ... ) ) }.
@@ -249,6 +253,7 @@ cd <- function(...) {
 ##' @param ... optional arguments to \code{FUN}.
 ##' @seealso \code{\link{lapply}}, \code{\link{lapply}}
 ##' @export
+##' @importFrom data.table setattr
 ##' @examples
 ##' dat <- data.frame(
 ##'   x = rnorm(10),
@@ -268,7 +273,7 @@ dapply <- function(X, FUN, ...) {
   nm <- names(tmp[[1]])
   list_to_df(tmp, inplace=TRUE)
   if (!is.null(nm)) {
-    attr(tmp, "row.names") <- nm
+    setattr(tmp, "row.names", nm)
   }
   return(tmp)
 }
@@ -280,16 +285,17 @@ dapply <- function(X, FUN, ...) {
 ##' call to \code{\link{read.table}}.
 ##' @export
 ##' @param sep the delimiter used in the copied text.
+##' @param header boolean; does the first row contain column names?
 ##' @param ... optional arguments passed to \code{read.table}.
 ##' @seealso \code{\link{read.table}}
 ##' @examples
 ##' ## with some data on the clipboard, simply write
 ##' # x <- read.cb()
-read.cb <- function( sep='\t', ... ) {
+read.cb <- function(sep='\t', header=TRUE, ...) {
   if( Sys.info()["sysname"] == "Darwin" ) {
-    read.table( pipe("pbpaste"), sep=sep, ... )
+    read.table( pipe("pbpaste"), header=header, sep=sep, ... )
   } else {
-    read.table( "clipboard", sep=sep, ... )
+    read.table( "clipboard", header=header, sep=sep, ... )
   }
 }
 
@@ -301,14 +307,18 @@ read.cb <- function( sep='\t', ... ) {
 ##' @export
 ##' @param what passed to \code{scan}.
 ##' @param sep passed to \code{scan}.
+##' @param quiet passed to \code{scan}.
 ##' @param ... passed to \code{scan}.
 ##' @seealso \code{\link{scan}}
-scan.cb <- function( what=character(), sep="\n", ... ) {
+scan.cb <- function( what=character(), sep="\n", quiet=TRUE, ... ) {
   if( Sys.info()["sysname"] == "Darwin" ) {
-    scan( pipe("pbpaste"), what=what, sep=sep, ... )
+    file <- pipe("pbpaste")
+    output <- scan( file, what=what, sep=sep, quiet=quiet, ... )
+    close(file)
   } else {
-    scan( "clipboard", what=what, sep=sep, ... )
+    output <- scan( "clipboard", what=what, sep=sep, quiet=quiet, ... )
   }
+  return(output)
 }
 
 ##' Write Tabular Data to the Clipboard
@@ -339,7 +349,6 @@ write.cb <- function( dat,
       quote=quote
     )
     close(file)
-    rm(file)
   } else {
     write.table( dat, file="clipboard",
       row.names = row.names,
@@ -361,9 +370,8 @@ write.cb <- function( dat,
 cat.cb <- function( dat, ... ) {
   if( Sys.info()["sysname"] == "Darwin" ) {
     file <- pipe("pbcopy")
-    cat( dat, file, ... )
+    cat( dat, file=file, ... )
     close(file)
-    rm(file)
   } else {
     cat( dat, file="clipboard", ... )
   }

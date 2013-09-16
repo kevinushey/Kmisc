@@ -18,6 +18,10 @@ extract_rows.re <- function(x, regex, match_var=rownames(x), perl=TRUE, ...) {
   return( x[ grep( regex, match_var, perl=perl, ... ), ] )
 }
 
+##' @rdname extract_rows.re
+##' @export
+re_extract_rows <- extract_rows.re
+
 ##' Exclude Rows from a Data Frame / Matrix Based on Regex Matching
 ##' 
 ##' This function extracts rows from a data frame / matrix \code{x} for all rows
@@ -37,3 +41,7 @@ extract_rows.re <- function(x, regex, match_var=rownames(x), perl=TRUE, ...) {
 without_rows.re <- function(x, regex, match_var=rownames(x), perl=TRUE, ...) {
   return( x[ 1:nrow(x) %nin% grep( regex, match_var, perl=perl, ... ), ] )
 }
+
+##' @rdname without_rows.re
+##' @export
+re_without_rows <- without_rows.re

@@ -46,14 +46,6 @@ anat <- function(df, n=3) {
     n <- nrow(df)
   }
   
-  sapply( 1:ncol(df), function(i) {
-    if( !is.atomic( df[[i]] ) ) {
-      stop("non-atomic vector in ", deparse( substitute( df ) ),
-        ". consider using 'str' or reforming ", deparse( substitute( df ) ), "."
-      )
-    }
-  })
-  
   ## make formatted column names
   formatted_names <- format( names(df) )
   classes <- sapply( 1:ncol(df), function(i) {

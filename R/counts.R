@@ -9,11 +9,6 @@ counts <- function(x) {
   if( is.list(x) ) {
     return( rapply(x, counts, how="list") )
   } else {
-    ## TODO: update this once new Rcpp is released to CRAN
-    if( packageVersion("Rcpp") > "0.10.3.2" ) {
-      return( .Call("Kmisc_counts", x, PACKAGE="Kmisc"))
-    } else {
-      return( table(x) )
-    }
+    return( .Call("Kmisc_counts", x, PACKAGE="Kmisc"))
   }
 }

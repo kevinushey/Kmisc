@@ -1,8 +1,12 @@
 \name{without_rows.re}
+\alias{re_without_rows}
 \alias{without_rows.re}
 \title{Exclude Rows from a Data Frame / Matrix Based on Regex Matching}
 \usage{
   without_rows.re(x, regex, match_var = rownames(x),
+    perl = TRUE, ...)
+
+  re_without_rows(x, regex, match_var = rownames(x),
     perl = TRUE, ...)
 }
 \arguments{
