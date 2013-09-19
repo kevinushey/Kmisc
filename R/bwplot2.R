@@ -8,6 +8,7 @@
 ##' 
 ##' Axis labels are inferred from the \code{form} object passed in when possible.
 ##' 
+##' @importFrom lattice stripplot panel.abline panel.bwplot panel.stripplot
 ##' @param form a formula object as expected by \code{lattice}'s \code{xyplot}.
 ##' @param data see \code{\link{xyplot}}.
 ##' @param xlab see \code{\link{xyplot}}.

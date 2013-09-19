@@ -17,13 +17,13 @@ inline void check_type( SEXP x, std::string name ) {
 }
 
 template <int RTYPE>
-Vector<RTYPE> do_swap( const Vector<RTYPE> vec, const Vector<RTYPE>& from, const Vector<RTYPE>& to ) {
+Vector<RTYPE> do_swap(const Vector<RTYPE> vec, const Vector<RTYPE>& from, const Vector<RTYPE>& to) {
   IntegerVector matches = match(vec, from) - 1;
   int n = vec.size();
   Vector<RTYPE> out = no_init(n);
-  for( int i=0; i < n; ++i ) {
+  for (int i=0; i < n; ++i) {
     // Rcout << "matches[" << i << "] is: " << matches[i] << std::endl;
-    if( !IntegerVector::is_na( matches[i] ) ) {
+    if (!IntegerVector::is_na( matches[i] )) {
       // Rcout << "\tmatches[" << i << "] is not NA" << std::endl;
       out[i] = to[ matches[i] ];
     } else {
@@ -35,7 +35,7 @@ Vector<RTYPE> do_swap( const Vector<RTYPE> vec, const Vector<RTYPE>& from, const
 }
 
 // [[Rcpp::export]]
-SEXP swap( SEXP vec, SEXP from, SEXP to ) {
+SEXP swap(SEXP vec, SEXP from, SEXP to) {
   
   check_type(vec, "vec");
   check_type(from, "from");
@@ -43,6 +43,10 @@ SEXP swap( SEXP vec, SEXP from, SEXP to ) {
   
   if (Rf_length(from) != Rf_length(to)) {
     Rf_warning("lengths of 'from' and 'to' do not match (%d, %d)", Rf_length(from), Rf_length(to));
+  }
+  
+  if (TYPEOF(vec) > TYPEOF(from)) {
+    from = Rf_coerceVector(from, TYPEOF(vec));
   }
   
   if( TYPEOF(to) > TYPEOF(from) ) {

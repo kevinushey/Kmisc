@@ -30,7 +30,7 @@
 ##' dat <- data.frame( apple=c(1.2150125, 2, 3), banana=c("a", "b", "c") )
 ##' makeHTMLTable( dat ) 
 makeHTMLTable <- function( x, 
-                           attr=NULL,
+                           attr='class="table table-collapsed table-hover table-striped"',
                            row.spans=0,
                            col.spans=0,
                            use.row.names=FALSE,
@@ -92,8 +92,13 @@ makeHTMLTable <- function( x,
       
     }
     out <- paste( sep="", "<table ", attr, ">" )
-    
-    for( i in 1:nrow(x) ) {
+    out <- paste( sep="", out, "<thead><tr>" )
+    for (j in 1:ncol(x)) {
+      out <- paste( sep="", out, "<th>", x[1, j], "</td>" )
+    }
+    out <- paste( sep="", out, "</thead></tr>" )
+    out <- paste( sep="", out, "<tbody>")
+    for( i in 2:nrow(x) ) {
       out <- paste( sep="", out, "<tr>" )
       for( j in 1:ncol(x) ) {
         out <- paste( sep="", out, "<td>", x[i,j], "</td>" )
@@ -101,7 +106,7 @@ makeHTMLTable <- function( x,
       out <- paste( sep="", out, "</tr>" )
     }
     
-    out <- paste( sep="", out, "</table>" )
+    out <- paste( sep="", out, "</tbody></table>" )
     
     cat(out, "\n")
     
@@ -204,9 +209,11 @@ makeHTMLTable <- function( x,
 ##' y <- factor( rbinom( 100, 2, 0.2 ) )
 ##' p1t( kTable( y ) )
 p1t <- function( x,
-                 class='oneDtable',
+                 class='table table-condensed table-striped table-hover',
                  id=NULL,
                  ... ) {
+  
+  warning("Deprecated: use knitr::kable instead.")
   
   myAttr <- NULL
   if( !is.null(class) ) myAttr <- paste( sep="", myAttr, "class='", class, "' ")

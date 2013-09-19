@@ -24,11 +24,11 @@
 anat <- function(df, n=3) {
   
   if( !is.data.frame(df) ) {
-    warning("df is not a data.frame; returning utils::str(df)")
+    warning("object is not a data.frame; returning utils::str(df)")
     return( utils::str(df) )
   } else {
     if( any( sapply( seq_along(df), function(i) { !is.atomic(df[[i]]) } ) ) ) {
-      warning("df is a data.frame, but there are non-atomic columns; returning utils::str(df)")
+      warning("object is a data.frame, but there are non-atomic columns; returning utils::str(df)")
       return( utils::str(df) )
     }
   }

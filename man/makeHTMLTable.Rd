@@ -2,8 +2,9 @@
 \alias{makeHTMLTable}
 \title{Make HTML Table from R 'table-like' Object}
 \usage{
-  makeHTMLTable(x, attr = NULL, row.spans = 0,
-    col.spans = 0, use.row.names = FALSE,
+  makeHTMLTable(x,
+    attr = "class=\"table table-collapsed table-hover table-striped\"",
+    row.spans = 0, col.spans = 0, use.row.names = FALSE,
     use.col.names = FALSE, clean = TRUE,
     replace.periods = TRUE)
 }

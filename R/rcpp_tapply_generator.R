@@ -9,6 +9,7 @@
 ##' \code{simplify=TRUE}, we call \code{unlist} on the output; hence,
 ##' a named vector is returned.
 ##' 
+##' @importFrom Rcpp sourceCpp
 ##' @param fun A character string defining the C++ function. It must be
 ##' in terms of a variable \code{x}.
 ##' @param includes Other C++ libraries to include. For example, to include \code{boost/math.hpp},

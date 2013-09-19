@@ -444,6 +444,8 @@ make_dummy <- function(x) {
 ##' 
 ##' Using \code{kmeans}, plot percentage variance explained vs. number of clusters.
 ##' Used as a means of picking \code{k}.
+##' 
+##' @importFrom lattice xyplot panel.grid panel.polygon panel.xyplot panel.abline
 ##' @param dat numeric matrix of data, or an object that can be coerced to 
 ##' such a matrix (such as a numeric vector or a data frame with all 
 ##' numeric columns).

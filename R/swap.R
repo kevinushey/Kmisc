@@ -28,6 +28,9 @@
 ##' swap(x, c(1, 2), c("a", "b") )
 ##' 
 swap <- function( vec, from, to=names(from) ) {
+  if (any(is.na(from)) || any(is.na(to))) {
+    stop("Can't swap to and from NA values")
+  }
   return( .Call( "Kmisc_swap", vec, from, to, PACKAGE="Kmisc" ) )
 }
 
@@ -48,6 +51,9 @@ swap <- function( vec, from, to=names(from) ) {
 ##' swap_(x, a="A")
 swap_ <- function(vec, ...) {
   dotArgs <- match.call(expand.dots=FALSE)$`...`
+  if (any(is.na(unlist(dotArgs)))) {
+    stop("Can't swap to and from NA values")
+  }
   return( .Call( 
     "Kmisc_swap", 
     vec, 

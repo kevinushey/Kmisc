@@ -12,15 +12,15 @@ LazyData: TRUE
 LinkingTo: Rcpp
 URL: https://github.com/kevinushey/Kmisc
 BugReports: https://github.com/kevinushey/Kmisc/issues
-Depends:
-    Rcpp (>= 0.10.4)
 Imports:
+    Rcpp (>= 0.10.4),
     data.table,
     lattice,
-    grid
+    grid,
+    knitr,
+    rCharts
 Suggests:
     ggplot2,
-    knitr,
     plyr,
     reshape2,
     googleVis,
@@ -84,3 +84,4 @@ Collate:
     'nametree.R'
     'read.R'
     'wrap.R'
+    'htmlTable.R'

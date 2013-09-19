@@ -5,210 +5,108 @@
 -->
 
 <style>
+
+/* 
+ * Table styles taken from Twitter Bootstrap 2.3.2 
+ * Other styles modified from knitr's base styling.
+ */
+
 body {
+  display: block;
+  margin: 0;
+  background-color: #DDD;
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+td {
    font-family: sans-serif;
    background-color: white;
-   font-size: 12px;
+   font-size: 14px;
+   margin: 8px;
 }
 
-table, th, td {
-  
-  font-size: 14px;
-  font-family: "Droid Sans Mono", "DejaVu Sans MS", "Consolas", "Lucida Console", sans-serif;
-  text-align: right;
-  
-}
-
-table {
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  page-break-inside: avoid;
-}
-
-th, td {
-  border: 1px solid #9AD;  
-  background-color: #FFFFFF;
-}
-
-tr {
-  page-break-inside: avoid;
-  page-break-after: auto;
-}
-
-tr:nth-child(odd) td {
-  background-color: #FCFCFE;
-}
-
-tr:nth-child(even) td {
-  background-color: #F4F4FF;
-}
-
-.twoDtable tr:nth-last-child(1) td, th {
-  font-weight: bold;
-  text-align: center;
-  background-color: #FBFBFB;
-}
-
-tr:nth-child(1) {
-  font-weight: bold;
-  background-color: #FBFBFB;
-}
-
-tr:nth-child(1) td, th {
-  text-align: center;
-}
-
-/* R-outputted 2x2 tables */
-
-.twoDtable tr:nth-child(2) td {
-  font-weight: bold;
-  text-align: center;
-}
-
-.twoDtable tr:nth-last-child(1) {
-  border-top: 2px solid black;
-}
-
-.twoDtable tr:nth-child(3) td:nth-child(2) {
-  font-weight: bold;
-  text-align: center;
-}
-
-.twoDtable tr td:nth-last-child(1) {
-  border-left: 2px solid black;
-  text-align: center;
-  font-weight: bold;
-}
-
-.twoDtable tr td:nth-child(1) {
-  font-weight: bold;
-  text-align: center;
-}
-
-/* End 2x2 tables */
-
-/* 1D tables */
-
-.oneDtable tr:nth-last-child(1) td {
-  border-top: 2px solid black;
-  font-weight: bold;
-}
-
-/* End 1D tables */
-
-p {
-  font-family: 'Proxima Nova', sans-serif;
-  font-size: 14px;
-  line-height:125%;
-}
-
-p.question {
-  font-size: 14px;
-  font-weight: bold;
-  display: block;
-  color: red;
-}
-
-p.mono {
-  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
-}
-
-ul, ol {
-  font-family: 'Proxima Nova', sans-serif;
-  font-size: 14px;
-}
-
-.divTable {
-  display: inline-block;
-  width:auto;
-  padding:5px;
-  border-style:solid;
-  border-width:thin;
-  border-radius:10px;
-}
-
-.divTable hr {
-  height: 1px;
-  border: 0;
-  width: 100%;
-}
-
-.divTable .left {
-  margin-left:10px;
-  float:left;
-}
-
-.divTable .right {
-  margin-left:200px;
-  margin-right:10px;
-}
-
-
-
-img.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.center {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 6px 6px #AAA;
 }
 
 tt, code, pre {
+  white-space: pre-line;
    font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
-   padding: 5px;
+   margin: 0 auto;
+   line-height: 20px;
+}
+
+p code,
+li code {
+  padding-left: 3px;
+  padding-right: 3px;
+  color: #d14;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  border-radius: 2px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica", sans-serif;  
+  font-family: "Gill Sans";
+  text-align: center;
 }
 
-h1 { 
-   font-size:2.6em;
+h1 {
+  font-size:2.2em;
 }
 
 h2 { 
-   font-size:2.2em;
+  font-size:1.8em; 
 }
 
-h3 { 
-   font-size:1.8em; 
+h3 {
+  font-size:1.4em; 
 }
 
 h4 { 
-   font-size:1.4em; 
+  font-size:1.0em; 
 }
 
 h5 { 
-   font-size:1.0em; 
+  font-size:0.9em; 
 }
 
 h6 { 
-   font-size:0.8em; 
+  font-size:0.8em; 
 }
 
 a:visited {
    color: rgb(50%, 0%, 50%);
 }
 
-pre {  
-   margin-top: 0;
-   border: 1px solid #ccc;
-}
-
 pre code {
-   display: block; 
+   display: block;
    padding: 0.5em;
-   white-space: pre-wrap;
+   padding-left: 10px;
+   padding-right: 10px;
+   border-style: solid;
+   border-width: 1px;
+   border-radius: 4px;
+   border-color: #ABC;
+   box-shadow: 1px 1px 3px 0 #DDD;
+   margin-bottom: 1em;
 }
 
-code.r {
+code.r, code.cpp {
    background-color: #F8F8F8;
+   box-shadow: 1px 1px 3px 0 #AAA;
+}
+
+table, td, th {
+  border: none;
 }
 
 blockquote {
@@ -227,68 +125,189 @@ hr {
 }
 
 @media print {
-  
-  body { 
-    /* font-size:12pt; */ 
-    max-width:100%; 
-    border: none;
-    padding: none;
-  }
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
      
-  a, a:visited { 
-    text-decoration: underline;
-  }
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
 
-  hr { 
-    visibility: hidden;
-    page-break-before: always;
-  }
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
 
-  pre, blockquote {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    font-size:8pt;
-    padding-right: 1em; 
-    page-break-inside: avoid;
-  }
-   
-  table {
-	  page-break-inside: avoid;
-	}
-  
-  td {
-    -webkit-print-color-adjust: exact;
-    font-size: 12px;
-  }
-
-  tr, img { 
-    page-break-inside: avoid; 
-  }
-
-  @page {
-    size: auto;
-    margin-left: 1in;
-    margin-right: 1in;
-  }
-  
-  p { 
-    orphans: 3; 
-    widows: 3; 
-  }
-   
-  h2 {
-    page-break-before: always;
-  }
-   
-  h1, h2, h3 { 
-    font-family: serif;
-    page-break-after: avoid; 
-  }
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
 }
-</style>
 
-<link rel="stylesheet" href="markdown.css">
+div.page img {
+  display: block;
+  margin: 0 auto;
+}
+
+img.centered {
+  display: block;
+  margin: 0 auto;
+}
+
+/* table styles borrowed from bootstrap */
+table {
+  max-width: 100%;
+  background-color: transparent;
+}
+
+th {
+  text-align: left;
+}
+
+.table {
+  /* width: 100%; */
+  min-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.table thead > tr > th,
+.table tbody > tr > th,
+.table tfoot > tr > th,
+.table thead > tr > td,
+.table tbody > tr > td,
+.table tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.428571429;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+
+.table thead > tr > th {
+  vertical-align: bottom;
+}
+
+.table caption + thead tr:first-child th,
+.table colgroup + thead tr:first-child th,
+.table thead:first-child tr:first-child th,
+.table caption + thead tr:first-child td,
+.table colgroup + thead tr:first-child td,
+.table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+
+.table .table {
+  background-color: #ffffff;
+}
+
+.table-condensed thead > tr > th,
+.table-condensed tbody > tr > th,
+.table-condensed tfoot > tr > th,
+.table-condensed thead > tr > td,
+.table-condensed tbody > tr > td,
+.table-condensed tfoot > tr > td {
+  padding: 5px;
+}
+
+.table-bordered {
+  border: 1px solid #dddddd;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+  border: 1px solid #dddddd;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+  background-color: #f5f5f5;
+}
+
+table col[class^="col-"] {
+  display: table-column;
+  float: none;
+}
+
+table td[class^="col-"],
+table th[class^="col-"] {
+  display: table-cell;
+  float: none;
+}
+
+iframe {
+  width: 700px;
+  height: 500px;
+}
+
+/* Custom controls for hiding different parts of a document */
+div.bottom-controls {
+  min-width: 120px;
+  position: fixed;
+  padding: 10px;
+  right: 1%;
+  bottom: 0px;
+  background-color: white;
+  box-shadow: 0 0 2px 2px #888;
+  border-radius: 10px 10px 0 0;
+}
+
+.hide-me {
+  background-color: #DDD;
+  height: 6px;
+  padding: 0 !important;
+  font-size: 0;
+}
+
+.hide-me * {
+  display: none;
+}
+
+</style>
 
 Quick Introduction to Kmisc
 =====
@@ -298,9 +317,12 @@ a bit easier. Some of the most useful functions in the package are shown here.
 
 ```{r, tidy=FALSE}
 set.seed(123)
+library(data.table)
 library(Kmisc)
 library(lattice)
 library(grid)
+library(Rcpp)
+library(knitr)
 dat <- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
 ```
 
@@ -328,8 +350,8 @@ extract( dat, x, y)
 `without.re, extract.re`: Extract variables whose names don't match / do match
 a regular expression pattern.
 ```{r tidy=FALSE}
-extract.re( dat, "[xy]")
-without.re( dat, "[xy]")
+re_extract( dat, "[xy]")
+re_without( dat, "[xy]")
 ```
 
 `swap`: Replace elements in a vector.
@@ -395,9 +417,9 @@ This is partially deprecated by `data.table::rbindlist` now, which has a much fa
 
 ```{r tidy=FALSE}
 dfs <- replicate(1E3, 
-                 data.frame(x=rnorm(10), y=sample(letters,10), z=sample(LETTERS,10)),
-                 simplify=FALSE
-                 )
+  data.frame(x=rnorm(10), y=sample(letters,10), z=sample(LETTERS,10)),
+  simplify=FALSE
+  )
 str( stack_list(dfs) )
 system.time( stack_list(dfs) )
 system.time( do.call(rbind, dfs) )
@@ -437,7 +459,7 @@ Sometimes, you get really large data files that just aren't going to fit into
 RAM. You really wish you could split them up in a structured way, transform
 them in some way, and then put them back together. One might consider a more
 'enterprise' edition of the split-apply-combine framework (Hadoop and friends),
-but the alternative is to use C++ to munge through a text file and pull out
+but one dirty alternative is to use C++ to munge through a text file and pull out
 things that we actually want.
 
 `split_file`: This function splits a delimited file into multiple files, according to
@@ -453,7 +475,9 @@ C++ Function Generators
 These functions wrap around generated source code to produce useful, fast
 functions very quickly.
 
-`Rcpp_tapply_generator`: See the example.
+`Rcpp_tapply_generator`: Generate fast `tapply` style functions from C++
+code through Rcpp. See the example.
+
 ```{r, tidy=FALSE}
 dat <- data.frame( y=rnorm(100), x=sample(letters[1:5], 100, TRUE) )
 tMean <- Rcpp_tapply_generator("return mean(x);")
@@ -462,6 +486,8 @@ with( dat, tapply(y, x, mean) )
 ```
 
 `Rcpp_apply_generator`: An apply function generator tailored to 2D matrices.
+However, your function definition must return a scalar value.
+
 ```{r, tidy=FALSE}
 aMean <- Rcpp_apply_generator("return mean(x);")
 mat <- matrix( rnorm(100), nrow=10 )
@@ -469,19 +495,20 @@ aMean(mat, 2)
 apply(mat, 2, mean)
 ```
 
-Faster Common Operations through C and C++
------
+Faster Versions of Commonly Used R Functions
+--------------------------------------------
 
 `tapply_`: This function operates like `tapply` but works faster through a 
 faster factor generating function, as well as an optimized split. Note that
 it is however restricted to the (common) case of your value and grouping
 variables being column vectors.
+
 ```{r, tidy=FALSE}
 library(microbenchmark)
 y <- rnorm(1000); x <- sample(letters[1:5], 1000, TRUE)
 tapply(y, x, mean)
 tapply_(y, x, mean)
-microbenchmark(
+microbenchmark( times=10,
   tapply(y, x, mean),
   tapply_(y, x, mean),
   tMean(y, x)
@@ -489,63 +516,65 @@ microbenchmark(
 ```
 
 `melt_`: This function operates like `reshape2:::melt`, but works almost
-entirely through C and hence is much faster. However, the implementation is
-currently less flexible, and only operates on `data.frame`s and `matrix`s.
+entirely through C and hence is much faster. 
+
 ```{r, tidy=FALSE}
 dat <- data.frame(
   id=LETTERS[1:5],
   x1=rnorm(5),
   x2=rnorm(5),
   x3=rnorm(5)
-)
+  )
 print(dat)
 melt_(dat, id.vars="id")
 ```
-The cool R Markdown / HTML Stuff
------
 
-Next, a set of helper HTML generating functions.
-I've found them especially useful in laying out R Markdown documents,
-and also controlling more finely CSS styling and such.
+`factor_`: A faster, simpler implementation of `factor` through Rcpp. This might
+be useful in some rare cases where speed is essential.
 
-`makeHTMLTable`: Converts a `data.frame` or `matrix` into an HTML table.
-Best seen with an example. Note that we require `results='asis'` in the chunk
-options.
-
-```{r results='asis'}
-dat <- data.frame( apple=c('a', 'b', 'c'), banana=c(1, 2, 3) )
-makeHTMLTable( dat, use.col.names=TRUE )
-```
-
-`kTable`: Generated 1D and 2D (contingency) tables, which are then typically
-passed through `makeHTMLtable` for 1D tables, or `pxt` for 2D tables.
-
-```{r results='asis', tidy=FALSE}
-x <- factor( rbinom(100, 2, 0.2) )
-y <- factor( rbinom(100, 3, 0.3) )
-
-p1t( kTable( x, top.left.cell="foo" ) )
-pxt( kTable(x, y, 
-            top.left.cell="foo", 
-            top.label="bar", 
-            left.label="baz" 
-            ) )
-
+```{r, tidy=FALSE}
+lets <- sample(letters, 1E6, TRUE)
+stopifnot( identical(
+  factor_(lets),
+  factor(lets)
+  ) )
+microbenchmark( times=5,
+  factor_(lets),
+  factor(lets)
+  )
 ```
 
 `html`: Custom HTML in an R Markdown document.
 
 ```{r results='asis', tidy=FALSE}
 html(
-     table( class="my-favourite-table",
-            tr(
-              td("Apples"),
-              td("Bananas")
-              ),
-            tr(
-              td("20"),
-              td("30")
-              )
-            )
-     )
+  table( class="table table-bordered table-striped table-condensed table-hover", ## bootstrap classes
+    tr(
+      td("Apples"),
+      td("Bananas")
+      ),
+    tr(
+      td("20"),
+      td("30")
+      )
+    )
+  )
 ```
+
+`anatomy`, `anat`: Like `str`, but much faster. It won't choke on very large `data.frame`s.
+
+```{r, tidy=FALSE}
+df <- data.table(x=1, y=2)
+str(df)
+anatomy(df)
+```
+
+`htmlTable`: A wrapper to `knitr::kable` that allows us to set tag attributes.
+Note that we require chunk options `results='asis'`.
+
+```{r, tidy=FALSE, results='asis'}
+library(rCharts)
+df <- data.frame(x=runif(1000), gp=1:1000)
+htmlTable( head(df, n=5) )
+```
+

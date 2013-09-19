@@ -3,6 +3,7 @@
 ##' This function generates factors quickly using faster sorting and
 ##' matching algorithms available in Rcpp.
 ##' 
+##' @importFrom data.table setattr
 ##' @param x An object of atomic type \code{integer}, \code{numeric},
 ##' \code{character} or \code{logical}.
 ##' @param levels An optional character vector of levels. Is coerced to the same type as
@@ -16,9 +17,7 @@ factor_ <- function(x, levels=NULL) {
   
   out <- .Call( "Kmisc_fast_factor", x, levels, PACKAGE="Kmisc" )
   if( is.logical(x) ) {
-    levels(out) <- c("FALSE", "TRUE")
+    setattr(out, "levels", c("FALSE", "TRUE"))
   }
-  
-  return( out )
-  
+  return(out)
 }

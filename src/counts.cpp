@@ -3,10 +3,9 @@
 using namespace Rcpp;
 
 template <int RTYPE>
-inline
 IntegerVector do_counts( const Vector<RTYPE>& x ) {
   IntegerVector output = table(x);
-  if( Rf_isFactor(x) ) {
+  if (Rf_isFactor(x)) {
     Rf_setAttrib(output, R_NamesSymbol, Rf_getAttrib(x, R_LevelsSymbol));
   }
   // fix names

@@ -5,6 +5,7 @@
 ##' e.g. overlaying correlation statistics on a plot, where you'd like the
 ##' element to stand out a little more.
 ##' 
+##' @importFrom grid unit gpar is.unit stringWidth stringHeight grid.rect grid.text
 ##' @param label A character or \code{\link{expression}} vector. 
 ##' Other objects are coerced by \code{as.graphicsAnnot}.
 ##' @param x A numeric vector or unit object specifying x-values.

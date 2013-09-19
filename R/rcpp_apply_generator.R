@@ -4,6 +4,7 @@
 ##' that is, functions you would like to apply over rows or columns of a
 ##' matrix.
 ##' 
+##' @importFrom Rcpp sourceCpp
 ##' @param fun A character string defining the C++ function. It must be
 ##' in terms of a variable \code{x}, and it must return a \code{double}.
 ##' \code{x} is a reference to the current row/column being iterated over.
