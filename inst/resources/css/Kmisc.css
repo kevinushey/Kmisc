@@ -1,0 +1,98 @@
+/* Custom controls for hiding different parts of a document */
+div.MathJax_Display {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: black;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+}
+
+div.bottom-controls {
+  min-width: 120px;
+  position: fixed;
+  padding: 10px;
+  right: 1%;
+  bottom: 0px;
+  background-color: black !important;
+  box-shadow: 0 0 1px 1px #c8c8c8;
+  border-radius: 10px 10px 0 0;
+}
+
+.bottom-controls input {
+  margin-right: 4px;
+}
+
+.bottom-controls label {
+  font-weight: normal;
+  margin-bottom: 0;
+  display: inline-block;
+}
+
+/* Override Styles */
+
+.nav > .active a, .nav > .active:hover a, .nav > .active:focus a {
+  font-weight: bold;
+  border-right: 1px solid #FFF;
+}
+
+#main {
+  margin-top: 20px;
+}
+
+pre code, code.r {
+  color: white !important;
+}
+.tocify .active {
+  background-color: #334;
+  color: #FFF;
+}
+
+.tocify {
+  background-color: #223;
+  margin: 0;
+  padding: 0;
+  width: 18%;
+}
+
+.tocify a {
+  margin-right: 3px !important;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+pre .identifier {
+  color: white !important;
+}
+
+pre .operator, pre .paren {
+  color: #70c0b1 !important;
+}
+
+pre {
+  background-color: black !important;
+  padding: 2px 5px !important;
+  margin-bottom: 12px;
+}
+
+tt, code, pre {
+  white-space: normal;
+  font-family: 'Droid Sans Mono', 'DejaVu Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+  padding: 0;
+}
+
+.title {
+  margin-top: 0;
+  text-align: center;
+  font-size: 4em;
+  font-family: "Gill Sans" serif;
+  margin-bottom: 0.8em;
+}
+
+.table {
+  white-space: pre;
+  width: auto;
+  font-family: 'Droid Sans Mono', 'DejaVu Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}

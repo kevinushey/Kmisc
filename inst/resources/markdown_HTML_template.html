@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>#!title#</title>
+
+#!r_highlight#
+
+<style type="text/css">
+#!highlight_css#
+</style>
+
+#!mathjax#
+
+<style type="text/css">
+#!bootstrap_css#
+</style>
+
+</style>
+<style type="text/css">
+#!markdown_css#
+</style>
+
+<style type="text/css">
+#!tocify_css#
+</style>
+
+<style type="text/css">
+#!Kmisc_css#
+</style>
+
+#!header#
+
+</head>
+<body>
+<div class="supercontainer">
+  <div class="container" id="main">
+    <div class="row">
+      <div class="col-md-3" id="nav">
+        <!-- Will be tocify-ed -->
+      </div>
+      <div class="col-md-offset-3 col-md-8" id="page">
+        #!html_output#
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bottom-controls">
+  <label><input id="hide-r-code" type="checkbox">Hide R Code?</input></label><br />
+  <label><input id="hide-plots" type="checkbox">Hide Plots?</input></label><br />
+</div>
+
+<!-- Custom scripts included by Kevin -->
+<script type="text/javascript">#!jquery#</script>
+<script type="text/javascript">#!jqueryui#</script>
+<script type="text/javascript">#!bootstrap_js#</script>
+<script type="text/javascript">#!highlight_js#</script>
+<script type="text/javascript">#!tocify_js#</script>
+
+<script type="text/javascript">
+$(function() {
+  $("#hide-r-code").click( function() {
+    $(".r").parent().toggle("slow");
+  });
+  $("#hide-plots").click( function() {
+    $("img").toggle("slow");
+    $("svg").toggle("slow");
+  });
+});
+</script>
+<script type="text/javascript">
+$( function() {
+  var toc = $("#nav").tocify().data("toc-tocify");
+  $(window).resize( function() {
+    if ($(window).width() < 992) {
+      
+      toc.setOptions({
+        showEffectSpeed: 0,
+        hideEffectSpeed: 0
+      });
+      
+      $("#nav").css({
+        "height": "40px",
+        "z-index": "1030",
+        "margin-top": "0",
+        "position": "fixed",
+        "top": "0px",
+        "margin-left": 0,
+        "width": "100%",
+        "border-left": "none",
+        "border-top": "none",
+        "border-right": "none",
+        "border-radius": "0px"
+      });
+      $("#page").css("margin-top", "40px");
+      if ($("#nav").parent().attr("class") == "row") {
+        $("#nav").prependTo("body");
+      }
+      
+    } else {
+      
+      toc.setOptions({
+        showEffectSpeed: "medium",
+        hideEffectSpeed: "medium"
+      });
+      
+      $("#nav li").css("display", "block");
+      
+      $("#nav").css({
+        "height": "auto",
+        "width": "",
+        "top": "0px",
+        "border-left": "1px solid #ccc",
+        "border-top": "1px solid #ccc",
+        "border-right": "1px solid #ccc",
+        "border-radius": "6px",
+        "margin-top": "20px"
+      });
+      $("#page").css({
+        "top": "inherit",
+        "margin-top": 0
+      });
+      if ($("#nav").parent().is("body")) {
+        $("#nav").prependTo("div.row");
+      }
+    }
+  });
+  
+  $("#nav").mouseenter( function() {
+    
+    var el = $(this);
+    if ($(window).width() < 992) {
+      $("#nav li").css("display", "block");
+      curHeight = el.height(),
+      autoHeight = el.css('height', 'auto').height();
+      el.height(curHeight).animate({
+        height: autoHeight
+      }, {
+        complete: function() {
+          $(this).css("height", "auto");
+        }
+      });    
+    
+    }
+    
+  });
+  
+  $("#nav").mouseleave( function() {
+    $("#nav").css("overflow", "hidden");
+    if ($(window).width() < 992) {
+      $("#nav").animate({
+        height: "40px"
+      });
+    }
+  });
+  
+  $(window).scroll( function() {
+    if ($(window).width() < 992  && !($("#nav").is(":hover"))) {
+      $("#nav li").css("display", "none");
+      $(".active").css("display", "block");
+    }
+  });
+  
+  $(window).trigger("resize");
+  
+});
+</script>
+<script type="text/javascript">#!fancyboxify#</script>
+</body>
+</html>

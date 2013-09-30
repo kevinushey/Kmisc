@@ -12,8 +12,8 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        RObject x_ = Rcpp::as<RObject >(x_SEXP);
-        bool inplace = Rcpp::as<bool >(inplaceSEXP);
+        Rcpp::traits::input_parameter< RObject >::type x_(x_SEXP );
+        Rcpp::traits::input_parameter< bool >::type inplace(inplaceSEXP );
         RObject __result = char_to_factor(x_, inplace);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -28,7 +28,7 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        SEXP x = Rcpp::as<SEXP >(xSEXP);
+        Rcpp::traits::input_parameter< SEXP >::type x(xSEXP );
         SEXP __result = counts(x);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -42,11 +42,11 @@ RcppExport SEXP Kmisc_extract_rows_from_file_to_file(SEXP input_file_nameSEXP, S
 BEGIN_RCPP
     {
         Rcpp::RNGScope __rngScope;
-        std::string input_file_name = Rcpp::as<std::string >(input_file_nameSEXP);
-        std::string output_file_name = Rcpp::as<std::string >(output_file_nameSEXP);
-        std::string delim = Rcpp::as<std::string >(delimSEXP);
-        std::vector< std::string > items_to_keep = Rcpp::as<std::vector< std::string > >(items_to_keepSEXP);
-        int column_to_check = Rcpp::as<int >(column_to_checkSEXP);
+        Rcpp::traits::input_parameter< std::string >::type input_file_name(input_file_nameSEXP );
+        Rcpp::traits::input_parameter< std::string >::type output_file_name(output_file_nameSEXP );
+        Rcpp::traits::input_parameter< std::string >::type delim(delimSEXP );
+        Rcpp::traits::input_parameter< std::vector< std::string > >::type items_to_keep(items_to_keepSEXP );
+        Rcpp::traits::input_parameter< int >::type column_to_check(column_to_checkSEXP );
         extract_rows_from_file_to_file(input_file_name, output_file_name, delim, items_to_keep, column_to_check);
     }
     return R_NilValue;
@@ -59,10 +59,10 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        std::string input_file_name = Rcpp::as<std::string >(input_file_nameSEXP);
-        std::string delim = Rcpp::as<std::string >(delimSEXP);
-        std::vector< std::string > items_to_keep = Rcpp::as<std::vector< std::string > >(items_to_keepSEXP);
-        int column_to_check = Rcpp::as<int >(column_to_checkSEXP);
+        Rcpp::traits::input_parameter< std::string >::type input_file_name(input_file_nameSEXP );
+        Rcpp::traits::input_parameter< std::string >::type delim(delimSEXP );
+        Rcpp::traits::input_parameter< std::vector< std::string > >::type items_to_keep(items_to_keepSEXP );
+        Rcpp::traits::input_parameter< int >::type column_to_check(column_to_checkSEXP );
         std::vector<std::string> __result = extract_rows_from_file(input_file_name, delim, items_to_keep, column_to_check);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -77,8 +77,8 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        SEXP x = Rcpp::as<SEXP >(xSEXP);
-        SEXP levels = Rcpp::as<SEXP >(levelsSEXP);
+        Rcpp::traits::input_parameter< SEXP >::type x(xSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type levels(levelsSEXP );
         SEXP __result = fast_factor(x, levels);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -93,7 +93,7 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        List x = Rcpp::as<List >(xSEXP);
+        Rcpp::traits::input_parameter< List >::type x(xSEXP );
         IntegerMatrix __result = matches(x);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -108,8 +108,8 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        std::string path = Rcpp::as<std::string >(pathSEXP);
-        bool lines = Rcpp::as<bool >(linesSEXP);
+        Rcpp::traits::input_parameter< std::string >::type path(pathSEXP );
+        Rcpp::traits::input_parameter< bool >::type lines(linesSEXP );
         SEXP __result = read(path, lines);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -123,16 +123,16 @@ RcppExport SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP,
 BEGIN_RCPP
     {
         Rcpp::RNGScope __rngScope;
-        std::string path = Rcpp::as<std::string >(pathSEXP);
-        std::string dir = Rcpp::as<std::string >(dirSEXP);
-        std::string basename = Rcpp::as<std::string >(basenameSEXP);
-        std::string path_sep = Rcpp::as<std::string >(path_sepSEXP);
-        std::string sep = Rcpp::as<std::string >(sepSEXP);
-        std::string prepend = Rcpp::as<std::string >(prependSEXP);
-        std::string file_ext = Rcpp::as<std::string >(file_extSEXP);
-        int column = Rcpp::as<int >(columnSEXP);
-        int skip = Rcpp::as<int >(skipSEXP);
-        bool verbose = Rcpp::as<bool >(verboseSEXP);
+        Rcpp::traits::input_parameter< std::string >::type path(pathSEXP );
+        Rcpp::traits::input_parameter< std::string >::type dir(dirSEXP );
+        Rcpp::traits::input_parameter< std::string >::type basename(basenameSEXP );
+        Rcpp::traits::input_parameter< std::string >::type path_sep(path_sepSEXP );
+        Rcpp::traits::input_parameter< std::string >::type sep(sepSEXP );
+        Rcpp::traits::input_parameter< std::string >::type prepend(prependSEXP );
+        Rcpp::traits::input_parameter< std::string >::type file_ext(file_extSEXP );
+        Rcpp::traits::input_parameter< int >::type column(columnSEXP );
+        Rcpp::traits::input_parameter< int >::type skip(skipSEXP );
+        Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP );
         split_file(path, dir, basename, path_sep, sep, prepend, file_ext, column, skip, verbose);
     }
     return R_NilValue;
@@ -145,7 +145,7 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        NumericVector X = Rcpp::as<NumericVector >(XSEXP);
+        Rcpp::traits::input_parameter< NumericVector >::type X(XSEXP );
         List __result = split_runs_numeric(X);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -160,7 +160,7 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        std::vector< std::string > X = Rcpp::as<std::vector< std::string > >(XSEXP);
+        Rcpp::traits::input_parameter< std::vector< std::string > >::type X(XSEXP );
         List __result = split_runs_character(X);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -175,7 +175,7 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        std::string x = Rcpp::as<std::string >(xSEXP);
+        Rcpp::traits::input_parameter< std::string >::type x(xSEXP );
         List __result = split_runs_one(x);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -190,13 +190,13 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        List X = Rcpp::as<List >(XSEXP);
-        std::vector< std::string > classes = Rcpp::as<std::vector< std::string > >(classesSEXP);
-        int num_elem = Rcpp::as<int >(num_elemSEXP);
-        bool make_row_names = Rcpp::as<bool >(make_row_namesSEXP);
-        std::string name = Rcpp::as<std::string >(nameSEXP);
-        bool keep_list_index = Rcpp::as<bool >(keep_list_indexSEXP);
-        std::string index_name = Rcpp::as<std::string >(index_nameSEXP);
+        Rcpp::traits::input_parameter< List& >::type X(XSEXP );
+        Rcpp::traits::input_parameter< std::vector< std::string > >::type classes(classesSEXP );
+        Rcpp::traits::input_parameter< int >::type num_elem(num_elemSEXP );
+        Rcpp::traits::input_parameter< bool >::type make_row_names(make_row_namesSEXP );
+        Rcpp::traits::input_parameter< std::string >::type name(nameSEXP );
+        Rcpp::traits::input_parameter< bool >::type keep_list_index(keep_list_indexSEXP );
+        Rcpp::traits::input_parameter< std::string >::type index_name(index_nameSEXP );
         List __result = stack_list_df(X, classes, num_elem, make_row_names, name, keep_list_index, index_name);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
@@ -211,9 +211,9 @@ BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        SEXP vec = Rcpp::as<SEXP >(vecSEXP);
-        SEXP from = Rcpp::as<SEXP >(fromSEXP);
-        SEXP to = Rcpp::as<SEXP >(toSEXP);
+        Rcpp::traits::input_parameter< SEXP >::type vec(vecSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type from(fromSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type to(toSEXP );
         SEXP __result = swap(vec, from, to);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }

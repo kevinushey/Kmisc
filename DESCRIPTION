@@ -85,3 +85,4 @@ Collate:
     'read.R'
     'wrap.R'
     'htmlTable.R'
+    'htmlPlot.R'

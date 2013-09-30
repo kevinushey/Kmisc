@@ -50,7 +50,9 @@ html <- function(..., file="") {
 ##' @examples
 ##' Kmisc:::.html$br()
 print.kHTML <- function(...) {
+  cat("\n")
   cat( ... )
+  cat("\n")
 }
 
 ##' Make HTML Elements
@@ -111,7 +113,7 @@ makeHTMLTag <- function(tag, ...) {
     if( length( unnamedArgs ) == 0 ) {
       out <- paste( "<", tag, attrs, " />", sep="", collapse="" )
     } else {
-      out <- paste( "<", tag, attrs, ">", data, "</", tag, ">",
+      out <- paste( "<", tag, attrs, ">\n", data, "\n</", tag, ">",
                     sep="", collapse="")
     }
     
