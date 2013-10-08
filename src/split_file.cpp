@@ -31,7 +31,7 @@ inline bool in( const std::string& elem, const std::map<std::string, std::ofstre
 
 inline void print_counter( int& counter ) {
 	if ( (counter % 100000) == 0 ) {
-		Rcout << "i = " << counter << std::endl;
+		Rcpp::Rcout << "i = " << counter << std::endl;
 	}
   ++counter;
 }
@@ -81,7 +81,7 @@ void split_file(
 			// if a column entry has not yet been found, open a new file connection
 			if( !in( col_item, files ) ) {
 				if( verbose ) {
-					Rcout << "Opening new file for column entry: " << col_item << std::endl;
+					Rcpp::Rcout << "Opening new file for column entry: " << col_item << std::endl;
 				}
 				std::string file_path =  dir + path_sep + basename + "_" + prepend + col_item + file_ext;
 				files[col_item] = new std::ofstream( file_path.c_str() );
