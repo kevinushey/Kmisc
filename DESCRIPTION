@@ -86,3 +86,4 @@ Collate:
     'wrap.R'
     'htmlTable.R'
     'htmlPlot.R'
+    'shiny.package.skeleton.R'

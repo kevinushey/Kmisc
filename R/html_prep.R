@@ -50,9 +50,7 @@ html <- function(..., file="") {
 ##' @examples
 ##' Kmisc:::.html$br()
 print.kHTML <- function(...) {
-  cat("\n")
-  cat( ... )
-  cat("\n")
+  cat(..., "\n")
 }
 
 ##' Make HTML Elements

@@ -4,7 +4,15 @@
  */
 
 /* The Table of Contents container element */
+
+@media (min-width: 992px) {
+  .tocify {
+    max-width: auto;
+  }
+}
+
 .tocify {
+    max-width: 260px;
     width: 20%;
     max-height: 90%;
     overflow: auto;

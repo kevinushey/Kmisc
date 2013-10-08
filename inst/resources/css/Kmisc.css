@@ -96,3 +96,7 @@ tt, code, pre {
   width: auto;
   font-family: 'Droid Sans Mono', 'DejaVu Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
 }
+
+img {
+  background-color: white;
+}
