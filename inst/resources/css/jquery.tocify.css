@@ -5,9 +5,10 @@
 
 /* The Table of Contents container element */
 
-@media (min-width: 992px) {
+@media (max-width: 992px) {
   .tocify {
-    max-width: auto;
+    width: 100% !important;
+    max-width: 992px !important;
   }
 }
 
