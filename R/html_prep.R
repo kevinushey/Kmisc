@@ -5,6 +5,8 @@
 ##' 
 ##' @param ... A set of HTML tag functions. See examples for details.
 ##' @param file Location to output the generated HTML.
+##' @param .sub A named list of substitutions to perform; we substitute each
+##'   symbol from the names of \code{.sub} with its corresponding value.
 ##' @export
 ##' @seealso
 ##' \code{\link{makeHTMLTag}}, for making your own tags.
@@ -14,8 +16,17 @@
 ##'   div(class="header", table( tr( td("nested elements are ok") ) ) ),
 ##'   footer(class="foot", "HTML5 footer")
 ##' )
-html <- function(..., file="") {
+html <- function(..., file="", .sub=NULL) {
   dotArgs <- match.call(expand.dots=FALSE)$`...`
+  
+  if (!is.null(.sub)) {
+    if (!is.list(.sub)) stop(".sub must be a list")
+    if (is.null(names(.sub))) stop("the names of .sub cannot be NULL")
+    dotArgs <- lapply(dotArgs, function(x) {
+      do.call(substitute, list(x, .sub))
+    })
+  }
+  
   for( item in dotArgs ) {
     item <- .eval_symbols(item)
     print( eval(item, envir=.html), file=file )
@@ -24,7 +35,7 @@ html <- function(..., file="") {
 }
 
 .eval_symbols <- function(lang, envir=parent.frame()) {
-  if (is.call(lang) && length(lang) > 1) {
+  if (is.call(lang) && length(lang) > 1 && as.character(lang[[1]]) %nin% c("[", "[[", "$")) {
     for (i in 2:length(lang)) {
       if (is.call(lang[[i]])) {
         lang[[i]] <- .eval_symbols( lang[[i]], envir=envir )
@@ -37,6 +48,8 @@ html <- function(..., file="") {
   }
   return(lang)
 }
+
+
 
 ##' Print kHTML Objects
 ##' 
@@ -91,10 +104,10 @@ makeHTMLTag <- function(tag, ...) {
     
     if( length( namedArgs ) > 0 ) {
       attrs <- paste( sep="", " ", paste( names(namedArgs), 
-                      paste( sep="",  "'",
-                              unlist( namedArgs ),
-                              "'" ),
-                      sep = "=", collapse = " " ) )
+        paste( sep="",  "'",
+          unlist( namedArgs ),
+          "'" ),
+        sep = "=", collapse = " " ) )
     } else {
       attrs <- NULL
     }
@@ -105,14 +118,14 @@ makeHTMLTag <- function(tag, ...) {
     } else {
       unnamedArgs <- dotArgs[ names(preparsedArgs) == "" ]
     }
-   
+    
     data <- paste( unnamedArgs, sep="", collapse="" )
     
     if( length( unnamedArgs ) == 0 ) {
       out <- paste( "<", tag, attrs, " />", sep="", collapse="" )
     } else {
       out <- paste( "<", tag, attrs, ">\n", data, "\n</", tag, ">",
-                    sep="", collapse="")
+        sep="", collapse="")
     }
     
     class(out) <- "kHTML"
