@@ -127,7 +127,7 @@ rcpp_tapply_generator <- function( fun,
     force( cpp_source )
     
     if( !is.factor(gp) ) {
-      gp <- Kmisc:::factor_(gp)
+      gp <- factor_(gp)
     }
     
     call <- call(name, split(X, gp))

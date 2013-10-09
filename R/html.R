@@ -338,7 +338,7 @@ kSvg <- function(file=NULL, width=4, height=4, class=NULL) {
 ##' dat <- data.frame( x = rnorm(100), y = rnorm(100) )
 ##' hImg( file = "plot_output.png",
 ##'   xyplot( y ~ x, dat )
-##'   )
+##' )
 hImg <- function( my_plot, 
                   file, 
                   width=400, 
@@ -389,7 +389,8 @@ hImg <- function( my_plot,
 ##' dat <- data.frame( x = rnorm(100), y = rnorm(100) )
 ##' hSvg( file = "plot_output.svg",
 ##'   xyplot( y ~ x, dat )
-##'   )
+##' )
+##' 
 hSvg <- function( my_plot, file, width=400, height=300, dim=NULL, scale=100, ... ) {
   
   svg( file, width=width/scale, height=height/scale, ... )

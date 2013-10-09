@@ -47,6 +47,6 @@ library(lattice)
 dat <- data.frame( x = rnorm(100), y = rnorm(100) )
 hImg( file = "plot_output.png",
   xyplot( y ~ x, dat )
-  )
+)
 }
 

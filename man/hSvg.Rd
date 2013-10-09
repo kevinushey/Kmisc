@@ -35,6 +35,6 @@ library(lattice)
 dat <- data.frame( x = rnorm(100), y = rnorm(100) )
 hSvg( file = "plot_output.svg",
   xyplot( y ~ x, dat )
-  )
+)
 }
 

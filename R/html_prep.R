@@ -27,7 +27,7 @@ html <- function(..., file="", .sub=NULL) {
     })
   }
   
-  for( item in dotArgs ) {
+  for (item in dotArgs) {
     item <- .eval_symbols(item)
     print( eval(item, envir=.html), file=file )
     cat( "\n", file=file )
