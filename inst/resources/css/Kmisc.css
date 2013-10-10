@@ -42,6 +42,7 @@ div.bottom-controls {
 pre code, code.r {
   color: white !important;
 }
+
 .tocify .active {
   background-color: #334;
   color: #FFF;
@@ -83,7 +84,7 @@ tt, code, pre {
   padding: 0;
 }
 
-.title {
+#page h1:first-of-type {
   margin-top: 0;
   text-align: center;
   font-size: 4em;
@@ -98,5 +99,6 @@ tt, code, pre {
 }
 
 img {
+  width: 100%;
   background-color: white;
 }

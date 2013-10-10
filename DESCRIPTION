@@ -32,7 +32,6 @@ Collate:
     'misc.R'
     'html.R'
     'package_description.R'
-    'html_prep.R'
     'in_interval.R'
     'str_rev.R'
     'str_slice.R'
@@ -87,3 +86,4 @@ Collate:
     'htmlTable.R'
     'htmlPlot.R'
     'shiny.package.skeleton.R'
+    'html_extras.R'
