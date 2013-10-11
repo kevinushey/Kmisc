@@ -87,3 +87,4 @@ Collate:
     'htmlPlot.R'
     'shiny.package.skeleton.R'
     'html_extras.R'
+    'unmelt.R'
