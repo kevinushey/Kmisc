@@ -1,18 +1,7 @@
 library(Kmisc)
 library(testthat)
 
-n <- 20
-
-unmelt2 <- function(tmp) {
-  library(reshape2)
-  library(plyr)
-  
-  tmp$newid <- rep(1:n, times=3)
-  out <- dcast(tmp, x + y + newid ~ variable, value.var = "value")
-  # Remove newid if we want
-  out <- out[,-which(colnames(out) == "newid")]
-  out
-}
+n <- 1E5
 
 tmp <- data.frame( stringsAsFactors=FALSE,
   x=sample(letters, n, TRUE),

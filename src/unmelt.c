@@ -3,6 +3,9 @@
 #include <R.h>
 #include <Rinternals.h>
 
+#define GUARD(X) PROTECT(X); ++numprotect;
+#define UNGUARD UNPROTECT(numprotect)
+
 SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_ind_) {
 
 	// int id_ind = asInteger(id_ind_);
@@ -12,14 +15,13 @@ SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_i
 	int numprotect = 0;
 
 	if (TYPEOF(uniq_id) != STRSXP) {
-		PROTECT(uniq_id = coerceVector(uniq_id, STRSXP));
-		++numprotect;
+		GUARD(uniq_id = coerceVector(uniq_id, STRSXP));
 	}
 
 	int n_uniq = length(uniq_id);
 
 	SEXP output;
-	PROTECT(output = allocVector(VECSXP, length(other_ind_) + length(uniq_id)));
+	GUARD(output = allocVector(VECSXP, length(other_ind_) + length(uniq_id)));
 
 	int n_other = length(other_ind_);
 
@@ -74,7 +76,8 @@ SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_i
 
 	// set the names
 	SEXP datanames = getAttrib(data, R_NamesSymbol);
-	SEXP names = PROTECT( allocVector(STRSXP, n_other + n_uniq) );
+	SEXP names;
+	GUARD(names = allocVector(STRSXP, n_other + n_uniq));
 	for (int i=0; i < n_other; ++i) {
 		SET_STRING_ELT(names, i, STRING_ELT(datanames, i));
 	}
@@ -82,23 +85,19 @@ SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_i
 		SET_STRING_ELT(names, n_uniq+i-1, STRING_ELT(uniq_id, i));
 	}
 	setAttrib(output, R_NamesSymbol, names);
-	UNPROTECT(1);
 
 	// set the class
 	setAttrib(output, R_ClassSymbol, mkString("data.frame"));
 
 	// set the rows
 	SEXP rownames;
-	PROTECT( rownames=allocVector(INTSXP, nRow) );
+	GUARD( rownames=allocVector(INTSXP, nRow) );
 	int* rownames_ptr = INTEGER(rownames);
 	for (int i=0; i < nRow; ++i) {
 		rownames_ptr[i] = i+1;
 	}
 	setAttrib(output, R_RowNamesSymbol, rownames);
-	UNPROTECT(1);
-
-	UNPROTECT(1); // output
-	UNPROTECT(numprotect);
+	UNGUARD;
 	return output;
 }
 
