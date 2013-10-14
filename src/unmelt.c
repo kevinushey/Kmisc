@@ -58,7 +58,7 @@ SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_i
 	for (int j=0; j < nRow; ++j) { \
 		tmp_ptr[j] = data_ptr[j + (i*nRow)]; \
 	} \
-	SET_VECTOR_ELT(output, i + n_uniq - 1, tmp); \
+	SET_VECTOR_ELT(output, i + n_other, tmp); \
 	UNPROTECT(1); \
 	break; \
 } \
