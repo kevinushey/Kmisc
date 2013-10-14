@@ -13,7 +13,6 @@ tmp <- data.frame( stringsAsFactors=FALSE,
 m <- melt_(tmp, id.vars=c('x', 'y'))
 
 m1 <- unmelt(m)
-m2 <- unmelt2(m)
 
 test <- function() {
   expect_identical(
@@ -43,3 +42,9 @@ tmp <- data.frame( stringsAsFactors=FALSE,
 )
 
 test()
+
+microbenchmark::microbenchmark(
+  melt_(tmp, id=c('x', 'y')),
+  unmelt(m), 
+  times=10
+)

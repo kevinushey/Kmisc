@@ -82,7 +82,7 @@ SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_i
 		SET_STRING_ELT(names, i, STRING_ELT(datanames, i));
 	}
 	for (int i=0; i < n_uniq; ++i) {
-		SET_STRING_ELT(names, n_uniq+i-1, STRING_ELT(uniq_id, i));
+		SET_STRING_ELT(names, n_other+i, STRING_ELT(uniq_id, i));
 	}
 	setAttrib(output, R_NamesSymbol, names);
 
