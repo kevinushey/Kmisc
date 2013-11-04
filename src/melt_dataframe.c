@@ -4,6 +4,9 @@
 #include <Rinternals.h>
 #include <stdbool.h>
 
+// utils.c
+char max_type(SEXP, SEXP);
+
 // a function that operates like R's 'rep(..., each=each)',
 // but only works for characters
 SEXP rep_each_char( SEXP x, SEXP id_ind_, int each ) {
@@ -91,28 +94,6 @@ bool diff_types(SEXP x, SEXP val_ind_) {
     }
   }
   return false;
-}
-
-// get the largest type available within a vector
-char max_type(SEXP x, SEXP ind_) {
-  if (TYPEOF(x) != VECSXP) {
-    error("Expected a VECSXP but got a '%s'", type2char(TYPEOF(x)));
-  }
-  int n = length(ind_);
-  int* ind = INTEGER(ind_);
-  char max_type = -1;
-  char tmp = -1;
-  for (int i=0; i < n; ++i) {
-    // factors should mean we coerce to string
-    if (isFactor(VECTOR_ELT(x, ind[i]))) {
-      if (STRSXP > max_type) {
-        max_type = STRSXP;
-      }
-    } else if ((tmp = TYPEOF( VECTOR_ELT(x, ind[i]) )) > max_type) {
-      max_type = tmp;
-    }
-  }
-  return max_type;
 }
 
 SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SEXP value_name ) {

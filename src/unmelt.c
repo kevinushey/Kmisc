@@ -25,18 +25,47 @@ SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_i
 
 	int n_other = length(other_ind_);
 
+	// ensure that the unmelting process will go smoothly
+#define HANDLE_CASE(RTYPE, CTYPE, ACCESSOR) \
+		case RTYPE: { \
+			CTYPE* tmp = ACCESSOR( VECTOR_ELT(data, other_ind[i]) ); \
+			for (int j=0; j < nRow; ++j) { \
+				for (int k=1; k < n_uniq; ++k) { \
+					if (tmp[j] != tmp[j + nRow*k]) { \
+						Rf_error("Mismatch in elements at indices %i and %i in vector %s", j+1, j + nRow*k+1, CHAR(STRING_ELT(getAttrib(data, R_NamesSymbol), other_ind[i]))); \
+					} \
+				} \
+			} \
+			break; \
+		} \
+
+
+	if (n_uniq > 1) {
+		for (int i=0; i < n_other; ++i) {
+			switch (TYPEOF(VECTOR_ELT(data, other_ind[i]))) {
+			HANDLE_CASE(LGLSXP, int, LOGICAL);
+			HANDLE_CASE(INTSXP, int, INTEGER);
+			HANDLE_CASE(REALSXP, double, REAL);
+			HANDLE_CASE(STRSXP, SEXP, STRING_PTR);
+			default: Rf_error("Unhandled type %s", type2char(TYPEOF(VECTOR_ELT(data, other_ind[i]))));
+			}
+		}
+	}
+
+#undef HANDLE_CASE
+
 	// copy in the 'other' variables first
 #define COPY(RTYPE, CTYPE, ACCESSOR) { \
-	PROTECT(tmp = allocVector(RTYPE, nRow)); \
-	CTYPE* tmp_ptr = ACCESSOR(tmp); \
-	CTYPE* data_ptr = ACCESSOR(VECTOR_ELT(data, other_ind[i])); \
-	for (int i=0; i < nRow; ++i) { \
-		tmp_ptr[i] = data_ptr[i]; \
-	} \
-	SET_VECTOR_ELT(output, i, tmp); \
-	UNPROTECT(1); \
-	break; \
-} \
+		PROTECT(tmp = allocVector(RTYPE, nRow)); \
+		CTYPE* tmp_ptr = ACCESSOR(tmp); \
+		CTYPE* data_ptr = ACCESSOR(VECTOR_ELT(data, other_ind[i])); \
+		for (int i=0; i < nRow; ++i) { \
+			tmp_ptr[i] = data_ptr[i]; \
+		} \
+		SET_VECTOR_ELT(output, i, tmp); \
+		UNPROTECT(1); \
+		break; \
+		} \
 
 	SEXP tmp;
 	for (int i=0; i < n_other; ++i) {
@@ -52,16 +81,16 @@ SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_i
 #undef COPY
 
 #define COPY(RTYPE, CTYPE, ACCESSOR) { \
-	PROTECT(tmp = allocVector(RTYPE, nRow)); \
-	CTYPE* tmp_ptr = ACCESSOR(tmp); \
-	CTYPE* data_ptr = ACCESSOR(VECTOR_ELT(data, value_ind)); \
-	for (int j=0; j < nRow; ++j) { \
-		tmp_ptr[j] = data_ptr[j + (i*nRow)]; \
-	} \
-	SET_VECTOR_ELT(output, i + n_other, tmp); \
-	UNPROTECT(1); \
-	break; \
-} \
+		PROTECT(tmp = allocVector(RTYPE, nRow)); \
+		CTYPE* tmp_ptr = ACCESSOR(tmp); \
+		CTYPE* data_ptr = ACCESSOR(VECTOR_ELT(data, value_ind)); \
+		for (int j=0; j < nRow; ++j) { \
+			tmp_ptr[j] = data_ptr[j + (i*nRow)]; \
+		} \
+		SET_VECTOR_ELT(output, i + n_other, tmp); \
+		UNPROTECT(1); \
+		break; \
+		} \
 
 	// copy the value
 	int valuetype = TYPEOF(VECTOR_ELT(data, value_ind));
