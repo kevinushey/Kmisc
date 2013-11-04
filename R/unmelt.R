@@ -4,30 +4,32 @@
 ##' \code{reshape2::melt} or \code{\link{melt_}}.
 ##' 
 ##' @param data A \code{data.frame}.
-##' @param id The index, or name, of the \code{id} vector; analogous to
+##' @param variable The index, or name, of the \code{variable} vector; analogous to
 ##'   the vector produced with name \code{variable.name}.
 ##' @param value The value of the \code{value} vector; analogous to
 ##'   the vector produced with name \code{value.name}.
+##' @rdname unmelt
 ##' @export
-unmelt <- function(data, id="variable", value="value") {
+unmelt_ <- function(data, variable="variable", value="value") {
+  
   if (!is.data.frame(data)) {
     stop("'data' must be a data.frame")
   }
   
-  if (length(id) != 1) {
-    stop("'id' must have length one")
+  if (length(variable) != 1) {
+    stop("'variable' must have length one")
   }
   
   if (length(value) != 1 ) {
     stop("'value' must have length 1")
   }
   
-  if (is.character(id)) {
-    idm <- match(id, names(data))
+  if (is.character(variable)) {
+    idm <- match(variable, names(data))
     if (is.na(idm)) {
-      stop("No variable with name '", id, "' in 'data'")
+      stop("No variable with name '", variable, "' in 'data'")
     }
-    id <- idm
+    variable <- idm
   }
   
   if (is.character(value)) {
@@ -38,16 +40,23 @@ unmelt <- function(data, id="variable", value="value") {
     value <- valuem
   }
   
-  if (id < 0 || id > length(data)) {
-    stop("'id' variable indexes outside of range of 'data'")
+  if (variable < 0 || variable > length(data)) {
+    stop("'variable' variable indexes outside of range of 'data'")
   }
   
   if (value < 0 || value > length(data)) {
     stop("'value' variable indexes outside of range of 'data'")
   }
   
-  other <- (1:ncol(data))[-c(id, value)]
+  other <- (1:ncol(data))[-c(variable, value)]
   
-  return( .Call("unmelt", data, unique(data[[id]]), as.integer(other)-1L, as.integer(id)-1L, as.integer(value)-1L, PACKAGE="Kmisc") )
+  return( .Call("unmelt",
+    data,
+    unique(data[[variable]]),
+    as.integer(other)-1L,
+    as.integer(variable)-1L,
+    as.integer(value)-1L,
+    PACKAGE="Kmisc"
+  ) )
   
 }
