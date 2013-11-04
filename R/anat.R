@@ -6,8 +6,9 @@
 ##' frames. If there are non-atomic vectors in \code{df}, we fall back to
 ##' \code{base::str}.
 ##' 
-##' @param df an object inheriting class \code{data.frame}.
-##' @param n number of elements to print from each vector.
+##' @param df An object inheriting class \code{data.frame}.
+##' @param n The number of elements to print from each vector.
+##' @param cols The number of columns to print from the \code{data.frame}.
 ##' @export
 ##' @examples
 ##' \dontrun{ 
@@ -21,14 +22,16 @@
 ##'   print( rbind( str, anat ) )
 ##' }) 
 ##' }
-anat <- function(df, n=3) {
+anat <- function(df, n=3, cols=99) {
   
-  if( !is.data.frame(df) ) {
+  if (!is.data.frame(df)) {
     warning("object is not a data.frame; returning utils::str(df)")
+    cat("\n")
     return( utils::str(df) )
   } else {
     if( any( sapply( seq_along(df), function(i) { !is.atomic(df[[i]]) } ) ) ) {
       warning("object is a data.frame, but there are non-atomic columns; returning utils::str(df)")
+      cat("\n")
       return( utils::str(df) )
     }
   }
@@ -80,23 +83,26 @@ anat <- function(df, n=3) {
     " and ", ncol(df), " column", if( ncol(df) > 1 || nrow(df) == 0 ) "s", 
     ":\n" ) )
   
-  for( i in seq_along(names(df)) ) {
+  ## N is the maximum number of columns to go through
+  N <- min(length(df), cols)
+  
+  for (i in seq_len(N)) {
     
     var <- df[[i]][1:n]
     
-    if( is.character(var) ) {
+    if (is.character(var)) {
       tmp <- paste( sep="", '"', var, '"' )
     } else if( is.factor(var) ) {
       tmp <- paste( sep="", '"', as.character(var), '"' )
     } else if( is.numeric(var) ) {
-      tmp <- prettyNum(var)
+      tmp <- prettyNum( round(var, 3) )
     } else {
       tmp <- var
     }
     
     tmp[ is.na(var) ] <- NA
     formatted_vec <- paste( sep="", collapse=", ", tmp )
-    if( is.factor(var) ) {
+    if (is.factor(var)) {
       formatted_vec <- paste( sep="", formatted_vec, ": ", 
         paste( collapse=", ", as.integer(var) )
       )
@@ -110,8 +116,24 @@ anat <- function(df, n=3) {
       "\n"
     )
     
-    cat( format(out, )  )
+    cat( format(out) )
+    
   }
+  
+  if (length(df) > cols) {
+    cat("\t\t[list output truncated]\n")
+  }
+  
+  ## cat out the non-standard attributes
+  attrs <- attributes(df)
+  attrs <- attrs[ names(attrs) %nin% c("names", "class", "row.names") ]
+  for (i in seq_along(attrs)) {
+    cat("- attr(*, \"", names(attrs)[i], "\")=", 
+      capture.output(utils::str(attrs[[i]])), 
+      "\n", sep="")
+  }
+  
+  return(invisible(NULL))
   
 }
 
