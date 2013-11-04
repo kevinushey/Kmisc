@@ -1,43 +1,3 @@
-## user name, nice date for file output
-tmp <- gsub( "-", "", Sys.Date() )
-.Date <- substring( tmp, 3, nchar(tmp) )
-.User.Name <- paste( Sys.info()[c("sysname", "machine")], collapse="_" )
-rm(tmp)
-
-##' Number of non-NA unique elements in a vector
-##'  
-##' Returns the number of non-NA unique elements in a vector. A wrapper to
-##' \code{length( unique( x[!is.na(x)], ... ) )}.
-##' @export
-##' @param x a vector
-##' @param ... passed to \code{\link{unique}}
-lu <- function( x, ...) { length( unique( x[!is.na(x)], ... ) ) }
-
-##' Unique elements in a vector
-##' 
-##' Returns the unique elements in a vector. A wrapper to
-##' \code{\link{unique}()}.
-##' @param ... passed to \code{\link{unique}}.
-u <- function(...) { unique( ... ) }
-
-##' length( grep( ... ) )
-##' 
-##' This is a wrapper to a \code{length( grep( ... ) )}. See examples for usage.
-##' @param pattern regex pattern passed to \code{grep}.
-##' @param x a vector on which we attempt to match \code{pattern} on.
-##' @param perl boolean. use perl-compatible regular expressions?
-##' @param ... additional arguments passed to \code{\link{grep}}.
-##' @seealso \code{\link{re.exists}}
-##' @export
-##' @examples
-##' x <- c("apple", "banana", "cherry")
-##' if( lg( "^ap", x ) > 0 ) {
-##'   print( "regular expression '^ap' found in 'x'" )
-##'   }
-lg <- function(pattern, x, perl=TRUE, ...) {
-  length( grep( pattern, x, perl=perl, ... ) ) 
-}
-
 ##' Check whether Regular Expression was Found
 ##' 
 ##' Checks whether a match was found for a given regular expression in a vector.
@@ -47,30 +7,16 @@ lg <- function(pattern, x, perl=TRUE, ...) {
 ##' @param perl boolean. use perl-compatible regular expressions?
 ##' @param ... additional arguments passed to \code{ \link{grep} }.
 ##' @export
-##' @seealso \code{\link{lg}}
 ##' @examples
 ##' if( re.exists("^ap", c("apple", "banana") ) ) print("yay!")
 ##' 
 re.exists <- function(pattern, x, perl=TRUE, ... ) { 
-  length( grep( pattern, x, perl=perl, ... ) ) > 0 
+  any( grepl( pattern, x, perl=perl, ... ) )
 }
 
 ##' @rdname re.exists
 ##' @export
 re_exists <- re.exists
-
-##' unlist( strsplit( ... ) )
-##' 
-##' This is a thin wrapper to \code{ unlist( strsplit( ... ) ) }.
-##' @param x vector of items, as passed to \code{\link{strsplit}}
-##' @param split the delimiter to split on
-##' @param ... optional arguments passed to strsplit
-##' @export
-##' @seealso \code{\link{unlist}}, \code{\link{strsplit}}
-##' @examples
-##' x <- "apple_banana_cherry"
-##' us(x, "_")
-us <- function(x, split="", ...) { unlist( strsplit( x, split=split, ...) ) }
 
 ##' Extract Elements from a Named Object
 ##' 
@@ -82,13 +28,7 @@ us <- function(x, split="", ...) { unlist( strsplit( x, split=split, ...) ) }
 ##' 
 ##' We can be 'lazy' with how we pass names. The \code{\link{name}}s
 ##' passed to \code{...} are not evaluated directly; rather, their character
-##' representation is taken and used for extraction. Furthermore, for a given
-##' item submitted, all text before a \code{$} is removed.
-##' 
-##' @details First, symbols are parsed as characters, and entries in \code{...}
-##' are checked to see if they match any of \code{names(dat)}. If not, we
-##' try to find the variable in the local search path, and match that
-##' against the names. If none of these are successful, we display a warning.
+##' representation is taken and used for extraction.
 ##' 
 ##' @param x An \R object with a \code{names} attribute.
 ##' @param ... an optional number of 'names' to match in \code{dat}.
@@ -99,29 +39,16 @@ us <- function(x, split="", ...) { unlist( strsplit( x, split=split, ...) ) }
 ##' ## all of these return identical output
 ##' dat[ names(dat) %in% c("x","z") ]
 ##' extract( dat, x, z)
-##' extract( dat, dat$x, dat$z )
-##' 
-##' ## we can even have a variable that includes names
-##' a <- "z"
-##' extract( dat, dat$x, a)  
 extract <- function( x, ... ) {
   
-  rawArgs <- match.call(expand.dots=FALSE)$`...`
-  args <- gsub( ".*\\$", "", rawArgs )
-  args <- sapply( args, function(xx) {
-    if( xx %nin% names(x) ) {
-      tmp <- tryCatch( getAnywhere(xx), error=function(e) {
-        warning( 
-          paste("'", xx, "' not in names(", deparse(substitute(x)), ") nor search path", 
-            sep="", collapse="") 
-        )
-      })
-      return(tmp)
-    }
-    return(xx)
-  })
-  x <- x[ names(x) %in% unlist(args) ]
-  return( x )
+  args <- as.character(match.call(expand.dots=FALSE)$`...`)
+  missing_names <- args[ args %nin% names(x) ]
+  if (length(missing_names)) {
+    warning("The following names were not found in '", deparse(substitute(x)), 
+      "':\n\t", paste(args[args %nin% names(x)], collapse=", "))
+  }
+  return(x[ names(x) %in% args ])
+  
 }
 
 ##' Extract Elements from a Named Object with Regular Expressions
@@ -149,52 +76,29 @@ re_extract <- extract.re
 ##' with the names attribute set in a 'lazy' way. 
 ##' The first argument is the object, while the second is a set of names 
 ##' parsed from \code{...}. We return the object, including 
-##' only the elements with names matched from \code{...}.
+##' only the elements with names not matched in \code{...}.
 ##' 
 ##' We can be 'lazy' with how we pass names. The \code{\link{name}}s
 ##' passed to \code{...} are not evaluated directly; rather, their character
-##' representation is taken and used for extraction. Furthermore, for a given
-##' item submitted, all text before a \code{$} is removed.
-##' 
-##' @details First, symbols are parsed as characters, and entries in \code{...}
-##' are checked to see if they match any of \code{names(dat)}. If not, we
-##' try to find the variable in the local search path, and match that
-##' against the names. If none of these are successful, we display a warning.
+##' representation is taken and used for extraction.
 ##' 
 ##' @param x An \R object with a \code{names} attribute.
 ##' @param ... an optional number of 'names' to match in \code{x}.
 ##' @export
 ##' @seealso \code{\link{extract}}
 ##' @examples
-##' dat <- data.frame( x = c(1, 2, 3), y = c("a", "b", "c"), z=c(4, 5, 6) )
+##' dat <- data.frame( x=c(1, 2, 3), y=c("a", "b", "c"), z=c(4, 5, 6) )
 ##' ## all of these return identical output
 ##' dat[ !( names(dat) %in% c("x","z") ) ]
-##' without( dat, x, z)
-##' without( dat, dat$x, dat$z ) 
-without <- function( x, ... ) {
-  
-  rawArgs <- match.call(expand.dots=FALSE)$`...`
-  args <- gsub( ".*\\$", "", rawArgs )
-  args <- sapply( args, function(xx) {
-    if( xx %nin% names(x) ) {
-      tmp <- tryCatch( getAnywhere(xx), error=function(e) {
-        warning( 
-          paste("'", xx, "' not in names(", deparse(substitute(x)), ") nor search path", 
-            sep="") 
-        )
-      })
-      return(tmp)
-      
-    }
-    
-    return(xx)
-    
-  })
-  
-  
-  x <- x[ names(x) %nin% unlist(args) ]
-  return( x )
-  
+##' without(dat, x, z)
+without <- function(x, ...) {
+  args <- as.character(match.call(expand.dots=FALSE)$`...`)
+  missing_names <- args[ args %nin% names(x) ]
+  if (length(missing_names)) {
+    warning("The following names were not found in '", deparse(substitute(x)), 
+      "':\n\t", paste(args[args %nin% names(x)], collapse=", "))
+  }
+  return(x[ names(x) %nin% args ])
 }
 
 ##' Remove Elements from a Named Object with Regular Expressions
@@ -264,7 +168,7 @@ cd <- function(...) {
 ##' ## and return result as data.frame .
 ##' dapply( dat, function(x) { 
 ##'   quantile(x, c(0.025, 0.975))
-##'   } )
+##' } )
 ##'   
 ##' dapply( dat, summary )
 ##' str( dapply( dat, summary ) )
@@ -386,9 +290,9 @@ cat.cb <- function( dat, ... ) {
 ##' it is a list) and convert anything that is a factor into a character.
 ##' @param X an object.
 ##' @param inplace Boolean; if \code{TRUE} we modify the object in place.
-##'  Useful if you're modifying a list and don't want to force a copy.
+##'   Useful if you're modifying a list and don't want to force a copy.
 ##' @export
-factor_to_char <- function( X, inplace=FALSE ) {
+factor_to_char <- function(X, inplace=FALSE) {
   invisible( .Call("factor_to_char", X, as.logical(inplace), PACKAGE="Kmisc") )
 }
 
@@ -396,9 +300,10 @@ factor_to_char <- function( X, inplace=FALSE ) {
 ##' 
 ##' Converts characters to factors in an object. Leaves non-factor elements
 ##' untouched.
+##' 
 ##' @param X an object.
 ##' @param inplace boolean; if \code{TRUE} the object is modified in place.
-##'   Be careful when using this option.
+##'   Useful if you're modifying a list and don't want to force a copy.
 ##' @param ... Ignored.
 ##' @export
 char_to_factor <- function(X, inplace=FALSE, ...) {
