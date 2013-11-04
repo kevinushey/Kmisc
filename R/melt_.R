@@ -44,7 +44,8 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
   ## figure out which variables belong to id.vars, measure.vars,
   if( missing(measure.vars) ) {
     if( missing(id.vars) ) {
-      stop("one of 'id.vars' and 'measure.vars' must be supplied")
+      ## assume that we are going to melt everything
+      id.vars <- integer(0)
     }
     if( is.character(id.vars) ) {
       id.vars <- match( id.vars, names(data) )
@@ -54,7 +55,7 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
   
   if( missing(id.vars) ) {
     if( missing(measure.vars) ) {
-      stop("one of 'id.vars' and 'measure.vars' must be supplied")
+      stop("if 'id.vars' is missing, you must supply 'measure.vars'")
     }
     if( is.character(measure.vars) ) {
       measure.vars <- match( measure.vars, names(data) )

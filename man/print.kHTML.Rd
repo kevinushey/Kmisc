@@ -1,15 +1,15 @@
 \name{print.kHTML}
 \alias{print.kHTML}
-\title{Print kHTML Objects}
+\title{Print HTML Objects}
 \usage{
   \method{print}{kHTML} (...)
 }
 \arguments{
-  \item{...}{a set of kHTML objects (strings).}
+  \item{...}{a set of HTML objects (strings).}
 }
 \description{
-  By default, we \code{cat} out kHTML objects as we
-  typically intend to embed them in R Markdown documents.
+  By default, we \code{cat} out HTML objects as we
+  typically intend to embed them in \R Markdown documents.
   This is mainly used for printing of items in the
   environment \code{html}.
 }
