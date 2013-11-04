@@ -74,7 +74,7 @@
 \examples{
 x <- rnorm(10)
 y <- rnorm(10)
-lattice::xyplot( y ~ x,
+if (require(lattice)) xyplot( y ~ x,
         panel = function(x, y, ...) {
           panel.xyplot(x, y, ...)
           grid.text2("some text\\nwith a nice\\nbackground")

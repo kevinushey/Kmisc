@@ -1,4 +1,4 @@
-shiny.package.skeleton <- function(name, libs=c("jQuery", "jQueryUI", "dialogExtend")) {
+shiny.package.skeleton <- function(name, libs=c("jQuery", "jQueryUI")) {
   
   if (file.exists(name)) {
     stop("Directory '", name, "' already exists!")

@@ -7,7 +7,7 @@
 ##' 
 ##' @param x A string with arguments to be replaced in the form of
 ##'   \code{{0}, {1}, ..., {n}}.
-##' @param ... Arguments to be substituted into string.
+##' @param ... Arguments to be substituted into \code{x}.
 ##' @param collapse If vectors of length greater than 1 are passed to \code{...},
 ##'   then we collapse the vectors with this separator.
 ##' @export
@@ -21,7 +21,7 @@
 ##'   "My favourite fruits are: {0}.", 
 ##'   c("apple", "banana", "orange"), collapse=", "
 ##' )
-pymat <- function(x, ..., collapse="_") {
+pymat <- function(x, ..., collapse=", ") {
   
   ## single strings only
   if( length(x) > 1 ) {

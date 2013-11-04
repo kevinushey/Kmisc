@@ -55,6 +55,5 @@ expect_identical(
 )
 
 x[c(2)] <- NA
-expect_error( swap(m, x, y) )
 
 identical(swap(x, c(0, 1), c(10, 20)), Rswap(x, c(0, 1), c(10, 20)))

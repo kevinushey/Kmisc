@@ -2,7 +2,7 @@
 ##' 
 ##' This function removes all the .Rd documentation files present in
 ##' \code{<dir>/man}. This function is handy if you've 'polluted' your
-##' manual directory in prototyping different functions -- assuming that
+##' \code{man} directory in prototyping different functions -- assuming that
 ##' you're documenting your code with eg. \code{roxygen}.
 ##' 
 ##' @param dir the project directory.

@@ -1,15 +1,15 @@
-\name{unmelt}
-\alias{unmelt}
+\name{unmelt_}
+\alias{unmelt_}
 \title{Unmelt a Melted Data Frame}
 \usage{
-  unmelt(data, id = "variable", value = "value")
+  unmelt_(data, variable = "variable", value = "value")
 }
 \arguments{
   \item{data}{A \code{data.frame}.}
 
-  \item{id}{The index, or name, of the \code{id} vector;
-  analogous to the vector produced with name
-  \code{variable.name}.}
+  \item{variable}{The index, or name, of the
+  \code{variable} vector; analogous to the vector produced
+  with name \code{variable.name}.}
 
   \item{value}{The value of the \code{value} vector;
   analogous to the vector produced with name

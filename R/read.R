@@ -9,7 +9,7 @@
 read <- function(file) {
   file <- normalizePath( as.character(file) )
   if (!file.exists(file)) {
-    stop("no file at file location '", file, "'.")
+    stop("No file at file location '", file, "'.")
   }
   .Call("Kmisc_read", file, FALSE, PACKAGE="Kmisc")
 }
@@ -23,7 +23,7 @@ read <- function(file) {
 readlines <- function(file) {
   file <- normalizePath( as.character(file) )
   if (!file.exists(file)) {
-    stop("no file at file location '", file, "'.")
+    stop("No file at file location '", file, "'.")
   }
   .Call("Kmisc_read", file, TRUE, PACKAGE="Kmisc")
 }

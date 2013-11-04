@@ -26,7 +26,4 @@
 \examples{
 if( re.exists("^ap", c("apple", "banana") ) ) print("yay!")
 }
-\seealso{
-  \code{\link{lg}}
-}
 

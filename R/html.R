@@ -49,12 +49,10 @@ html <- function(..., file="", .sub=NULL) {
   return(lang)
 }
 
-
-
 ##' Print kHTML Objects
 ##' 
 ##' By default, we \code{cat} out kHTML objects as we typically
-##' intend to embed them in R Markdown documents. This is mainly used for
+##' intend to embed them in \R Markdown documents. This is mainly used for
 ##' printing of items in the environment \code{html}.
 ##' @param ... a set of kHTML objects (strings).
 ##' @method print kHTML

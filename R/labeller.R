@@ -10,8 +10,7 @@
 ##'   though it were an expression.
 ##' @export
 ##' @examples
-##' 
-##' if( require(ggplot2) ) {
+##' if (require(ggplot2)) {
 ##'   
 ##'   df <- data.frame(
 ##'     x=1:100, 

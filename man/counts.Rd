@@ -5,7 +5,10 @@
   counts(x)
 }
 \arguments{
-  \item{x}{A numeric, integer, or character vector.}
+  \item{x}{A numeric, integer, character or logical vector,
+  or a (potentially nested) list of such vectors. If
+  \code{x} is a list, we recursively apply counts
+  throughout elements in the list.}
 }
 \description{
   This function uses Rcpp sugar to implement a fast

@@ -7,8 +7,8 @@
 ##' 
 ##' @param build Build the package with \code{R CMD build}?
 ##' @param check Check the package with \code{R CMD check}?
-##' @param install Install the package with \code{R CMD INSTALL}? Only be
-##' done if \code{build} is \code{TRUE} as well.
+##' @param install Install the package with \code{R CMD INSTALL}? Only
+##'   done if \code{build} is \code{TRUE} as well.
 prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   
   owd <- getwd()

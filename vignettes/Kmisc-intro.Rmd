@@ -344,7 +344,7 @@ a good subsetting syntax for lists and vectors, I wanted a complementary
 function for `without`.
 
 ```{r tidy=FALSE}
-extract( dat, x, y)
+extract(dat, x, y)
 ```
 
 `without.re, extract.re`: Extract variables whose names don't match / do match
@@ -552,13 +552,13 @@ html(
     tr(
       td("Apples"),
       td("Bananas")
-      ),
+    ),
     tr(
       td("20"),
       td("30")
-      )
     )
   )
+)
 ```
 
 `anatomy`, `anat`: Like `str`, but much faster. It won't choke on very large `data.frame`s.
@@ -568,13 +568,3 @@ df <- data.table(x=1, y=2)
 str(df)
 anatomy(df)
 ```
-
-`htmlTable`: A wrapper to `knitr::kable` that allows us to set tag attributes.
-Note that we require chunk options `results='asis'`.
-
-```{r, tidy=FALSE, results='asis'}
-library(rCharts)
-df <- data.frame(x=runif(1000), gp=1:1000)
-htmlTable( head(df, n=5) )
-```
-

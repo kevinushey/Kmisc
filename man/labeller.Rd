@@ -18,7 +18,7 @@
   levels of the factor used for facetting.
 }
 \examples{
-if( require(ggplot2) ) {
+if (require(ggplot2)) {
 
   df <- data.frame(
     x=1:100,

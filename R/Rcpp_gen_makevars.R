@@ -4,6 +4,7 @@
 ##' Makevars files to export, this function will handle it
 ##' for you. Borrowed from the Rcpp \code{rcpp.package.skeleton}
 ##' function.
+##' 
 ##' @param src the location to output the Makevars.
 Rcpp_gen_makevars <- function(src=file.path( getwd(), "src" )) {
   

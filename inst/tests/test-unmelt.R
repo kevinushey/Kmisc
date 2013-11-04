@@ -1,7 +1,7 @@
 library(Kmisc)
 library(testthat)
 
-n <- 1E5
+n <- 1E2
 
 tmp <- data.frame( stringsAsFactors=FALSE,
   x=sample(letters, n, TRUE),
@@ -13,11 +13,11 @@ tmp <- data.frame( stringsAsFactors=FALSE,
 )
 m <- melt_(tmp, id.vars=c('x', 'y', 'k'))
 
-m1 <- unmelt(m)
+m1 <- unmelt_(m)
 
 test <- function() {
   expect_identical(
-    unmelt(melt_(tmp, id.vars=c('x', 'y', 'k'))),
+    unmelt_(melt_(tmp, id.vars=c('x', 'y', 'k'))),
     tmp
   )
 }
@@ -46,8 +46,7 @@ tmp <- data.frame( stringsAsFactors=FALSE,
 
 test()
 
-microbenchmark::microbenchmark(
-  melt_(tmp, id=c('x', 'y')),
-  unmelt(m), 
-  times=10
-)
+## check for an error if data malformed
+m <- melt_(tmp, id=c('x', 'y', 'k'))
+m$x[nrow(m)] <- "wat"
+expect_error(unmelt_(m))

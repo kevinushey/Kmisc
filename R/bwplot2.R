@@ -83,7 +83,7 @@ bwplot2 <- function( form,
              panel = function(x, y, ...) {
                
                
-               for( i in 1:lu(y) ) {
+               for (i in 1:length( unique(y) )) {
                  panel.abline( h = i, col='grey')
                }
                

@@ -35,7 +35,7 @@ dat <- data.frame(
 ## and return result as data.frame .
 dapply( dat, function(x) {
   quantile(x, c(0.025, 0.975))
-  } )
+} )
 
 dapply( dat, summary )
 str( dapply( dat, summary ) )

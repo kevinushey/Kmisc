@@ -38,6 +38,8 @@ manhattan_plot <- function( pval,
                             cex=0.5,
                             ... ) {
   
+  lu <- function(...) length( unique(...) )
+  
   if( is.character(chr) ) {
     chr <- as.integer( 
       swap( chr, 

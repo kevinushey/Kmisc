@@ -1,6 +1,3 @@
-##' Produces Two Versions of a Plot, For Use in R Markdown Documents
-##' 
-##' 
 htmlPlot <- function(plot) {
   
   if (inherits(plot, "trellis")) {

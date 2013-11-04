@@ -8,7 +8,8 @@
   \item{X}{an object.}
 
   \item{inplace}{boolean; if \code{TRUE} the object is
-  modified in place.  Be careful when using this option.}
+  modified in place.  Useful if you're modifying a list and
+  don't want to force a copy.}
 
   \item{...}{Ignored.}
 }

@@ -7,5 +7,5 @@
 ##' package was loaded.
 ##' @export
 par.reset <- function() {
-  par( .par.orig )
+  par(.par.orig)
 }

@@ -13,12 +13,11 @@ LinkingTo: Rcpp
 URL: https://github.com/kevinushey/Kmisc
 BugReports: https://github.com/kevinushey/Kmisc/issues
 Imports:
-    Rcpp (>= 0.10.4),
+    Rcpp (>= 0.10.5),
     data.table,
     lattice,
     grid,
-    knitr,
-    rCharts
+    knitr
 Suggests:
     ggplot2,
     plyr,
@@ -84,7 +83,7 @@ Collate:
     'read.R'
     'wrap.R'
     'htmlTable.R'
-    'htmlPlot.R'
     'shiny.package.skeleton.R'
     'html_extras.R'
     'unmelt.R'
+    'transpose_list.R'
