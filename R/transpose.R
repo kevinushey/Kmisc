@@ -27,5 +27,5 @@ transpose.data.frame <- function(x) {
 ##' @S3method transpose default
 ##' @method transpose default
 transpose.default <- function(x) {
-  t.default(x)
+  return( t.default(x) )
 }

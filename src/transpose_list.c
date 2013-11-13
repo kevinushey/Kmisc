@@ -2,41 +2,56 @@
 
 #include <R.h>
 #include <Rinternals.h>
+#include <stdbool.h>
 
 // utils.c
 char max_type1(SEXP);
 
-SEXP transpose_list(SEXP x) {
+SEXP transpose_list(SEXP x_) {
   
-  int n = length(x);
-  int N = length(VECTOR_ELT(x, 0));
-  char type = max_type1(x);
+  SEXP x;
+  bool do_coerce = false;
+  int n = length(x_);
+  int N = length(VECTOR_ELT(x_, 0));
+  char type = max_type1(x_);
   
   for (int i=0; i < n; ++i) {
     
-    if (length(VECTOR_ELT(x, i)) != N) {
+    if (length(VECTOR_ELT(x_, i)) != N) {
       Rf_error("Each element in the list must be of the same length");
     }
     
-    if (TYPEOF( VECTOR_ELT(x, i) ) != type) {
-      Rf_warning("Coercing vectors in your list to type '%s'", type2char(TYPEOF(VECTOR_ELT(x, i))));
-      SET_VECTOR_ELT(x, i, coerceVector(VECTOR_ELT(x, i), type));
+  }
+    
+  for (int i=0; i < n; ++i) {    
+    if (TYPEOF( VECTOR_ELT(x_, i) ) != type) {
+      Rf_warning("Coercing vectors in the list to type '%s'", type2char(type));
+      do_coerce = true;
+      break;
     }
   }
   
-  SEXP tmp;
+  if (do_coerce) {
+    x = PROTECT( duplicate(x_) );
+    for (int i=0; i < n; ++i) {
+      if (TYPEOF(VECTOR_ELT(x, i)) != type) {
+        SET_VECTOR_ELT(x, i, coerceVector(VECTOR_ELT(x, i), type));
+      }
+    }
+  } else {
+    x = x_;
+  }
+  
   SEXP output = PROTECT( allocVector(VECSXP, N) );
   
   #define HANDLE_CASE(RTYPE, CTYPE, ACCESSOR) { \
-    tmp = PROTECT( allocVector(RTYPE, n) ); \
-    CTYPE* ptr = ACCESSOR(tmp); \
-    for (int j=0; j < N; ++j ) { \
+    for (int j=0; j < N; ++j) { \
+      SET_VECTOR_ELT(output, j, allocVector(RTYPE, n)); \
+      CTYPE* ptr = ACCESSOR( VECTOR_ELT(output, j) ); \
       for (int i=0; i < n; ++i) { \
         ptr[i] = ACCESSOR( VECTOR_ELT(x, i) )[j]; \
       } \
-      SET_VECTOR_ELT(output, j, duplicate(tmp)); \
     } \
-    UNPROTECT(1); \
     break; \
   } \
     
@@ -48,6 +63,7 @@ SEXP transpose_list(SEXP x) {
   }
   
   UNPROTECT(1);
+  if (do_coerce) UNPROTECT(1);
   return output;
   
 }
