@@ -13,6 +13,6 @@ expect_identical(
 
 
 l <- list(1:3, 4:7)
-transpose(l)
+expect_error(transpose(l))
 l <- list(1:3, letters[4:6])
-transpose(l)
+expect_warning(transpose(l))

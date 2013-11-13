@@ -91,14 +91,21 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
     stop("one or more of the 'measure.vars' indexes beyond column range of data")
   }
   
-  return( .Call("melt_dataframe",
+  output <- .Call("melt_dataframe",
     data,
     as.integer(id.vars-1L),
     as.integer(measure.vars-1L),
     variable.name,
     value.name,
     PACKAGE="Kmisc"
-  ) )
+  )
+  
+  ## preserve data.table-ness
+  if (is.data.table(data)) {
+    setattr(output, "class", c("data.table", "data.frame"))
+  }
+  
+  return(output)
   
 }
 
