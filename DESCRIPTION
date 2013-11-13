@@ -86,4 +86,4 @@ Collate:
     'shiny.package.skeleton.R'
     'html_extras.R'
     'unmelt.R'
-    'transpose_list.R'
+    'transpose.R'
