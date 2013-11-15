@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-CharacterVector str_collapse(List x) {
+CharacterVector str_collapse_list(List x) {
   int n = x.size();
   CharacterVector output = no_init(n);
   for (int i=0; i < n; ++i) {
@@ -12,4 +12,9 @@ CharacterVector str_collapse(List x) {
   output.attr("names") = x.attr("names");
   
   return output;
+}
+
+// [[Rcpp::export]]
+String str_collapse_str(CharacterVector x) {
+  return collapse(x);
 }

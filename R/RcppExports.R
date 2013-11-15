@@ -49,8 +49,12 @@ stack_list_df <- function(X, classes, num_elem, make_row_names, name, keep_list_
     .Call('Kmisc_stack_list_df', PACKAGE = 'Kmisc', X, classes, num_elem, make_row_names, name, keep_list_index, index_name)
 }
 
-str_collapse <- function(x) {
-    .Call('Kmisc_str_collapse', PACKAGE = 'Kmisc', x)
+str_collapse_list <- function(x) {
+    .Call('Kmisc_str_collapse_list', PACKAGE = 'Kmisc', x)
+}
+
+str_collapse_str <- function(x) {
+    .Call('Kmisc_str_collapse_str', PACKAGE = 'Kmisc', x)
 }
 
 swap <- function(vec, from, to) {

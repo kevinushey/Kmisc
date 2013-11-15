@@ -6,5 +6,11 @@
 ##' @param x A list of character vectors.
 ##' @export
 str_collapse <- function(x) {
-  return(.Call("Kmisc_str_collapse", as.list(x)))
+  
+  if (is.list(x)) {
+    return(.Call("Kmisc_str_collapse_list", x))
+  } else {
+    return(.Call("Kmisc_str_collapse_str", as.character(x)))
+  }
+  
 }
