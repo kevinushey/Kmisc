@@ -8,6 +8,8 @@ CharacterVector str_collapse(List x) {
   for (int i=0; i < n; ++i) {
     output[i] = collapse( as<CharacterVector>(x[i]) );
   }
-  output.attr("names") = as<CharacterVector>(x.attr("names"));
+  
+  output.attr("names") = x.attr("names");
+  
   return output;
 }
