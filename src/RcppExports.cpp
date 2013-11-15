@@ -204,6 +204,21 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// str_collapse
+CharacterVector str_collapse(List x);
+RcppExport SEXP Kmisc_str_collapse(SEXP xSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< List >::type x(xSEXP );
+        CharacterVector __result = str_collapse(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // swap
 SEXP swap(SEXP vec, SEXP from, SEXP to);
 RcppExport SEXP Kmisc_swap(SEXP vecSEXP, SEXP fromSEXP, SEXP toSEXP) {

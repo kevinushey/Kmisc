@@ -103,6 +103,7 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
   ## preserve data.table-ness
   if (is.data.table(data)) {
     setattr(output, "class", c("data.table", "data.frame"))
+    alloc.col(output)
   }
   
   return(output)

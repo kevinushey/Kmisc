@@ -87,3 +87,4 @@ Collate:
     'html_extras.R'
     'unmelt.R'
     'transpose.R'
+    'str_collapse.R'
