@@ -2,7 +2,7 @@
 \alias{swap_}
 \title{Swap Elements in a Vector}
 \usage{
-  swap_(vec, ...)
+swap_(vec, ...)
 }
 \arguments{
   \item{vec}{the vector of items whose elemetns you will be

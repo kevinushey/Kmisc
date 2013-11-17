@@ -2,8 +2,8 @@
 \alias{fgrep}
 \title{Fixed/Fast Grep}
 \usage{
-  fgrep(pattern, x, ignore.case = FALSE, value = FALSE,
-    useBytes = FALSE, invert = FALSE)
+fgrep(pattern, x, ignore.case = FALSE, value = FALSE, useBytes = FALSE,
+  invert = FALSE)
 }
 \arguments{
   \item{pattern}{character string containing a character

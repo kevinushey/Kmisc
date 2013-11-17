@@ -3,11 +3,11 @@
 \alias{str_split}
 \title{Split a Vector of Strings Following a Regular Structure}
 \usage{
-  str_split(x, sep, fixed = FALSE, perl = TRUE,
-    useBytes = FALSE, names = NULL)
+str_split(x, sep, fixed = FALSE, perl = TRUE, useBytes = FALSE,
+  names = NULL)
 
-  split2df(x, sep, fixed = FALSE, perl = TRUE,
-    useBytes = FALSE, names = NULL)
+split2df(x, sep, fixed = FALSE, perl = TRUE, useBytes = FALSE,
+  names = NULL)
 }
 \arguments{
   \item{x}{a vector of strings.}

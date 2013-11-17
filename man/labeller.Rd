@@ -2,7 +2,7 @@
 \alias{labeller}
 \title{ggplot2 labeller}
 \usage{
-  labeller(..., .parse = TRUE)
+labeller(..., .parse = TRUE)
 }
 \arguments{
   \item{...}{A set of named arguments.}

@@ -2,7 +2,7 @@
 \alias{is.sorted}
 \title{Test if an Object is Sorted}
 \usage{
-  is.sorted(x, na.rm = FALSE, strictly = FALSE)
+is.sorted(x, na.rm = FALSE, strictly = FALSE)
 }
 \arguments{
   \item{x}{an \R object with a class or a numeric, complex,

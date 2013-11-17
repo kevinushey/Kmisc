@@ -7,6 +7,7 @@
 ##' R markdown documents.
 ##' 
 ##' @name Kmisc
+##' @include Kmisc-package.R
 ##' @docType package
 ##' @useDynLib Kmisc
 ##' @seealso \code{\link{html}}

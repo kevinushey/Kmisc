@@ -2,7 +2,7 @@
 \alias{update_date}
 \title{Update Date in DESCRIPTION File}
 \usage{
-  update_date(file = "DESCRIPTION")
+update_date(file = "DESCRIPTION")
 }
 \arguments{
   \item{file}{The path to the \code{DESCRIPTION} file.}

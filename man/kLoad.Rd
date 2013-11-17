@@ -3,9 +3,9 @@
 \alias{kLoad}
 \title{Load and Assign an R Object}
 \usage{
-  kLoad(...)
+kLoad(...)
 
-  getload(...)
+getload(...)
 }
 \arguments{
   \item{...}{args to pass to \code{load}}

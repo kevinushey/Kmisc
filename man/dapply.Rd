@@ -2,7 +2,7 @@
 \alias{dapply}
 \title{Apply a Function over a List}
 \usage{
-  dapply(X, FUN, ...)
+dapply(X, FUN, ...)
 }
 \arguments{
   \item{X}{a vector, expression object, or a

@@ -2,7 +2,7 @@
 \alias{kmeans_plot}
 \title{k-means Diagnostic Plot}
 \usage{
-  kmeans_plot(dat, nmax = 20, ...)
+kmeans_plot(dat, nmax = 20, ...)
 }
 \arguments{
   \item{dat}{numeric matrix of data, or an object that can

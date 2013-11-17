@@ -2,7 +2,7 @@
 \alias{makeHTMLTag}
 \title{Make HTML Elements}
 \usage{
-  makeHTMLTag(tag, ...)
+makeHTMLTag(tag, ...)
 }
 \arguments{
   \item{tag}{the HTML tag to use.}

@@ -2,8 +2,8 @@
 \alias{bwplot2}
 \title{Custom Lattice Boxplot}
 \usage{
-  bwplot2(form, data = NULL, xlab = NULL, ylab = NULL,
-    main = NULL, n = 10, ...)
+bwplot2(form, data = NULL, xlab = NULL, ylab = NULL, main = NULL,
+  n = 10, ...)
 }
 \arguments{
   \item{form}{a formula object as expected by

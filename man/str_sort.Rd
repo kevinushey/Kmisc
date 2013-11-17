@@ -2,8 +2,7 @@
 \alias{str_sort}
 \title{Sort a Vector of Strings}
 \usage{
-  str_sort(x, increasing = TRUE, ignore.case = FALSE,
-    USE.NAMES = FALSE)
+str_sort(x, increasing = TRUE, ignore.case = FALSE, USE.NAMES = FALSE)
 }
 \arguments{
   \item{x}{a character vector (a vector of 'strings' to

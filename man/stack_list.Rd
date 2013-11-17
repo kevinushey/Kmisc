@@ -2,10 +2,9 @@
 \alias{stack_list}
 \title{Stack a List of DataFrame-like Objects}
 \usage{
-  stack_list(list, name = "row_names",
-    make_row_names = typeof(attr(list[[1]], "row.names")) == "character",
-    keep_list_index = TRUE, index_name = "list_index",
-    coerce_factors = TRUE)
+stack_list(list, name = "row_names", make_row_names = typeof(attr(list[[1]],
+  "row.names")) == "character", keep_list_index = TRUE,
+  index_name = "list_index", coerce_factors = TRUE)
 }
 \arguments{
   \item{list}{a list of data frames, or a list of lists

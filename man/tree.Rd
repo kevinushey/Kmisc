@@ -2,7 +2,7 @@
 \alias{tree}
 \title{Print a Tree Representation of an Object of Nested Lists}
 \usage{
-  tree(x)
+tree(x)
 }
 \arguments{
   \item{x}{A (named) list.}

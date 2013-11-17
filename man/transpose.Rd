@@ -5,13 +5,13 @@
 \alias{transpose.list}
 \title{Tranpose an Object}
 \usage{
-  transpose(x)
+transpose(x)
 
-  \method{transpose}{list} (x)
+\method{transpose}{list}(x)
 
-  \method{transpose}{data.frame} (x)
+\method{transpose}{data.frame}(x)
 
-  \method{transpose}{default} (x)
+\method{transpose}{default}(x)
 }
 \arguments{
   \item{x}{A matrix, data.frame, or matrix-like list.}

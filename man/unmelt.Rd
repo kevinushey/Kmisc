@@ -2,7 +2,7 @@
 \alias{unmelt_}
 \title{Unmelt a Melted Data Frame}
 \usage{
-  unmelt_(data, variable = "variable", value = "value")
+unmelt_(data, variable = "variable", value = "value")
 }
 \arguments{
   \item{data}{A \code{data.frame}.}

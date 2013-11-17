@@ -2,7 +2,7 @@
 \alias{remove_digits}
 \title{Remove Digits from a Character Vector}
 \usage{
-  remove_digits(x, remove_spaces = TRUE)
+remove_digits(x, remove_spaces = TRUE)
 }
 \arguments{
   \item{x}{A character vector, or vector coercable to

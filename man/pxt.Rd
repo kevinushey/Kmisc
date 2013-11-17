@@ -2,7 +2,7 @@
 \alias{pxt}
 \title{Make 2x2 HTML Contingency Table}
 \usage{
-  pxt(x, class = "twoDtable", id = NULL, ...)
+pxt(x, class = "twoDtable", id = NULL, ...)
 }
 \arguments{
   \item{x}{a 2x2 table; typically something returned from

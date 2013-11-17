@@ -3,11 +3,9 @@
 \alias{without_rows.re}
 \title{Exclude Rows from a Data Frame / Matrix Based on Regex Matching}
 \usage{
-  without_rows.re(x, regex, match_var = rownames(x),
-    perl = TRUE, ...)
+without_rows.re(x, regex, match_var = rownames(x), perl = TRUE, ...)
 
-  re_without_rows(x, regex, match_var = rownames(x),
-    perl = TRUE, ...)
+re_without_rows(x, regex, match_var = rownames(x), perl = TRUE, ...)
 }
 \arguments{
   \item{x}{a data frame / matrix with row names.}

@@ -2,7 +2,7 @@
 \alias{matches}
 \title{Count Matches}
 \usage{
-  matches(...)
+matches(...)
 }
 \arguments{
   \item{...}{A set of (possibly named) arguments, all of

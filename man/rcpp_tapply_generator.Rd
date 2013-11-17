@@ -3,13 +3,11 @@
 \alias{rcpp_tapply_generator}
 \title{Rcpp tapply Generator}
 \usage{
-  rcpp_tapply_generator(fun, includes = NULL,
-    depends = NULL, inline = TRUE, returnType = "double",
-    name = NULL, file = NULL, additional = NULL)
+rcpp_tapply_generator(fun, includes = NULL, depends = NULL, inline = TRUE,
+  returnType = "double", name = NULL, file = NULL, additional = NULL)
 
-  Rcpp_tapply_generator(fun, includes = NULL,
-    depends = NULL, inline = TRUE, returnType = "double",
-    name = NULL, file = NULL, additional = NULL)
+Rcpp_tapply_generator(fun, includes = NULL, depends = NULL, inline = TRUE,
+  returnType = "double", name = NULL, file = NULL, additional = NULL)
 }
 \arguments{
   \item{fun}{A character string defining the C++ function.

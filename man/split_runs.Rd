@@ -2,7 +2,7 @@
 \alias{split_runs}
 \title{Split by Runs}
 \usage{
-  split_runs(x)
+split_runs(x)
 }
 \arguments{
   \item{x}{A numeric or character vector.}

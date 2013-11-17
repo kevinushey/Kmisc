@@ -2,7 +2,7 @@
 \alias{par.reset}
 \title{Restore the 'par' settings}
 \usage{
-  par.reset()
+par.reset()
 }
 \description{
   If you have been mucking around with parameter settings,

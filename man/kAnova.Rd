@@ -2,7 +2,7 @@
 \alias{kAnova}
 \title{Nicely Formatted ANOVA Table}
 \usage{
-  kAnova(fit, test = "LRT", swap.periods = TRUE)
+kAnova(fit, test = "LRT", swap.periods = TRUE)
 }
 \arguments{
   \item{fit}{the model fit to generate an ANOVA table for.}

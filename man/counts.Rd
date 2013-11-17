@@ -2,7 +2,7 @@
 \alias{counts}
 \title{Generate Counts of Values in a Vector}
 \usage{
-  counts(x)
+counts(x)
 }
 \arguments{
   \item{x}{A numeric, integer, character or logical vector,

@@ -2,7 +2,7 @@
 \alias{tapply_}
 \title{Faster tapply}
 \usage{
-  tapply_(X, INDEX, FUN = NULL, ..., simplify = TRUE)
+tapply_(X, INDEX, FUN = NULL, ..., simplify = TRUE)
 }
 \arguments{
   \item{X}{An atomic vector.}

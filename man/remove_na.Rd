@@ -2,7 +2,7 @@
 \alias{remove_na}
 \title{Remove NA Entries from a Vector}
 \usage{
-  remove_na(x)
+remove_na(x)
 }
 \arguments{
   \item{x}{An (atomic) vector, or a list / data.frame.}

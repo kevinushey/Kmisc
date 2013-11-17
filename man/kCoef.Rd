@@ -2,8 +2,8 @@
 \alias{kCoef}
 \title{Nicely Formatted Model Coefficient Output}
 \usage{
-  kCoef(fit, remove_underscore = TRUE,
-    remove_dollar = TRUE, swap_periods = TRUE)
+kCoef(fit, remove_underscore = TRUE, remove_dollar = TRUE,
+  swap_periods = TRUE)
 }
 \arguments{
   \item{fit}{the model fit we wish to generate coefficients

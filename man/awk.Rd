@@ -2,8 +2,8 @@
 \alias{awk}
 \title{A Simple Front-end to Awk}
 \usage{
-  awk(code, file, BEGIN = NULL, END = NULL, vars = NULL,
-    fs = NULL, out = TRUE, verbose = FALSE)
+awk(code, file, BEGIN = NULL, END = NULL, vars = NULL, fs = NULL,
+  out = TRUE, verbose = FALSE)
 }
 \arguments{
   \item{code}{The \code{awk} code you want to put in the

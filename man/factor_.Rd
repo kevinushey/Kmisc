@@ -2,7 +2,7 @@
 \alias{factor_}
 \title{Fast Factor Generation}
 \usage{
-  factor_(x, levels = NULL)
+factor_(x, levels = NULL)
 }
 \arguments{
   \item{x}{An object of atomic type \code{integer},

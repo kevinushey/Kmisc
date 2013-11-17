@@ -2,7 +2,7 @@
 \alias{str_collapse}
 \title{Collapse a String}
 \usage{
-  str_collapse(x)
+str_collapse(x)
 }
 \arguments{
   \item{x}{A list of character vectors.}

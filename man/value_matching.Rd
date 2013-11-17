@@ -5,11 +5,11 @@
 \alias{value_matching}
 \title{Value Matching}
 \usage{
-  x \%nin\% y
+x \%nin\% y
 
-  x \%kin\% y
+x \%kin\% y
 
-  x \%knin\% y
+x \%knin\% y
 }
 \arguments{
   \item{x}{Vector or \code{NULL}: the values to be

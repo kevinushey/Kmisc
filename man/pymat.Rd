@@ -2,7 +2,7 @@
 \alias{pymat}
 \title{Python-style Formatting of Strings.}
 \usage{
-  pymat(x, ..., collapse = ", ")
+pymat(x, ..., collapse = ", ")
 }
 \arguments{
   \item{x}{A string with arguments to be replaced in the

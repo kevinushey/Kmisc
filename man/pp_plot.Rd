@@ -2,7 +2,7 @@
 \alias{pp_plot}
 \title{Construct a Probability-Probability Plot from a Set of P-Values}
 \usage{
-  pp_plot(x, ...)
+pp_plot(x, ...)
 }
 \arguments{
   \item{x}{A vector of p-values; numbers within the range 0

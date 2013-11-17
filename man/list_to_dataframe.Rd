@@ -3,9 +3,9 @@
 \alias{list_to_df}
 \title{Convert list to data.frame}
 \usage{
-  list_to_dataframe(list, inplace = FALSE)
+list_to_dataframe(list, inplace = FALSE)
 
-  list_to_df(list, inplace = FALSE)
+list_to_df(list, inplace = FALSE)
 }
 \arguments{
   \item{list}{A list.}

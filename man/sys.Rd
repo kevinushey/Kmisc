@@ -2,10 +2,9 @@
 \alias{sys}
 \title{Invoke a System Command}
 \usage{
-  sys(..., intern = FALSE, ignore.stdout = FALSE,
-    ignore.stderr = FALSE, wait = TRUE, input = NULL,
-    show.output.on.console = TRUE, minimized = FALSE,
-    invisible = TRUE)
+sys(..., intern = FALSE, ignore.stdout = FALSE, ignore.stderr = FALSE,
+  wait = TRUE, input = NULL, show.output.on.console = TRUE,
+  minimized = FALSE, invisible = TRUE)
 }
 \arguments{
   \item{...}{System command to be invoked; this gets passed

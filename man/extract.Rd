@@ -2,7 +2,7 @@
 \alias{extract}
 \title{Extract Elements from a Named Object}
 \usage{
-  extract(x, ...)
+extract(x, ...)
 }
 \arguments{
   \item{x}{An \R object with a \code{names} attribute.}

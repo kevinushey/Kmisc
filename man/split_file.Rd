@@ -2,9 +2,8 @@
 \alias{split_file}
 \title{Split a File by Unique Entries in a Column}
 \usage{
-  split_file(file, column, sep = NULL,
-    outDir = file.path(dirname(file), "split"),
-    prepend = "", dots = 1, skip = 0, verbose = TRUE)
+split_file(file, column, sep = NULL, outDir = file.path(dirname(file),
+  "split"), prepend = "", dots = 1, skip = 0, verbose = TRUE)
 }
 \arguments{
   \item{file}{The location of the file we are splitting.}

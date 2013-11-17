@@ -2,7 +2,7 @@
 \alias{print.kHTML}
 \title{Print kHTML Objects}
 \usage{
-  \method{print}{kHTML} (...)
+\method{print}{kHTML}(...)
 }
 \arguments{
   \item{...}{a set of kHTML objects (strings).}

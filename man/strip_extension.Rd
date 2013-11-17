@@ -2,7 +2,7 @@
 \alias{strip_extension}
 \title{Strip File Extension}
 \usage{
-  strip_extension(x, lvl = 1)
+strip_extension(x, lvl = 1)
 }
 \arguments{
   \item{x}{the file name, including extension.}

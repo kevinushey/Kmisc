@@ -2,7 +2,7 @@
 \alias{str_slice2}
 \title{Slice a Vector at Consecutive Indices}
 \usage{
-  str_slice2(x, n = 1, USE.NAMES = TRUE)
+str_slice2(x, n = 1, USE.NAMES = TRUE)
 }
 \arguments{
   \item{x}{a character vector.}

@@ -19,7 +19,8 @@ read <- function(file) {
 ##' @export
 ##' @examples
 ##' p <- file.path( R.home(), "NEWS" )
-##' stopifnot( identical( readLines(p), readlines(p) ) )
+##' if (file.exists(p))
+##'   stopifnot( identical( readLines(p), readlines(p) ) )
 readlines <- function(file) {
   file <- normalizePath( as.character(file) )
   if (!file.exists(file)) {

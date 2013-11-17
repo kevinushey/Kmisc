@@ -2,8 +2,8 @@
 \alias{hImg}
 \title{Print Plot to File and Return HTML}
 \usage{
-  hImg(my_plot, file, width = 400, height = 300, dpi = 300,
-    dim = NULL, scale = 100, device = "png", ...)
+hImg(my_plot, file, width = 400, height = 300, dpi = 300, dim = NULL,
+  scale = 100, device = "png", ...)
 }
 \arguments{
   \item{my_plot}{a plot object, or code that generates a

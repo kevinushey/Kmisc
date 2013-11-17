@@ -2,7 +2,7 @@
 \alias{awk.set}
 \title{Set awk}
 \usage{
-  awk.set(awk)
+awk.set(awk)
 }
 \arguments{
   \item{awk}{String denoting the appropriate call for your

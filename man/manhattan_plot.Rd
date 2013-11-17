@@ -2,11 +2,10 @@
 \alias{manhattan_plot}
 \title{Make a Manhattan Plot}
 \usage{
-  manhattan_plot(pval, bp, chr, groups = NULL,
-    cutoff = NULL,
-    xlab = "Chromosome (base-pair position)",
-    ylab = expression(paste(-log[10](italic(p)))),
-    transform = TRUE, cex = 0.5, ...)
+manhattan_plot(pval, bp, chr, groups = NULL, cutoff = NULL,
+  xlab = "Chromosome (base-pair position)",
+  ylab = expression(paste(-log[10](italic(p)))), transform = TRUE,
+  cex = 0.5, ...)
 }
 \arguments{
   \item{pval}{A vector of p-values.}

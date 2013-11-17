@@ -2,7 +2,7 @@
 \alias{pad}
 \title{Pad an Object with NAs}
 \usage{
-  pad(x, n)
+pad(x, n)
 }
 \arguments{
   \item{x}{An \R object (list, data.frame, matrix, atomic

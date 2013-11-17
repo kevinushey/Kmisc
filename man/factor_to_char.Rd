@@ -2,7 +2,7 @@
 \alias{factor_to_char}
 \title{Converts Factors to Characters in an Object}
 \usage{
-  factor_to_char(X, inplace = FALSE)
+factor_to_char(X, inplace = FALSE)
 }
 \arguments{
   \item{X}{an object.}

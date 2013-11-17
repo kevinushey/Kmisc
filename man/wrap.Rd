@@ -2,7 +2,7 @@
 \alias{wrap}
 \title{Wrap a String}
 \usage{
-  wrap(x, width = 8, ...)
+wrap(x, width = 8, ...)
 }
 \arguments{
   \item{x}{A character vectors, or an object which can be

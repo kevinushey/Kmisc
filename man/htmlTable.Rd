@@ -2,9 +2,8 @@
 \alias{htmlTable}
 \title{Generate an HTML Table}
 \usage{
-  htmlTable(x, class = "table table-condensed table-hover",
-    id = NULL, style = NULL, attr = NULL, output = TRUE,
-    ...)
+htmlTable(x, class = "table table-condensed table-hover", id = NULL,
+  style = NULL, attr = NULL, output = TRUE, ...)
 }
 \arguments{
   \item{x}{A \code{data.frame} or \code{matrix}.}

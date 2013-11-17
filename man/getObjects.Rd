@@ -2,7 +2,7 @@
 \alias{getObjects}
 \title{Get all Objects in Environment}
 \usage{
-  getObjects(env)
+getObjects(env)
 }
 \arguments{
   \item{env}{an environment.}

@@ -2,7 +2,7 @@
 \alias{kImg}
 \title{HTML - Source an Image}
 \usage{
-  kImg(x, width = 480, height = 480)
+kImg(x, width = 480, height = 480)
 }
 \arguments{
   \item{x}{path to an image you want to source}

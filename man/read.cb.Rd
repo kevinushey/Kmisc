@@ -2,7 +2,7 @@
 \alias{read.cb}
 \title{Read Tabular Data from the Clipboard}
 \usage{
-  read.cb(sep = "\t", header = TRUE, ...)
+read.cb(sep = "\\t", header = TRUE, ...)
 }
 \arguments{
   \item{sep}{the delimiter used in the copied text.}

@@ -2,9 +2,9 @@
 \alias{kTable}
 \title{Make Nicely Formatted Tables}
 \usage{
-  kTable(x, y = NULL, deparse.level = 2,
-    top.left.cell = "", col.names = NULL, row.names = NULL,
-    left.label = NULL, top.label = NULL, google = FALSE)
+kTable(x, y = NULL, deparse.level = 2, top.left.cell = "",
+  col.names = NULL, row.names = NULL, left.label = NULL,
+  top.label = NULL, google = FALSE)
 }
 \arguments{
   \item{x}{the \code{x} variable to build a table on.}

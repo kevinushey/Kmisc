@@ -2,8 +2,8 @@
 \alias{ngrep}
 \title{Inverse Grep}
 \usage{
-  ngrep(pattern, x, ignore.case = FALSE, perl = FALSE,
-    value = FALSE, fixed = FALSE, useBytes = FALSE)
+ngrep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE,
+  fixed = FALSE, useBytes = FALSE)
 }
 \arguments{
   \item{pattern}{character string containing a character

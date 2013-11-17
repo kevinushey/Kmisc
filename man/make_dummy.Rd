@@ -2,7 +2,7 @@
 \alias{make_dummy}
 \title{Make Dummy Variables from a Factor}
 \usage{
-  make_dummy(x)
+make_dummy(x)
 }
 \arguments{
   \item{x}{an object coercable to \code{factor}.}

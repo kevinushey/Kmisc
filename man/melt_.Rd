@@ -4,12 +4,12 @@
 \alias{melt_.matrix}
 \title{Make a 'Wide' data set 'Long'}
 \usage{
-  melt_(data, ...)
+melt_(data, ...)
 
-  \method{melt_}{data.frame} (data, id.vars, measure.vars,
-    variable.name = "variable", ..., value.name = "value")
+\method{melt_}{data.frame}(data, id.vars, measure.vars,
+  variable.name = "variable", ..., value.name = "value")
 
-  \method{melt_}{matrix} (data, ...)
+\method{melt_}{matrix}(data, ...)
 }
 \arguments{
   \item{data}{The \code{data.frame} to melt.}

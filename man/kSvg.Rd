@@ -2,7 +2,7 @@
 \alias{kSvg}
 \title{HTML - Source an SVG file}
 \usage{
-  kSvg(file = NULL, width = 4, height = 4, class = NULL)
+kSvg(file = NULL, width = 4, height = 4, class = NULL)
 }
 \arguments{
   \item{file}{path to the SVG file you want to embed}

@@ -2,8 +2,8 @@
 \alias{hSvg}
 \title{Print SVG to File and Return HTML}
 \usage{
-  hSvg(my_plot, file, width = 400, height = 300,
-    dim = NULL, scale = 100, ...)
+hSvg(my_plot, file, width = 400, height = 300, dim = NULL, scale = 100,
+  ...)
 }
 \arguments{
   \item{my_plot}{a plot object, or code that generates a

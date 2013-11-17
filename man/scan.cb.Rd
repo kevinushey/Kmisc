@@ -2,8 +2,7 @@
 \alias{scan.cb}
 \title{Read Data from the Clipboard}
 \usage{
-  scan.cb(what = character(), sep = "\n", quiet = TRUE,
-    ...)
+scan.cb(what = character(), sep = "\\n", quiet = TRUE, ...)
 }
 \arguments{
   \item{what}{passed to \code{scan}.}

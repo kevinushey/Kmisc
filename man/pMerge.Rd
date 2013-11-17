@@ -2,8 +2,7 @@
 \alias{pMerge}
 \title{Merge a Data Frame 'into' Another}
 \usage{
-  pMerge(df1, df2, by = intersect(names(df1), names(df2)),
-    doCheck = FALSE)
+pMerge(df1, df2, by = intersect(names(df1), names(df2)), doCheck = FALSE)
 }
 \arguments{
   \item{df1}{the data.frame which we are preserving}

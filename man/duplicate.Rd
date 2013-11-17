@@ -2,7 +2,7 @@
 \alias{duplicate}
 \title{Force a Copy of an R Object}
 \usage{
-  duplicate(x)
+duplicate(x)
 }
 \arguments{
   \item{x}{An \R object.}

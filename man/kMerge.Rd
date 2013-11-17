@@ -2,8 +2,8 @@
 \alias{kMerge}
 \title{Merge (Left Join) with Order Retainment}
 \usage{
-  kMerge(x, y, by = intersect(names(x), names(y)),
-    by.x = by, by.y = by, ...)
+kMerge(x, y, by = intersect(names(x), names(y)), by.x = by, by.y = by,
+  ...)
 }
 \arguments{
   \item{x}{the \code{data.frame} you wish to merge \code{y}

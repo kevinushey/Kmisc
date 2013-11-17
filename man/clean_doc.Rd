@@ -2,7 +2,7 @@
 \alias{clean_doc}
 \title{Clean Documentation in Current Package}
 \usage{
-  clean_doc(dir = getwd(), ask = TRUE)
+clean_doc(dir = getwd(), ask = TRUE)
 }
 \arguments{
   \item{dir}{the project directory.}

@@ -2,7 +2,7 @@
 \alias{without}
 \title{Remove Elements from a Named Object}
 \usage{
-  without(x, ...)
+without(x, ...)
 }
 \arguments{
   \item{x}{An \R object with a \code{names} attribute.}

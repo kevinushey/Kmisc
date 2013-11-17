@@ -2,9 +2,8 @@
 \alias{p1t}
 \title{Make 1D HTML Table}
 \usage{
-  p1t(x,
-    class = "table table-condensed table-striped table-hover",
-    id = NULL, ...)
+p1t(x, class = "table table-condensed table-striped table-hover", id = NULL,
+  ...)
 }
 \arguments{
   \item{x}{a \code{data.frame}, typically output of

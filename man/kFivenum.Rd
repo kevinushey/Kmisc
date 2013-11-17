@@ -2,7 +2,7 @@
 \alias{kFivenum}
 \title{Fivenum with Names}
 \usage{
-  kFivenum(x, na.rm = TRUE)
+kFivenum(x, na.rm = TRUE)
 }
 \arguments{
   \item{x}{numeric, maybe including \code{NA}s and

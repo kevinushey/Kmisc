@@ -2,7 +2,7 @@
 \alias{html}
 \title{Print HTML Elements}
 \usage{
-  html(..., file = "", .sub = NULL)
+html(..., file = "", .sub = NULL)
 }
 \arguments{
   \item{...}{A set of HTML tag functions. See examples for

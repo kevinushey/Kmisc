@@ -3,9 +3,9 @@
 \alias{anatomy}
 \title{Display the Anatomy of a Data Frame}
 \usage{
-  anat(df, n = 3, cols = 99)
+anat(df, n = 3, cols = 99)
 
-  anatomy(df, n = 3, cols = 99)
+anatomy(df, n = 3, cols = 99)
 }
 \arguments{
   \item{df}{An object inheriting class \code{data.frame}.}

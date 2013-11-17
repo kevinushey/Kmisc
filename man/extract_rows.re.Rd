@@ -3,11 +3,9 @@
 \alias{re_extract_rows}
 \title{Extract Rows from a Data Frame / Matrix Based on Regex Matching}
 \usage{
-  extract_rows.re(x, regex, match_var = rownames(x),
-    perl = TRUE, ...)
+extract_rows.re(x, regex, match_var = rownames(x), perl = TRUE, ...)
 
-  re_extract_rows(x, regex, match_var = rownames(x),
-    perl = TRUE, ...)
+re_extract_rows(x, regex, match_var = rownames(x), perl = TRUE, ...)
 }
 \arguments{
   \item{x}{a data frame / matrix with row names.}

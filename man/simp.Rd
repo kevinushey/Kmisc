@@ -2,7 +2,7 @@
 \alias{simp}
 \title{Area Under the Curve with Simpson's Rule}
 \usage{
-  simp(x, y)
+simp(x, y)
 }
 \arguments{
   \item{x}{A vector of values \code{x}.}

@@ -3,9 +3,9 @@
 \alias{re_exists}
 \title{Check whether Regular Expression was Found}
 \usage{
-  re.exists(pattern, x, perl = TRUE, ...)
+re.exists(pattern, x, perl = TRUE, ...)
 
-  re_exists(pattern, x, perl = TRUE, ...)
+re_exists(pattern, x, perl = TRUE, ...)
 }
 \arguments{
   \item{pattern}{regex pattern passed to \code{grep}.}

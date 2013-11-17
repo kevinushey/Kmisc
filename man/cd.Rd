@@ -2,7 +2,7 @@
 \alias{cd}
 \title{Set Working Directory}
 \usage{
-  cd(...)
+cd(...)
 }
 \arguments{
   \item{...}{the set of strings to paste together. if no

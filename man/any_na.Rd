@@ -2,7 +2,7 @@
 \alias{any_na}
 \title{Check whether there are any Missing Values in a Vector}
 \usage{
-  any_na(x, how = "unlist")
+any_na(x, how = "unlist")
 }
 \arguments{
   \item{x}{An \R object.}

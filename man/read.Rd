@@ -3,9 +3,9 @@
 \alias{readlines}
 \title{Read a File}
 \usage{
-  read(file)
+read(file)
 
-  readlines(file)
+readlines(file)
 }
 \arguments{
   \item{file}{Path to a file.}
@@ -18,6 +18,7 @@
 }
 \examples{
 p <- file.path( R.home(), "NEWS" )
-stopifnot( identical( readLines(p), readlines(p) ) )
+if (file.exists(p))
+  stopifnot( identical( readLines(p), readlines(p) ) )
 }
 

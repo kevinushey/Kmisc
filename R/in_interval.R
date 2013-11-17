@@ -15,17 +15,17 @@
 ##' x <- runif(100); lo <- 0.5; hi <- 1
 ##' f <- function(x, lo, hi) {
 ##'   return( x >= lo & x < hi )
-##'   }
+##' }
 ##' stopifnot( all( in_interval( x, lo, hi ) == f(x, lo, hi) ) )
 in_interval <- function(x, lo, hi, include.lower=TRUE, include.upper=FALSE) {
   
   .Call("in_interval", 
-        as.numeric(x), 
-        as.numeric(lo), 
-        as.numeric(hi), 
-        as.logical(include.lower),
-        as.logical(include.upper),
-        PACKAGE="Kmisc"
-        )
+    as.numeric(x), 
+    as.numeric(lo), 
+    as.numeric(hi), 
+    as.logical(include.lower),
+    as.logical(include.upper),
+    PACKAGE="Kmisc"
+  )
   
 }

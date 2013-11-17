@@ -3,9 +3,9 @@
 \alias{rowApply}
 \title{Apply Wrappers}
 \usage{
-  rowApply(X, FUN, ..., drop = TRUE)
+rowApply(X, FUN, ..., drop = TRUE)
 
-  colApply(X, FUN, ..., drop = TRUE)
+colApply(X, FUN, ..., drop = TRUE)
 }
 \arguments{
   \item{X}{A matrix, or a 2D array.}

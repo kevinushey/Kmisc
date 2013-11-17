@@ -2,7 +2,7 @@
 \alias{str_rev}
 \title{Reverse a Vector of Strings}
 \usage{
-  str_rev(x)
+str_rev(x)
 }
 \arguments{
   \item{x}{a character vector.}

@@ -2,8 +2,7 @@
 \alias{gradient}
 \title{Generate Gradient from Continuous Variable}
 \usage{
-  gradient(x, m = 10,
-    cols = c("darkorange", "grey60", "darkblue"))
+gradient(x, m = 10, cols = c("darkorange", "grey60", "darkblue"))
 }
 \arguments{
   \item{x}{a continuous variable to generate colors over.}

@@ -30,7 +30,7 @@
 ##' dat <- data.frame( apple=c(1.2150125, 2, 3), banana=c("a", "b", "c") )
 ##' makeHTMLTable( dat ) 
 makeHTMLTable <- function( x, 
-  attr='class="table table-collapsed table-hover table-striped"',
+  attr,
   row.spans=0,
   col.spans=0,
   use.row.names=FALSE,
@@ -38,6 +38,9 @@ makeHTMLTable <- function( x,
   clean=TRUE,
   replace.periods=TRUE 
 ) {
+  
+  if (missing(attr))
+    attr <- 'class="table table-collapsed table-hover table-striped"'
   
   if( length(x) == 0 ) {
     warning( paste(x, "is of length zero") )

@@ -2,7 +2,7 @@
 \alias{size}
 \title{Print the Object Size, with Auto Units}
 \usage{
-  size(x, quote = FALSE, units = "auto", ...)
+size(x, quote = FALSE, units = "auto", ...)
 }
 \arguments{
   \item{x}{An \R object.}

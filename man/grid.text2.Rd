@@ -2,13 +2,11 @@
 \alias{grid.text2}
 \title{Grid Text with a Background}
 \usage{
-  grid.text2(label, x = unit(0.5, "npc"),
-    y = unit(0.5, "npc"), just = "centre", hjust = NULL,
-    vjust = NULL, check.overlap = FALSE,
-    default.units = "npc", name = NULL,
-    gp = gpar(col = "black", fill = "grey92", lineend = "butt", linejoin = "round"),
-    draw = TRUE, vp = NULL, widthAdj = unit(0.05, "npc"),
-    heightAdj = unit(0.05, "npc"))
+grid.text2(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
+  just = "centre", hjust = NULL, vjust = NULL, check.overlap = FALSE,
+  default.units = "npc", name = NULL, gp = gpar(col = "black", fill =
+  "grey92", lineend = "butt", linejoin = "round"), draw = TRUE, vp = NULL,
+  widthAdj = unit(0.05, "npc"), heightAdj = unit(0.05, "npc"))
 }
 \arguments{
   \item{label}{A character or \code{\link{expression}}

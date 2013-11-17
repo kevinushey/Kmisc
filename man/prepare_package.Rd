@@ -2,8 +2,7 @@
 \alias{prepare_package}
 \title{Prepare Package}
 \usage{
-  prepare_package(build = TRUE, check = TRUE,
-    install = FALSE)
+prepare_package(build = TRUE, check = TRUE, install = FALSE)
 }
 \arguments{
   \item{build}{Build the package with \code{R CMD build}?}

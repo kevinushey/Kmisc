@@ -2,7 +2,7 @@
 \alias{cat.cb}
 \title{Write Data to the Clipboard}
 \usage{
-  cat.cb(dat, ...)
+cat.cb(dat, ...)
 }
 \arguments{
   \item{dat}{data to be written to the clipboard.}

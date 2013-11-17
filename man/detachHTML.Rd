@@ -2,7 +2,7 @@
 \alias{detachHTML}
 \title{Detach Common, Non-Masking HTML Functions}
 \usage{
-  detachHTML()
+detachHTML()
 }
 \description{
   Calling this function will detach the environment
