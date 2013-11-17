@@ -7,6 +7,7 @@
 ##' promoted in the order \code{logical} > \code{integer} > \code{numeric} > 
 ##' \code{character}.
 ##' 
+##' @importFrom data.table alloc.col is.data.table
 ##' @param data The \code{data.frame} to melt.
 ##' @param ... Arguments passed to other methods.
 ##' @examples
