@@ -33,7 +33,7 @@ str_split <- function(x, sep, fixed=FALSE, perl=TRUE, useBytes=FALSE, names=NULL
   
   if (fixed) 
     perl <- FALSE
-  return( .Call( "charlist_transpose_to_df", 
+  return( .Call( Ccharlist_transpose_to_df, 
     strsplit(as.character(x), sep, fixed=fixed, perl=perl, useBytes=useBytes), 
     names, 
     PACKAGE="Kmisc" 

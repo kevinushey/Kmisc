@@ -3,6 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
+// [[export]]
 SEXP simp( SEXP x, SEXP y ) {
 
 	SEXP out;

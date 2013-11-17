@@ -12,10 +12,10 @@
 any_na <- function(x, how="unlist") {
   if( is.list(x) ) {
     f <- function(x) {
-      .Call("any_na", x, PACKAGE="Kmisc")
+      .Call(Cany_na, x, PACKAGE="Kmisc")
     }
     return( rapply( x, how=how, f ) )
   } else {
-    return( .Call("any_na", x, PACKAGE="Kmisc") )
+    return( .Call(Cany_na, x, PACKAGE="Kmisc") )
   }
 }

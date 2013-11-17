@@ -9,6 +9,6 @@
 ##' @name Kmisc
 ##' @include Kmisc-package.R
 ##' @docType package
-##' @useDynLib Kmisc
+##' @useDynLib Kmisc, .registration=TRUE
 ##' @seealso \code{\link{html}}
 NULL

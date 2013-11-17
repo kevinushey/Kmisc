@@ -50,7 +50,7 @@ unmelt_ <- function(data, variable="variable", value="value") {
   
   other <- (1:ncol(data))[-c(variable, value)]
   
-  return( .Call("unmelt",
+  return( .Call(Cunmelt,
     data,
     unique(data[[variable]]),
     as.integer(other)-1L,

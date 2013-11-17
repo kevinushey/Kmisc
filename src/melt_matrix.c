@@ -89,6 +89,7 @@ SEXP matrix_to_vector( SEXP x, int size ) {
 
 }
 
+// [[export]]
 SEXP melt_matrix( SEXP x ) {
 
 	SEXP row, col, out, out_row_names;

@@ -38,6 +38,9 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
                                   buildDir, "/src"
   ) )
   
+  ## but don't concatenate init.c; copy it separately
+  src_files <- ngrep("init.c", src_files, value=TRUE, fixed=TRUE)
+  
   ## regex: the regex to match for picking up files
   ## ext: the file extension to use on the outputted file
   concatenate_src <- function(regex, ext) {
@@ -65,27 +68,27 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE) {
   setwd( normalizePath( file.path( buildDir, "../" ) ) )
   
   cat("Building...\n\n")
-  if(build) {
+  if (build) {
     system( paste("R CMD build", gsub(".*/", "", buildDir)) )
     cat("Done!\n\n")
   }
   
   ## check the package
-  if(check) {
+  if (check) {
     cat("Running R CMD check...\n\n")
     system( paste("R CMD check", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz")))
     system( paste("rm -rf", paste0(pkg_name, ".Rcheck")) )
   }
   
   ## install the package
-  if(build && install) {
+  if (build && install) {
     cat("Installing package...\n\n")
-    system( paste("R CMD INSTALL --preclean --no-multiarch", paste(sep='', "../", pkg_name, "_", pkg_version, ".tar.gz")))
+    system( paste("R CMD INSTALL --preclean --no-multiarch", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz")))
     cat("Done!\n")
   }
   
   ## move the built package back
-  if( build ) {
+  if (build) {
     copyTo <- normalizePath( file.path(owd, "../") )
     system( paste("mv", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz"), copyTo) )
   }

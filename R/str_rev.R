@@ -13,7 +13,7 @@
 ##' x <- c("ABC", "DEF", "GHIJ")
 ##' str_rev(x)
 str_rev <- function(x) {
-  tmp <- .Call("str_rev", as.character(x), PACKAGE="Kmisc")
+  tmp <- .Call(Cstr_rev, as.character(x), PACKAGE="Kmisc")
   tmp[ is.na(x) ] <- NA
   return(tmp)
 }

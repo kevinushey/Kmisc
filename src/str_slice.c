@@ -3,6 +3,7 @@
 #include <R.h>
 #include <Rdefines.h>
 
+// [[export]]
 SEXP str_slice(SEXP x, SEXP n) {
     
     // Treat x as a vector of characters

@@ -7,6 +7,7 @@
 // utils.c
 char max_type1(SEXP);
 
+// [[export]]
 SEXP transpose_list(SEXP x_) {
   
   SEXP x;
@@ -61,6 +62,8 @@ SEXP transpose_list(SEXP x_) {
   case REALSXP: HANDLE_CASE(REALSXP, double, REAL);
   case STRSXP: HANDLE_CASE(STRSXP, SEXP, STRING_PTR);
   }
+  
+  #undef HANDLE_CASE
   
   UNPROTECT(1);
   if (do_coerce) UNPROTECT(1);

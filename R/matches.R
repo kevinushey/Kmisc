@@ -5,7 +5,7 @@
 ##' @param ... A set of (possibly named) arguments, all of the same type.
 ##' @export
 matches <- function(...) {
-  output <- .Call( "Kmisc_matches", list(...), PACKAGE="Kmisc" )
+  output <- .Call( CKmisc_matches, list(...), PACKAGE="Kmisc" )
   rownames(output) <- colnames(output) <- names( list(...) )
   return(output)
 }

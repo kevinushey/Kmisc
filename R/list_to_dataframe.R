@@ -9,7 +9,7 @@
 ##' sans copying.
 ##' @export
 list_to_dataframe <- function(list, inplace=FALSE) {
-  return( .Call("list_to_dataframe", list, inplace, PACKAGE="Kmisc") )
+  return( .Call(Clist_to_dataframe, list, inplace, PACKAGE="Kmisc") )
 }
 
 ##' @rdname list_to_dataframe

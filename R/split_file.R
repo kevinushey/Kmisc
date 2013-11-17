@@ -75,7 +75,7 @@ split_file <- function( file,
     prepend <- prepend[1]
   }
   
-  invisible( .Call( "Kmisc_split_file",
+  invisible( .Call( CKmisc_split_file,
          as.character(file),
          as.character(outDir),
          as.character(file_name),

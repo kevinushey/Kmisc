@@ -18,6 +18,7 @@ SEXP recurse_factor_to_char( SEXP X, SEXP parent, int i ) {
 
 }
 
+// [[export]]
 SEXP factor_to_char( SEXP X_, SEXP inplace_ ) {
   
   int inplace = asInteger(inplace_);

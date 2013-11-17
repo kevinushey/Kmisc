@@ -13,7 +13,7 @@ transpose <- function(x) {
 ##' @S3method transpose list
 ##' @method transpose list
 transpose.list <- function(x) {
-  return( .Call("transpose_list", as.list(x), PACKAGE="Kmisc") )
+  return( .Call(Ctranspose_list, as.list(x), PACKAGE="Kmisc") )
 }
 
 ##' @rdname transpose

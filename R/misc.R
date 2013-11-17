@@ -293,7 +293,7 @@ cat.cb <- function( dat, ... ) {
 ##'   Useful if you're modifying a list and don't want to force a copy.
 ##' @export
 factor_to_char <- function(X, inplace=FALSE) {
-  invisible( .Call("factor_to_char", X, as.logical(inplace), PACKAGE="Kmisc") )
+  invisible( .Call(Cfactor_to_char, X, as.logical(inplace), PACKAGE="Kmisc") )
 }
 
 ##' Converts Characters to Factors in an Object
@@ -307,7 +307,7 @@ factor_to_char <- function(X, inplace=FALSE) {
 ##' @param ... Ignored.
 ##' @export
 char_to_factor <- function(X, inplace=FALSE, ...) {
-  invisible( .Call("Kmisc_char_to_factor", X, inplace, PACKAGE="Kmisc") )
+  invisible( .Call(CKmisc_char_to_factor, X, inplace, PACKAGE="Kmisc") )
 }
 
 ##' Make Dummy Variables from a Factor

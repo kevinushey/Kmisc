@@ -11,7 +11,7 @@ read <- function(file) {
   if (!file.exists(file)) {
     stop("No file at file location '", file, "'.")
   }
-  .Call("Kmisc_read", file, FALSE, PACKAGE="Kmisc")
+  .Call(CKmisc_read, file, FALSE, PACKAGE="Kmisc")
 }
 
 ##' @rdname read
@@ -26,5 +26,5 @@ readlines <- function(file) {
   if (!file.exists(file)) {
     stop("No file at file location '", file, "'.")
   }
-  .Call("Kmisc_read", file, TRUE, PACKAGE="Kmisc")
+  .Call(CKmisc_read, file, TRUE, PACKAGE="Kmisc")
 }

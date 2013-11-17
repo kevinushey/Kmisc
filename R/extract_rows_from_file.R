@@ -61,7 +61,7 @@ extract_rows_from_file <- function(
   }
   
   if( !is.null(out) ) {
-    invisible( .Call( "Kmisc_extract_rows_from_file_to_file",
+    invisible( .Call( CKmisc_extract_rows_from_file_to_file,
                       as.character(file),
                       as.character(out),
                       as.character(sep),
@@ -69,7 +69,7 @@ extract_rows_from_file <- function(
                       as.integer(column)
     ) )
   } else {
-    return( .Call( "Kmisc_extract_rows_from_file",
+    return( .Call( CKmisc_extract_rows_from_file,
                       as.character(file),
                       as.character(sep),
                       as.character(keep),

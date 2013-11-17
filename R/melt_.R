@@ -92,7 +92,7 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
     stop("one or more of the 'measure.vars' indexes beyond column range of data")
   }
   
-  output <- .Call("melt_dataframe",
+  output <- .Call(Cmelt_dataframe,
     data,
     as.integer(id.vars-1L),
     as.integer(measure.vars-1L),
@@ -115,5 +115,5 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
 ##' @method melt_ matrix
 ##' @S3method melt_ matrix
 melt_.matrix <- function( data, ... ) {
-  return( .Call("melt_matrix", data, PACKAGE="Kmisc") )
+  return( .Call(Cmelt_matrix, data, PACKAGE="Kmisc") )
 }

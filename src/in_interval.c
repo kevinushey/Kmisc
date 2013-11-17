@@ -3,6 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
+// [[export]]
 SEXP in_interval( SEXP x, SEXP lo, SEXP hi, 
         SEXP include_lower, SEXP include_upper ) {
   

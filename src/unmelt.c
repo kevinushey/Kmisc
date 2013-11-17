@@ -6,6 +6,7 @@
 #define GUARD(X) PROTECT(X); ++numprotect;
 #define UNGUARD UNPROTECT(numprotect)
 
+// [[export]]
 SEXP unmelt(SEXP data, SEXP uniq_id, SEXP other_ind_, SEXP id_ind_, SEXP value_ind_) {
 
 	// int id_ind = asInteger(id_ind_);

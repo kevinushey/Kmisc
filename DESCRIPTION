@@ -68,6 +68,7 @@ Collate:
     'rcpp_tapply_generator.R'
     'read.R'
     'regex.R'
+    'registerFunctions.R'
     'remove_char_digit.R'
     'shiny.package.skeleton.R'
     'simp.R'

@@ -19,7 +19,7 @@
 ##' stopifnot( all( in_interval( x, lo, hi ) == f(x, lo, hi) ) )
 in_interval <- function(x, lo, hi, include.lower=TRUE, include.upper=FALSE) {
   
-  .Call("in_interval", 
+  .Call(Cin_interval, 
     as.numeric(x), 
     as.numeric(lo), 
     as.numeric(hi), 

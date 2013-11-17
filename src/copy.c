@@ -3,6 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
+// [[export]]
 SEXP copy(SEXP x_) {
   SEXP x = PROTECT( duplicate(x_) );
   UNPROTECT(1);

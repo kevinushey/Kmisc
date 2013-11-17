@@ -53,7 +53,7 @@ stack_list <- function( list,
       warning("factors will be coerced to integers")
     }
     
-    out <- .Call( "Kmisc_stack_list_df", 
+    out <- .Call( CKmisc_stack_list_df, 
                   list, 
                   classes, 
                   len, 

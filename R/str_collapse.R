@@ -8,9 +8,9 @@
 str_collapse <- function(x) {
   
   if (is.list(x)) {
-    return(.Call("Kmisc_str_collapse_list", x))
+    return(.Call(CKmisc_str_collapse_list, x))
   } else {
-    return(.Call("Kmisc_str_collapse_str", as.character(x)))
+    return(.Call(CKmisc_str_collapse_str, as.character(x)))
   }
   
 }
