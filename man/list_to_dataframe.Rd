@@ -15,7 +15,7 @@ list_to_df(list, inplace = FALSE)
   transformed into a \code{data.frame}, sans copying.}
 }
 \description{
-  This function converts a list to a data frame, assuming
-  that each element of the list is of equal length.
+This function converts a list to a data frame, assuming
+that each element of the list is of equal length.
 }
 

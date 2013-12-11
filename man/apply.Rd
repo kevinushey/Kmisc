@@ -19,13 +19,13 @@ colApply(X, FUN, ..., drop = TRUE)
   are coerced to vectors.}
 }
 \description{
-  These are thin but clearer wrappers to \code{apply(x, 1,
-  FUN, ...)} (row apply) and \code{apply(x, 2, FUN, ...)}
-  (column apply). Intended for use with 2D \R
-  \code{matrix}s. We do a bit more work to ensure row
-  names, column names are passed along if appropriate.
+These are thin but clearer wrappers to \code{apply(x, 1,
+FUN, ...)} (row apply) and \code{apply(x, 2, FUN, ...)}
+(column apply). Intended for use with 2D \R \code{matrix}s.
+We do a bit more work to ensure row names, column names are
+passed along if appropriate.
 }
 \details{
-  See \code{\link{apply}} for more info.
+See \code{\link{apply}} for more info.
 }
 

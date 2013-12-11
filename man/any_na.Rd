@@ -11,10 +11,10 @@ any_na(x, how = "unlist")
   list. See \code{\link{rapply}} for more details.}
 }
 \description{
-  This function checks whether there are any missing values
-  in an \R object. For list objects, we recurse over each
-  entry. This is typically faster than \code{any(is.na(x))}
-  as we exit and return \code{TRUE} as soon as an \code{NA}
-  is discovered.
+This function checks whether there are any missing values
+in an \R object. For list objects, we recurse over each
+entry. This is typically faster than \code{any(is.na(x))}
+as we exit and return \code{TRUE} as soon as an \code{NA}
+is discovered.
 }
 

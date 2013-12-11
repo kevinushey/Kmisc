@@ -11,9 +11,9 @@ rcpp_gen_makevars(src = file.path(getwd(), "src"))
   \item{src}{the location to output the Makevars.}
 }
 \description{
-  If you're building a package and want a simple set of
-  Makevars files to export, this function will handle it
-  for you. Borrowed from the Rcpp
-  \code{rcpp.package.skeleton} function.
+If you're building a package and want a simple set of
+Makevars files to export, this function will handle it for
+you. Borrowed from the Rcpp \code{rcpp.package.skeleton}
+function.
 }
 

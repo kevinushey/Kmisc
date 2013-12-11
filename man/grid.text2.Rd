@@ -63,11 +63,11 @@ grid.text2(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
   the text and the background rectangle.}
 }
 \description{
-  This function produces text as does \code{grid.text}, but
-  also generates a background rectangle through
-  \code{grid.rect}. Helpful for plotting e.g. overlaying
-  correlation statistics on a plot, where you'd like the
-  element to stand out a little more.
+This function produces text as does \code{grid.text}, but
+also generates a background rectangle through
+\code{grid.rect}. Helpful for plotting e.g. overlaying
+correlation statistics on a plot, where you'd like the
+element to stand out a little more.
 }
 \examples{
 x <- rnorm(10)
@@ -83,6 +83,6 @@ if (require(lattice)) xyplot( y ~ x,
 ## will work for multi-panel plots as well
 }
 \seealso{
-  \code{\link{grid.text}} and \code{\link{grid.rect}}
+\code{\link{grid.text}} and \code{\link{grid.rect}}
 }
 

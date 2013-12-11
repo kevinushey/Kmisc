@@ -13,7 +13,7 @@ factor_(x, levels = NULL)
   compute the levels as \code{sort(unique(x))}.}
 }
 \description{
-  This function generates factors quickly using faster
-  sorting and matching algorithms available in Rcpp.
+This function generates factors quickly using faster
+sorting and matching algorithms available in Rcpp.
 }
 

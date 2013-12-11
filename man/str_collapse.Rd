@@ -8,7 +8,7 @@ str_collapse(x)
   \item{x}{A list of character vectors.}
 }
 \description{
-  This function collapses a string using Rcpp sugar, and
-  operates similarily to \code{paste0(..., collapse="")}.
+This function collapses a string using Rcpp sugar, and
+operates similarily to \code{paste0(..., collapse="")}.
 }
 

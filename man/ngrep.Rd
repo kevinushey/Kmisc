@@ -31,13 +31,13 @@ ngrep(pattern, x, ignore.case = FALSE, perl = FALSE, value = FALSE,
   character.}
 }
 \description{
-  This is equivalent to calling \code{grep} with
-  \code{invert=TRUE}.
+This is equivalent to calling \code{grep} with
+\code{invert=TRUE}.
 }
 \examples{
 ngrep( "abc", c("abc", "babcd", "abcdef", "apple"), value=TRUE )
 }
 \seealso{
-  \code{\link{grep}}
+\code{\link{grep}}
 }
 

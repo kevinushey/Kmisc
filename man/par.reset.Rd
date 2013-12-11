@@ -5,8 +5,8 @@
 par.reset()
 }
 \description{
-  If you have been mucking around with parameter settings,
-  this function will revert to the parameter settings that
-  were available when this package was loaded.
+If you have been mucking around with parameter settings,
+this function will revert to the parameter settings that
+were available when this package was loaded.
 }
 

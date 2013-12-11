@@ -11,11 +11,11 @@ labeller(..., .parse = TRUE)
   text as though it were an expression.}
 }
 \description{
-  This function works as a labelling mapper for
-  \code{ggplot2}, typically used in \code{facet_grid}. All
-  arguments must be named. Items are mapped as \code{name
-  => value}, where \code{name} represents the original
-  levels of the factor used for facetting.
+This function works as a labelling mapper for
+\code{ggplot2}, typically used in \code{facet_grid}. All
+arguments must be named. Items are mapped as \code{name =>
+value}, where \code{name} represents the original levels of
+the factor used for facetting.
 }
 \examples{
 if (require(ggplot2)) {

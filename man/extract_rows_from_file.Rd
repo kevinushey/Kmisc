@@ -22,12 +22,12 @@ extract_rows_from_file(file, out = NULL, column, sep = NULL, keep)
   column of each row.}
 }
 \description{
-  This function reads through a delimited file on disk,
-  determines if the entry at the specified column is in a
-  character vector of items, and writes that line to file
-  (or to \R) if it is.
+This function reads through a delimited file on disk,
+determines if the entry at the specified column is in a
+character vector of items, and writes that line to file (or
+to \R) if it is.
 }
 \seealso{
-  \code{\link{split_file}}
+\code{\link{split_file}}
 }
 

@@ -9,7 +9,7 @@ matches(...)
   the same type.}
 }
 \description{
-  This function returns a matrix of matches between each
-  argument passed.
+This function returns a matrix of matches between each
+argument passed.
 }
 

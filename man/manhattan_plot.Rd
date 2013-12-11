@@ -38,9 +38,8 @@ manhattan_plot(pval, bp, chr, groups = NULL, cutoff = NULL,
   \item{...}{Optional arguments passed to \code{xyplot}.}
 }
 \description{
-  Generates a manhattan plot (a plot of
-  \code{-log10(p-val)}) for a set of markers by chromosome
-  and base-pair position.
+Generates a manhattan plot (a plot of \code{-log10(p-val)})
+for a set of markers by chromosome and base-pair position.
 }
 \examples{
 pval <- runif(1E4)

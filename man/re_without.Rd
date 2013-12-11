@@ -1,11 +1,11 @@
-\name{without.re}
+\name{re_without}
 \alias{re_without}
 \alias{without.re}
 \title{Remove Elements from a Named Object with Regular Expressions}
 \usage{
-without.re(x, pattern, perl = TRUE, ...)
-
 re_without(x, pattern, perl = TRUE, ...)
+
+without.re(x, pattern, perl = TRUE, ...)
 }
 \arguments{
   \item{x}{An \R object with a \code{names} attribute.}
@@ -19,11 +19,11 @@ re_without(x, pattern, perl = TRUE, ...)
   \item{...}{optional arguments passed to \code{grep}.}
 }
 \description{
-  Remove elements from an \R object, whereby elements in
-  the object whose names attribute matches the regular
-  expression supplied are remove
+Remove elements from an \R object, whereby elements in the
+object whose names attribute matches the regular expression
+supplied are remove
 }
 \seealso{
-  \code{\link{grep}}, \code{\link{regex}}
+\code{\link{grep}}, \code{\link{regex}}
 }
 

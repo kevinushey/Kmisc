@@ -1,5 +1,23 @@
 Version 0.5.0
 ------------------------------------------------------------
+
+  * Added 'melt_', a faster version of reshape2::melt. A
+    combination function 'unmelt_' also exists to undo
+    the operation of 'melt_' (but should be used with care)
+  * Added 'readlines' and 'read', which act as faster
+    versions of 'readLines' and 'scan', using mmap.
+  * Cleaned up the internal implementation of HTML tags
+    to avoid ugliness in earlier versions.
+  * Added %kin% and %knin%, a 'keeping' version of %in%
+    and %nin%
+  * Registered C functions
+  * Reorganized many of the regular expression type
+    functions, so that they can be called through 're_<fn>',
+    for consistency. Older functions (e.g. re.exists, 
+    extract.re, without.re are replaced by re_exists,
+    re_extract, re_without).
+  * Using the 'clipboard' utility function throws an error
+    for non-Windows/Mac systems.
   * Implemented 'fast_factor', a function for the fast 
     generation of factors from atomic vector types.
   * Added 'rcpp_tapply_generator', which allows one to

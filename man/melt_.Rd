@@ -30,14 +30,14 @@ melt_(data, ...)
   \item{value.name}{Name of variable used to store values.}
 }
 \description{
-  Inspired by \code{reshape2:::melt}, we melt
-  \code{data.frame}s and \code{matrix}s. This function is
-  built for speed.
+Inspired by \code{reshape2:::melt}, we melt
+\code{data.frame}s and \code{matrix}s. This function is
+built for speed.
 }
 \details{
-  If items to be stacked are not of the same internal type,
-  they will be promoted in the order \code{logical} >
-  \code{integer} > \code{numeric} > \code{character}.
+If items to be stacked are not of the same internal type,
+they will be promoted in the order \code{logical} >
+\code{integer} > \code{numeric} > \code{character}.
 }
 \examples{
 n <- 20

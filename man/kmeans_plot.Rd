@@ -14,15 +14,14 @@ kmeans_plot(dat, nmax = 20, ...)
   \item{...}{optional arguments passed to xyplot}
 }
 \description{
-  Using \code{kmeans}, plot percentage variance explained
-  vs. number of clusters. Used as a means of picking
-  \code{k}.
+Using \code{kmeans}, plot percentage variance explained vs.
+number of clusters. Used as a means of picking \code{k}.
 }
 \examples{
 data(iris)
 kmeans_plot(iris[,1:4])
 }
 \seealso{
-  \code{\link{kmeans}}
+\code{\link{kmeans}}
 }
 

@@ -39,17 +39,16 @@ Rcpp_tapply_generator(fun, includes = NULL, depends = NULL, inline = TRUE,
   above the code in \code{fun}.}
 }
 \description{
-  Use this function as a generator for your own
-  \code{tapply} functions; that is, functions you would
-  like to apply split over some grouping variable. Note
-  that we restrict ourselves to the case where we return a
-  scalar as output; rather than the more general output of
-  \code{tapply}.
+Use this function as a generator for your own \code{tapply}
+functions; that is, functions you would like to apply split
+over some grouping variable. Note that we restrict
+ourselves to the case where we return a scalar as output;
+rather than the more general output of \code{tapply}.
 }
 \details{
-  Note that we simplify differently than base \R
-  \code{tapply}: when \code{simplify=TRUE}, we call
-  \code{unlist} on the output; hence, a named vector is
-  returned.
+Note that we simplify differently than base \R
+\code{tapply}: when \code{simplify=TRUE}, we call
+\code{unlist} on the output; hence, a named vector is
+returned.
 }
 

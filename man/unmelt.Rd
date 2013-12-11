@@ -16,7 +16,7 @@ unmelt_(data, variable = "variable", value = "value")
   \code{value.name}.}
 }
 \description{
-  This function undoes the \code{melt}ing process done by
-  either \code{reshape2::melt} or \code{\link{melt_}}.
+This function undoes the \code{melt}ing process done by
+either \code{reshape2::melt} or \code{\link{melt_}}.
 }
 

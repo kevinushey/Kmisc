@@ -17,7 +17,7 @@ clean_doc <- function(dir=getwd(), ask=TRUE) {
   }
   if( ask ) {
     cat("Are you sure you want to delete all the files in:\n\t", man_dir, "? (y/n):\n")
-    if( re.exists( "^y", scan(what=character(), n=1, quiet=TRUE) ) ) {
+    if( re_exists( "^y", scan(what=character(), n=1, quiet=TRUE) ) ) {
       for( file in files ) file.remove(file)
       cat("Documentation files deleted.\n")
     } else {

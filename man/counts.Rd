@@ -11,7 +11,7 @@ counts(x)
   throughout elements in the list.}
 }
 \description{
-  This function uses Rcpp sugar to implement a fast
-  \code{table}, for unique counts of a single vector.
+This function uses Rcpp sugar to implement a fast
+\code{table}, for unique counts of a single vector.
 }
 

@@ -24,9 +24,9 @@ hSvg(my_plot, file, width = 400, height = 300, dim = NULL, scale = 100,
   \item{...}{passed to \code{svg}}
 }
 \description{
-  A convenience function that prints a plot to file, and
-  then returns HTML to embed that image in the page. Used
-  for SVG images.
+A convenience function that prints a plot to file, and then
+returns HTML to embed that image in the page. Used for SVG
+images.
 }
 \examples{
 library(lattice)

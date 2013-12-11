@@ -11,17 +11,17 @@ getload(...)
   \item{...}{args to pass to \code{load}}
 }
 \value{
-  the object stored in the \code{load}-ed object
+the object stored in the \code{load}-ed object
 }
 \description{
-  The regular \code{load} function keeps the old variable
-  name used when saving that object. Often, we would prefer
-  to assign the \code{load}ed object to a new variable
-  name. Hence, this function.
+The regular \code{load} function keeps the old variable
+name used when saving that object. Often, we would prefer
+to assign the \code{load}ed object to a new variable name.
+Hence, this function.
 }
 \details{
-  If multiple arguments are supplied, they will be
-  concatenated through \code{file.path}.
+If multiple arguments are supplied, they will be
+concatenated through \code{file.path}.
 }
 \examples{
 dat <- data.frame( x = c(1,2,3), y=c('a','b','c') )
@@ -32,6 +32,6 @@ my_data <- kLoad( "dat.rda" )
 ## object we saved
 }
 \seealso{
-  \code{\link{load}}
+\code{\link{load}}
 }
 

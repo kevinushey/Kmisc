@@ -12,10 +12,10 @@ kImg(x, width = 480, height = 480)
   \item{height}{height (in pixels) of the image}
 }
 \description{
-  Convenience function for \code{cat}-ing out HTML markup
-  for an image as \code{<img src="..." />}.
+Convenience function for \code{cat}-ing out HTML markup for
+an image as \code{<img src="..." />}.
 }
 \seealso{
-  \code{\link{hImg}}
+\code{\link{hImg}}
 }
 

@@ -42,9 +42,9 @@ Rcpp_apply_generator(fun, includes = NULL, depends = NULL, inline = TRUE,
   above the code in \code{fun}.}
 }
 \description{
-  Use this function as a generator for your own
-  \code{apply} functions; that is, functions you would like
-  to apply over rows or columns of a matrix.
+Use this function as a generator for your own \code{apply}
+functions; that is, functions you would like to apply over
+rows or columns of a matrix.
 }
 \examples{
 \dontrun{

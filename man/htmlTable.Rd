@@ -26,10 +26,10 @@ htmlTable(x, class = "table table-condensed table-hover", id = NULL,
   \code{\link{kable}}.}
 }
 \description{
-  This function is used to generate an HTML table; it wraps
-  to \code{knitr::kable} but gives some 'extras'; in
-  particular, it allows us to set the class, id, and other
-  HTML attributes.
+This function is used to generate an HTML table; it wraps
+to \code{knitr::kable} but gives some 'extras'; in
+particular, it allows us to set the class, id, and other
+HTML attributes.
 }
 \examples{
 df <- data.frame(`P Values`=runif(1000), Group=1:1000)

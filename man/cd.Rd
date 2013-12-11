@@ -10,8 +10,8 @@ cd(...)
   directory.}
 }
 \description{
-  A small convenience function that wraps \code{file.path}
-  into a \code{setwd} call.
+A small convenience function that wraps \code{file.path}
+into a \code{setwd} call.
 }
 \examples{
 x <- "my_favourite_dir"

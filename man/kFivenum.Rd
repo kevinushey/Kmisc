@@ -11,13 +11,13 @@ kFivenum(x, na.rm = TRUE)
   \item{na.rm}{logical. remove NAs?}
 }
 \value{
-  \code{data.frame} version of five number summary
+\code{data.frame} version of five number summary
 }
 \description{
-  A wrapper to \code{stats::fivenum} that also produces
-  variable names.
+A wrapper to \code{stats::fivenum} that also produces
+variable names.
 }
 \seealso{
-  \code{\link{fivenum}}
+\code{\link{fivenum}}
 }
 

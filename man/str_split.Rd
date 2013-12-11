@@ -29,20 +29,19 @@ split2df(x, sep, fixed = FALSE, perl = TRUE, useBytes = FALSE,
   returned \code{data.frame}.}
 }
 \description{
-  This function takes a vector of strings following a
-  regular structure, and converts that vector into a
-  \code{data.frame}, split on that delimiter. A nice
-  wrapper to \code{\link{strsplit}}, essentially - the
-  primary bonus is the automatic coersion to a
-  \code{data.frame}.
+This function takes a vector of strings following a regular
+structure, and converts that vector into a
+\code{data.frame}, split on that delimiter. A nice wrapper
+to \code{\link{strsplit}}, essentially - the primary bonus
+is the automatic coersion to a \code{data.frame}.
 }
 \details{
-  Note that the preferred method for reading text data with
-  a single, one character delimiter is through
-  \code{read.table(text=...)} or \code{data.table::fread};
-  however, this function is helpful in the case of
-  non-regular delimiters (that you wish to specify with a
-  regex)
+Note that the preferred method for reading text data with a
+single, one character delimiter is through
+\code{read.table(text=...)} or \code{data.table::fread};
+however, this function is helpful in the case of
+non-regular delimiters (that you wish to specify with a
+regex)
 }
 \examples{
 str_split(
@@ -54,6 +53,6 @@ x <- c("somewhat_different.structure", "in_this.guy")
 str_split( x, "[_\\\\.]", names=c("first", "second", "third") )
 }
 \seealso{
-  \code{\link{strsplit}}
+\code{\link{strsplit}}
 }
 

@@ -81,7 +81,10 @@ pre {
 tt, code, pre {
   white-space: normal;
   font-family: 'Droid Sans Mono', 'DejaVu Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
-  padding: 0;
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: #c397d8;
+  background-color: black;
 }
 
 #page h1:first-of-type {

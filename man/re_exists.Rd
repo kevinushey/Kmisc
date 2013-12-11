@@ -1,11 +1,11 @@
-\name{re.exists}
+\name{re_exists}
 \alias{re.exists}
 \alias{re_exists}
 \title{Check whether Regular Expression was Found}
 \usage{
-re.exists(pattern, x, perl = TRUE, ...)
+re_exists(x, pattern, perl = TRUE, ...)
 
-re_exists(pattern, x, perl = TRUE, ...)
+re.exists(pattern, x, perl = TRUE, ...)
 }
 \arguments{
   \item{pattern}{regex pattern passed to \code{grep}.}
@@ -20,10 +20,10 @@ re_exists(pattern, x, perl = TRUE, ...)
   \link{grep} }.}
 }
 \description{
-  Checks whether a match was found for a given regular
-  expression in a vector. See examples for usage.
+Checks whether a match was found for a given regular
+expression in a vector. See examples for usage.
 }
 \examples{
-if( re.exists("^ap", c("apple", "banana") ) ) print("yay!")
+if( re_exists(c("apple", "banana"), "^ap") ) print("yay!")
 }
 

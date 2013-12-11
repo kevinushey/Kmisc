@@ -17,12 +17,12 @@ anatomy(df, n = 3, cols = 99)
   \code{data.frame}.}
 }
 \description{
-  This function displays the 'anatomy' of a data frame. In
-  practice, it's used to implement a faster version of
-  \code{str} for data frames built entirely of atomic
-  vectors, as \code{str.data.frame} is very slow for large
-  data frames. If there are non-atomic vectors in
-  \code{df}, we fall back to \code{base::str}.
+This function displays the 'anatomy' of a data frame. In
+practice, it's used to implement a faster version of
+\code{str} for data frames built entirely of atomic
+vectors, as \code{str.data.frame} is very slow for large
+data frames. If there are non-atomic vectors in \code{df},
+we fall back to \code{base::str}.
 }
 \examples{
 \dontrun{

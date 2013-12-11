@@ -12,7 +12,6 @@ remove_chars(x, remove_spaces = TRUE)
   all white-space as well.}
 }
 \description{
-  Removes all alphabetic characters from a character
-  vector.
+Removes all alphabetic characters from a character vector.
 }
 

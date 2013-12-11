@@ -10,8 +10,8 @@ simp(x, y)
   \item{y}{A vector of values \code{f(x)}.}
 }
 \description{
-  This function computes the area under the curve using
-  Simpson's (composite) rule, for a function \code{f(x)}
-  evaluated over equally spaced points \code{x}.
+This function computes the area under the curve using
+Simpson's (composite) rule, for a function \code{f(x)}
+evaluated over equally spaced points \code{x}.
 }
 

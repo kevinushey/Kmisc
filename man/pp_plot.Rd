@@ -14,8 +14,8 @@ pp_plot(x, ...)
   try to generate your own panel function.}
 }
 \description{
-  This function constructs a probability-probability plot
-  as based on a vector of p-values.
+This function constructs a probability-probability plot as
+based on a vector of p-values.
 }
 \examples{
 pp_plot( runif(100), main="PP-Plot of 100 random uniforms" )

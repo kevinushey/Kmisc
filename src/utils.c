@@ -44,4 +44,27 @@ char max_type(SEXP x, SEXP ind_) {
   return max_type;
 }
 
+void set_names(SEXP x) {
+  int m = length(x);
+  SEXP nm = PROTECT( allocVector(STRSXP, m) );
+  char str[ (int) log10(m) + 3];
+  for (int i = 0; i < m; ++i) {
+  	sprintf(str, "%s%i", "V", i + 1);
+		SET_STRING_ELT(nm, i, mkChar(str));
+	}
+	setAttrib(x, R_NamesSymbol, nm);
+  UNPROTECT(1);
+}
+
+void set_rownames(SEXP x) {
+  int n = length(VECTOR_ELT(x, 0));
+  SEXP rownames = PROTECT( allocVector(INTSXP, n) );
+  int* ptr = INTEGER(rownames);
+  for (int i=0; i < n; ++i) {
+    ptr[i] = i+1;
+  }
+  setAttrib(x, R_RowNamesSymbol, rownames);
+  UNPROTECT(1);
+}
+
 #undef USE_RINTERNALS

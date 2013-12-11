@@ -9,8 +9,8 @@ awk.set(awk)
   flavour of \code{awk}.}
 }
 \description{
-  Use this function to set the string by which \code{awk}
-  is called; e.g. if you're using GNU awk (gawk), mawk, and
-  so on.
+Use this function to set the string by which \code{awk} is
+called; e.g. if you're using GNU awk (gawk), mawk, and so
+on.
 }
 

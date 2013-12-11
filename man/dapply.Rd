@@ -14,16 +14,16 @@ dapply(X, FUN, ...)
   \item{...}{optional arguments to \code{FUN}.}
 }
 \description{
-  A convenience function that works like \code{lapply}, but
-  coerces the output to a \code{data.frame} if possible. We
-  set \code{stringsAsFactors=FALSE}, and
-  \code{optional=TRUE}, to minimize the amount of automatic
-  coersion \R might try to do.
+A convenience function that works like \code{lapply}, but
+coerces the output to a \code{data.frame} if possible. We
+set \code{stringsAsFactors=FALSE}, and
+\code{optional=TRUE}, to minimize the amount of automatic
+coersion \R might try to do.
 }
 \details{
-  This function is preferable to \code{\link{sapply}} or
-  \code{\link{lapply}} when you explicitly want a data
-  frame returned.
+This function is preferable to \code{\link{sapply}} or
+\code{\link{lapply}} when you explicitly want a data frame
+returned.
 }
 \examples{
 dat <- data.frame(
@@ -41,6 +41,6 @@ dapply( dat, summary )
 str( dapply( dat, summary ) )
 }
 \seealso{
-  \code{\link{lapply}}, \code{\link{lapply}}
+\code{\link{lapply}}, \code{\link{lapply}}
 }
 

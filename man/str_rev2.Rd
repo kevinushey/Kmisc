@@ -8,20 +8,19 @@ str_rev2(x)
   \item{x}{a character vector.}
 }
 \description{
-  Reverses a vector of 'strings' (a character vector). This
-  will safely reverse a vector of unicode (UTF-8)
-  characters.
+Reverses a vector of 'strings' (a character vector). This
+will safely reverse a vector of unicode (UTF-8) characters.
 }
 \details{
-  This function will handle UTF-8 characters safely. If you
-  are working only with ASCII characters and require speed,
-  see \code{\link{str_rev2}}.
+This function will handle UTF-8 characters safely. If you
+are working only with ASCII characters and require speed,
+see \code{\link{str_rev2}}.
 }
 \examples{
 x <- c("ABC", "DEF", "GHIJ")
 str_rev(x)
 }
 \seealso{
-  \code{\link{str_rev}}
+\code{\link{str_rev}}
 }
 

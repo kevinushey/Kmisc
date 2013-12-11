@@ -234,20 +234,3 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// swap
-SEXP swap(SEXP vec, SEXP from, SEXP to);
-RcppExport SEXP Kmisc_swap(SEXP vecSEXP, SEXP fromSEXP, SEXP toSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< SEXP >::type vec(vecSEXP );
-        Rcpp::traits::input_parameter< SEXP >::type from(fromSEXP );
-        Rcpp::traits::input_parameter< SEXP >::type to(toSEXP );
-        SEXP __result = swap(vec, from, to);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}

@@ -17,8 +17,8 @@ transpose(x)
   \item{x}{A matrix, data.frame, or matrix-like list.}
 }
 \description{
-  This functions similarily to \R's \code{t}, but we add a
-  new method, \code{transpose.list}, for transposing lists
-  in a specific way.
+This functions similarily to \R's \code{t}, but we add a
+new method, \code{transpose.list}, for transposing lists in
+a specific way.
 }
 

@@ -20,9 +20,9 @@ tapply_(X, INDEX, FUN = NULL, ..., simplify = TRUE)
   output and hence return a named vector of values.}
 }
 \description{
-  This function acts as a faster version of \code{tapply}
-  for the common case of splitting an atomic vector by
-  another atomic vector, and then applying a function.
+This function acts as a faster version of \code{tapply} for
+the common case of splitting an atomic vector by another
+atomic vector, and then applying a function.
 }
 \examples{
 x <- rnorm(100)

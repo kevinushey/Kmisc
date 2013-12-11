@@ -12,6 +12,6 @@ remove_digits(x, remove_spaces = TRUE)
   all white-space as well.}
 }
 \description{
-  Removes all digits from a character vector.
+Removes all digits from a character vector.
 }
 

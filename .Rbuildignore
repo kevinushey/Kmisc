@@ -10,3 +10,4 @@ build/
 incubator/
 old/
 .idea
+dist/

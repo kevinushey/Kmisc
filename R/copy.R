@@ -1,7 +1,6 @@
 ##' Force a Copy of an R Object
 ##' 
-##' In \R, things are copied 'lazily'. We use this function to force a copy
-##' in case it's required.
+##' In \R, objects are copied 'lazily'. We use this function to force a copy.
 ##' 
 ##' @param x An \R object.
 ##' @export

@@ -11,9 +11,9 @@ pad(x, n)
   \item{n}{The final length of each object.}
 }
 \description{
-  This function pads an \R object (list, data.frame,
-  matrix, atomic vector) with \code{NA}s. For matrices,
-  lists and data.frames, this occurs by extending each
-  (column) vector in the object.
+This function pads an \R object (list, data.frame, matrix,
+atomic vector) with \code{NA}s. For matrices, lists and
+data.frames, this occurs by extending each (column) vector
+in the object.
 }
 

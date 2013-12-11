@@ -10,6 +10,7 @@ SEXP factor_to_char( SEXP X_, SEXP inplace_ );
 SEXP in_interval( SEXP x, SEXP lo, SEXP hi, 
         SEXP include_lower, SEXP include_upper );
 SEXP list_to_dataframe(SEXP x_, SEXP inplace);
+SEXP mat2df(SEXP x);
 SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SEXP value_name );
 SEXP melt_matrix( SEXP x );
 SEXP simp( SEXP x, SEXP y );
@@ -31,7 +32,6 @@ SEXP Kmisc_split_runs_one(SEXP xSEXP);
 SEXP Kmisc_stack_list_df(SEXP XSEXP, SEXP classesSEXP, SEXP num_elemSEXP, SEXP make_row_namesSEXP, SEXP nameSEXP, SEXP keep_list_indexSEXP, SEXP index_nameSEXP);
 SEXP Kmisc_str_collapse_list(SEXP xSEXP);
 SEXP Kmisc_str_collapse_str(SEXP xSEXP);
-SEXP Kmisc_swap(SEXP vecSEXP, SEXP fromSEXP, SEXP toSEXP);
 
 R_CallMethodDef callMethods[]  = {
   {"Cany_na", (DL_FUNC) &any_na, 1},
@@ -40,6 +40,7 @@ R_CallMethodDef callMethods[]  = {
   {"Cfactor_to_char", (DL_FUNC) &factor_to_char, 2},
   {"Cin_interval", (DL_FUNC) &in_interval, 5},
   {"Clist_to_dataframe", (DL_FUNC) &list_to_dataframe, 2},
+  {"Cmat2df", (DL_FUNC) &mat2df, 1},
   {"Cmelt_dataframe", (DL_FUNC) &melt_dataframe, 5},
   {"Cmelt_matrix", (DL_FUNC) &melt_matrix, 1},
   {"Csimp", (DL_FUNC) &simp, 2},
@@ -61,7 +62,6 @@ R_CallMethodDef callMethods[]  = {
   {"CKmisc_stack_list_df", (DL_FUNC) &Kmisc_stack_list_df, 7},
   {"CKmisc_str_collapse_list", (DL_FUNC) &Kmisc_str_collapse_list, 1},
   {"CKmisc_str_collapse_str", (DL_FUNC) &Kmisc_str_collapse_str, 1},
-  {"CKmisc_swap", (DL_FUNC) &Kmisc_swap, 3},
   {NULL, NULL, 0}
 };
 

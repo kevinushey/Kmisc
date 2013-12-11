@@ -34,8 +34,8 @@ sys(..., intern = FALSE, ignore.stdout = FALSE, ignore.stderr = FALSE,
   \item{invisible}{Windows only -- run invisibly?}
 }
 \description{
-  This function wraps to \code{system}, but interprets all
-  un-named arguments as things to be \code{paste}-ed. See
-  \code{\link{system}} for further details.
+This function wraps to \code{system}, but interprets all
+un-named arguments as things to be \code{paste}-ed. See
+\code{\link{system}} for further details.
 }
 

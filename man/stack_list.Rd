@@ -29,20 +29,20 @@ stack_list(list, name = "row_names", make_row_names = typeof(attr(list[[1]],
   take the internal integer representation.}
 }
 \description{
-  Function for stacking a list, where each component of the
-  list is a \code{data.frame} containing potentially
-  differing number of rows, but the same number of columns,
-  and with all columns of equivalent class.
+Function for stacking a list, where each component of the
+list is a \code{data.frame} containing potentially
+differing number of rows, but the same number of columns,
+and with all columns of equivalent class.
 }
 \details{
-  When stacking \code{data.frames} with row names, they are
-  passed into a column called \code{row_names} to protect
-  from problems with non-unique row names, and also to
-  avoid appending numbers onto these row names as well.
+When stacking \code{data.frames} with row names, they are
+passed into a column called \code{row_names} to protect
+from problems with non-unique row names, and also to avoid
+appending numbers onto these row names as well.
 
-  Note that information on factors is lost by default; they
-  will be converted either to characters or their internal
-  integer representations.
+Note that information on factors is lost by default; they
+will be converted either to characters or their internal
+integer representations.
 }
 \examples{
 x <- data.frame( x=c(1, 2, 3), y=letters[1:3], z=rnorm(3), stringsAsFactors=FALSE )

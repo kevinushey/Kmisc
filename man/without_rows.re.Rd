@@ -22,9 +22,9 @@ re_without_rows(x, regex, match_var = rownames(x), perl = TRUE, ...)
   \item{...}{optional arguments passed to \code{grep}.}
 }
 \description{
-  This function extracts rows from a data frame / matrix
-  \code{x} for all rows -not- matching the \code{regex}
-  pattern supplied.
+This function extracts rows from a data frame / matrix
+\code{x} for all rows -not- matching the \code{regex}
+pattern supplied.
 }
 \examples{
 dat <- data.frame( x=letters, y=LETTERS )

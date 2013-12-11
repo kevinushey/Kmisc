@@ -1,3 +1,44 @@
+#' Number of non-NA unique elements in a vector
+#'  
+#' Returns the number of non-NA unique elements in a vector. A wrapper to
+#' \code{length( unique( x[!is.na(x)], ... ) )}. Primarily intended for
+#' interactive use.
+#' @export
+#' @param x a vector
+#' @param ... passed to \code{\link{unique}}
+lu <- function( x, ...) {
+  length( unique( x[!is.na(x)], ... ) ) 
+}
+
+#' Unique elements in a vector
+#' 
+#' Returns the unique elements in a vector. A wrapper to
+#' \code{\link{unique}()}. Primarily intended for
+#' interactive use.
+#' @param ... passed to \code{\link{unique}}.
+u <- function(...) { 
+  unique( ... ) 
+}
+
+#' length( grep( ... ) )
+#' 
+#' This is a wrapper to a \code{length( grep( ... ) )}. See examples for usage.
+#' Primarily intended for interactive use.
+#' @param pattern regex pattern passed to \code{grep}.
+#' @param x a vector on which we attempt to match \code{pattern} on.
+#' @param perl boolean. use perl-compatible regular expressions?
+#' @param ... additional arguments passed to \code{\link{grep}}.
+#' @seealso \code{\link{re.exists}}
+#' @export
+#' @examples
+#' x <- c("apple", "banana", "cherry")
+#' if( lg( "^ap", x ) > 0 ) {
+#'   print( "regular expression '^ap' found in 'x'" )
+#'   }
+lg <- function(pattern, x, perl=TRUE, ...) {
+  length( grep( pattern, x, perl=perl, ... ) ) 
+}
+
 ##' Check whether Regular Expression was Found
 ##' 
 ##' Checks whether a match was found for a given regular expression in a vector.
@@ -8,15 +49,17 @@
 ##' @param ... additional arguments passed to \code{ \link{grep} }.
 ##' @export
 ##' @examples
-##' if( re.exists("^ap", c("apple", "banana") ) ) print("yay!")
+##' if( re_exists(c("apple", "banana"), "^ap") ) print("yay!")
 ##' 
-re.exists <- function(pattern, x, perl=TRUE, ... ) { 
+re_exists <- function(x, pattern, perl=TRUE, ... ) { 
   any( grepl( pattern, x, perl=perl, ... ) )
 }
 
-##' @rdname re.exists
+##' @rdname re_exists
 ##' @export
-re_exists <- re.exists
+re.exists <- function(pattern, x, perl=TRUE, ...) {
+  re_exists(pattern=pattern, x=x, perl=perl, ...)
+}
 
 ##' Extract Elements from a Named Object
 ##' 
@@ -62,13 +105,16 @@ extract <- function( x, ... ) {
 ##' @param ... optional arguments passed to \code{grep}.
 ##' @export
 ##' @seealso \code{\link{grep}}, \code{\link{regex}}
-extract.re <- function( x, pattern, perl=TRUE, ... ) {
+re_extract <- function( x, pattern, perl=TRUE, ... ) {
   return( x[ grep( pattern, names(x), perl=perl, ... ) ] )
 }
 
-##' @rdname extract.re
+##' @rdname re_extract
 ##' @export
-re_extract <- extract.re
+extract.re <- function(x, pattern, perl=TRUE, ...) {
+  .Deprecated("re_extract")
+  return(re_extract(x=x, pattern=pattern, perl=perl, ...))
+}
 
 ##' Remove Elements from a Named Object
 ##' 
@@ -112,13 +158,16 @@ without <- function(x, ...) {
 ##' @param ... optional arguments passed to \code{grep}.
 ##' @export
 ##' @seealso \code{\link{grep}}, \code{\link{regex}}
-without.re <- function( x, pattern, perl=TRUE, ... ) {
+re_without <- function( x, pattern, perl=TRUE, ... ) {
   return( x[ 1:length(x) %nin% grep( pattern, names(x), perl=perl, ... ) ] )
 }
 
-##' @rdname without.re
+##' @rdname re_without
 ##' @export
-re_without <- without.re
+without.re <- function(x, pattern, perl=TRUE, ...) {
+  .Deprecated("re_without")
+  return( re_without(x=x, pattern=pattern, perl=perl, ...) )
+}
 
 ##' Set Working Directory
 ##' 
@@ -196,10 +245,14 @@ dapply <- function(X, FUN, ...) {
 ##' ## with some data on the clipboard, simply write
 ##' # x <- read.cb()
 read.cb <- function(sep='\t', header=TRUE, ...) {
-  if( Sys.info()["sysname"] == "Darwin" ) {
+  sn <- Sys.info()["sysname"]
+  if (sn == "Darwin") {
     read.table( pipe("pbpaste"), header=header, sep=sep, ... )
-  } else {
+  } else if (sn == "Windows") {
     read.table( "clipboard", header=header, sep=sep, ... )
+  } else {
+    stop("Reading from the clipboard is not implemented for your system (", 
+      sn, ") in this package.")
   }
 }
 
@@ -215,12 +268,16 @@ read.cb <- function(sep='\t', header=TRUE, ...) {
 ##' @param ... passed to \code{scan}.
 ##' @seealso \code{\link{scan}}
 scan.cb <- function( what=character(), sep="\n", quiet=TRUE, ... ) {
-  if( Sys.info()["sysname"] == "Darwin" ) {
+  sn <- Sys.info()["sysname"]
+  if (sn == "Darwin") {
     file <- pipe("pbpaste")
     output <- scan( file, what=what, sep=sep, quiet=quiet, ... )
     close(file)
-  } else {
+  } else if (sn == "Windows") {
     output <- scan( "clipboard", what=what, sep=sep, quiet=quiet, ... )
+  } else {
+    stop("Reading from the clipboard is not implemented for your system (", 
+      sn, ") in this package.")
   }
   return(output)
 }
@@ -244,7 +301,9 @@ write.cb <- function( dat,
   sep='\t', 
   quote=FALSE ) {
   
-  if( Sys.info()["sysname"] == "Darwin" ) {
+  sn <- Sys.info()["sysname"]
+  
+  if (sn == "Darwin") {
     file <- pipe("pbcopy")
     write.table( dat, file=file,
       row.names=row.names,
@@ -253,13 +312,16 @@ write.cb <- function( dat,
       quote=quote
     )
     close(file)
-  } else {
+  } else if (sn == "Windows") {
     write.table( dat, file="clipboard",
       row.names = row.names,
       col.names = col.names,
       sep = sep,
       quote = quote
     )
+  } else {
+    stop("Writing to the clipboard is not implemented for your system (", 
+      sn, ") in this package.")
   }
   
 }
@@ -272,12 +334,16 @@ write.cb <- function( dat,
 ##' @seealso \code{\link{write.cb}}, \code{\link{cat}}
 ##' @export
 cat.cb <- function( dat, ... ) {
-  if( Sys.info()["sysname"] == "Darwin" ) {
+  sn <- Sys.info()["sysname"]
+  if (sn == "Darwin") {
     file <- pipe("pbcopy")
     cat( dat, file=file, ... )
     close(file)
-  } else {
+  } else if (sn == "Windows") {
     cat( dat, file="clipboard", ... )
+  } else {
+    stop("Reading from the clipboard is not implemented for your system (", 
+      sn, ") in this package.")
   }
 }
 
@@ -290,7 +356,8 @@ cat.cb <- function( dat, ... ) {
 ##' it is a list) and convert anything that is a factor into a character.
 ##' @param X an object.
 ##' @param inplace Boolean; if \code{TRUE} we modify the object in place.
-##'   Useful if you're modifying a list and don't want to force a copy.
+##'   Useful if you're modifying a list and don't want to force a copy, but
+##'   be wary of other symbols pointing as the same data.
 ##' @export
 factor_to_char <- function(X, inplace=FALSE) {
   invisible( .Call(Cfactor_to_char, X, as.logical(inplace), PACKAGE="Kmisc") )
@@ -303,7 +370,8 @@ factor_to_char <- function(X, inplace=FALSE) {
 ##' 
 ##' @param X an object.
 ##' @param inplace boolean; if \code{TRUE} the object is modified in place.
-##'   Useful if you're modifying a list and don't want to force a copy.
+##'   Useful if you're modifying a list and don't want to force a copy, but
+##'   be wary of other symbols pointing as the same data.
 ##' @param ... Ignored.
 ##' @export
 char_to_factor <- function(X, inplace=FALSE, ...) {
@@ -362,12 +430,12 @@ make_dummy <- function(x) {
 ##' data(iris)
 ##' kmeans_plot(iris[,1:4])
 kmeans_plot <- function( dat, nmax=20, ... ) {
-  kVar <- rep(0,nmax)
+  y <- rep(0,nmax)
   for( i in 1:nmax ) {
     tmp <- kmeans( dat, i )
-    kVar[i] <- tmp$betweenss / tmp$totss
+    y[i] <- tmp$betweenss / tmp$totss
   }
-  print( xyplot( kVar ~ (1:nmax), type = c("p", "l"), ... ) )
+  print( xyplot( y ~ (1:nmax), type = c("p", "l"), ... ) )
 }
 
 ##' Strip File Extension
@@ -951,7 +1019,7 @@ getObjects <- function( env ) {
 ##' @export
 remove_na <- function(x) {
   if( is.data.frame(x) ) {
-    return( x[complete.cases(x),] )
+    return( x[complete.cases(x), ] )
   } else if( is.list(x) ) {
     return( lapply(x, remove_na) )
   } else {

@@ -12,18 +12,18 @@ swap_(vec, ...)
   from \code{names} to \code{values} of those arguments.}
 }
 \description{
-  This function swaps elements in a vector. See examples
-  for usage.
+This function swaps elements in a vector. See examples for
+usage.
 }
 \details{
-  If \code{to} is of different type than \code{from}, it
-  will be coerced to be of the same type.
+If \code{to} is of different type than \code{from}, it will
+be coerced to be of the same type.
 }
 \examples{
 x <- c('a', 'a', 'b', 'c')
 swap_(x, a="A")
 }
 \seealso{
-  \code{\link{swap}}
+\code{\link{swap}}
 }
 

@@ -13,8 +13,8 @@ kAnova(fit, test = "LRT", swap.periods = TRUE)
   \item{swap.periods}{swap periods with spaces?}
 }
 \description{
-  Returns a nicely formatted ANOVA table. See
-  \code{\link{kCoef}} for other details.
+Returns a nicely formatted ANOVA table. See
+\code{\link{kCoef}} for other details.
 }
 \examples{
 x <- rnorm(100)

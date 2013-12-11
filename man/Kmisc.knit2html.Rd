@@ -1,0 +1,17 @@
+\name{Kmisc.knit2html}
+\alias{Kmisc.knit2html}
+\title{Knit an Rmd File to HTML with Kmisc Styling}
+\usage{
+Kmisc.knit2html(input, ...)
+}
+\arguments{
+  \item{input}{An \code{.Rmd} file.}
+
+  \item{...}{Optional arguments passed to \code{knit}.}
+}
+\description{
+This function 'knits' an R Markdown document with
+\code{knitr}, and injects HTML, CSS and JavaScript from CSS
+for nice, interactive HTML reports.
+}
+

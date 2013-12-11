@@ -28,13 +28,13 @@ fgrep(pattern, x, ignore.case = FALSE, value = FALSE, useBytes = FALSE,
   or values for elements that do not match.}
 }
 \description{
-  This is equivalent to calling \code{grep} with
-  \code{fixed=TRUE}.
+This is equivalent to calling \code{grep} with
+\code{fixed=TRUE}.
 }
 \examples{
 fgrep( "abc", c("abc", "babcd", "abcdef", "apple"), value=TRUE )
 }
 \seealso{
-  \code{\link{grep}}
+\code{\link{grep}}
 }
 

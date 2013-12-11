@@ -19,9 +19,9 @@ kSave(x, file, lvl = 1, Rext = ".rda", ...)
   \code{write.table}}
 }
 \description{
-  A function that both writes a file to table with
-  \code{write.table}, and saves it with the same name but a
-  separate file extension.
+A function that both writes a file to table with
+\code{write.table}, and saves it with the same name but a
+separate file extension.
 }
 \examples{
 dat <- data.frame( x=c(1,2,3), y=c('a','b','c') )

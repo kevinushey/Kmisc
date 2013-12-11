@@ -17,10 +17,9 @@ wrap(x, width = 8, ...)
   \code{\link{strwrap}}.}
 }
 \description{
-  This function operates similarily to
-  \code{\link{strwrap}}, but \code{paste}s the wrapped text
-  back together with line separators. Useful for
-  automatically wrapping long labels.
+This function operates similarily to \code{\link{strwrap}},
+but \code{paste}s the wrapped text back together with line
+separators. Useful for automatically wrapping long labels.
 }
 \examples{
 long_label <- "This is a very long label which needs wrapping."

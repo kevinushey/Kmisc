@@ -14,12 +14,12 @@ swap(vec, from, to = names(from))
   same length and order as \code{from}.}
 }
 \description{
-  This function swaps elements in a vector. See examples
-  for usage.
+This function swaps elements in a vector. See examples for
+usage.
 }
 \details{
-  If \code{to} is of different type than \code{from}, it
-  will be coerced to be of the same type.
+If \code{to} is of different type than \code{from}, it will
+be coerced to be of the same type.
 }
 \examples{
 x <- c(1, 2, 2, 3)
@@ -38,6 +38,6 @@ x <- c(1, NA, 2, 2, 3)
 swap(x, c(1, 2), c("a", "b") )
 }
 \seealso{
-  \code{\link{swap_}}
+\code{\link{swap_}}
 }
 

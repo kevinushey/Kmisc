@@ -19,8 +19,8 @@ size(x, quote = FALSE, units = "auto", ...)
   methods.}
 }
 \description{
-  Provides an estimate of the memory that is being used to
-  store an \R object. Similar to \code{\link{object.size}},
-  but we set \code{units="auto"} as default.
+Provides an estimate of the memory that is being used to
+store an \R object. Similar to \code{\link{object.size}},
+but we set \code{units="auto"} as default.
 }
 

@@ -5,9 +5,9 @@
 attachHTML()
 }
 \description{
-  Calling this function will attach HTML tagging functions.
+Calling this function will attach HTML tagging functions.
 }
 \seealso{
-  \code{\link{detachHTML}}
+\code{\link{detachHTML}}
 }
 

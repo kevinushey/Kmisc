@@ -15,8 +15,8 @@ html(..., file = "", .sub = NULL)
   its corresponding value.}
 }
 \description{
-  Use this function to output HTML code for use in R
-  Markdown documents or otherwise.
+Use this function to output HTML code for use in R Markdown
+documents or otherwise.
 }
 \examples{
 html(
@@ -26,6 +26,6 @@ html(
 )
 }
 \seealso{
-  \code{\link{makeHTMLTag}}, for making your own tags.
+\code{\link{makeHTMLTag}}, for making your own tags.
 }
 

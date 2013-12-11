@@ -9,15 +9,16 @@ factor_to_char(X, inplace = FALSE)
 
   \item{inplace}{Boolean; if \code{TRUE} we modify the
   object in place.  Useful if you're modifying a list and
-  don't want to force a copy.}
+  don't want to force a copy, but be wary of other symbols
+  pointing as the same data.}
 }
 \description{
-  Converts factors to characters in an object. Leaves
-  non-character elements untouched.
+Converts factors to characters in an object. Leaves
+non-character elements untouched.
 }
 \details{
-  We iterate through all elements in the object (e.g. if it
-  is a list) and convert anything that is a factor into a
-  character.
+We iterate through all elements in the object (e.g. if it
+is a list) and convert anything that is a factor into a
+character.
 }
 

@@ -8,12 +8,11 @@ tree(x)
   \item{x}{A (named) list.}
 }
 \description{
-  This function returns output similar to that of the
-  command line tool \code{tree}, except rather than
-  directory/file structure, we simply print the names of
-  lists.
+This function returns output similar to that of the command
+line tool \code{tree}, except rather than directory/file
+structure, we simply print the names of lists.
 }
 \seealso{
-  http://stackoverflow.com/questions/18122548/display-names-of-column-of-recursive-list-as-tree
+http://stackoverflow.com/questions/18122548/display-names-of-column-of-recursive-list-as-tree
 }
 

@@ -18,9 +18,9 @@ pxt(x, class = "twoDtable", id = NULL, ...)
   \code{\link{makeHTMLTable}}.}
 }
 \description{
-  Function for outputting cross-tabulated tables as
-  marked-up HTML. CSS styling can be used to make these
-  tables look especially nice.
+Function for outputting cross-tabulated tables as marked-up
+HTML. CSS styling can be used to make these tables look
+especially nice.
 }
 \examples{
 x <- rbinom( 100, 2, 0.2 )
@@ -28,6 +28,6 @@ y <- rbinom( 100, 2, 0.2 )
 pxt( kTable(x, y) )
 }
 \seealso{
-  \code{\link{kTable}}
+\code{\link{kTable}}
 }
 

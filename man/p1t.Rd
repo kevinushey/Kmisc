@@ -19,15 +19,15 @@ p1t(x, class = "table table-condensed table-striped table-hover", id = NULL,
   \code{\link{makeHTMLTable}}.}
 }
 \description{
-  This tabling function is intended for the output of
-  \code{kTable}, as generated when only one 'data' argument
-  is passed.
+This tabling function is intended for the output of
+\code{kTable}, as generated when only one 'data' argument
+is passed.
 }
 \examples{
 y <- factor( rbinom( 100, 2, 0.2 ) )
 p1t( kTable( y ) )
 }
 \seealso{
-  \code{\link{kTable}}, \code{\link{makeHTMLTable}}
+\code{\link{kTable}}, \code{\link{makeHTMLTable}}
 }
 

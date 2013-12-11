@@ -17,7 +17,8 @@ Imports:
     data.table,
     lattice,
     grid,
-    knitr
+    knitr,
+    markdown
 Suggests:
     ggplot2,
     plyr,
@@ -28,6 +29,7 @@ Suggests:
 ByteCompile: TRUE
 VignetteBuilder: knitr
 Collate:
+    'Kmisc-md2html.R'
     'Kmisc-package.R'
     'RcppExports.R'
     'Rcpp_gen_makevars.R'
@@ -54,6 +56,7 @@ Collate:
     'labeller.R'
     'list_to_dataframe.R'
     'manhattan_plot.R'
+    'mat2df.R'
     'matches.R'
     'melt_.R'
     'misc.R'

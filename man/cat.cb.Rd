@@ -10,10 +10,10 @@ cat.cb(dat, ...)
   \item{...}{optional arguments passed to \code{cat}.}
 }
 \description{
-  This function writes data to the clipboard, using
-  \code{\link{cat}}.
+This function writes data to the clipboard, using
+\code{\link{cat}}.
 }
 \seealso{
-  \code{\link{write.cb}}, \code{\link{cat}}
+\code{\link{write.cb}}, \code{\link{cat}}
 }
 

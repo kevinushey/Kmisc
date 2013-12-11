@@ -8,12 +8,11 @@ remove_na(x)
   \item{x}{An (atomic) vector, or a list / data.frame.}
 }
 \description{
-  This function removes all \code{NA} entries from a
-  vector.
+This function removes all \code{NA} entries from a vector.
 }
 \details{
-  For \code{data.frames}, we use \code{complete.cases} to
-  remove \code{NA}s, and hence remove all rows for which an
-  \code{NA} value in encountered.
+For \code{data.frames}, we use \code{complete.cases} to
+remove \code{NA}s, and hence remove all rows for which an
+\code{NA} value in encountered.
 }
 

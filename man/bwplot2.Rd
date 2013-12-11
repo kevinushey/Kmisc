@@ -24,17 +24,17 @@ bwplot2(form, data = NULL, xlab = NULL, ylab = NULL, main = NULL,
   call.}
 }
 \description{
-  This generates a custom lattice boxplot; we super-impose
-  actual plot points for groups with a small number of
-  points, and also restrict plotting of the boxplot for
-  these as well (since they are really rather
-  mis-representative of the distribution when there are so
-  few points.) The downside is that functionality is not
-  implemented for multi-panel plots.
+This generates a custom lattice boxplot; we super-impose
+actual plot points for groups with a small number of
+points, and also restrict plotting of the boxplot for these
+as well (since they are really rather mis-representative of
+the distribution when there are so few points.) The
+downside is that functionality is not implemented for
+multi-panel plots.
 }
 \details{
-  Axis labels are inferred from the \code{form} object
-  passed in when possible.
+Axis labels are inferred from the \code{form} object passed
+in when possible.
 }
 \examples{
 set.seed(123)

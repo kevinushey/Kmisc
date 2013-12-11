@@ -18,10 +18,10 @@ str_sort(x, increasing = TRUE, ignore.case = FALSE, USE.NAMES = FALSE)
   exists on \code{x}, pass this through to the result?}
 }
 \description{
-  Sorts a vector of strings lexically, as based on their
-  UTF-8 ordering scheme. Lower-case letters are, by
-  default, 'larger' than upper-case letters. This function
-  will safely sort a UTF-8 vector.
+Sorts a vector of strings lexically, as based on their
+UTF-8 ordering scheme. Lower-case letters are, by default,
+'larger' than upper-case letters. This function will safely
+sort a UTF-8 vector.
 }
 \examples{
 stopifnot( all( str_sort(c("cba", "fed")) == c("abc", "def") ) )

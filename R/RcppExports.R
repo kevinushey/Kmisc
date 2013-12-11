@@ -57,7 +57,3 @@ str_collapse_str <- function(x) {
     .Call('Kmisc_str_collapse_str', PACKAGE = 'Kmisc', x)
 }
 
-swap <- function(vec, from, to) {
-    .Call('Kmisc_swap', PACKAGE = 'Kmisc', vec, from, to)
-}
-

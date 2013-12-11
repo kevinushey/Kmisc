@@ -14,11 +14,11 @@ scan.cb(what = character(), sep = "\\n", quiet = TRUE, ...)
   \item{...}{passed to \code{scan}.}
 }
 \description{
-  Convenience function for reading data from the clipboard.
-  Wraps to \code{\link{scan}}. By default, we assume the
-  data is \code{character}, and delimit by new lines.
+Convenience function for reading data from the clipboard.
+Wraps to \code{\link{scan}}. By default, we assume the data
+is \code{character}, and delimit by new lines.
 }
 \seealso{
-  \code{\link{scan}}
+\code{\link{scan}}
 }
 

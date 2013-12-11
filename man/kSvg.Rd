@@ -16,7 +16,7 @@ kSvg(file = NULL, width = 4, height = 4, class = NULL)
   \item{class}{class passed to the \code{<embed>} tag}
 }
 \description{
-  Convenience function for \code{cat}-ing out HTML markup
-  for an SVG image, using \code{<embed>}.
+Convenience function for \code{cat}-ing out HTML markup for
+an SVG image, using \code{<embed>}.
 }
 

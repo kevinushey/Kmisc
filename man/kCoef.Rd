@@ -18,24 +18,23 @@ kCoef(fit, remove_underscore = TRUE, remove_dollar = TRUE,
   \item{swap_periods}{swap periods with spaces?}
 }
 \value{
-  a matrix of coefficients with nicely formatted names.
+a matrix of coefficients with nicely formatted names.
 }
 \description{
-  A customized coefficient function that assigns better row
-  names to the coefficient matrix returned by
-  \code{\link{coef}}() for a model fit. Also includes some
-  arguments for parsing of variable names.
+A customized coefficient function that assigns better row
+names to the coefficient matrix returned by
+\code{\link{coef}}() for a model fit. Also includes some
+arguments for parsing of variable names.
 }
 \details{
-  NOTE:
+NOTE:
 
-  Models with interaction effects are currently not
-  handled.
+Models with interaction effects are currently not handled.
 }
 \note{
-  The names given assume default contrasts in your model
-  fit; ie, the default is \code{contr.treatment}, where
-  each level of a factor is compared to a reference.
+The names given assume default contrasts in your model fit;
+ie, the default is \code{contr.treatment}, where each level
+of a factor is compared to a reference.
 }
 \examples{
 ## How the remove_underscore and remove_dollar arguments act:

@@ -2,7 +2,7 @@ library(microbenchmark)
 library(Kmisc)
 library(data.table)
 
-n <- 1E5
+n <- 1E6
 dat <- data.frame( stringsAsFactors=FALSE,
   x=sample(letters, n, TRUE), 
   y=sample(LETTERS, n, TRUE),
@@ -12,8 +12,7 @@ dat <- data.frame( stringsAsFactors=FALSE,
 )
 
 dat <- data.table(dat)
-microbenchmark( times=5,
-  reshape2:::melt.data.frame(dat, id.vars=c('x', 'y')),
-  melt_(dat, id.vars=c('x', 'y')),
-  data.table:::melt.data.table(dat, id.var=c('x', 'y'))
+microbenchmark( times=50,
+  tmp1 <- melt_(dat, id.vars=c('x', 'y')),
+  tmp2 <- data.table:::melt.data.table(dat, id.var=c('x', 'y'))
 )

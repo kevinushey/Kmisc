@@ -16,10 +16,10 @@ pMerge(df1, df2, by = intersect(names(df1), names(df2)), doCheck = FALSE)
   more extensive (but slower) error checking}
 }
 \description{
-  This function will merge a data frame \code{df2} 'into' a
-  data frame \code{df1}, preserving \code{df1} as much as
-  possible in the merger. Hence I call this a 'preserving'
-  merge, or \code{pMerge}.
+This function will merge a data frame \code{df2} 'into' a
+data frame \code{df1}, preserving \code{df1} as much as
+possible in the merger. Hence I call this a 'preserving'
+merge, or \code{pMerge}.
 }
 \examples{
 df1 <- data.frame( stringsAsFactors=FALSE,
