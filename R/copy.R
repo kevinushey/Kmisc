@@ -5,5 +5,5 @@
 ##' @param x An \R object.
 ##' @export
 duplicate <- function(x) {
-  return( .Call(Ccopy, x, PACKAGE="Kmisc") )
+  return( .Call(Ccopy, x) )
 }

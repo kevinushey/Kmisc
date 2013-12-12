@@ -24,8 +24,7 @@ in_interval <- function(x, lo, hi, include.lower=TRUE, include.upper=FALSE) {
     as.numeric(lo), 
     as.numeric(hi), 
     as.logical(include.lower),
-    as.logical(include.upper),
-    PACKAGE="Kmisc"
+    as.logical(include.upper)
   )
   
 }

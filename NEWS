@@ -1,11 +1,74 @@
 Version 0.5.0
 ------------------------------------------------------------
 
-  * Added 'melt_', a faster version of reshape2::melt. A
+A large number of new functions have been added; please feel
+free to explore the index and run examples with 'example(<fun>)'
+for example usage / use-cases.
+
+  * 'Kmisc.knit2html' knits an .Rmd file to HTML using Kmisc's
+    set of CSS, JavaScript styling. Styles are borrowed and
+    modified from Twitter Bootstrap, and theme is inspired
+    from Tommorrow Night Bright.
+  * Added a utility wrapped to 'awk'; useful for calling
+    'awk' directly from the command line. The path to
+    'awk' can be set with 'awk.set'.
+  * Added 'chunk', a function for generating 'chunks' of
+    indices. Eg. chunk(1, 4, size=2) returns the list
+    list(chunk1=c(1, 2), chunk2=c(3, 4)).
+  * Added 'rowApply', 'colApply' wrappers that aim to behave
+    like versions of 'apply' for matrices. A 'drop' argument
+    is added to control whether dimension dropping occurs.
+  * Added 'counts', a fast Rcpp-backed version of table for 
+    1D vectors.
+  * Added 'duplicate', a function that explicitly forces a 
+    copy of an R object.
+  * Utility functions for extracting and splitting tabular files:
+    'extract_rows_from_file' extracts rows from a tabular file
+    where a column meets some criteria (avoiding reading the whole
+    item into memory)
+  * 'factor_' is a faster implementation of 'factor', but with
+    less flexibility (currently only allows for a levels argument)
+  * 'htmlTable' wraps around `knitr::kable`, but allows the user
+    to include HTML attributes (class, id, style...)
+  * 'labeller' allows users to modify axis labels in a ggplot2 plot.
+  * 'list2df' allows for the fast coercion from R lists to data.frames.
+  * 'manhattan_plot' produces the typical manhattan plot as seen
+    often in GWAS studies.
+  * 'matches' generates matches over
+  * 'mat2df' converts matrices to data.frames.
+  * 'melt_' is a faster version of reshape2::melt. A
     combination function 'unmelt_' also exists to undo
     the operation of 'melt_' (but should be used with care)
+  * 'pymat' allows one to use Python-style formatting of strings
+    in R
   * Added 'readlines' and 'read', which act as faster
     versions of 'readLines' and 'scan', using mmap.
+  * Added '[Rr]cpp_tapply_generator', which allows one to
+    define functions to be called in a 'tapply' like manner:
+    split by a factor grouping variable.
+  * 'remove_na' is a helper function for removing NA elements
+    from different R objects.
+  * 'size' is a wrapper to 'object.size', but uses
+    units="auto" by default.
+  * 'split2df' splits a vector of strings following some
+    regular structure to a data.frame, acting as a nice
+    wrapper over strsplit.
+  * 'split_file' is used to split a tabular data file
+    based on the fields in one column. Can be used as a
+    quick and dirty way of splitting large tabular data files
+    for sub-processing.
+  * 'str_collapse' is a fast version of 'paste0(..., collapse="")',
+    using Rcpp sugar.
+  * 'swap_' is a companion function to 'swap', allowing a user to
+    provide a set of named mapping to '...'
+  * 'tapply_' is a faster version of 'tapply' for the common
+    case of splitting on a 1D vector
+  * 'transpose' is like R's 't', but we implement a 'transpose.list'
+    method that behaves specially (assumes a matrix-like list)
+  * 'tree' prints the tree structure of an R list.
+  * 'wrap' will wrap string output to a specified width
+    (number of characters). The default is low as the primary
+    use is in plot fields that need to be small (legend titles, etc.)
   * Cleaned up the internal implementation of HTML tags
     to avoid ugliness in earlier versions.
   * Added %kin% and %knin%, a 'keeping' version of %in%
@@ -18,11 +81,6 @@ Version 0.5.0
     re_extract, re_without).
   * Using the 'clipboard' utility function throws an error
     for non-Windows/Mac systems.
-  * Implemented 'fast_factor', a function for the fast 
-    generation of factors from atomic vector types.
-  * Added 'rcpp_tapply_generator', which allows one to
-    define functions to be called in a 'tapply' like manner:
-    split by a factor grouping variable.
   * Fixed a bug in setting the row names of 'kMerge'.
   * Added 'pad', a function for padding various R objects
     with NAs.

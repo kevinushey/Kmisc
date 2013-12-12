@@ -85,7 +85,7 @@ split_file <- function( file,
          as.character(file_ext),
          as.integer(column),
          as.integer(skip),
-         as.logical(verbose),
-         PACKAGE="Kmisc" ) )
+         as.logical(verbose)
+  ) )
   
 }

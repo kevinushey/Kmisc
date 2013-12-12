@@ -6,7 +6,6 @@
 ##' 
 ##' @param x A vector of values \code{x}.
 ##' @param y A vector of values \code{f(x)}.
-##' @export
 simp <- function(x, y) {
   return( .Call(Csimp, as.numeric(x), as.numeric(y) ) )
 }

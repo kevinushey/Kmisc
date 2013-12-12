@@ -5,5 +5,5 @@
 ##' @param x A \code{matrix}.
 ##' @export
 mat2df <- function(x) {
-  return(.Call(Cmat2df, x, PACKAGE="Kmisc"))
+  return(.Call(Cmat2df, x))
 }

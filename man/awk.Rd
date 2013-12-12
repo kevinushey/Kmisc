@@ -36,6 +36,7 @@ assumes that you have \code{awk} available and in your
 \code{PATH}.
 }
 \examples{
+\dontrun{
 dat <- data.frame(
   x=1:10,
   y=letters[1:10],
@@ -54,5 +55,6 @@ write.table(dat,
 x <- awk("print $1", tempfile)
 ## note that it is read in as type 'character'
 print( cbind( x, dat$x ) )
+}
 }
 

@@ -17,7 +17,7 @@
 ##' file.
 ##' @param verbose Output the generated \code{awk} code?
 ##' @export
-##' @examples
+##' @examples \dontrun{
 ##' dat <- data.frame( 
 ##'   x=1:10, 
 ##'   y=letters[1:10], 
@@ -36,6 +36,7 @@
 ##' x <- awk("print $1", tempfile) 
 ##' ## note that it is read in as type 'character'
 ##' print( cbind( x, dat$x ) )
+##' }
 awk <- function( code, file, BEGIN=NULL, END=NULL, vars=NULL, fs=NULL, out=TRUE, verbose=FALSE ) {
   
   code_statement <- paste("{", code, "}")
@@ -60,7 +61,7 @@ awk <- function( code, file, BEGIN=NULL, END=NULL, vars=NULL, fs=NULL, out=TRUE,
   
   if( !is.null(fs) ) {
     if( length(fs) != 1 ) {
-      stop("'fs' must be of lengh 1")
+      stop("'fs' must be of length 1")
     }
     fs_statement <- paste( sep="", "-F\"", fs, "\"")
   } else {

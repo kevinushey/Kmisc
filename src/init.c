@@ -9,7 +9,7 @@ SEXP copy(SEXP x_);
 SEXP factor_to_char( SEXP X_, SEXP inplace_ );
 SEXP in_interval( SEXP x, SEXP lo, SEXP hi, 
         SEXP include_lower, SEXP include_upper );
-SEXP list_to_dataframe(SEXP x_, SEXP inplace);
+SEXP list2df(SEXP x_, SEXP inplace);
 SEXP mat2df(SEXP x);
 SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SEXP value_name );
 SEXP melt_matrix( SEXP x );
@@ -39,7 +39,7 @@ R_CallMethodDef callMethods[]  = {
   {"Ccopy", (DL_FUNC) &copy, 1},
   {"Cfactor_to_char", (DL_FUNC) &factor_to_char, 2},
   {"Cin_interval", (DL_FUNC) &in_interval, 5},
-  {"Clist_to_dataframe", (DL_FUNC) &list_to_dataframe, 2},
+  {"Clist2df", (DL_FUNC) &list2df, 2},
   {"Cmat2df", (DL_FUNC) &mat2df, 1},
   {"Cmelt_dataframe", (DL_FUNC) &melt_dataframe, 5},
   {"Cmelt_matrix", (DL_FUNC) &melt_matrix, 1},

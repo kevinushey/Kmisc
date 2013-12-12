@@ -26,15 +26,15 @@ split_runs <- function(x) {
   }
   
   if( length(x) == 1 ) {
-    return( .Call(CKmisc_split_runs_one, as.character(x), PACKAGE="Kmisc" ) )
+    return( .Call(CKmisc_split_runs_one, as.character(x)) )
   }
   
   if( is.character(x) ) {
-    return( .Call(CKmisc_split_runs_character, x, PACKAGE="Kmisc" ) )
+    return( .Call(CKmisc_split_runs_character, x) )
   }
   
   if( is.numeric(x) ) {
-    return( .Call(CKmisc_split_runs_numeric, x, PACKAGE="Kmisc" ) )
+    return( .Call(CKmisc_split_runs_numeric, x) )
   }
   
   stop("x is of incompatible type")

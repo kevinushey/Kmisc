@@ -15,7 +15,7 @@ factor_ <- function(x, levels=NULL) {
     return(x)
   }
   
-  out <- .Call( CKmisc_fast_factor, x, levels, PACKAGE="Kmisc" )
+  out <- .Call( CKmisc_fast_factor, x, levels )
   if( is.logical(x) ) {
     setattr(out, "levels", c("FALSE", "TRUE"))
   }

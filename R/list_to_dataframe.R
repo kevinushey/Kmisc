@@ -8,10 +8,6 @@
 ##' so that the \code{list} itself is transformed into a \code{data.frame},
 ##' sans copying.
 ##' @export
-list_to_dataframe <- function(list, inplace=FALSE) {
-  return( .Call(Clist_to_dataframe, list, inplace, PACKAGE="Kmisc") )
+list2df <- function(list, inplace=FALSE) {
+  return( .Call(Clist2df, list, inplace) )
 }
-
-##' @rdname list_to_dataframe
-##' @export
-list_to_df <- list_to_dataframe

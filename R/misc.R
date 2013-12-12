@@ -1,173 +1,57 @@
-#' Number of non-NA unique elements in a vector
-#'  
-#' Returns the number of non-NA unique elements in a vector. A wrapper to
-#' \code{length( unique( x[!is.na(x)], ... ) )}. Primarily intended for
-#' interactive use.
-#' @export
-#' @param x a vector
-#' @param ... passed to \code{\link{unique}}
+##' Number of non-NA unique elements in a vector
+##'  
+##' Returns the number of non-NA unique elements in a vector. A wrapper to
+##' \code{length( unique( x[!is.na(x)], ... ) )}. 
+##' Primarily intended for interactive, not programmatic, use.
+##' @export
+##' @param x a vector
+##' @param ... passed to \code{\link{unique}}
 lu <- function( x, ...) {
   length( unique( x[!is.na(x)], ... ) ) 
 }
 
-#' Unique elements in a vector
-#' 
-#' Returns the unique elements in a vector. A wrapper to
-#' \code{\link{unique}()}. Primarily intended for
-#' interactive use.
-#' @param ... passed to \code{\link{unique}}.
+##' Unique elements in a vector
+##' 
+##' Returns the unique elements in a vector. A wrapper to
+##' \code{\link{unique}()}.
+##' Primarily intended for interactive, not programmatic, use.
+##' @param ... passed to \code{\link{unique}}.
 u <- function(...) { 
   unique( ... ) 
 }
 
-#' length( grep( ... ) )
-#' 
-#' This is a wrapper to a \code{length( grep( ... ) )}. See examples for usage.
-#' Primarily intended for interactive use.
-#' @param pattern regex pattern passed to \code{grep}.
-#' @param x a vector on which we attempt to match \code{pattern} on.
-#' @param perl boolean. use perl-compatible regular expressions?
-#' @param ... additional arguments passed to \code{\link{grep}}.
-#' @seealso \code{\link{re.exists}}
-#' @export
-#' @examples
-#' x <- c("apple", "banana", "cherry")
-#' if( lg( "^ap", x ) > 0 ) {
-#'   print( "regular expression '^ap' found in 'x'" )
-#'   }
+##' length( grep( ... ) )
+##' 
+##' This is a wrapper to a \code{length( grep( ... ) )}. See examples for usage.
+##' Primarily intended for interactive, not programmatic, use.
+##' @param pattern regex pattern passed to \code{grep}.
+##' @param x a vector on which we attempt to match \code{pattern} on.
+##' @param perl boolean. use perl-compatible regular expressions?
+##' @param ... additional arguments passed to \code{\link{grep}}.
+##' @seealso \code{\link{re_exists}}
+##' @export
+##' @examples
+##' x <- c("apple", "banana", "cherry")
+##' if( lg( "^ap", x ) > 0 ) {
+##'   print( "regular expression '^ap' found in 'x'" )
+##'   }
 lg <- function(pattern, x, perl=TRUE, ...) {
   length( grep( pattern, x, perl=perl, ... ) ) 
 }
 
-##' Check whether Regular Expression was Found
+##' unlist( strsplit( ... ) )
 ##' 
-##' Checks whether a match was found for a given regular expression in a vector.
-##' See examples for usage.
-##' @param pattern regex pattern passed to \code{grep}.
-##' @param x vector on which we attempt to match \code{pattern} on.
-##' @param perl boolean. use perl-compatible regular expressions?
-##' @param ... additional arguments passed to \code{ \link{grep} }.
+##' This is a thin wrapper to \code{ unlist( strsplit( ... ) ) }.
+##' Primarily intended for interactive, not programmatic, use.
+##' @param x vector of items, as passed to \code{\link{strsplit}}
+##' @param split the delimiter to split on
+##' @param ... optional arguments passed to strsplit
 ##' @export
+##' @seealso \code{\link{unlist}}, \code{\link{strsplit}}
 ##' @examples
-##' if( re_exists(c("apple", "banana"), "^ap") ) print("yay!")
-##' 
-re_exists <- function(x, pattern, perl=TRUE, ... ) { 
-  any( grepl( pattern, x, perl=perl, ... ) )
-}
-
-##' @rdname re_exists
-##' @export
-re.exists <- function(pattern, x, perl=TRUE, ...) {
-  re_exists(pattern=pattern, x=x, perl=perl, ...)
-}
-
-##' Extract Elements from a Named Object
-##' 
-##' Extracts elements from an \R object
-##' with the names attribute set in a 'lazy' way. 
-##' The first argument is the object, while the second is a set of names 
-##' parsed from \code{...}. We return the object, including 
-##' only the elements with names matched from \code{...}.
-##' 
-##' We can be 'lazy' with how we pass names. The \code{\link{name}}s
-##' passed to \code{...} are not evaluated directly; rather, their character
-##' representation is taken and used for extraction.
-##' 
-##' @param x An \R object with a \code{names} attribute.
-##' @param ... an optional number of 'names' to match in \code{dat}.
-##' @export
-##' @seealso \code{\link{without}}, \code{\link{extract.re}}
-##' @examples
-##' dat <- data.frame( x = c(1, 2, 3), y = c("a", "b", "c"), z=c(4, 5, 6) )
-##' ## all of these return identical output
-##' dat[ names(dat) %in% c("x","z") ]
-##' extract( dat, x, z)
-extract <- function( x, ... ) {
-  
-  args <- as.character(match.call(expand.dots=FALSE)$`...`)
-  missing_names <- args[ args %nin% names(x) ]
-  if (length(missing_names)) {
-    warning("The following names were not found in '", deparse(substitute(x)), 
-      "':\n\t", paste(args[args %nin% names(x)], collapse=", "))
-  }
-  return(x[ names(x) %in% args ])
-  
-}
-
-##' Extract Elements from a Named Object with Regular Expressions
-##' 
-##' Extract elements from an \R object, whereby elements in the object
-##' whose names attribute matches the regular expression supplied, are returned.
-##' 
-##' @param x An \R object with a \code{names} attribute.
-##' @param pattern a regular expression pattern to match against \code{names(x)}.
-##' @param perl boolean. use perl-compatible regular expressions?
-##' @param ... optional arguments passed to \code{grep}.
-##' @export
-##' @seealso \code{\link{grep}}, \code{\link{regex}}
-re_extract <- function( x, pattern, perl=TRUE, ... ) {
-  return( x[ grep( pattern, names(x), perl=perl, ... ) ] )
-}
-
-##' @rdname re_extract
-##' @export
-extract.re <- function(x, pattern, perl=TRUE, ...) {
-  .Deprecated("re_extract")
-  return(re_extract(x=x, pattern=pattern, perl=perl, ...))
-}
-
-##' Remove Elements from a Named Object
-##' 
-##' Removes elements from an \R object
-##' with the names attribute set in a 'lazy' way. 
-##' The first argument is the object, while the second is a set of names 
-##' parsed from \code{...}. We return the object, including 
-##' only the elements with names not matched in \code{...}.
-##' 
-##' We can be 'lazy' with how we pass names. The \code{\link{name}}s
-##' passed to \code{...} are not evaluated directly; rather, their character
-##' representation is taken and used for extraction.
-##' 
-##' @param x An \R object with a \code{names} attribute.
-##' @param ... an optional number of 'names' to match in \code{x}.
-##' @export
-##' @seealso \code{\link{extract}}
-##' @examples
-##' dat <- data.frame( x=c(1, 2, 3), y=c("a", "b", "c"), z=c(4, 5, 6) )
-##' ## all of these return identical output
-##' dat[ !( names(dat) %in% c("x","z") ) ]
-##' without(dat, x, z)
-without <- function(x, ...) {
-  args <- as.character(match.call(expand.dots=FALSE)$`...`)
-  missing_names <- args[ args %nin% names(x) ]
-  if (length(missing_names)) {
-    warning("The following names were not found in '", deparse(substitute(x)), 
-      "':\n\t", paste(args[args %nin% names(x)], collapse=", "))
-  }
-  return(x[ names(x) %nin% args ])
-}
-
-##' Remove Elements from a Named Object with Regular Expressions
-##' 
-##' Remove elements from an \R object, whereby elements in the object
-##' whose names attribute matches the regular expression supplied are remove
-##' 
-##' @param x An \R object with a \code{names} attribute.
-##' @param pattern a regular expression pattern to match against \code{names(x)}.
-##' @param perl boolean. use perl-compatible regular expressions?
-##' @param ... optional arguments passed to \code{grep}.
-##' @export
-##' @seealso \code{\link{grep}}, \code{\link{regex}}
-re_without <- function( x, pattern, perl=TRUE, ... ) {
-  return( x[ 1:length(x) %nin% grep( pattern, names(x), perl=perl, ... ) ] )
-}
-
-##' @rdname re_without
-##' @export
-without.re <- function(x, pattern, perl=TRUE, ...) {
-  .Deprecated("re_without")
-  return( re_without(x=x, pattern=pattern, perl=perl, ...) )
-}
+##' x <- "apple_banana_cherry"
+##' us(x, "_")
+us <- function(x, split="", ...) { unlist( strsplit( x, split=split, ...) ) }
 
 ##' Set Working Directory
 ##' 
@@ -224,7 +108,7 @@ cd <- function(...) {
 dapply <- function(X, FUN, ...) {
   tmp <- lapply(X, FUN, ...)
   nm <- names(tmp[[1]])
-  list_to_df(tmp, inplace=TRUE)
+  list2df(tmp, inplace=TRUE)
   if (!is.null(nm)) {
     setattr(tmp, "row.names", nm)
   }
@@ -360,7 +244,7 @@ cat.cb <- function( dat, ... ) {
 ##'   be wary of other symbols pointing as the same data.
 ##' @export
 factor_to_char <- function(X, inplace=FALSE) {
-  invisible( .Call(Cfactor_to_char, X, as.logical(inplace), PACKAGE="Kmisc") )
+  invisible( .Call(Cfactor_to_char, X, as.logical(inplace)) )
 }
 
 ##' Converts Characters to Factors in an Object
@@ -375,7 +259,7 @@ factor_to_char <- function(X, inplace=FALSE) {
 ##' @param ... Ignored.
 ##' @export
 char_to_factor <- function(X, inplace=FALSE, ...) {
-  invisible( .Call(CKmisc_char_to_factor, X, inplace, PACKAGE="Kmisc") )
+  invisible( .Call(CKmisc_char_to_factor, X, inplace) )
 }
 
 ##' Make Dummy Variables from a Factor
@@ -828,7 +712,7 @@ kCoef <- function( fit,
   swap_periods=TRUE
 ) {
   
-  if( re.exists( ":", names(fit$coefficients) ) ) {
+  if( re_exists(names(fit$coefficients), ":") ) {
     warning("kCoef not implemented for models with interaction effects")
   }
   

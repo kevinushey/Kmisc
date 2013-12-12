@@ -9,7 +9,7 @@ u(...)
 }
 \description{
 Returns the unique elements in a vector. A wrapper to
-\code{\link{unique}()}. Primarily intended for interactive
-use.
+\code{\link{unique}()}. Primarily intended for interactive,
+not programmatic, use.
 }
 

@@ -60,8 +60,8 @@ stack_list <- function( list,
                   make_row_names, 
                   name, 
                   keep_list_index, 
-                  index_name, 
-                  PACKAGE="Kmisc" )
+                  index_name
+    )
     
     attr(out, "row.names") <- seq_len( length(out[[1]]) )
     return( out )

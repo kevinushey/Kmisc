@@ -11,6 +11,6 @@ counts <- function(x) {
   if( is.list(x) ) {
     return( rapply(x, counts, how="list") )
   } else {
-    return( .Call(CKmisc_counts, x, PACKAGE="Kmisc"))
+    return( .Call(CKmisc_counts, x) )
   }
 }

@@ -29,7 +29,7 @@ str_slice <- function(x, n=1) {
     )
   }
   
-  tmp <- .Call( Cstr_slice, as.character(x), as.integer(n), PACKAGE="Kmisc" )
+  tmp <- .Call( Cstr_slice, as.character(x), as.integer(n) )
   tmp[ which(is.na(x)) ] <- NA
   return(tmp)
   

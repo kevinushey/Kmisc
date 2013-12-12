@@ -1,7 +1,7 @@
 ##' Prepare Package
 ##' 
 ##' This function prepares the package such that all the C / C++ source files
-##' are concatenated into one file (for each source). This increases
+##' are concatenated into one file (for each source). This decreases
 ##' compilation time, and produces a tarball that can be used for submission
 ##' to CRAN.
 ##' 
@@ -73,7 +73,7 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE, copy.tarball=
   if (build) {
     cat("Building...\n\n")
     system( paste("R CMD build", gsub(".*/", "", buildDir)) )
-    cat("Copying package tarball to 'tarballs' directory...\n")
+    cat("Copying package tarball to 'dist' directory...\n")
     rx <- paste0("^", pkg_name, "_", pkg_version)
     pkg <- grep(rx, list.files(), value=TRUE)
     to <- file.path(owd, "dist", pkg)

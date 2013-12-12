@@ -279,7 +279,7 @@ pxt <- function( x,
 kImg <- function(x, width=480, height=480) {
   
   ## If we have a period as the first character, remove it.
-  if( re.exists( "^\\./", x) ) {
+  if( re_exists(x, "^\\./") ) {
     x <- gsub( "^\\./", "", x )
   }
   
@@ -300,7 +300,7 @@ kSvg <- function(file=NULL, width=4, height=4, class=NULL) {
   stopifnot( !is.null(file) )
   ## If we have a period as the first character, remove it.
   
-  if( re.exists( "^\\.", file)  ) {
+  if( re_exists(file, "^\\.")  ) {
     x <- gsub( "^\\.", getwd(), file )
   }
   

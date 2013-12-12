@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 // [[export]]
-SEXP list_to_dataframe(SEXP x_, SEXP inplace) {
+SEXP list2df(SEXP x_, SEXP inplace) {
 
 	SEXP x;
 	int unprotect_num = 1;

@@ -18,7 +18,8 @@ lg(pattern, x, perl = TRUE, ...)
 }
 \description{
 This is a wrapper to a \code{length( grep( ... ) )}. See
-examples for usage. Primarily intended for interactive use.
+examples for usage. Primarily intended for interactive, not
+programmatic, use.
 }
 \examples{
 x <- c("apple", "banana", "cherry")
@@ -27,6 +28,6 @@ if( lg( "^ap", x ) > 0 ) {
   }
 }
 \seealso{
-\code{\link{re.exists}}
+\code{\link{re_exists}}
 }
 

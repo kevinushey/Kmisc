@@ -55,8 +55,7 @@ unmelt_ <- function(data, variable="variable", value="value") {
     unique(data[[variable]]),
     as.integer(other)-1L,
     as.integer(variable)-1L,
-    as.integer(value)-1L,
-    PACKAGE="Kmisc"
+    as.integer(value)-1L
   ) )
   
 }

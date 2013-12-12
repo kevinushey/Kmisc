@@ -1,12 +1,13 @@
 Package: Kmisc
 Type: Package
-Title: Miscellaneous functions intended to improve the R coding experience
+Title: Kevin Miscellaneous
 Version: 0.5.0
-Date: 2013-03-26
+Date: 2013-12-12
 Author: Kevin Ushey
 Maintainer: Kevin Ushey <kevinushey@gmail.com>
-Description: A collection of functions for common data reshaping operations, as
-    well as functions for table and plot generation for R Markdown documents.
+Description: This package contains a collection of functions for common data
+    extraction and reshaping operations, string manipulation, and
+    functions for table and plot generation for R Markdown documents.
 License: GPL (>= 2)
 LazyData: TRUE
 LinkingTo: Rcpp
@@ -42,7 +43,7 @@ Collate:
     'clean_doc.R'
     'copy.R'
     'counts.R'
-    'extract_rows.R'
+    'extract.R'
     'extract_rows_from_file.R'
     'fast_factor.R'
     'grid.text2.R'

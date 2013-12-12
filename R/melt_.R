@@ -97,8 +97,7 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
     as.integer(id.vars-1L),
     as.integer(measure.vars-1L),
     variable.name,
-    value.name,
-    PACKAGE="Kmisc"
+    value.name
   )
   
   ## preserve data.table-ness
@@ -115,5 +114,5 @@ melt_.data.frame <- function(data, id.vars, measure.vars, variable.name="variabl
 ##' @method melt_ matrix
 ##' @S3method melt_ matrix
 melt_.matrix <- function( data, ... ) {
-  return( .Call(Cmelt_matrix, data, PACKAGE="Kmisc") )
+  return( .Call(Cmelt_matrix, data) )
 }

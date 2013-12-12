@@ -21,7 +21,7 @@ prepare_package(build = TRUE, check = TRUE, install = FALSE,
 \description{
 This function prepares the package such that all the C /
 C++ source files are concatenated into one file (for each
-source). This increases compilation time, and produces a
+source). This decreases compilation time, and produces a
 tarball that can be used for submission to CRAN.
 }
 

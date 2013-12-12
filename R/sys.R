@@ -17,7 +17,6 @@
 ##' @param show.output.on.console Windows only -- show output on console?
 ##' @param minimized Windows only -- run the shell minimized?
 ##' @param invisible Windows only -- run invisibly?
-##' @export
 sys <- function(..., 
                 intern=FALSE, 
                 ignore.stdout=FALSE,

@@ -1,6 +1,7 @@
 library(testthat)
 library(Kmisc)
 library(microbenchmark)
+library(Rcpp)
 
 dat <- as.data.frame( replicate(10, rnorm(1E4), simplify=FALSE) )
 tempfile <- tempfile()

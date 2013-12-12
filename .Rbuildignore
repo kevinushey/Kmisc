@@ -11,3 +11,6 @@ incubator/
 old/
 .idea
 dist/
+nbproject/
+bench/
+Kmisc/

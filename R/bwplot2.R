@@ -29,7 +29,7 @@ bwplot2 <- function( form,
                      n=10, 
                      ... ) {
   
-  if( re.exists( "\\|", attr( terms(form), "variable" ) ) ) {
+  if( re_exists(attr( terms(form), "variable" ), "\\|") ) {
     stop("not implemented for multi-panel plots")
   }
   

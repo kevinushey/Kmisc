@@ -12,6 +12,6 @@ lu(x, ...)
 \description{
 Returns the number of non-NA unique elements in a vector. A
 wrapper to \code{length( unique( x[!is.na(x)], ... ) )}.
-Primarily intended for interactive use.
+Primarily intended for interactive, not programmatic, use.
 }
 
