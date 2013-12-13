@@ -1,5 +1,5 @@
 <!--
-%\VignetteEngine{knitr::knitr}
+%\VignetteEngine{knitr::docco_linear}
 %\VignetteIndexEntry{Introduction to Kmisc}
 \usepackage[utf8]{inputenc}
 -->

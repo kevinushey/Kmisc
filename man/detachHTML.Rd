@@ -5,10 +5,7 @@
 detachHTML()
 }
 \description{
-Calling this function will detach the environment generated
-by \code{attachHTML()}.
-}
-\seealso{
-\code{\link{attachHTML}}
+DEPRECATED: Please use the \code{\link{html}} function to
+generate HTML.
 }
 

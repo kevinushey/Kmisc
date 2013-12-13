@@ -5,9 +5,7 @@
 attachHTML()
 }
 \description{
-Calling this function will attach HTML tagging functions.
-}
-\seealso{
-\code{\link{detachHTML}}
+DEPRECATED: Please use the \code{\link{html}} function to
+generate HTML.
 }
 

@@ -1,12 +1,12 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+.DS_Store
 benchmark/
 Rplots.pdf
 test/
 src-i386/
 src-x86_64/
 stress/
-build/
 incubator/
 old/
 .idea
@@ -14,3 +14,7 @@ dist/
 nbproject/
 bench/
 Kmisc/
+Makefile
+README.md
+vignettes/*.md
+vignettes/*.html

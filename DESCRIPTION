@@ -74,7 +74,6 @@ Collate:
     'regex.R'
     'registerFunctions.R'
     'remove_char_digit.R'
-    'shiny.package.skeleton.R'
     'simp.R'
     'size.R'
     'split_file.R'

@@ -28,9 +28,9 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE, copy.tarball=
   pkg_version <- DESCRIPTION$Version
   
   ## copy the files to a 'build' directory
-  buildDir <- file.path( tempdir() )
+  buildDir <- file.path( tempdir(), pkg_name )
   if( file.exists(buildDir) ) {
-    system( paste("rm -rf", shQuote(buildDir)) )
+    unlink(shQuote(buildDir), recursive=TRUE)
   }
   dir.create(buildDir, showWarnings=FALSE)
   system( paste("cp -r .", buildDir) )
@@ -84,8 +84,8 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE, copy.tarball=
   ## check the package
   if (check) {
     cat("Running R CMD check...\n\n")
-    system( paste("R CMD check", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz")))
-    system( paste("rm -rf", paste0(pkg_name, ".Rcheck")) )
+    system( paste("R CMD check --as-cran", paste(sep='', pkg_name, "_", pkg_version, ".tar.gz")))
+    unlink( paste0(pkg_name, ".Rcheck"), recursive=TRUE )
   }
   
   ## install the package
@@ -97,7 +97,8 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE, copy.tarball=
   
   ## remove the build dir
   if (build) {
-    system( paste("rm -rf", buildDir) )
+    unlink(buildDir, recursive=TRUE)
+    unlink( paste0(pkg_name, "_", pkg_version, ".tar.gz") )
   }
   
 }
