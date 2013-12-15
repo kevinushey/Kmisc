@@ -12,6 +12,8 @@ counts(x)
 }
 \description{
 This function uses Rcpp sugar to implement a fast
-\code{table}, for unique counts of a single vector.
+\code{table}, for unique counts of a single vector. This
+implementation seeks to produce identical output to
+\code{table(x, useNA="ifany")}.
 }
 

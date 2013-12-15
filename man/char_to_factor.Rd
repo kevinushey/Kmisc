@@ -1,8 +1,11 @@
 \name{char_to_factor}
+\alias{char2factor}
 \alias{char_to_factor}
 \title{Converts Characters to Factors in an Object}
 \usage{
 char_to_factor(X, inplace = FALSE, ...)
+
+char2factor(X, inplace = FALSE, ...)
 }
 \arguments{
   \item{X}{an object.}

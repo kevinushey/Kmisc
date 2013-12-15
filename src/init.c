@@ -6,6 +6,7 @@
 SEXP any_na( SEXP x );
 SEXP charlist_transpose_to_df( SEXP x, SEXP names );
 SEXP copy(SEXP x_);
+SEXP df2list(SEXP x_, SEXP inplace);
 SEXP factor_to_char( SEXP X_, SEXP inplace_ );
 SEXP in_interval( SEXP x, SEXP lo, SEXP hi, 
         SEXP include_lower, SEXP include_upper );
@@ -37,6 +38,7 @@ R_CallMethodDef callMethods[]  = {
   {"Cany_na", (DL_FUNC) &any_na, 1},
   {"Ccharlist_transpose_to_df", (DL_FUNC) &charlist_transpose_to_df, 2},
   {"Ccopy", (DL_FUNC) &copy, 1},
+  {"Cdf2list", (DL_FUNC) &df2list, 2},
   {"Cfactor_to_char", (DL_FUNC) &factor_to_char, 2},
   {"Cin_interval", (DL_FUNC) &in_interval, 5},
   {"Clist2df", (DL_FUNC) &list2df, 2},

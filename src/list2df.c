@@ -2,7 +2,6 @@
 
 #include <R.h>
 #include <Rinternals.h>
-#include <stdlib.h>
 
 // [[export]]
 SEXP list2df(SEXP x_, SEXP inplace) {
@@ -21,6 +20,9 @@ SEXP list2df(SEXP x_, SEXP inplace) {
 
 	if (TYPEOF(x_) != VECSXP)
 		error("argument must be a list; type is '%s'", type2char(TYPEOF(x_)));
+    
+  if (inherits(x_, "data.frame"))
+    warning("argument is already a data.frame");
 
 	if (LOGICAL(inplace)[0]) {
 		x = x_;

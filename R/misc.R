@@ -247,6 +247,10 @@ factor_to_char <- function(X, inplace=FALSE) {
   invisible( .Call(Cfactor_to_char, X, as.logical(inplace)) )
 }
 
+##' @rdname factor_to_char
+##' @export
+factor2char <- factor_to_char
+
 ##' Converts Characters to Factors in an Object
 ##' 
 ##' Converts characters to factors in an object. Leaves non-factor elements
@@ -261,6 +265,10 @@ factor_to_char <- function(X, inplace=FALSE) {
 char_to_factor <- function(X, inplace=FALSE, ...) {
   invisible( .Call(CKmisc_char_to_factor, X, inplace) )
 }
+
+##' @rdname char_to_factor
+##' @export
+char2factor <- char_to_factor
 
 ##' Make Dummy Variables from a Factor
 ##' 
