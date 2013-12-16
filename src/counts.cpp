@@ -53,7 +53,7 @@ inline IntegerVector do_counts<NumericVector, double>(const NumericVector& x) {
   }
   IntegerVector output = wrap(counts);
   
-  // expicitly use R's as.character mechanism to get good names
+  // explicitly use R's double-to-character coercion to get good names
   int m = counts.size();
   NumericVector keys = no_init(m);
   typedef std::map< double, int, NACompare<double> >::iterator MapItr;
