@@ -6,7 +6,7 @@
 ##' 
 ##' For numeric vectors, we do not distinguish between `NA` and `NaN`.
 ##' The order is not guaranteed to be identical with that of \code{table},
-##' when \code{NA} is present.
+##' when any \code{NA}s or \code{NaN}s are present.
 ##' 
 ##' @param x A numeric, integer, character or logical vector, or a (potentially
 ##'   nested) list of such vectors. If \code{x} is a list, we recursively apply

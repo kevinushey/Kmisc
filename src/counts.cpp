@@ -1,4 +1,5 @@
 #include <Rcpp.h>
+#include <unordered_map>
 using namespace Rcpp;
 
 template <typename T>
@@ -27,9 +28,9 @@ struct NACompare<double> {
 };
 
 template <>
-struct NACompare<String> {
-  inline bool operator()(const String& left, const String& right) const {
-    return left < right;
+struct NACompare<const char*> {
+  inline bool operator()(const char* left, const char* right) const {
+    return strcmp(left, right) < 0;
   }
 };
 
@@ -42,6 +43,24 @@ inline IntegerVector do_counts(const T& x) {
   }
   IntegerVector output = wrap(counts);
   return wrap(counts);
+}
+
+template <>
+inline IntegerVector do_counts<CharacterVector, const char*>(const CharacterVector& x) {
+  IntegerVector tmp = table(x);
+  std::map< const char*, int, NACompare<const char*> > counts;
+  for (int i=0; i < tmp.size(); ++i) {
+    counts[ CHAR(STRING_ELT( tmp.attr("names"), i )) ] = tmp[i];
+  }
+  IntegerVector output = wrap(counts);
+  
+  CharacterVector names = output.attr("names");
+  CharacterVector::iterator it = std::find( names.begin(), names.end(), "NA" );
+  if (it != names.end()) {
+    *it = NA_STRING;
+  }
+  return output;
+  
 }
 
 template <>
@@ -68,6 +87,20 @@ inline IntegerVector do_counts<NumericVector, double>(const NumericVector& x) {
 }
 
 // [[Rcpp::export]]
+IntegerVector tableRcpp(SEXP x) {
+  switch (TYPEOF(x)) {
+  case INTSXP: return table(as<IntegerVector>(x));
+  case REALSXP: return table(as<NumericVector>(x));
+  case STRSXP: return table(as<CharacterVector>(x));
+  case LGLSXP: return table(as<LogicalVector>(x));
+  default: {
+    stop("unrecognized SEXP type");
+    return R_NilValue;
+  }
+  }
+}
+
+// [[Rcpp::export]]
 IntegerVector counts(SEXP x) {
   switch (TYPEOF(x)) {
   case REALSXP: {
@@ -80,7 +113,7 @@ IntegerVector counts(SEXP x) {
     }
     return output;
   }
-  case STRSXP: return do_counts<CharacterVector, String>(x);
+  case STRSXP: return do_counts<CharacterVector, const char*>(x);
   case INTSXP: return do_counts<IntegerVector, int>(x);
   case LGLSXP: {
     IntegerVector output = do_counts<LogicalVector, int>(x);
@@ -105,18 +138,34 @@ IntegerVector counts(SEXP x) {
 
 /*** R
 set.seed(123)
-x <- round( rnorm(1E5), 1 )
+x <- round( rnorm(1E6), 1 )
 x[sample(length(x), 100)] <- NA
-x[sample(length(x), 100)] <- NaN
+#x[sample(length(x), 100)] <- NaN
 x[sample(length(x), 100)] <- Inf
 x[sample(length(x), 100)] <- -Inf
 x_num <- x
-x_int <- as.integer(x)
+suppressWarnings(x_int <- as.integer(x))
 x_char <- as.character(x)
 x_lgl <- x > 0
 all.equal( counts(x), c(table(x, useNA='ifany') ) )
 all.equal( counts(x_int), c(table(x_int, useNA="ifany")))
 all.equal(counts(x_char), c(table(x_char, useNA="ifany")))
 all.equal(counts(x_lgl), c(table(x_lgl, useNA="ifany")))
-if (require(microbenchmark)) microbenchmark( times=5, counts(x), c(table(x, useNA='ifany')) )
+if (require(microbenchmark)) {
+  microbenchmark( 
+    times=5, 
+    counts(x_num),
+    tableRcpp(x_num),
+    c(table(x_num, useNA="ifany")),
+    counts(x_int),
+    tableRcpp(x_int),
+    c(table(x_int, useNA="ifany")),
+    counts(x_char),
+    tableRcpp(x_char),
+    c(table(x_char, useNA="ifany")),
+    counts(x_lgl),
+    tableRcpp(x_lgl),
+    c(table(x_lgl, useNA="ifany"))
+  )
+}
 */
