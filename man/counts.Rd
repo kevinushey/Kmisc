@@ -19,7 +19,8 @@ implementation seeks to produce identical output to
 \details{
 For numeric vectors, we do not distinguish between `NA` and
 `NaN`. The order is not guaranteed to be identical with
-that of \code{table}, when \code{NA} is present.
+that of \code{table}, when any \code{NA}s or \code{NaN}s
+are present.
 }
 \examples{
 x <- round( rnorm(1E2), 1 )

@@ -1,5 +1,4 @@
 #include <Rcpp.h>
-#include <unordered_map>
 using namespace Rcpp;
 
 template <typename T>
