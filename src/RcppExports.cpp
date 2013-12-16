@@ -22,14 +22,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // counts
-SEXP counts(SEXP x);
+IntegerVector counts(SEXP x);
 RcppExport SEXP Kmisc_counts(SEXP xSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< SEXP >::type x(xSEXP );
-        SEXP __result = counts(x);
+        IntegerVector __result = counts(x);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

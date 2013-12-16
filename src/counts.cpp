@@ -1,86 +1,76 @@
 #include <Rcpp.h>
-#include <Rdefines.h>
 using namespace Rcpp;
 
-// we handle the integer, numeric, character cases all separately
-IntegerVector do_counts_integer( const IntegerVector& x ) {
-  
-  IntegerVector output = table(x);
-  if (Rf_isFactor(x)) {
-    Rf_setAttrib(output, R_NamesSymbol, Rf_getAttrib(x, R_LevelsSymbol));
-  }
-  
-  // fix names
-  CharacterVector names = output.attr("names");
-  for (int i=0; i < output.size(); ++i) {
-    if (names[i] == "-0") {
-      names[i] = "0";
-    }
-  }
-  output.attr("names") = names;
-  
-  return output;
-}
+template <typename T>
+class NACompare;
 
-IntegerVector do_counts_numeric( const NumericVector& x ) {
-  std::map<double, int> counts;
-  int numNA = 0;
-  for (int i=0; i < x.size(); ++i) {
-    if (ISNA(x[i])) {
-      ++numNA;
-    } else {
-      ++counts[ x[i] ];
+template <>
+class NACompare<int> {
+  public:
+    inline bool operator()(int left, int right) const {
+      if (left == NA_INTEGER) return false;
+      if (right == NA_INTEGER) return true;
+      return left < right;
     }
+};
+
+template <>
+class NACompare<double> {
+  public:
+    inline bool operator()(double left, double right) const {
+      bool leftNaN = (left != left);
+      bool rightNaN = (right != right);
+      if (leftNaN != rightNaN) {
+        return leftNaN < rightNaN;
+      } else {
+        return left < right;
+      }
+    }
+};
+
+template <>
+class NACompare<String> {
+  public:
+    inline bool operator()(const String& left, const String& right) const {
+      return left < right;
+    }
+};
+
+template <typename T, typename U>
+inline IntegerVector do_counts(const T& x) {
+  std::map< U, int, NACompare<U> > counts;
+  int n = x.size();
+  for (int i=0; i < n; ++i) {
+    ++counts[ x[i] ];
   }
-  
   IntegerVector output = wrap(counts);
-  
-  // fix names
-  CharacterVector names = output.attr("names");
-  for (int i=0; i < output.size(); ++i) {
-    if (names[i] == "-0") {
-      names[i] = "0";
-    }
-  }
-  output.attr("names") = names;
-  
-  // append NA
-  if (numNA > 0) {
-    output.push_back(numNA);
-    CharacterVector names = output.attr("names");
-    names[ names.size()-1 ] = NA_STRING;
-    output.attr("names") = names;
-  }
-  
-  return output;
-}
-
-IntegerVector do_counts_character( const CharacterVector& x ) {
-  IntegerVector output = table(x);
-  // fix names
-  CharacterVector names = output.attr("names");
-  for (int i=0; i < output.size(); ++i) {
-    if (names[i] == "-0") {
-      names[i] = "0";
-    }
-  }
-  output.attr("names") = names;
-  return output;
-}
-
-inline IntegerVector do_counts_logical( const LogicalVector& x ) {
-  return table(x);
+  return wrap(counts);
 }
 
 // [[Rcpp::export]]
-SEXP counts( SEXP x ) {
-  switch( TYPEOF(x) ) {
-  case INTSXP: return do_counts_integer(x);
-  case REALSXP: return do_counts_numeric(x);
-  case STRSXP: return do_counts_character(x);
-  case LGLSXP: return do_counts_logical(x);
+IntegerVector counts(SEXP x) {
+  switch (TYPEOF(x)) {
+  case REALSXP: {
+    IntegerVector output = do_counts<NumericVector, double>(x);
+    // fix names
+    CharacterVector names = output.attr("names");
+    CharacterVector::iterator it = std::find( names.begin(), names.end(), "-0" );
+    if (it != names.end()) {
+      *it = "0";
+    }
+    output.attr("names") = names;
+    return output;
+  }
+  case STRSXP: return do_counts<CharacterVector, String>(x);
+  case INTSXP: return do_counts<IntegerVector, int>(x);
+  case LGLSXP: {
+    IntegerVector output = do_counts<LogicalVector, int>(x);
+    SET_STRING_ELT( output.attr("names"), 0, Rf_mkChar("FALSE") );
+    SET_STRING_ELT( output.attr("names"), 1, Rf_mkChar("TRUE") );
+    return output;
+  }
   default: {
-    Rf_error("'x' is of invalid type '%s'", Rf_type2char( TYPEOF(x) ));
+    stop("unrecognized SEXP type");
     return R_NilValue;
   }
   }

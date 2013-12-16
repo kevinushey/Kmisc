@@ -6,16 +6,20 @@
 ##' 
 ##' @param x A numeric, integer, character or logical vector, or a (potentially
 ##'   nested) list of such vectors. If \code{x} is a list, we recursively apply
-##'   counts throughout elements in the list.
+##'   \code{counts} throughout elements in the list.
 ##' @export
+##' @examples
+##' x <- round( rnorm(1E2), 1 )
+##' x_int <- as.integer(x)
+##' x_char <- as.character(x)
+##' stopifnot( identical( counts(x), c(table(x)) ) )
+##' stopifnot( identical( counts(x_int), c(table(x_int)) ) )
+##' stopifnot( identical( counts(x_char), c(table(x_char)) ) )
 counts <- function(x) {
   if (is.list(x)) {
     output <- rapply(x, counts, how="list")
+    return(output)
   } else {
-    output <- .Call(CKmisc_counts, x)
+    return(.Call(CKmisc_counts, x))
   }
-  if (is.na( names(output)[1] )) {
-    output <- output[ c(2:length(output), 1) ]
-  }
-  return(output)
 }

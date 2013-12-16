@@ -1,4 +1,5 @@
 library(testthat)
+library(microbenchmark)
 library(Kmisc)
 
 table_ <- function(x) {
@@ -8,28 +9,48 @@ table_ <- function(x) {
   return(out)
 }
 
+n <- 1E5
+
 set.seed(123)
-x <- round( rnorm(1E2), 0 )
+x <- round( rnorm(n), 0 )
 expect_identical( counts(x), table_(x) )
+microbenchmark( times=5,  counts(x), table_(x) )
 
 x <- as.integer(x)
 expect_identical( counts(x), table_(x) )
+microbenchmark( times=5,  counts(x), table_(x) )
 
 x <- as.character(x)
 expect_identical( counts(x), table_(x) )
+microbenchmark( times=5,  counts(x), table_(x) )
 
 x <- as.logical( as.numeric(x) )
 expect_identical( counts(x), table_(x) )
+microbenchmark( times=5,  counts(x), table_(x) )
 
-x <- round( rnorm(1E4), 0 )
+x <- round( rnorm(n), 0 )
 x[ sample(1:length(x), 10) ] <- NA
 expect_identical( counts(x), table_(x) )
+microbenchmark( times=5,  counts(x), table_(x) )
 
 x <- as.integer(x)
 expect_identical( counts(x), table_(x) )
+microbenchmark( times=5,  counts(x), table_(x) )
 
 x <- as.character(x)
 expect_identical( counts(x), table_(x) )
+microbenchmark( times=5,  counts(x), table_(x) )
 
 x <- as.logical( as.numeric(x) )
 expect_identical( counts(x), table_(x) )
+microbenchmark( times=5,  counts(x), table_(x) )
+
+x <- replicate(10, round( rnorm(n), 0 ), simplify=FALSE)
+expect_identical(
+  counts(x),
+  lapply(x, table_)
+)
+microbenchmark(times=5,
+  counts(x),
+  lapply(x, table_)
+)
