@@ -73,12 +73,11 @@ IntegerVector counts(SEXP x) {
   case REALSXP: {
     IntegerVector output = do_counts<NumericVector, double>(x);
     // fix names
-    CharacterVector names = output.attr("names");
-    CharacterVector::iterator it = std::find( names.begin(), names.end(), "-0" );
-    if (it != names.end()) {
-      *it = "0";
+    for (int i=0; i < output.size(); ++i) {
+      if (CHAR(STRING_ELT(output.attr("names"), i)) == "-0") {
+        SET_STRING_ELT(output.attr("names"), i, Rf_mkChar("-0"));
+      }
     }
-    output.attr("names") = names;
     return output;
   }
   case STRSXP: return do_counts<CharacterVector, String>(x);
