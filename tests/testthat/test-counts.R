@@ -54,3 +54,7 @@ microbenchmark(times=5,
   counts(x),
   lapply(x, table_)
 )
+
+## test small, large numerics
+expect_identical( counts(1E-20), c(table(1E-20)) )
+expect_identical( counts(1E20), c(table(1E20)) )
