@@ -84,8 +84,16 @@ IntegerVector counts(SEXP x) {
   case INTSXP: return do_counts<IntegerVector, int>(x);
   case LGLSXP: {
     IntegerVector output = do_counts<LogicalVector, int>(x);
-    SET_STRING_ELT( output.attr("names"), 0, Rf_mkChar("FALSE") );
-    SET_STRING_ELT( output.attr("names"), 1, Rf_mkChar("TRUE") );
+    // yuck
+    SEXP namesptr = Rf_getAttrib(output, R_NamesSymbol);
+    for (int i=0; i < output.size(); ++i) {
+      if (strcmp(CHAR(STRING_ELT(namesptr, i)), "0") == 0) {
+        SET_STRING_ELT(namesptr, i, Rf_mkChar("FALSE"));
+      }
+      if (strcmp(CHAR(STRING_ELT(namesptr, i)), "1") == 0) {
+        SET_STRING_ELT(namesptr, i, Rf_mkChar("TRUE"));
+      }
+    }
     return output;
   }
   default: {
@@ -99,6 +107,9 @@ IntegerVector counts(SEXP x) {
 set.seed(123)
 x <- round( rnorm(1E5), 1 )
 x[sample(length(x), 100)] <- NA
+x[sample(length(x), 100)] <- NaN
+x[sample(length(x), 100)] <- Inf
+x[sample(length(x), 100)] <- -Inf
 x_num <- x
 x_int <- as.integer(x)
 x_char <- as.character(x)

@@ -53,3 +53,5 @@ expect_identical(
 ## test small, large numerics
 expect_identical( counts(1E-20), c(table(1E-20)) )
 expect_identical( counts(1E20), c(table(1E20)) )
+expect_identical( counts(TRUE), c(table(TRUE)) )
+expect_identical( counts(FALSE), c(table(FALSE)) )
