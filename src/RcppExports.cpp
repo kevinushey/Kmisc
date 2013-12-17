@@ -21,6 +21,21 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// tableRcpp
+IntegerVector tableRcpp(SEXP x);
+RcppExport SEXP Kmisc_tableRcpp(SEXP xSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< SEXP >::type x(xSEXP );
+        IntegerVector __result = tableRcpp(x);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // counts
 IntegerVector counts(SEXP x);
 RcppExport SEXP Kmisc_counts(SEXP xSEXP) {

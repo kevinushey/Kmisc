@@ -16,12 +16,6 @@ This function uses Rcpp sugar to implement a fast
 implementation seeks to produce identical output to
 \code{table(x, useNA="ifany")}.
 }
-\details{
-For numeric vectors, we do not distinguish between `NA` and
-`NaN`. The order is not guaranteed to be identical with
-that of \code{table}, when any \code{NA}s or \code{NaN}s
-are present.
-}
 \examples{
 x <- round( rnorm(1E2), 1 )
 x_int <- as.integer(x)

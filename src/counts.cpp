@@ -1,6 +1,16 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+// borrowed from data.table package;
+// see https://github.com/arunsrinivasan/datatable/blob/master/pkg/src/countingcharacter.c
+inline int StrCmp(SEXP x, SEXP y)
+{
+    if (x == NA_STRING) return (y == NA_STRING ? 0 : 1);
+    if (y == NA_STRING) return -1;
+    if (x == y) return 0;  // same string in cache
+    return strcmp(CHAR(x), CHAR(y));
+}
+
 template <typename T>
 struct NACompare;
 
@@ -16,20 +26,32 @@ struct NACompare<int> {
 template <>
 struct NACompare<double> {  
   inline bool operator()(double left, double right) const {
+    
     bool leftNaN = (left != left);
     bool rightNaN = (right != right);
+    bool leftNA = ISNA(left);
+    
+    // this branch inspired by data.table: see
+    // https://github.com/arunsrinivasan/datatable/commit/1a3e476d3f746e18261662f484d2afa84ac7a146#commitcomment-4885242
+    if (rightNaN && !ISNA(right)) {
+      if (leftNA) {
+        return true;
+      }
+    }
+    
     if (leftNaN != rightNaN) {
       return leftNaN < rightNaN;
     } else {
       return left < right;
     }
   }
+  
 };
 
 template <>
-struct NACompare<const char*> {
-  inline bool operator()(const char* left, const char* right) const {
-    return strcmp(left, right) < 0;
+struct NACompare<SEXP> {
+  inline bool operator()(SEXP left, SEXP right) const {
+    return StrCmp(left, right) < 0;
   }
 };
 
@@ -45,11 +67,11 @@ inline IntegerVector do_counts(const T& x) {
 }
 
 template <>
-inline IntegerVector do_counts<CharacterVector, const char*>(const CharacterVector& x) {
+inline IntegerVector do_counts<CharacterVector, SEXP>(const CharacterVector& x) {
   IntegerVector tmp = table(x);
-  std::map< const char*, int, NACompare<const char*> > counts;
+  std::map< SEXP, int, NACompare<SEXP> > counts;
   for (int i=0; i < tmp.size(); ++i) {
-    counts[ CHAR(STRING_ELT( tmp.attr("names"), i )) ] = tmp[i];
+    counts[ STRING_ELT( tmp.attr("names"), i ) ] = tmp[i];
   }
   IntegerVector output = wrap(counts);
   
@@ -112,7 +134,7 @@ IntegerVector counts(SEXP x) {
     }
     return output;
   }
-  case STRSXP: return do_counts<CharacterVector, const char*>(x);
+  case STRSXP: return do_counts<CharacterVector, SEXP>(x);
   case INTSXP: return do_counts<IntegerVector, int>(x);
   case LGLSXP: {
     IntegerVector output = do_counts<LogicalVector, int>(x);
@@ -137,9 +159,9 @@ IntegerVector counts(SEXP x) {
 
 /*** R
 set.seed(123)
-x <- round( rnorm(1E6), 1 )
+x <- round( rnorm(1E3), 1 )
 x[sample(length(x), 100)] <- NA
-#x[sample(length(x), 100)] <- NaN
+x[sample(length(x), 100)] <- NaN
 x[sample(length(x), 100)] <- Inf
 x[sample(length(x), 100)] <- -Inf
 x_num <- x
@@ -151,7 +173,7 @@ all.equal( counts(x_int), c(table(x_int, useNA="ifany")))
 all.equal(counts(x_char), c(table(x_char, useNA="ifany")))
 all.equal(counts(x_lgl), c(table(x_lgl, useNA="ifany")))
 if (require(microbenchmark)) {
-  microbenchmark( 
+  mb <- microbenchmark( 
     times=5, 
     counts(x_num),
     tableRcpp(x_num),
@@ -166,5 +188,6 @@ if (require(microbenchmark)) {
     tableRcpp(x_lgl),
     c(table(x_lgl, useNA="ifany"))
   )
+  plot(mb)
 }
 */

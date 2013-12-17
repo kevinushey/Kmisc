@@ -5,6 +5,10 @@
     .Call('Kmisc_char_to_factor', PACKAGE = 'Kmisc', x_, inplace)
 }
 
+tableRcpp <- function(x) {
+    .Call('Kmisc_tableRcpp', PACKAGE = 'Kmisc', x)
+}
+
 counts <- function(x) {
     .Call('Kmisc_counts', PACKAGE = 'Kmisc', x)
 }
