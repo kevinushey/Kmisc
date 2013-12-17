@@ -29,15 +29,10 @@ struct NACompare<double> {
     
     bool leftNaN = (left != left);
     bool rightNaN = (right != right);
-    bool leftNA = ISNA(left);
     
     // this branch inspired by data.table: see
     // https://github.com/arunsrinivasan/datatable/commit/1a3e476d3f746e18261662f484d2afa84ac7a146#commitcomment-4885242
-    if (rightNaN && !ISNA(right)) {
-      if (leftNA) {
-        return true;
-      }
-    }
+    if (R_IsNaN(right) and R_IsNA(left)) return true;
     
     if (leftNaN != rightNaN) {
       return leftNaN < rightNaN;
