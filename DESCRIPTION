@@ -74,6 +74,7 @@ Collate:
     'regex.R'
     'registerFunctions.R'
     'remove_char_digit.R'
+    'silent.R'
     'simp.R'
     'size.R'
     'split_file.R'
