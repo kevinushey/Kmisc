@@ -4,6 +4,10 @@
 ##' unique counts of a single vector. This implementation seeks to
 ##' produce identical output to \code{table(x, useNA="ifany")}.
 ##' 
+##' The order of \code{NA}, \code{NaN} in the output may differ -- even 
+##' \R is inconsistent with the order that \code{NA} and \code{NaN} elements 
+##' are inserted.
+##' 
 ##' @param x A numeric, integer, character or logical vector, or a (potentially
 ##'   nested) list of such vectors. If \code{x} is a list, we recursively apply
 ##'   \code{counts} throughout elements in the list.

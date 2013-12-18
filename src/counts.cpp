@@ -1,6 +1,21 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+// can we just look this up somewhere?
+#define NaN 0x7ff8000000000000
+
+// hacky speedups for comparing NA, NaN
+// nope, x == NA_REAL does not suffice, since this always evaluates
+// to false
+inline bool IsNA(double x) {
+  return *reinterpret_cast<unsigned long*>(&x) == *reinterpret_cast<unsigned long*>(&NA_REAL);
+}
+
+inline bool IsNaN(double x) {
+  return *reinterpret_cast<unsigned long*>(&x) == NaN;
+  
+}
+
 // borrowed from data.table package;
 // see https://github.com/arunsrinivasan/datatable/blob/master/pkg/src/countingcharacter.c
 inline int StrCmp(SEXP x, SEXP y)
@@ -26,19 +41,20 @@ struct NACompare<int> {
 template <>
 struct NACompare<double> {  
   inline bool operator()(double left, double right) const {
-    
+        
     bool leftNaN = (left != left);
     bool rightNaN = (right != right);
     
     // this branch inspired by data.table: see
     // https://github.com/arunsrinivasan/datatable/commit/1a3e476d3f746e18261662f484d2afa84ac7a146#commitcomment-4885242
-    if (R_IsNaN(right) and R_IsNA(left)) return true;
+    if (IsNaN(right) and IsNA(left)) return true;
     
     if (leftNaN != rightNaN) {
       return leftNaN < rightNaN;
     } else {
       return left < right;
     }
+
   }
   
 };
@@ -51,14 +67,40 @@ struct NACompare<SEXP> {
 };
 
 template <typename T, typename U>
-inline IntegerVector do_counts(const T& x) {
-  std::map< U, int, NACompare<U> > counts;
+IntegerVector do_counts(const T&);
+
+template <>
+inline IntegerVector do_counts<IntegerVector, int>(const IntegerVector& x) {
+  std::map< int, int, NACompare<int> > counts;
+  int n = x.size();
+  for (int i=0; i < n; ++i) {
+    ++counts[ x[i] ];
+  }
+  return wrap(counts);
+}
+
+template <>
+inline IntegerVector do_counts<LogicalVector, int>(const LogicalVector& x) {
+  std::map< int, int, NACompare<int> > counts;
   int n = x.size();
   for (int i=0; i < n; ++i) {
     ++counts[ x[i] ];
   }
   IntegerVector output = wrap(counts);
-  return wrap(counts);
+  
+  // yuck
+  SEXP namesptr = Rf_getAttrib(output, R_NamesSymbol);
+  for (int i=0; i < output.size(); ++i) {
+    if (strcmp(CHAR(STRING_ELT(namesptr, i)), "0") == 0) {
+      SET_STRING_ELT(namesptr, i, Rf_mkChar("FALSE"));
+    }
+    if (strcmp(CHAR(STRING_ELT(namesptr, i)), "1") == 0) {
+      SET_STRING_ELT(namesptr, i, Rf_mkChar("TRUE"));
+    }
+  }
+  
+  return output;
+  
 }
 
 template <>
@@ -99,6 +141,12 @@ inline IntegerVector do_counts<NumericVector, double>(const NumericVector& x) {
   }
   CharacterVector names = Rf_coerceVector(keys, STRSXP);
   output.attr("names") = names;
+  // fix names
+  for (int i=0; i < output.size(); ++i) {
+    if (CHAR(STRING_ELT(output.attr("names"), i)) == "-0") {
+      SET_STRING_ELT(output.attr("names"), i, Rf_mkChar("-0"));
+    }
+  }
   return output;
 }
 
@@ -119,32 +167,10 @@ IntegerVector tableRcpp(SEXP x) {
 // [[Rcpp::export]]
 IntegerVector counts(SEXP x) {
   switch (TYPEOF(x)) {
-  case REALSXP: {
-    IntegerVector output = do_counts<NumericVector, double>(x);
-    // fix names
-    for (int i=0; i < output.size(); ++i) {
-      if (CHAR(STRING_ELT(output.attr("names"), i)) == "-0") {
-        SET_STRING_ELT(output.attr("names"), i, Rf_mkChar("-0"));
-      }
-    }
-    return output;
-  }
+  case REALSXP: return do_counts<NumericVector, double>(x);
   case STRSXP: return do_counts<CharacterVector, SEXP>(x);
   case INTSXP: return do_counts<IntegerVector, int>(x);
-  case LGLSXP: {
-    IntegerVector output = do_counts<LogicalVector, int>(x);
-    // yuck
-    SEXP namesptr = Rf_getAttrib(output, R_NamesSymbol);
-    for (int i=0; i < output.size(); ++i) {
-      if (strcmp(CHAR(STRING_ELT(namesptr, i)), "0") == 0) {
-        SET_STRING_ELT(namesptr, i, Rf_mkChar("FALSE"));
-      }
-      if (strcmp(CHAR(STRING_ELT(namesptr, i)), "1") == 0) {
-        SET_STRING_ELT(namesptr, i, Rf_mkChar("TRUE"));
-      }
-    }
-    return output;
-  }
+  case LGLSXP: return do_counts<LogicalVector, int>(x);
   default: {
     stop("unrecognized SEXP type");
     return R_NilValue;
@@ -154,7 +180,7 @@ IntegerVector counts(SEXP x) {
 
 /*** R
 set.seed(123)
-x <- round( rnorm(1E3), 1 )
+x <- round( rnorm(1E2), 1 )
 x[sample(length(x), 100)] <- NA
 x[sample(length(x), 100)] <- NaN
 x[sample(length(x), 100)] <- Inf
@@ -183,6 +209,7 @@ if (require(microbenchmark)) {
     tableRcpp(x_lgl),
     c(table(x_lgl, useNA="ifany"))
   )
+  print(mb)
   plot(mb)
 }
 */
