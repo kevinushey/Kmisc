@@ -2,10 +2,7 @@ library(testthat)
 library(Kmisc)
 
 table_ <- function(x) {
-  tmp <- table(x, useNA="ifany")
-  out <- as.integer(tmp)
-  names(out) <- dimnames(tmp)[[1]]
-  return(out)
+  c(table(x, useNA="ifany"))
 }
 
 n <- 1E2
@@ -53,5 +50,7 @@ expect_identical(
 ## test small, large numerics
 expect_identical( counts(1E-20), c(table(1E-20)) )
 expect_identical( counts(1E20), c(table(1E20)) )
+
+## test logical
 expect_identical( counts(TRUE), c(table(TRUE)) )
 expect_identical( counts(FALSE), c(table(FALSE)) )

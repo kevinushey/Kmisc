@@ -5,8 +5,7 @@ using namespace Rcpp;
 #define NaN 0x7ff8000000000000
 
 // hacky speedups for comparing NA, NaN
-// nope, x == NA_REAL does not suffice, since this always evaluates
-// to false
+// nope, x == NA_REAL does not suffice, since that always evaluates to false
 inline bool IsNA(double x) {
   return *reinterpret_cast<unsigned long*>(&x) == *reinterpret_cast<unsigned long*>(&NA_REAL);
 }

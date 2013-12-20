@@ -20,7 +20,7 @@ transpose.list <- function(x) {
 ##' @S3method transpose data.frame
 ##' @method transpose data.frame
 transpose.data.frame <- function(x) {
-  return( t.data.frame(x) )
+  return( as.matrix( transpose.list(x) ) )
 }
 
 ##' @rdname transpose
