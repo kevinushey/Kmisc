@@ -8,9 +8,7 @@ SEXP double2hex(SEXP d_) {
     error("'x' must be a numeric vector of length 1");
   }
   
-  double d = REAL(d_)[0];
-  
-  unsigned char *buffer = (unsigned char*)&d;
+  unsigned char *buffer = (unsigned char*)REAL(d_);
   int bufferSize = sizeof(double);
   
   char converted[bufferSize * 2 + 1];
