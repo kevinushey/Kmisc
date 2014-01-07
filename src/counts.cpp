@@ -1,18 +1,14 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// can we just look this up somewhere?
-#define NaN 0x7ff8000000000000
-
 // hacky speedups for comparing NA, NaN
 // nope, x == NA_REAL does not suffice, since that always evaluates to false
 inline bool IsNA(double x) {
-  return *reinterpret_cast<unsigned long*>(&x) == *reinterpret_cast<unsigned long*>(&NA_REAL);
+  return *reinterpret_cast<uint64_t*>(&x) == *reinterpret_cast<uint64_t*>(&NA_REAL);
 }
 
 inline bool IsNaN(double x) {
-  return *reinterpret_cast<unsigned long*>(&x) == NaN;
-  
+  return *reinterpret_cast<uint64_t*>(&x) == *reinterpret_cast<uint64_t*>(&R_NaN); 
 }
 
 // borrowed from data.table package;
@@ -179,7 +175,7 @@ IntegerVector counts(SEXP x) {
 
 /*** R
 set.seed(123)
-x <- round( rnorm(1E2), 1 )
+x <- round( rnorm(1E5), 1 )
 x[sample(length(x), 100)] <- NA
 x[sample(length(x), 100)] <- NaN
 x[sample(length(x), 100)] <- Inf
