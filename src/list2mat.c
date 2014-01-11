@@ -17,6 +17,11 @@
 
 // [[export]]
 SEXP list2mat(SEXP x) {
+  
+  if (TYPEOF(x) != VECSXP) {
+    error("'x' must be a list or a data.frame");
+  }
+  
   int m = length(x);
   int n = length( VECTOR_ELT(x, 0) );
   int type = TYPEOF( VECTOR_ELT(x, 0) );
