@@ -61,7 +61,7 @@ SEXP mat2df(SEXP x) {
   } else {
     
     if (!isNull(VECTOR_ELT(dimnames, 0)))
-      setAttrib(output, R_RowNamesSymbol, VECTOR_ELT(dimnames, 1));
+      setAttrib(output, R_RowNamesSymbol, VECTOR_ELT(dimnames, 0));
     else
       set_rownames(output);
     
