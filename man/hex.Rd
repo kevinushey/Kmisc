@@ -8,6 +8,6 @@ hex(x)
   \item{x}{A value.}
 }
 \description{
-Get the hex representation of a value
+Prints the hex (byte) representation of a value.
 }
 
