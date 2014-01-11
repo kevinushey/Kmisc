@@ -43,6 +43,7 @@ Collate:
     'clean_doc.R'
     'copy.R'
     'counts.R'
+    'enumerate.R'
     'extract.R'
     'extract_rows_from_file.R'
     'fast_factor.R'
