@@ -29,6 +29,7 @@ enumerate <- function(X, FUN, ...) {
       output[[i]] <- FUN(X[[i]], i)
       i <- i + 1
     }
+    if (!is.null(names(X))) names(output) <- names(X)
     return(output)
   } else {
     stop("Cannot pass a function with no arguments")
