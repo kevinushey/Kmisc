@@ -6,15 +6,19 @@ registerFunctions <- function(pkg_name, prefix="C") {
   ## read in the C files
   ## but not init.c; it's special
   files <-  list.files("src", pattern="[cC]$", full.names=TRUE)
-  files <- files[ files != "src/init.c" ]
+  init_file_path <- paste0("src/", pkg_name, "_init.c")
+  files <- files[ files != init_file_path ]
   
   c_files <- lapply(files, readLines)
   
   get_c_prototypes <- function(x) {
     export_lines <- grep("// \\[\\[export\\]\\]", x)
     sapply(export_lines, function(line) {
-      return(gsub("(.*)// \\[\\[export\\]\\]\n(.*?) ?\\{(.*)", "\\2;", 
-        paste(x[line:length(x)], collapse="\n")))
+      sub <- paste(x[(line+1):length(x)], collapse="\n")
+      tmp <- gsub(" *\\{.*", ";", sub)
+      tmp <- gsub("\n", "", tmp)
+      tmp <- gsub(" +", " ", tmp)
+      return(tmp)
     })
   }
   
@@ -78,7 +82,7 @@ registerFunctions <- function(pkg_name, prefix="C") {
     ""
   )
   
-  cat(init.c, file="src/init.c", sep="\n")
+  cat(init.c, file=init_file_path, sep="\n")
   return(invisible(NULL))
   
 }
