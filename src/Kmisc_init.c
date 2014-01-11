@@ -8,9 +8,9 @@ SEXP charlist_transpose_to_df( SEXP x, SEXP names );
 SEXP copy(SEXP x_);
 SEXP df2list(SEXP x_, SEXP inplace);
 SEXP double2hex(SEXP x);
+SEXP int2hex(SEXP x);
 SEXP factor_to_char( SEXP X_, SEXP inplace_ );
-SEXP in_interval( SEXP x, SEXP lo, SEXP hi, 
-        SEXP include_lower, SEXP include_upper );
+SEXP in_interval( SEXP x, SEXP lo, SEXP hi, SEXP include_lower, SEXP include_upper );
 SEXP list2df(SEXP x_, SEXP inplace);
 SEXP list2mat(SEXP x);
 SEXP mat2df(SEXP x);
@@ -45,6 +45,7 @@ R_CallMethodDef callMethods[]  = {
   {"Ccopy", (DL_FUNC) &copy, 1},
   {"Cdf2list", (DL_FUNC) &df2list, 2},
   {"Cdouble2hex", (DL_FUNC) &double2hex, 1},
+  {"Cint2hex", (DL_FUNC) &int2hex, 1},
   {"Cfactor_to_char", (DL_FUNC) &factor_to_char, 2},
   {"Cin_interval", (DL_FUNC) &in_interval, 5},
   {"Clist2df", (DL_FUNC) &list2df, 2},
