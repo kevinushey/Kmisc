@@ -26,7 +26,7 @@ enumerate <- function(X, FUN, ...) {
     output <- vector("list", n)
     i <- 1
     while (i <= n) {
-      output[[i]] <- FUN(X[[i]], i)
+      output[[i]] <- FUN(X[[i]], i, ...)
       i <- i + 1
     }
     if (!is.null(names(X))) names(output) <- names(X)

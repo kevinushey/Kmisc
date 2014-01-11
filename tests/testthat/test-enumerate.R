@@ -1,7 +1,7 @@
 library(testthat)
 library(compiler)
 
-v <- rnorm(1E2)
+v <- replicate(10, rnorm(1E3), simplify=FALSE)
 
 test_that( enumerate(v, function(x) x + 1),
   is_identical_to( lapply(v, function(x) x + 1)))
