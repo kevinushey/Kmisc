@@ -149,16 +149,18 @@ read.cb <- function(sep='\t', header=TRUE, ...) {
 ##' @param what passed to \code{scan}.
 ##' @param sep passed to \code{scan}.
 ##' @param quiet passed to \code{scan}.
+##' @param blank.lines.skip Skip blank lines? Defaults to \code{FALSE}, as
+##'   opposed to base \R's \code{scan}.
 ##' @param ... passed to \code{scan}.
 ##' @seealso \code{\link{scan}}
-scan.cb <- function( what=character(), sep="\n", quiet=TRUE, ... ) {
+scan.cb <- function( what=character(), sep="\n", quiet=TRUE, blank.lines.skip=FALSE, ... ) {
   sn <- Sys.info()["sysname"]
   if (sn == "Darwin") {
     file <- pipe("pbpaste")
-    output <- scan( file, what=what, sep=sep, quiet=quiet, ... )
+    output <- scan( file, what=what, sep=sep, quiet=quiet, blank.lines.skip=blank.lines.skip, ... )
     close(file)
   } else if (sn == "Windows") {
-    output <- scan( "clipboard", what=what, sep=sep, quiet=quiet, ... )
+    output <- scan( "clipboard", what=what, sep=sep, quiet=quiet, blank.lines.skip=blank.lines.skip, ... )
   } else {
     stop("Reading from the clipboard is not implemented for your system (", 
       sn, ") in this package.")
