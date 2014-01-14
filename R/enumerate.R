@@ -17,25 +17,6 @@
 ##' enumerate(v, f)
 ##' enumerate(v, function(x, i) i)
 enumerate <- function(X, FUN, ...) {
-  FUN <- match.fun(FUN)
-  formals <- formals(FUN)
-  if (is.null(formals)) return(lapply(X=X, FUN=FUN, ...))
-  nms <- names(formals)
-  if (length(nms) == 1) {
-    return(lapply(X=X, FUN=FUN, ...))
-  } else if (length(nms) > 1) {
-    n <- length(X)
-    output <- vector("list", n)
-    i <- 1
-    while (i <= n) {
-      tmp <- FUN(X[[i]], i, ...)
-      if (is.null(tmp)) output[[i]] <- list(NULL)
-      else output[[i]] <- tmp
-      i <- i + 1
-    }
-    if (!is.null(names(X))) names(output) <- names(X)
-    return(output)
-  } else {
-    stop("Internal error in 'enumerate'")
-  }
+  call <- match.call()
+  return( .Call(Cenumerate, call, environment()) )
 }
