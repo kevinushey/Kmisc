@@ -8,6 +8,8 @@ enumerate(X, FUN, ...)
   \item{X}{A vector.}
 
   \item{FUN}{A function, taking two arguments.}
+
+  \item{...}{Optional arguments to \code{FUN}.}
 }
 \description{
 This function extends `lapply` to operate on functions
@@ -15,14 +17,12 @@ taking two arguments -- the first refers to each element
 within a vector, while the second refers to the current
 index.
 }
-\details{
-Dot arguments are currently unimplemented.
-}
 \examples{
 data <- setNames( list(1, 2, 3), c('a', 'b', 'c') )
-enumerate(data, function(x, i) {
-  cat("List element '", i, "' has value '", x, "' and name '",
-    names(data)[i], "'.\\n", sep="")
-})
+v <- replicate(10, rnorm(1E3), simplify=FALSE)
+identical( lapply(v, sum), enumerate(v, sum) )
+f <- function(x, i) i
+enumerate(v, f)
+enumerate(v, function(x, i) i)
 }
 

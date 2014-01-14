@@ -1,4 +1,5 @@
 library(testthat)
+library(microbenchmark)
 library(compiler)
 
 v <- replicate(10, rnorm(1E3), simplify=FALSE)
