@@ -15,7 +15,7 @@ list2mat <- function(list) {
 ##' 
 ##' @param df a \code{data.frame}.
 ##' @export
-list2mat <- function(df) {
+df2mat <- function(df) {
   return( .Call(Clist2mat, df) )
 }
 
