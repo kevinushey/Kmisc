@@ -1,6 +1,6 @@
 \name{mat2list}
 \alias{mat2list}
-\title{Convert matrix to a list}
+\title{Convert a matrix to a list}
 \usage{
 mat2list(matrix)
 }

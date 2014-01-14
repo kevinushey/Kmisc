@@ -126,6 +126,22 @@ system.time( do.call(rbind, dfs) )
 system.time( data.table::rbindlist(dfs) )
 ```
 
+Coercion Functions
+------------------
+
+`Kmisc` comes with a number of functions that offer faster conversions between
+base R types. The names should be self explanatory. In cases where it's possible,
+we also allow the user to modify objects in place.
+
+```{r tidy=FALSE}
+l <- replicate(5, rnorm(5), simplify=FALSE)
+invisible(list2df(l, inplace=TRUE))
+class(l)
+
+## see also df2list, mat2df, df2mat
+```
+
+
 Fast String Operations
 -----
 
@@ -260,6 +276,17 @@ microbenchmark( times=5,
 )
 ```
 
+`anatomy`, `anat`: Like `str`, but much faster. It won't choke on very large `data.frame`s.
+
+```{r, tidy=FALSE}
+df <- data.table(x=1, y=2)
+str(df)
+anatomy(df)
+```
+
+Miscellaneous Functions
+-----------------------
+
 `html`: Custom HTML in an R Markdown document.
 
 ```{r results='asis', tidy=FALSE}
@@ -275,12 +302,4 @@ html(
     )
   )
 )
-```
-
-`anatomy`, `anat`: Like `str`, but much faster. It won't choke on very large `data.frame`s.
-
-```{r, tidy=FALSE}
-df <- data.table(x=1, y=2)
-str(df)
-anatomy(df)
 ```

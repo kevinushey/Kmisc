@@ -6,10 +6,10 @@
 ##' 
 ##' @param expr An \R expression.
 ##' @export
-silent <- function(expr, envir=parent.frame(1), enclos=baseenv()) {
+silent <- function(expr) {
   call <- match.call()
   suppressMessages( suppressWarnings(
-    capture.output(output <- eval(call$expr, envir=envir, enclos=enclos))
+    capture.output(output <- eval(call$expr, envir=parent.frame(1), enclos=baseenv()))
   ) )
   return(output)
 }

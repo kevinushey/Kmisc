@@ -1,3 +1,8 @@
+// This code is mainly a copied + cleaned up version of do_lapply in the
+// R sources (see src/main/apply.c). The main difference is that the
+// function call is constructed through passing the index as the second
+// argument.
+
 #define USE_RINTERNALS
 
 #include <R.h>

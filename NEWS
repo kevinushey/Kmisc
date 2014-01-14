@@ -1,3 +1,10 @@
+Version 0.5.1
+------------------------------------------------------------
+
+  * Added 'enumerate', a function that works like 'lapply'
+    but also allows the user to pass an index as the
+    second argument to the function.
+
 Version 0.5.0
 ------------------------------------------------------------
 

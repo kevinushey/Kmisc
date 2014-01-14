@@ -2,7 +2,7 @@
 \alias{silent}
 \title{Hide All Potential Output from an Expression}
 \usage{
-silent(expr, envir = parent.frame(1), enclos = baseenv())
+silent(expr)
 }
 \arguments{
   \item{expr}{An \R expression.}
