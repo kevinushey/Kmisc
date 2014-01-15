@@ -1,0 +1,14 @@
+\name{cite_package}
+\alias{cite_package}
+\title{Utility Function for Citing a Package}
+\usage{
+cite_package(...)
+}
+\arguments{
+  \item{...}{A (set of) package names.}
+}
+\description{
+We pull the text version out of the citation object
+returned by \code{citation()}.
+}
+

@@ -1,9 +1,10 @@
 Package: Kmisc
-Type: Package
 Title: Kevin Miscellaneous
 Version: 0.5.1
 Date: 2013-12-12
-Author: Kevin Ushey
+Authors@R: c(
+    person("Kevin", "Ushey", role=c("aut", "cre"), email="kevinushey@gmail.com")
+    )
 Maintainer: Kevin Ushey <kevinushey@gmail.com>
 Description: This package contains a collection of functions for common data
     extraction and reshaping operations, string manipulation, and
@@ -40,6 +41,7 @@ Collate:
     'awk.R'
     'bwplot2.R'
     'chunk.R'
+    'cite_package.R'
     'clean_doc.R'
     'copy.R'
     'counts.R'
