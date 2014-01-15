@@ -9,7 +9,9 @@
 #include <Rinternals.h>
 
 // [[export]]
-SEXP enumerate(SEXP call, SEXP env) {
+SEXP enumerate(SEXP call, SEXP env, SEXP nargs_) {
+  
+  int nargs = INTEGER(nargs_)[0];
   
   SEXP args = CDR(call);
   SEXP vecSym = CAR(args); args = CDR(args);
@@ -44,11 +46,19 @@ SEXP enumerate(SEXP call, SEXP env) {
     tmp = PROTECT(LCONS(R_Bracket2Symbol,
   	    LCONS(vecSym, LCONS(ind, R_NilValue))));
   } 
+  
+  SEXP R_fcall;
+  if (nargs < 2) {
+    R_fcall = PROTECT(LCONS(funSym,
+  		 LCONS(tmp, LCONS(R_DotsSymbol, R_NilValue))));
+  } else if (nargs == 2) {
+    R_fcall = PROTECT(LCONS(funSym,
+  		 LCONS(tmp, LCONS(ind, LCONS(R_DotsSymbol, R_NilValue)))));
+  } else {
+    error("'enumerate' can't handle functions with more than 2 non-dot args");
+  }
 
-  SEXP R_fcall = PROTECT(LCONS(funSym,
-			 LCONS(tmp, LCONS( ind, LCONS(R_DotsSymbol, R_NilValue)))));
-
-  for(R_xlen_t i = 0; i < n; i++) {
+  for (R_xlen_t i = 0; i < n; i++) {
     if (realIndex) REAL(ind)[0] = (double)(i + 1);
     else INTEGER(ind)[0] = (int)(i + 1);
     tmp = eval(R_fcall, env);

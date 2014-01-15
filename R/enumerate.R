@@ -10,13 +10,13 @@
 ##' @export
 ##' @examples
 ##' data <- setNames( list(1, 2, 3), c('a', 'b', 'c') )
-
 ##' v <- replicate(10, rnorm(1E3), simplify=FALSE)
 ##' identical( lapply(v, sum), enumerate(v, sum) )
 ##' f <- function(x, i) i
 ##' enumerate(v, f)
 ##' enumerate(v, function(x, i) i)
 enumerate <- function(X, FUN, ...) {
-  call <- match.call()
-  return( .Call(Cenumerate, call, environment()) )
+  call <- match.call(expand.dots=FALSE)
+  nargs <- sum( as.character(formals(FUN)) == "" )
+  return( .Call(Cenumerate, call, environment(), as.integer(nargs)) )
 }
