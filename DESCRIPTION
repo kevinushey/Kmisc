@@ -25,7 +25,6 @@ Suggests:
     ggplot2,
     plyr,
     reshape2,
-    googleVis,
     testthat,
     rbenchmark
 ByteCompile: TRUE

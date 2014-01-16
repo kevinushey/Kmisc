@@ -18,3 +18,4 @@ Makefile
 README.md
 vignettes/*.md
 vignettes/*.html
+.travis.yml
