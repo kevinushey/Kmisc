@@ -23,10 +23,6 @@ and \code{NaN} elements are inserted.
 }
 \examples{
 x <- round( rnorm(1E2), 1 )
-x_int <- as.integer(x)
-x_char <- as.character(x)
-stopifnot( identical( counts(x), c(table(x)) ) )
-stopifnot( identical( counts(x_int), c(table(x_int)) ) )
-stopifnot( identical( counts(x_char), c(table(x_char)) ) )
+counts(x)
 }
 
