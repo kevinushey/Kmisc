@@ -1,4 +1,3 @@
-library(microbenchmark)
 library(Kmisc)
 library(testthat)
 
