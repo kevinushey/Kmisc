@@ -1,26 +1,25 @@
-library(microbenchmark)
 library(testthat)
 library(reshape2)
 library(Kmisc)
 
 n <- 1E4
 dat <- data.frame( stringsAsFactors=FALSE,
-  x=sample(letters, n, TRUE), 
+  x=sample(letters, n, TRUE),
   y=sample(LETTERS, n, TRUE),
-  za=rnorm(n), 
-  zb=rnorm(n), 
+  za=rnorm(n),
+  zb=rnorm(n),
   zc=rnorm(n)
 )
 
 tmp1 <- melt( dat, c("x", "y") )
 tmp2 <- melt_(dat, c("x", "y") )
 
-expect_identical( 
-  melt_(dat, id.vars=c("x", "y")), 
-  melt_(dat, measure.vars=c("za", "zb", "zc")) 
+expect_identical(
+  melt_(dat, id.vars=c("x", "y")),
+  melt_(dat, measure.vars=c("za", "zb", "zc"))
 )
 
-expect_identical( 
+expect_identical(
   names( melt_(dat, id.vars=c("x", "y"), variable.name="vars", value.name="vals") ),
   c("x", "y", "vars", "vals")
 )
@@ -104,10 +103,6 @@ names(df) <- c('x', 'y', 'z', paste0("V", 1:100))
 tmp1 <- factor_to_char(melt_(df, id.vars=c('x', 'y', 'z')), inplace=TRUE)
 tmp2 <- factor_to_char(melt(df, id.vars=c('x', 'y', 'z')), inplace=TRUE)
 stopifnot( identical(tmp1, tmp2) )
-microbenchmark( times=5,
-  melt_=melt_(df, id.vars=c('x', 'y', 'z')),
-  melt=melt(df, id.vars=c('x', 'y', 'z'))
-)
 
 ## tests from Arun
 ## see: issue #2
@@ -131,12 +126,12 @@ expect_identical(
 )
 
 ## see: issue #3
-DF <- structure(list(x1 = 1:5, x2 = 6:10, x3 = 11:15, x4 = structure(c(2L, 
-  1L, 5L, 3L, 4L), .Label = c("f", "j", "m", "q", "r"), class = "factor"), 
-  x5 = structure(c(15950, 15951, 15952, 15953, 15954), class = "Date"), 
-  x7 = structure(c(15345, 15344, 15343, 15342, 15341), class = "Date"), 
-  x8 = c("g", "b", "h", "y", "m")), .Names = c("x1", "x2", 
-    "x3", "x4", "x5", "x7", "x8"), class = "data.frame", row.names = c(NA, 
+DF <- structure(list(x1 = 1:5, x2 = 6:10, x3 = 11:15, x4 = structure(c(2L,
+  1L, 5L, 3L, 4L), .Label = c("f", "j", "m", "q", "r"), class = "factor"),
+  x5 = structure(c(15950, 15951, 15952, 15953, 15954), class = "Date"),
+  x7 = structure(c(15345, 15344, 15343, 15342, 15341), class = "Date"),
+  x8 = c("g", "b", "h", "y", "m")), .Names = c("x1", "x2",
+    "x3", "x4", "x5", "x7", "x8"), class = "data.frame", row.names = c(NA,
       -5L))
 
 tmp1 <- melt_(DF, id=c("x1", "x4"), measure="x2")
@@ -163,11 +158,8 @@ expect_true( all( melt_(x) == melt(x) ) )
 x <- matrix( letters[1:16], nrow=2)
 expect_true( all( melt(x) == melt_(x) ) )
 
-microbenchmark( melt(x), melt_(x) )
-
 x <- matrix( rnorm(1E5), ncol=1E2 )
 expect_true( all( melt(x) == melt_(x) ) )
-microbenchmark( melt(x), melt_(x), times=5 )
 
 m <- matrix(1:1E2, nrow=10)
 

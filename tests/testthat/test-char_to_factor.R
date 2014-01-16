@@ -1,11 +1,10 @@
-library( Kmisc )
-library( testthat )
-library( microbenchmark )
+library(Kmisc)
+library(testthat)
 
-dat <- list( 
-  list( 
+dat <- list(
+  list(
     list( a="1", b=c("2", "3", "4") ),
-    list( c=factor(c("a", "b", "c")) ) ), 
+    list( c=factor(c("a", "b", "c")) ) ),
   factor( c(1,2,3) )
 )
 

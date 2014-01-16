@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Introduction to Kmisc</title>
+<link rel="stylesheet" media="all" href="http://jashkenas.github.io/docco/resources/linear/public/stylesheets/normalize.css" />
+<link rel="stylesheet" media="all" href="http://jashkenas.github.io/docco/resources/linear/docco.css" />
+<style type="text/css">
+img{display:block;margin:auto;}
+</style>
+<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+<script src="http://yandex.st/highlightjs/7.3/languages/r.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="page">
+<!--
+%\VignetteEngine{knitr::docco_linear}
+%\VignetteIndexEntry{Introduction to Kmisc}
+\usepackage[utf8]{inputenc}
+-->
+
+<h1>Introduction to Kmisc</h1>
+
+<p>Kmisc introduces a grab-bag of utility functions that should be useful to various
+kinds of <code>useR</code>s. Some of the most useful functions in the package are demoed
+in this vignette.</p>
+
+<pre><code class="r">set.seed(123)
+library(data.table)
+library(Kmisc)
+library(lattice)
+library(grid)
+library(Rcpp)
+library(knitr)
+library(rbenchmark)
+dat &lt;- data.frame( x=letters[1:4], y=1:4, z=LETTERS[1:4] )
+opts_chunk$set(
+  results=&quot;markup&quot;
+)
+</code></pre>
+
+<p><code>without</code>: This function is used to remove columns from a <code>list</code> / <code>data.frame</code>.</p>
+
+<pre><code class="r">## let&#39;s remove columns &#39;x&#39; and &#39;z&#39; from dat.
+tryCatch( dat[ -c(&#39;x&#39;, &#39;z&#39;) ], error=function(e) print(e$message) )
+</code></pre>
+
+<pre><code>## [1] &quot;invalid argument to unary operator&quot;
+</code></pre>
+
+<pre><code class="r">## oh :(
+dat[ !(names(dat) %in% c(&#39;x&#39;, &#39;z&#39;)) ]
+</code></pre>
+
+<pre><code>##   y
+## 1 1
+## 2 2
+## 3 3
+## 4 4
+</code></pre>
+
+<pre><code class="r">## I always find that a bit awkward. Let&#39;s use Kmisc&#39;s without instead.
+without(dat, x, z)
+</code></pre>
+
+<pre><code>##   y
+## 1 1
+## 2 2
+## 3 3
+## 4 4
+</code></pre>
+
+<p><code>extract</code>: Extract vectors from a data.frame or list. Although there is already
+a good subsetting syntax for lists and vectors, I wanted a complementary
+function for <code>without</code>.</p>
+
+<pre><code class="r">extract(dat, x, y)
+</code></pre>
+
+<pre><code>##   x y
+## 1 a 1
+## 2 b 2
+## 3 c 3
+## 4 d 4
+</code></pre>
+
+<p><code>re_without, re_extract</code>: Extract variables whose names don&#39;t match / do match
+a regular expression pattern.</p>
+
+<pre><code class="r">re_extract(dat, &quot;[xy]&quot;)
+</code></pre>
+
+<pre><code>##   x y
+## 1 a 1
+## 2 b 2
+## 3 c 3
+## 4 d 4
+</code></pre>
+
+<pre><code class="r">re_without(dat, &quot;[xy]&quot;)
+</code></pre>
+
+<pre><code>##   z
+## 1 A
+## 2 B
+## 3 C
+## 4 D
+</code></pre>
+
+<p><code>swap</code>: Replace elements in a vector.</p>
+
+<pre><code class="r">tDat &lt;- dat ## make a temporary copy of dat
+
+## Replace some elements in tDat$y
+tDat$y &lt;- swap( tDat$y, from=c(2, 4), to=c(20, 40) )
+cbind( dat$y, tDat$y )
+</code></pre>
+
+<pre><code>##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2   20
+## [3,]    3    3
+## [4,]    4   40
+</code></pre>
+
+<p><code>factor_to_char</code>, <code>char_to_factor</code>: A set of functions that recurse through
+a list / data.frame and set all elements that are characters to factors,
+and vice versa.</p>
+
+<pre><code class="r">bDat &lt;- data.frame( x=rnorm(10), y=sample(letters,10), z=sample(letters,10) )
+str( bDat )
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    10 obs. of  3 variables:
+##  $ x: num  -0.5605 -0.2302 1.5587 0.0705 0.1293 ...
+##  $ y: Factor w/ 10 levels &quot;c&quot;,&quot;f&quot;,&quot;k&quot;,&quot;l&quot;,..: 10 7 6 9 5 8 3 4 2 1
+##  $ z: Factor w/ 10 levels &quot;a&quot;,&quot;d&quot;,&quot;e&quot;,&quot;f&quot;,..: 10 9 7 8 1 5 6 3 4 2
+</code></pre>
+
+<pre><code class="r">str( factor_to_char(bDat) )
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    10 obs. of  3 variables:
+##  $ x: num  -0.5605 -0.2302 1.5587 0.0705 0.1293 ...
+##  $ y: chr  &quot;x&quot; &quot;r&quot; &quot;p&quot; &quot;w&quot; ...
+##  $ z: chr  &quot;z&quot; &quot;w&quot; &quot;q&quot; &quot;s&quot; ...
+</code></pre>
+
+<p><code>dapply</code>: The <code>data.frame</code> version of the <code>l/sapply</code> series of functions.</p>
+
+<p>Why have this function when <code>sapply</code> still does much the same? I always get
+frustrated with the fact that either an <code>array</code> or a <code>list</code> is returned
+by sapply, but never a <code>data.frame</code>.</p>
+
+<pre><code class="r">dat &lt;- data.frame( x = rnorm(100), y = rnorm(100), z = rnorm(100) )
+dapply( dat, summary )
+</code></pre>
+
+<pre><code>##               x      y       z
+## Min.    -2.3100 -2.050 -2.0100
+## 1st Qu. -0.6260 -0.728 -0.5740
+## Median  -0.0587 -0.206  0.0535
+## Mean    -0.0098 -0.024  0.1010
+## 3rd Qu.  0.5620  0.572  0.7790
+## Max.     2.1900  3.240  2.2900
+</code></pre>
+
+<p><code>kMerge</code>: Left joins, aka. <code>merge( all.x=TRUE, ... )</code> without any mangling
+of the order.</p>
+
+<pre><code class="r">dat1 &lt;- data.frame( id=5:1, x=c(&quot;a&quot;,&quot;a&quot;,&quot;b&quot;,&quot;b&quot;,&quot;b&quot;), y=rnorm(5) )
+dat2 &lt;- data.frame( id=c(1, 2, 4), z=rnorm(3) )
+
+## default merge changes id order
+merge( dat1, dat2, by=&quot;id&quot;, all.x=TRUE )
+</code></pre>
+
+<pre><code>##   id x       y        z
+## 1  1 b -0.5229  0.68375
+## 2  2 b  0.6608 -0.06082
+## 3  3 b -1.3388       NA
+## 4  4 a  1.2181  0.63296
+## 5  5 a  0.2374       NA
+</code></pre>
+
+<pre><code class="r">## even the sort parameter can&#39;t save you
+merge( dat1, dat2, by=&quot;id&quot;, all.x=TRUE, sort=TRUE )
+</code></pre>
+
+<pre><code>##   id x       y        z
+## 1  1 b -0.5229  0.68375
+## 2  2 b  0.6608 -0.06082
+## 3  3 b -1.3388       NA
+## 4  4 a  1.2181  0.63296
+## 5  5 a  0.2374       NA
+</code></pre>
+
+<pre><code class="r"># kMerge keeps it as is
+kMerge( dat1, dat2, by=&quot;id&quot; )
+</code></pre>
+
+<pre><code>##   id x       y        z
+## 1  5 a  0.2374       NA
+## 2  4 a  1.2181  0.63296
+## 3  3 b -1.3388       NA
+## 4  2 b  0.6608 -0.06082
+## 5  1 b -0.5229  0.68375
+</code></pre>
+
+<p><code>in_interval</code>: A fast C implementation for determing which elements of a
+vector <code>x</code> lie within an interval <code>[lo, hi)</code>.</p>
+
+<pre><code class="r">x &lt;- runif(10)*10; lo &lt;- 5; hi &lt;- 10
+print( data.frame( x=x, between_5_and_10=in_interval(x, lo, hi) ) )
+</code></pre>
+
+<pre><code>##         x between_5_and_10
+## 1  9.0915             TRUE
+## 2  0.5638            FALSE
+## 3  5.0291             TRUE
+## 4  3.5054            FALSE
+## 5  8.4556             TRUE
+## 6  8.0644             TRUE
+## 7  1.1733            FALSE
+## 8  7.1269             TRUE
+## 9  2.3527            FALSE
+## 10 0.7496            FALSE
+</code></pre>
+
+<p><code>stack_list</code>: Use this to stack data.frames in a list. This can be useful if
+e.g. you&#39;ve run some kind of bootstrap procedure and have all your results
+stored in as a list of data.frames &ndash; even <code>do.call( rbind, dfs )</code> can be slow.
+The difference is even more prominent when used on very large lists.</p>
+
+<p>This is partially deprecated by <code>data.table::rbindlist</code> now, which has a much
+faster C implementation.</p>
+
+<pre><code class="r">dfs &lt;- replicate(1E3,
+  data.frame(x=rnorm(10), y=sample(letters,10), z=sample(LETTERS,10)),
+  simplify=FALSE
+)
+str( stack_list(dfs) )
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    10000 obs. of  4 variables:
+##  $ x         : num  1.519 0.377 -2.052 -1.364 -0.201 ...
+##  $ y         : chr  &quot;n&quot; &quot;e&quot; &quot;l&quot; &quot;f&quot; ...
+##  $ z         : chr  &quot;E&quot; &quot;C&quot; &quot;K&quot; &quot;I&quot; ...
+##  $ list_index: int  1 1 1 1 1 1 1 1 1 1 ...
+</code></pre>
+
+<pre><code class="r">system.time( stack_list(dfs) )
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.005   0.000   0.005
+</code></pre>
+
+<pre><code class="r">system.time( do.call(rbind, dfs) )
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.258   0.047   0.305
+</code></pre>
+
+<pre><code class="r">system.time( data.table::rbindlist(dfs) )
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.005   0.000   0.005
+</code></pre>
+
+<h2>Coercion Functions</h2>
+
+<p><code>Kmisc</code> comes with a number of functions that offer faster conversions between
+base R types. The names should be self explanatory. In cases where it&#39;s possible,
+we also allow the user to modify objects in place.</p>
+
+<pre><code class="r">l &lt;- replicate(5, rnorm(5), simplify=FALSE)
+invisible(list2df(l, inplace=TRUE))
+class(l)
+</code></pre>
+
+<pre><code>## [1] &quot;data.frame&quot;
+</code></pre>
+
+<pre><code class="r">
+## see also df2list, mat2df, df2mat
+</code></pre>
+
+<h2>Fast String Operations</h2>
+
+<p>R is missing some nice builtin &#39;string&#39; functions. I&#39;ve
+introduced a few functions for common string operations.</p>
+
+<p><code>str_rev</code>: Reverses a character vector; ie, a vector of strings.
+<code>str_rev2</code> is there if you need to reverse a potentially unicode string.</p>
+
+<pre><code class="r">str_rev( c(&quot;ABC&quot;, &quot;DEF&quot;, NA, paste(LETTERS, collapse=&quot;&quot;) ) )
+</code></pre>
+
+<pre><code>## [1] &quot;CBA&quot;                        &quot;FED&quot;                       
+## [3] NA                           &quot;ZYXWVUTSRQPONMLKJIHGFEDCBA&quot;
+</code></pre>
+
+<pre><code class="r">str_rev2( c(&quot;はひふへほ&quot;, &quot;abcdef&quot;) )
+</code></pre>
+
+<pre><code>## [1] &quot;ほへふひは&quot; &quot;fedcba&quot;
+</code></pre>
+
+<p><code>str_slice</code>: Slices a vector of strings at consecutive indices <code>n</code>.
+<code>str_slice2</code> exists for potentially unicode strings.</p>
+
+<pre><code class="r">str_slice( c(&quot;ABCDEF&quot;, &quot;GHIJKL&quot;, &quot;MNOP&quot;, &quot;QR&quot;), 2 )
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] &quot;AB&quot; &quot;CD&quot; &quot;EF&quot;
+## 
+## [[2]]
+## [1] &quot;GH&quot; &quot;IJ&quot; &quot;KL&quot;
+## 
+## [[3]]
+## [1] &quot;MN&quot; &quot;OP&quot;
+## 
+## [[4]]
+## [1] &quot;QR&quot;
+</code></pre>
+
+<pre><code class="r">str_slice2( &quot;ハッピー&quot;, 2 )
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] &quot;ハッ&quot; &quot;ピー&quot;
+</code></pre>
+
+<p><code>str_sort</code>: sort a string.</p>
+
+<pre><code class="r">str_sort(&quot;asnoighewgypfuiweb&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;abeefgghiinopsuwwy&quot;
+</code></pre>
+
+<p><code>str_collapse</code>: Collapse a string using <code>Rcpp</code> sugar; operates like
+R&#39;s <code>paste(..., collapse=&quot;&quot;)</code>, but works much faster.</p>
+
+<pre><code class="r">str_collapse( c(&quot;ABC&quot;, &quot;DEF&quot;, &quot;GHI&quot;) )
+</code></pre>
+
+<pre><code>## [1] &quot;ABCDEFGHI&quot;
+</code></pre>
+
+<h2>File I/O</h2>
+
+<p>Sometimes, you get really large data files that just aren&#39;t going to fit into
+RAM. You really wish you could split them up in a structured way, transform
+them in some way, and then put them back together. One might consider a more
+&#39;enterprise&#39; edition of the split-apply-combine framework (Hadoop and friends),
+but one dirty alternative is to use C++ to munge through a text file and pull out
+things that we actually want.</p>
+
+<p><code>split_file</code>: This function splits a delimited file into multiple files, according to
+unique entries in a chosen column.</p>
+
+<p><code>extract_rows_from_file</code>: From a delimited text file, extract only the rows for
+which the entries in a particular column match some set of items that you
+wish to keep.</p>
+
+<h2>C++ Function Generators</h2>
+
+<p>Use these functions to generate C++ / Rcpp-backed functions for common R-style
+operations.</p>
+
+<p><code>Rcpp_tapply_generator</code>: Generate fast <code>tapply</code> style functions from C++
+code through Rcpp. See the example.</p>
+
+<pre><code class="r">n &lt;- 1E5
+dat &lt;- data.frame( y=rnorm(n), x=sample(letters[1:5], n, TRUE) )
+tMean &lt;- Rcpp_tapply_generator(&quot;return mean(x);&quot;)
+</code></pre>
+
+<pre><code>## C++ source code will be written to /var/folders/m7/_xnnz_b53kjgggkb1drc1f8c0000gn/T//RtmpDpA5HD/fileb05a5f0fbd53.cpp .
+## Compiling...
+## Done!
+</code></pre>
+
+<pre><code class="r">with( dat, tMean(y, x) )
+</code></pre>
+
+<pre><code>##        a        b        c        d        e 
+## 0.006146 0.005573 0.002565 0.004680 0.002473
+</code></pre>
+
+<pre><code class="r">with( dat, tapply(y, x, mean) )
+</code></pre>
+
+<pre><code>##        a        b        c        d        e 
+## 0.006146 0.005573 0.002565 0.004680 0.002473
+</code></pre>
+
+<pre><code class="r">benchmark(
+  Kmisc=with( dat, tMean(y, x) ),
+  R=with( dat, tapply(y, x, mean) ),
+  replications=5
+)
+</code></pre>
+
+<pre><code>##    test replications elapsed relative user.self sys.self user.child
+## 1 Kmisc            5   0.015      1.0     0.014    0.001          0
+## 2     R            5   0.039      2.6     0.032    0.007          0
+##   sys.child
+## 1         0
+## 2         0
+</code></pre>
+
+<p><code>Rcpp_apply_generator</code>: An apply function generator tailored to 2D matrices.
+However, your function definition must return a scalar value.</p>
+
+<pre><code class="r">aMean &lt;- Rcpp_apply_generator(&quot;return mean(x);&quot;)
+</code></pre>
+
+<pre><code>## C++ source code will be written to /var/folders/m7/_xnnz_b53kjgggkb1drc1f8c0000gn/T//RtmpDpA5HD/fileb05ae991ae4.cpp .
+## Compiling...
+## Done!
+</code></pre>
+
+<pre><code class="r">mat &lt;- matrix( rnorm(1E3), nrow=100 )
+aMean(mat, 2)
+</code></pre>
+
+<pre><code>##  [1]  0.02211  0.09857  0.01072  0.33388  0.13113 -0.03882  0.07524
+##  [8]  0.10170 -0.03829  0.01365
+</code></pre>
+
+<pre><code class="r">apply(mat, 2, mean)
+</code></pre>
+
+<pre><code>##  [1]  0.02211  0.09857  0.01072  0.33388  0.13113 -0.03882  0.07524
+##  [8]  0.10170 -0.03829  0.01365
+</code></pre>
+
+<pre><code class="r">benchmark(
+  Kmisc=aMean(mat, 2),
+  R=apply(mat, 2, mean)
+)
+</code></pre>
+
+<pre><code>##    test replications elapsed relative user.self sys.self user.child
+## 1 Kmisc          100   0.002      1.0     0.001        0          0
+## 2     R          100   0.013      6.5     0.013        0          0
+##   sys.child
+## 1         0
+## 2         0
+</code></pre>
+
+<h2>Faster Versions of Commonly Used R Functions</h2>
+
+<p><code>tapply_</code>: This function operates like <code>tapply</code> but works faster through a
+faster factor generating function, as well as an optimized split. Note that
+it is however restricted to the (common) case of your value and grouping
+variables being column vectors.</p>
+
+<pre><code class="r">y &lt;- rnorm(1E5); x &lt;- sample(letters[1:5], 1E5, TRUE)
+tapply(y, x, mean)
+</code></pre>
+
+<pre><code>##          a          b          c          d          e 
+##  0.0008682  0.0077498  0.0004905 -0.0035273 -0.0033439
+</code></pre>
+
+<pre><code class="r">tapply_(y, x, mean)
+</code></pre>
+
+<pre><code>##          a          b          c          d          e 
+##  0.0008682  0.0077498  0.0004905 -0.0035273 -0.0033439
+</code></pre>
+
+<pre><code class="r">benchmark( replications=10,
+  tapply(y, x, mean),
+  tapply_(y, x, mean),
+  tMean(y, x)
+)
+</code></pre>
+
+<pre><code>##                  test replications elapsed relative user.self sys.self
+## 2 tapply_(y, x, mean)           10   0.039    1.026     0.035    0.004
+## 1  tapply(y, x, mean)           10   0.118    3.105     0.097    0.021
+## 3         tMean(y, x)           10   0.038    1.000     0.034    0.004
+##   user.child sys.child
+## 2          0         0
+## 1          0         0
+## 3          0         0
+</code></pre>
+
+<p><code>melt_</code>: This function operates like <code>reshape2:::melt</code>, but works almost
+entirely through C and hence is much faster.</p>
+
+<pre><code class="r">dat &lt;- data.frame(
+  id=LETTERS[1:5],
+  x1=rnorm(5),
+  x2=rnorm(5),
+  x3=rnorm(5)
+)
+print(dat)
+</code></pre>
+
+<pre><code>##   id       x1       x2      x3
+## 1  A  0.21203  2.05068  0.6632
+## 2  B  0.81892 -0.80809  0.3093
+## 3  C  0.44963  0.06313  2.2283
+## 4  D -0.09162  0.01590 -0.3299
+## 5  E  0.17346  1.08980 -1.0443
+</code></pre>
+
+<pre><code class="r">melt_(dat, id.vars=&quot;id&quot;)
+</code></pre>
+
+<pre><code>##    id variable    value
+## 1   A       x1  0.21203
+## 2   B       x1  0.81892
+## 3   C       x1  0.44963
+## 4   D       x1 -0.09162
+## 5   E       x1  0.17346
+## 6   A       x2  2.05068
+## 7   B       x2 -0.80809
+## 8   C       x2  0.06313
+## 9   D       x2  0.01590
+## 10  E       x2  1.08980
+## 11  A       x3  0.66321
+## 12  B       x3  0.30927
+## 13  C       x3  2.22833
+## 14  D       x3 -0.32990
+## 15  E       x3 -1.04433
+</code></pre>
+
+<p><code>factor_</code>: A faster, simpler implementation of <code>factor</code> through Rcpp. This might
+be useful in some rare cases where speed is essential.</p>
+
+<pre><code class="r">lets &lt;- sample(letters, 1E6, TRUE)
+stopifnot( identical(
+  factor_(lets),
+  factor(lets)
+) )
+benchmark( replications=5,
+  factor_(lets),
+  factor(lets)
+)
+</code></pre>
+
+<pre><code>##            test replications elapsed relative user.self sys.self
+## 1 factor_(lets)            5   0.057    1.000     0.051    0.005
+## 2  factor(lets)            5   0.251    4.404     0.237    0.014
+##   user.child sys.child
+## 1          0         0
+## 2          0         0
+</code></pre>
+
+<p><code>anatomy</code>, <code>anat</code>: Like <code>str</code>, but much faster. It won&#39;t choke on very large <code>data.frame</code>s.</p>
+
+<pre><code class="r">df &lt;- data.table(x=1, y=2)
+str(df)
+</code></pre>
+
+<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   1 obs. of  2 variables:
+##  $ x: num 1
+##  $ y: num 2
+##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;
+</code></pre>
+
+<pre><code class="r">anatomy(df)
+</code></pre>
+
+<pre><code>## &#39;data.table&#39;, &#39;data.frame&#39; with 1 row and 2 columns:
+##   $ x: num  1
+##   $ y: num  2
+## - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;
+</code></pre>
+
+<h2>Miscellaneous Functions</h2>
+
+<p><code>html</code>: Custom HTML in an R Markdown document.</p>
+
+<pre><code class="r">html(
+  table( class=&quot;table table-bordered table-striped table-condensed table-hover&quot;, ## bootstrap classes
+    tr(
+      td(&quot;Apples&quot;),
+      td(&quot;Bananas&quot;)
+    ),
+    tr(
+      td(&quot;20&quot;),
+      td(&quot;30&quot;)
+    )
+  )
+)
+</code></pre>
+
+<table class='table table-bordered table-striped table-condensed table-hover'>
+<tr>
+<td>
+Apples
+</td><td>
+Bananas
+</td>
+</tr><tr>
+<td>
+20
+</td><td>
+30
+</td>
+</tr>
+</table> 
+
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

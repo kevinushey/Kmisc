@@ -10,16 +10,19 @@
 
 // [[export]]
 SEXP enumerate(SEXP call, SEXP env, SEXP nargs_) {
-  
+
   int nargs = INTEGER(nargs_)[0];
-  
+
   SEXP args = CDR(call);
-  SEXP vecSym = CAR(args); args = CDR(args);
+  // non-standard evaluation can hide the symbol pointing
+  // at the object we want; we rely on enumerate having 'X' pointing
+  // where we need it to
+  SEXP vecSym = install("X"); args = CDR(args);
   SEXP funSym = CAR(args); args = CDR(args);
-  
+
   SEXP XX = PROTECT( eval(vecSym, env) );
   R_xlen_t n = xlength(XX);
-  
+
   Rboolean realIndex = n > INT_MAX;
 
   SEXP ans = PROTECT(allocVector(VECSXP, n));
@@ -32,7 +35,7 @@ SEXP enumerate(SEXP call, SEXP env, SEXP nargs_) {
      allocation and not PROTECT the result (LCONS does memory
      protection of its args internally), but not both of them,
      since the computation of one may destroy the other */
-  
+
   SEXP ind = PROTECT(allocVector(realIndex ? REALSXP : INTSXP, 1));
   SEXP tmp;
   /* The R level code has ensured that XX is a vector.
@@ -45,8 +48,8 @@ SEXP enumerate(SEXP call, SEXP env, SEXP nargs_) {
   } else {
     tmp = PROTECT(LCONS(R_Bracket2Symbol,
   	    LCONS(vecSym, LCONS(ind, R_NilValue))));
-  } 
-  
+  }
+
   SEXP R_fcall;
   if (nargs < 2) {
     R_fcall = PROTECT(LCONS(funSym,

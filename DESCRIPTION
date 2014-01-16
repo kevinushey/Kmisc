@@ -27,7 +27,7 @@ Suggests:
     reshape2,
     googleVis,
     testthat,
-    microbenchmark
+    rbenchmark
 ByteCompile: TRUE
 VignetteBuilder: knitr
 Collate:
