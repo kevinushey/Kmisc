@@ -29,7 +29,7 @@ SEXP enumerate(SEXP call, SEXP env, SEXP nargs_) {
   SEXP names = getAttrib(XX, R_NamesSymbol);
   if(!isNull(names)) setAttrib(ans, R_NamesSymbol, names);
 
-  /* Build call: FUN(XX[[<ind>]], ...) */
+  /* Build call: FUN(XX[[<ind>]], <ind>, ...) */
 
   /* Notice that it is OK to have one arg to LCONS do memory
      allocation and not PROTECT the result (LCONS does memory

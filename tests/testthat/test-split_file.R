@@ -19,9 +19,9 @@ for( file in list.files(outPath, full.names=TRUE) ) {
   unlink(file)
 }
 
-split_file( tempfile, 
-            column=1, 
-#            sep="\t", 
+split_file( tempfile,
+            column=1,
+#            sep="\t",
             outDir=outPath,
             verbose=FALSE
             )
@@ -37,10 +37,10 @@ rownames(dat_ordered) <- 1:nrow(dat_ordered)
 
 expect_equal( dat_ordered, out )
 
-system.time( 
-  split_file( tempfile, 
-              column=1, 
-              sep="\t", 
+system.time(
+  split_file( tempfile,
+              column=1,
+              sep="\t",
               outDir=outPath,
               verbose=FALSE
   )

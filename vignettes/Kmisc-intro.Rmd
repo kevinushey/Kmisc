@@ -53,6 +53,16 @@ re_extract(dat, "[xy]")
 re_without(dat, "[xy]")
 ```
 
+`enumerate`: Like `lapply`, but accepts functions with two arguments,
+specifying both the value and the index at the current iteration.
+
+```{r tidy=FALSE}
+l <- replicate(3, 1:3, simplify=FALSE)
+print(l)
+enumerate(l, function(x, i) x^i)
+```
+
+
 `swap`: Replace elements in a vector.
 
 ```{r tidy=FALSE}
@@ -137,7 +147,6 @@ we also allow the user to modify objects in place.
 l <- replicate(5, rnorm(5), simplify=FALSE)
 invisible(list2df(l, inplace=TRUE))
 class(l)
-
 ## see also df2list, mat2df, df2mat
 ```
 

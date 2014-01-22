@@ -4,11 +4,19 @@ using namespace Rcpp;
 // hacky speedups for comparing NA, NaN
 // nope, x == NA_REAL does not suffice, since that always evaluates to false
 inline bool IsNA(double x) {
-  return *reinterpret_cast<uint64_t*>(&x) == *reinterpret_cast<uint64_t*>(&NA_REAL);
+  return memcmp(
+    (char*) &x,
+    (char*) &NA_REAL,
+    sizeof(double)
+  ) == 0;
 }
 
 inline bool IsNaN(double x) {
-  return *reinterpret_cast<uint64_t*>(&x) == *reinterpret_cast<uint64_t*>(&R_NaN); 
+  return memcmp(
+    (char*) &x,
+    (char*) &R_NaN,
+    sizeof(double)
+  ) == 0;
 }
 
 // borrowed from data.table package;
@@ -34,16 +42,16 @@ struct NACompare<int> {
 };
 
 template <>
-struct NACompare<double> {  
+struct NACompare<double> {
   inline bool operator()(double left, double right) const {
-        
+
     bool leftNaN = (left != left);
     bool rightNaN = (right != right);
-    
+
     // this branch inspired by data.table: see
     // https://github.com/arunsrinivasan/datatable/commit/1a3e476d3f746e18261662f484d2afa84ac7a146#commitcomment-4885242
     if (IsNaN(right) and IsNA(left)) return true;
-    
+
     if (leftNaN != rightNaN) {
       return leftNaN < rightNaN;
     } else {
@@ -51,7 +59,7 @@ struct NACompare<double> {
     }
 
   }
-  
+
 };
 
 template <>
@@ -82,7 +90,7 @@ inline IntegerVector do_counts<LogicalVector, int>(const LogicalVector& x) {
     ++counts[ x[i] ];
   }
   IntegerVector output = wrap(counts);
-  
+
   // yuck
   SEXP namesptr = Rf_getAttrib(output, R_NamesSymbol);
   for (int i=0; i < output.size(); ++i) {
@@ -93,9 +101,9 @@ inline IntegerVector do_counts<LogicalVector, int>(const LogicalVector& x) {
       SET_STRING_ELT(namesptr, i, Rf_mkChar("TRUE"));
     }
   }
-  
+
   return output;
-  
+
 }
 
 template <>
@@ -106,14 +114,14 @@ inline IntegerVector do_counts<CharacterVector, SEXP>(const CharacterVector& x) 
     counts[ STRING_ELT( tmp.attr("names"), i ) ] = tmp[i];
   }
   IntegerVector output = wrap(counts);
-  
+
   CharacterVector names = output.attr("names");
   CharacterVector::iterator it = std::find( names.begin(), names.end(), "NA" );
   if (it != names.end()) {
     *it = NA_STRING;
   }
   return output;
-  
+
 }
 
 template <>
@@ -124,7 +132,7 @@ inline IntegerVector do_counts<NumericVector, double>(const NumericVector& x) {
     ++counts[ x[i] ];
   }
   IntegerVector output = wrap(counts);
-  
+
   // explicitly use R's double-to-character coercion to get good names
   int m = counts.size();
   NumericVector keys = no_init(m);
@@ -139,7 +147,7 @@ inline IntegerVector do_counts<NumericVector, double>(const NumericVector& x) {
   // fix names
   for (int i=0; i < output.size(); ++i) {
     if (CHAR(STRING_ELT(output.attr("names"), i)) == "-0") {
-      SET_STRING_ELT(output.attr("names"), i, Rf_mkChar("-0"));
+      SET_STRING_ELT(output.attr("names"), i, Rf_mkChar("0"));
     }
   }
   return output;
@@ -189,8 +197,8 @@ all.equal( counts(x_int), c(table(x_int, useNA="ifany")))
 all.equal(counts(x_char), c(table(x_char, useNA="ifany")))
 all.equal(counts(x_lgl), c(table(x_lgl, useNA="ifany")))
 if (require(microbenchmark)) {
-  mb <- microbenchmark( 
-    times=5, 
+  mb <- microbenchmark(
+    times=5,
     counts(x_num),
     tableRcpp(x_num),
     c(table(x_num, useNA="ifany")),

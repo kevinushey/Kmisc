@@ -36,10 +36,3 @@ stopifnot( identical( tmp2, unlist(strsplit(tmp3, "\n", fixed=TRUE)) ) )
 # )
 #
 # unlink(tempfile)
-
-files <- list.files("~", full.names=TRUE, pattern="py$|R$|Rmd$|tex$")
-for (i in seq_along(files)) {
-  x <- files[i]
-  read(x)
-  stopifnot( identical( readlines(x), readLines(x) ) )
-}
