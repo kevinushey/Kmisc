@@ -13,12 +13,17 @@ SEXP enumerate(SEXP call, SEXP env, SEXP nargs_) {
 
   int nargs = INTEGER(nargs_)[0];
 
+  // we don't need the first symbol -- that's just the function 'enumerate'
   SEXP args = CDR(call);
+
   // non-standard evaluation can hide the symbol pointing
   // at the object we want; we rely on enumerate having 'X' pointing
   // where we need it to
   SEXP vecSym = install("X"); args = CDR(args);
-  SEXP funSym = CAR(args); args = CDR(args);
+
+  // similarly, we need to tell R that the symbol it wants to look up is FUN
+  // otherwise it can fail other symbol lookup
+  SEXP funSym = install("FUN"); args = CDR(args);
 
   SEXP XX = PROTECT( eval(vecSym, env) );
   R_xlen_t n = xlength(XX);

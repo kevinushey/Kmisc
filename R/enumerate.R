@@ -1,9 +1,9 @@
 ##' Enumerate over a Vector
-##' 
+##'
 ##' This function extends `lapply` to operate on functions taking two
 ##' arguments -- the first refers to each element within a vector, while
 ##' the second refers to the current index.
-##' 
+##'
 ##' @param X A vector.
 ##' @param FUN A function, taking two arguments.
 ##' @param ... Optional arguments to \code{FUN}.
