@@ -28,16 +28,16 @@
 ##' This code will be inserted as-is above the code in \code{fun}.
 ##' @export
 rcpp_tapply_generator <- function( fun, 
-                                   includes=NULL,
-                                   depends=NULL,
-                                   inline=TRUE,
-                                   returnType="double",
-                                   name=NULL, 
-                                   file=NULL,
-                                   additional=NULL ) {
+  includes=NULL,
+  depends=NULL,
+  inline=TRUE,
+  returnType="double",
+  name=NULL, 
+  file=NULL,
+  additional=NULL ) {
   
   if( getRversion() < "2.15.1" ||
-        packageVersion("Rcpp") < "0.10.1"
+      packageVersion("Rcpp") < "0.10.1"
   ) {
     message("Error: This function requires Rcpp > 0.10.1 and R > 2.15.1")
     return( invisible(NULL) )
@@ -66,7 +66,7 @@ rcpp_tapply_generator <- function( fun,
   ## internal name for the function
   if( is.null(name) ) {  
     name <- paste( collapse="", 
-                   sample( c(letters, LETTERS), size=20, replace=TRUE)
+      sample( c(letters, LETTERS), size=20, replace=TRUE)
     )
   } 
   
@@ -76,10 +76,11 @@ rcpp_tapply_generator <- function( fun,
   
   ## determine the Rcpp return type
   rcpp_returnType <- switch( returnType,
-                             double="NumericVector",
-                             int="IntegerVector",
-                             bool="LogicalVector",
-                             warning("unrecognized return type")
+    double="NumericVector",
+    int="IntegerVector",
+    bool="LogicalVector",
+    SEXP="CharacterVector",
+    warning("unrecognized return type")
   )
   
   ## process the 'depends' argument
@@ -89,7 +90,7 @@ rcpp_tapply_generator <- function( fun,
       include_Rcpp <- FALSE
     }
     depends <- paste("// [[Rcpp::depends(", paste(depends, collapse=", "), ")]]",
-                     sep="" )
+      sep="" )
     depends <- paste( sep="", depends, "\n" )
   }
   
@@ -101,20 +102,26 @@ rcpp_tapply_generator <- function( fun,
   
   ## 'cat' our source code out to a file, to later be sourced
   cat( file=conn, sep="", paste( sep="", collapse="", 
-                                 depends,
-                                 if( include_Rcpp ) "#include <Rcpp.h>\n",
-                                 includes, "\n",
-                                 "using namespace Rcpp;\n",
-                                 additional,
-                                 "\n",
-                                 "inline ", returnType, " do_", name, "( const ", rcpp_returnType, "& x ) {\n", fun, "\n }
+    depends,
+    if( include_Rcpp ) "#include <Rcpp.h>\n",
+    includes, "\n",
+    "using namespace Rcpp;\n",
+    additional,
+    "\n",
+    "inline ", returnType, " do_", name, "( const ", rcpp_returnType, "& x ) {\n", fun, "\n }
                                  
-                                 // [[Rcpp::export]]
-                                 List ", name, "( List& X ) {
-                                 
-                                 return lapply( X, do_", name, " );
-                                 
-                                 }") ) 
+// [[Rcpp::export]]
+SEXP ", name, "( const List& X, bool simplify ) {
+  SEXP output;
+  if (simplify) {
+    PROTECT(output = wrap(sapply(X, do_", name, ")));
+  } else {
+    PROTECT(output = wrap(lapply(X, do_", name, ")));
+  }
+  UNPROTECT(1);
+  return output;
+}
+"))
   
   ## source the file into the 'cpp_env' environment
   cat("Compiling...\n")
@@ -125,17 +132,10 @@ rcpp_tapply_generator <- function( fun,
   return( function(X, gp, simplify=TRUE) {
     
     force( cpp_source )
-    
-    if( !is.factor(gp) ) {
-      gp <- factor_(gp)
-    }
-    
-    call <- call(name, split(X, gp))
-    out <- eval( call, envir=cpp_env )
-    names(out) <- levels(gp)
-    if( simplify ) {
-      out <- unlist(out)
-    }
+    splat <- split(X, factor_(gp))
+    call <- call(name, splat, simplify)
+    out <- eval(call, envir=cpp_env)
+    names(out) <- names(splat)
     return(out)
     
   })
