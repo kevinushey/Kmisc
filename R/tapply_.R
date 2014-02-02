@@ -29,7 +29,7 @@ tapply_ <- function(X, INDEX, FUN=NULL, FUN.VALUE=NULL, ...,
   
   if (is.null(FUN.VALUE)) {
     output <- lapply(
-      X=split(X, factor_(INDEX)),
+      X=split_(X, INDEX),
       FUN=FUN,
       ...
     )
@@ -37,7 +37,7 @@ tapply_ <- function(X, INDEX, FUN=NULL, FUN.VALUE=NULL, ...,
     else return (output)
   } else {
     return( vapply( 
-      X=split(X, factor_(INDEX)),
+      X=split_(X, INDEX),
       FUN=FUN,
       FUN.VALUE=FUN.VALUE,
       USE.NAMES=USE.NAMES, 

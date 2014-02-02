@@ -36,6 +36,7 @@ SEXP Kmisc_split_file(SEXP pathSEXP, SEXP dirSEXP, SEXP basenameSEXP, SEXP path_
 SEXP Kmisc_split_runs_numeric(SEXP XSEXP);
 SEXP Kmisc_split_runs_character(SEXP XSEXP);
 SEXP Kmisc_split_runs_one(SEXP xSEXP);
+SEXP Kmisc_split(SEXP xSEXP, SEXP ySEXP);
 SEXP Kmisc_stack_list_df(SEXP XSEXP, SEXP classesSEXP, SEXP num_elemSEXP, SEXP make_row_namesSEXP, SEXP nameSEXP, SEXP keep_list_indexSEXP, SEXP index_nameSEXP);
 SEXP Kmisc_str_collapse_list(SEXP xSEXP);
 SEXP Kmisc_str_collapse_str(SEXP xSEXP);
@@ -74,6 +75,7 @@ R_CallMethodDef callMethods[]  = {
   {"CKmisc_split_runs_numeric", (DL_FUNC) &Kmisc_split_runs_numeric, 1},
   {"CKmisc_split_runs_character", (DL_FUNC) &Kmisc_split_runs_character, 1},
   {"CKmisc_split_runs_one", (DL_FUNC) &Kmisc_split_runs_one, 1},
+  {"CKmisc_split", (DL_FUNC) &Kmisc_split, 2},
   {"CKmisc_stack_list_df", (DL_FUNC) &Kmisc_stack_list_df, 7},
   {"CKmisc_str_collapse_list", (DL_FUNC) &Kmisc_str_collapse_list, 1},
   {"CKmisc_str_collapse_str", (DL_FUNC) &Kmisc_str_collapse_str, 1},

@@ -198,6 +198,22 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// split
+SEXP split(SEXP x, SEXP y);
+RcppExport SEXP Kmisc_split(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< SEXP >::type x(xSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type y(ySEXP );
+        SEXP __result = split(x, y);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
 // stack_list_df
 List stack_list_df(List& X, std::vector< std::string > classes, int num_elem, bool make_row_names, std::string name, bool keep_list_index, std::string index_name);
 RcppExport SEXP Kmisc_stack_list_df(SEXP XSEXP, SEXP classesSEXP, SEXP num_elemSEXP, SEXP make_row_namesSEXP, SEXP nameSEXP, SEXP keep_list_indexSEXP, SEXP index_nameSEXP) {

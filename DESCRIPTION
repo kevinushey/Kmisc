@@ -82,6 +82,7 @@ Collate:
     'silent.R'
     'simp.R'
     'size.R'
+    'split_.R'
     'split_file.R'
     'split_runs.R'
     'stack_list.R'

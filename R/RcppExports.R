@@ -49,6 +49,10 @@ split_runs_one <- function(x) {
     .Call('Kmisc_split_runs_one', PACKAGE = 'Kmisc', x)
 }
 
+.split <- function(x, y) {
+    .Call('Kmisc_split', PACKAGE = 'Kmisc', x, y)
+}
+
 stack_list_df <- function(X, classes, num_elem, make_row_names, name, keep_list_index, index_name) {
     .Call('Kmisc_stack_list_df', PACKAGE = 'Kmisc', X, classes, num_elem, make_row_names, name, keep_list_index, index_name)
 }
