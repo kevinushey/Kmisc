@@ -20,7 +20,8 @@ Imports:
     lattice,
     grid,
     knitr,
-    markdown
+    markdown,
+    fastmatch
 Suggests:
     ggplot2,
     plyr,

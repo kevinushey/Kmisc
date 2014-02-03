@@ -88,12 +88,4 @@ struct NACompare<SEXP> {
   }
 };
 
-template <int RTYPE, template <class> class StoragePolicy>
-Rcpp::IntegerVector fastgroup(const Rcpp::Vector<RTYPE, StoragePolicy>& x) {
-  typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE;
-  typedef typename std::set< STORAGE, NACompare<STORAGE> > SET;
-  typedef typename std::set< STORAGE, NACompare<STORAGE> >::iterator ITERATOR;
-  return Rcpp::wrap( set(x.begin(), x.end()) );
-}
-
 #endif
