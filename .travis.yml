@@ -17,7 +17,7 @@ before_install:
   - ./travis-tool.sh bootstrap
 
 install:
-  - ./travis-tool.sh install_r Rcpp data.table knitr markdown ggplot2 plyr reshape2 testthat rbenchmark
+  - ./travis-tool.sh install_r Rcpp data.table knitr markdown ggplot2 plyr reshape2 testthat rbenchmark fastmatch
 
 script:
   - ./travis-tool.sh run_tests

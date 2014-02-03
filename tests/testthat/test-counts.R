@@ -54,3 +54,6 @@ expect_identical( counts(1E20), c(table(1E20)) )
 ## test logical
 expect_identical( counts(TRUE), c(table(TRUE)) )
 expect_identical( counts(FALSE), c(table(FALSE)) )
+
+## test NA, NaN
+expect_identical( counts( c(1E-20, NA, NaN) ), c(table(c(1E-20, NA, NaN), useNA="ifany") ) )
