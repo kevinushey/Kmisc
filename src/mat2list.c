@@ -25,7 +25,7 @@ inline size_t type2size(SEXP x) {
   } \
   break
 
-// [[export]]
+// [[register]]
 SEXP mat2list(SEXP x) {
   if (!isMatrix(x)) {
     error("'x' must be a matrix");

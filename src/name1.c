@@ -3,7 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
-// [[export]]
+// [[register]]
 SEXP setnamed(SEXP x, SEXP i) {
   SET_NAMED(x, INTEGER(i)[0]);
   return R_NilValue;

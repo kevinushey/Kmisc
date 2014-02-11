@@ -7,7 +7,7 @@
 // utils.c
 char max_type1(SEXP);
 
-// [[export]]
+// [[register]]
 SEXP transpose_list(SEXP x_) {
   
   SEXP x;

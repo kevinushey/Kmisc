@@ -132,7 +132,7 @@ SEXP ", name, "( const List& X, bool simplify ) {
   return( function(X, gp, simplify=TRUE) {
     
     force( cpp_source )
-    splat <- split(X, factor_(gp))
+    splat <- split_(X, gp)
     call <- call(name, splat, simplify)
     out <- eval(call, envir=cpp_env)
     names(out) <- names(splat)

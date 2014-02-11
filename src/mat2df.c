@@ -6,7 +6,7 @@
 void set_rownames(SEXP x);
 void set_names(SEXP x);
 
-// [[export]]
+// [[register]]
 SEXP mat2df(SEXP x) {
   char type = TYPEOF(x);
   if (!isMatrix(x))

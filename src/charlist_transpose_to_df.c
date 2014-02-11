@@ -3,7 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
-// [[export]]
+// [[register]]
 SEXP charlist_transpose_to_df( SEXP x, SEXP names ) {
   
   if( TYPEOF(x) != VECSXP ) {

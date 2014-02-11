@@ -15,7 +15,7 @@
   UNPROTECT(1); \
   break
 
-// [[export]]
+// [[register]]
 SEXP list2mat(SEXP x) {
   
   if (TYPEOF(x) != VECSXP) {

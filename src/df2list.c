@@ -3,7 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
-// [[export]]
+// [[register]]
 SEXP df2list(SEXP x_, SEXP inplace) {
   
   SEXP x;

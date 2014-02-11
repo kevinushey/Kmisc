@@ -15,7 +15,7 @@
   } while (0)
 #endif
 
-// [[export]]
+// [[register]]
 SEXP double2hex(SEXP x) {
   
   STATIC_ASSERT( sizeof(unsigned long long) == sizeof(double) );
@@ -33,7 +33,7 @@ SEXP double2hex(SEXP x) {
   return output;
 }
 
-// [[export]]
+// [[register]]
 SEXP int2hex(SEXP x) {
   
   int n = sizeof(int) * 2 + 1;

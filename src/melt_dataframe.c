@@ -96,7 +96,7 @@ bool diff_types(SEXP x, SEXP val_ind_) {
   return false;
 }
 
-// [[export]]
+// [[register]]
 SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SEXP value_name ) {
   
   if (length(x) == 0) {

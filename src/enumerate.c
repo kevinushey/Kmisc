@@ -8,7 +8,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
-// [[export]]
+// [[register]]
 SEXP enumerate(SEXP call, SEXP env, SEXP nargs_) {
 
   int nargs = INTEGER(nargs_)[0];

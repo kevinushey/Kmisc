@@ -3,7 +3,7 @@
 #include <R.h>
 #include <Rdefines.h>
 
-// [[export]]
+// [[register]]
 SEXP str_rev( SEXP x ) {
   
   int len = length(x);

@@ -3,7 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
-// [[export]]
+// [[register]]
 SEXP any_na( SEXP x ) {
 	SEXP out;
 	PROTECT(out = allocVector(LGLSXP, 1));
