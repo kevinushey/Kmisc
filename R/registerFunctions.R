@@ -62,9 +62,6 @@ registerFunctions <- function(prefix="C_") {
   files <-  list.files("src", pattern="[cC]$", full.names=TRUE)
   
   c_file_paths <- files[ files != init_file_path ]
-  
-  
-  
   c_files <- lapply(c_file_paths, readLines)
   
   cpp_file_paths <- list.files("src", pattern="cpp$", full.names=TRUE)
@@ -83,17 +80,25 @@ registerFunctions <- function(prefix="C_") {
     })
   }
   
-  c_prototypes <- sapply(c_files, get_c_prototypes)
-  c_prototypes <- c_prototypes[ sapply(c_prototypes, function(x) {
-    !identical(x, list())
-  }) ]
+  if (length(c_files)) {
+    c_prototypes <- sapply(c_files, get_c_prototypes)
+    c_prototypes <- c_prototypes[ sapply(c_prototypes, function(x) {
+      !identical(x, list())
+    }) ]
+  } else {
+    c_prototypes <- NULL
+  }
   
   ## easy registration for functions exported with // [[Rcpp::exports]]
-  rcpp_exports <- readLines("src/RcppExports.cpp")
-  fn_lines <- grep("^RcppExport", rcpp_exports, value=TRUE)
-  Rcpp_export_prototypes <- sapply(fn_lines, USE.NAMES=FALSE, function(x) {
-    gsub("RcppExport (.*) \\{", "\\1;", x)
-  })
+  if (file.exists("src/RcppExports.cpp")) {
+    rcpp_exports <- readLines("src/RcppExports.cpp")
+    fn_lines <- grep("^RcppExport", rcpp_exports, value=TRUE)
+    Rcpp_export_prototypes <- sapply(fn_lines, USE.NAMES=FALSE, function(x) {
+      gsub("RcppExport (.*) \\{", "\\1;", x)
+    })
+  } else {
+    Rcpp_export_prototypes <- NULL
+  }
   
   ## registration for files with the old Rcpp interface
   get_cpp_prototypes <- function(x) {
@@ -101,13 +106,19 @@ registerFunctions <- function(prefix="C_") {
     get_c_prototypes(x)
   }
   
-  cpp_prototypes <- sapply(cpp_files, get_cpp_prototypes)
-  cpp_prototypes <- cpp_prototypes[ sapply(cpp_prototypes, function(x) {
-    !identical(x, list())
-  }) ]
-  
+  if (length(cpp_files)) {
+    cpp_prototypes <- sapply(cpp_files, get_cpp_prototypes)
+    cpp_prototypes <- cpp_prototypes[ sapply(cpp_prototypes, function(x) {
+      !identical(x, list())
+    }) ]
+  } else {
+    cpp_prototypes <- NULL
+  }
   
   all_prototypes <- unlist(c(c_prototypes, Rcpp_export_prototypes, cpp_prototypes))
+  if (!length(all_prototypes)) {
+    stop("No functions detected for registration.")
+  }
   
   all_names <- sapply( all_prototypes, function(x) {
     gsub("SEXP (.*)\\(.*", "\\1", x)
