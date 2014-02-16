@@ -20,13 +20,8 @@ necessary routines are written to a file called
 \code{src/<pkgname>_init.c}.
 }
 \details{
-This function should be called from an \R package's base
-directory.
-
-If you are using \code{Rcpp} and developing functions using
-the attributes interface, please ensure that you run
-\code{Rcpp::compileAttributes()} before calling this
-function, so that \code{Rcpp} functions are properly seen.
+This function should be called from the base directory of
+an \R package you are developing.
 
 Currently, the assumption is that all functions in a
 package use the \code{.Call} interface; i.e., there are no

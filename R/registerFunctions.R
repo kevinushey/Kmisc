@@ -8,12 +8,8 @@
 ##' The necessary routines are written to a file called
 ##' \code{src/<pkgname>_init.c}.
 ##' 
-##' This function should be called from an \R package's base directory.
-##' 
-##' If you are using \code{Rcpp} and developing functions using the
-##' attributes interface, please ensure that you run
-##' \code{Rcpp::compileAttributes()} before calling this function, so that
-##' \code{Rcpp} functions are properly seen.
+##' This function should be called from the base directory of an
+##' \R package you are developing.
 ##' 
 ##' Currently, the assumption is that all functions in a package use the
 ##' \code{.Call} interface; i.e., there are no functions using the \code{.C},
@@ -32,7 +28,8 @@
 ##' somewhere in your \code{roxygen} documentation to achieve the same effect.
 ##' 
 ##' @param prefix A prefix to append to the exported name, so that a function
-##' called \code{myfun} is registered as \code{<prefix>myfun}.
+##'   called \code{myfun} is registered as \code{<prefix>myfun}.
+##' @importFrom Rcpp compileAttributes
 ##' @export
 registerFunctions <- function(prefix="C_") {
   
@@ -90,6 +87,14 @@ registerFunctions <- function(prefix="C_") {
   }
   
   ## easy registration for functions exported with // [[Rcpp::exports]]
+  has_rcpp_exports <- any( sapply(cpp_files, function(x) {
+    any( grep("Rcpp::export", x, fixed=TRUE) )
+  }))
+  
+  if (has_rcpp_exports) {
+    compileAttributes()
+  }
+  
   if (file.exists("src/RcppExports.cpp")) {
     rcpp_exports <- readLines("src/RcppExports.cpp")
     fn_lines <- grep("^RcppExport", rcpp_exports, value=TRUE)
