@@ -33,7 +33,12 @@
 ##' @export
 registerFunctions <- function(prefix="C_") {
   
-  pkg_name <- basename( getwd() )
+  ## Get the package name from the DESCRIPTION file
+  if (!file.exists("DESCRIPTION")) {
+    stop("No file 'DESCRIPTION' exists; are you within the base directory ",
+      "of your package?")
+  }
+  pkg_name <- unname(read.dcf("DESCRIPTION")[, "Package"])
   
   ## make sure we're actually in a package directory
   if (!all(c("./R", "./src") %in% list.dirs())) {
