@@ -3,7 +3,7 @@
 \title{Faster tapply}
 \usage{
 tapply_(X, INDEX, FUN = NULL, FUN.VALUE = NULL, ..., simplify = TRUE,
-  USE.NAMES = TRUE)
+  USE.NAMES = TRUE, na.last = TRUE)
 }
 \arguments{
   \item{X}{An atomic vector.}
@@ -28,6 +28,10 @@ tapply_(X, INDEX, FUN = NULL, FUN.VALUE = NULL, ..., simplify = TRUE,
   already. Sometimes, one can achieve substantial speedups
   by setting this to \code{FALSE}. This option is only used
   when \code{FUN.VALUE} is not \code{NULL}.}
+
+  \item{na.last}{Boolean, if \code{TRUE} \code{NA} values
+  are grouped at the end.  Ie, we group on the \code{NA}s
+  as well.}
 }
 \description{
 This function acts as a faster version of \code{tapply} for

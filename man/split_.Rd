@@ -2,13 +2,18 @@
 \alias{split_}
 \title{Fast Split}
 \usage{
-split_(x, f)
+split_(x, f, na.last = TRUE)
 }
 \arguments{
   \item{x}{A vector containing values to be divided into
   groups.}
 
   \item{f}{A grouping variable defining the grouping.}
+
+  \item{na.last}{Boolean, if \code{TRUE} then \code{NA}
+  elements are split as well. Note that we diverge from
+  \code{split} in that we allow \code{NA} elements to be
+  split on.}
 }
 \description{
 A faster version of \code{\link{split}} -- this divides the

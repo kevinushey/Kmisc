@@ -81,10 +81,6 @@ df2 <- melt(dat, measure.vars=1:ncol(dat))
 expect_identical( as.character( df2[,1] ), df[,1] )
 expect_identical( df[,2], df2[,2] )
 
-df <- melt(dat, i=NULL)
-expect_warning(df2 <- melt_(dat, i=NULL))
-expect_identical( factor_to_char(df), df2 )
-
 rm( list=ls() )
 
 ## more tests

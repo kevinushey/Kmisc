@@ -49,8 +49,8 @@ split_runs_one <- function(x) {
     .Call('Kmisc_split_runs_one', PACKAGE = 'Kmisc', x)
 }
 
-.split <- function(x, y) {
-    .Call('Kmisc_split', PACKAGE = 'Kmisc', x, y)
+.split <- function(x, y, na_last_) {
+    .Call('Kmisc_split', PACKAGE = 'Kmisc', x, y, na_last_)
 }
 
 stack_list_df <- function(X, classes, num_elem, make_row_names, name, keep_list_index, index_name) {

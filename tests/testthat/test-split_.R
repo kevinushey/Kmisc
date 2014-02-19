@@ -23,7 +23,7 @@ for (x1 in list(num, int, char, lgcl)) {
   for (x2 in list(num, int, char, lgcl)) {
     expect_identical(
       unname(split(x1, x2)),
-      unname(split_(x1, x2))
+      unname(split_(x1, x2, na.last=FALSE))
     )
   }
 }

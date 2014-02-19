@@ -199,15 +199,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // split
-SEXP split(SEXP x, SEXP y);
-RcppExport SEXP Kmisc_split(SEXP xSEXP, SEXP ySEXP) {
+SEXP split(SEXP x, SEXP y, SEXP na_last_);
+RcppExport SEXP Kmisc_split(SEXP xSEXP, SEXP ySEXP, SEXP na_last_SEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
         Rcpp::traits::input_parameter< SEXP >::type x(xSEXP );
         Rcpp::traits::input_parameter< SEXP >::type y(ySEXP );
-        SEXP __result = split(x, y);
+        Rcpp::traits::input_parameter< SEXP >::type na_last_(na_last_SEXP );
+        SEXP __result = split(x, y, na_last_);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);

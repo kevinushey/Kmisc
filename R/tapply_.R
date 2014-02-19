@@ -17,6 +17,8 @@
 ##' the result unless it had names already. Sometimes, one can achieve substantial
 ##' speedups by setting this to \code{FALSE}. This option is only used when
 ##' \code{FUN.VALUE} is not \code{NULL}.
+##' @param na.last Boolean, if \code{TRUE} \code{NA} values are grouped at the end.
+##'   Ie, we group on the \code{NA}s as well.
 ##' @export
 ##' @examples
 ##' x <- rnorm(100)
@@ -25,11 +27,13 @@
 ##'   tapply(x, gp, mean) == tapply_(x, gp, mean)
 ##' ) )
 tapply_ <- function(X, INDEX, FUN=NULL, FUN.VALUE=NULL, ...,
-  simplify=TRUE, USE.NAMES=TRUE) {
+  simplify=TRUE, USE.NAMES=TRUE, na.last=TRUE) {
+  
+  na.last <- if (isTRUE(na.last)) TRUE else NA
   
   if (is.null(FUN.VALUE)) {
     output <- lapply(
-      X=split_(X, INDEX),
+      X=split_(X, INDEX, na.last=na.last),
       FUN=FUN,
       ...
     )
@@ -37,7 +41,7 @@ tapply_ <- function(X, INDEX, FUN=NULL, FUN.VALUE=NULL, ...,
     else return (output)
   } else {
     return( vapply( 
-      X=split_(X, INDEX),
+      X=split_(X, INDEX, na.last=na.last),
       FUN=FUN,
       FUN.VALUE=FUN.VALUE,
       USE.NAMES=USE.NAMES, 

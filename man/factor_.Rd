@@ -2,7 +2,7 @@
 \alias{factor_}
 \title{Fast Factor Generation}
 \usage{
-factor_(x, levels = NULL)
+factor_(x, levels = NULL, labels = levels, na.last = NA)
 }
 \arguments{
   \item{x}{An object of atomic type \code{integer},
@@ -11,6 +11,10 @@ factor_(x, levels = NULL)
   \item{levels}{An optional character vector of levels. Is
   coerced to the same type as \code{x}. By default, we
   compute the levels as \code{sort(unique.default(x))}.}
+
+  \item{na.last}{If \code{TRUE} and there are missing
+  values, the last level is set as \code{NA}; otherwise;
+  they are removed.}
 }
 \description{
 This function generates factors more quickly, by leveraging
