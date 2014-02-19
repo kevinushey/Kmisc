@@ -31,6 +31,7 @@ Suggests:
 ByteCompile: TRUE
 VignetteBuilder: knitr
 Collate:
+    'ChangeLog.R'
     'Kmisc-md2html.R'
     'Kmisc-package.R'
     'Rcpp.gallery.skeleton.R'
