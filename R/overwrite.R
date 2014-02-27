@@ -4,7 +4,19 @@
 ## package \code{package}.
 ##
 ## The value of the old symbol is returned.
-replace <- function(x, value, package) {
+overwrite <- function(x, value, package=NULL) {
+  
+  if (!is.character(x)) {
+    call <- match.call()
+    x <- capture.output(call$x)
+  }
+    
+  
+  if (grepl("::", x)) {
+    split <- unlist( strsplit(x, ":+", perl=TRUE) )
+    package <- split[[1]]
+    x <- split[[2]]
+  }
   
   package_ <- asNamespace(package)
   
@@ -26,7 +38,7 @@ replace <- function(x, value, package) {
   
   ## Assign values
   assign(x, value, envir=pkg_env)
-  utils::assignInNamespace(x, value, package=package_, envir=pkg_env)
+  utils::assignInNamespace(x, value, ns=package_, envir=pkg_env)
   
   ## Lock bindings
   lockBinding(x, pkg_env)
