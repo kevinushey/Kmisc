@@ -66,10 +66,19 @@ registerFunctions <- function(prefix="C_") {
   c_file_paths <- files[ files != init_file_path ]
   c_files <- lapply(c_file_paths, readLines)
   
+  ## Strip initial whitespace
+  c_files <- lapply(c_files, function(x) {
+    gsub("^[[:space:]]*", "", x)
+  })
+  
   cpp_file_paths <- list.files("src", pattern="cpp$", full.names=TRUE)
   ## don't read in RcppExports
   cpp_file_paths <- cpp_file_paths[ cpp_file_paths != "src/RcppExports.cpp" ]
   cpp_files <- lapply(cpp_file_paths, readLines)
+  
+  cpp_files <- lapply(cpp_files, function(x) {
+    gsub("^[[:space:]]*", "", x)
+  })
   
   get_c_prototypes <- function(x) {
     export_lines <- grep("// [[register]]", x, fixed=TRUE)
