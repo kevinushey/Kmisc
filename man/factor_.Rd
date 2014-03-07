@@ -12,6 +12,9 @@ factor_(x, levels = NULL, labels = levels, na.last = NA)
   coerced to the same type as \code{x}. By default, we
   compute the levels as \code{sort(unique.default(x))}.}
 
+  \item{labels}{A set of labels used to rename the levels,
+  if desired.}
+
   \item{na.last}{If \code{TRUE} and there are missing
   values, the last level is set as \code{NA}; otherwise;
   they are removed.}

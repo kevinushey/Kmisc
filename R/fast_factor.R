@@ -11,6 +11,7 @@
 ##'   \code{character} or \code{logical}.
 ##' @param levels An optional character vector of levels. Is coerced to the same type as
 ##'   \code{x}. By default, we compute the levels as \code{sort(unique.default(x))}.
+##' @param labels A set of labels used to rename the levels, if desired.
 ##' @param na.last If \code{TRUE} and there are missing values, the last level is
 ##'   set as \code{NA}; otherwise; they are removed.
 ##' @export

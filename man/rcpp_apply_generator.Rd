@@ -60,10 +60,6 @@ squaredSumApply <- rcpp_apply_generator("
   ")
 cvApply(x, 2)
 apply(x, 2, mean) / apply(x, 2, sd)
-if( require(microbenchmark) ) {
- f <- function(x) { mean(x) / sd(x) }
- microbenchmark( cvApply(x, 2), apply(x, 2, f) )
-}
 ## example with bool
 anyBig <- rcpp_apply_generator( returnType="bool", '
   return is_true( any( x > 10 ) );

@@ -1,16 +1,9 @@
-##' Update a Package ChangeLog
-##' 
-##' This function compares the time that files were last modified with the
-##' time that the current \R session was started (well, the time that
-##' \code{Kmisc} was loaded), generates stubs for them in a file called
-##' \code{ChangeLog}, and then opens that file in an editor.
-##' @param msg A message to use for the first file.
-##' @export
 ChangeLog <- function(msg="") {
   
   if (!exists(".Start.time")) {
     stop("No variable '.Start.time' available; unable to infer what ",
-      "files have been modified in the current session!")
+      "files have been modified in the current session!\n",
+      "Try adding `.Start.time <- as.numeric( Sys.time() )` to your .Rprofile.")
   }
   
   if (!file.exists("ChangeLog")) {
@@ -19,7 +12,7 @@ ChangeLog <- function(msg="") {
   }
   
   ## Find out what files have been modified in the current session
-  files <- list.files(full.names=TRUE, include.dirs=FALSE)
+  files <- list.files(full.names=TRUE, include.dirs=FALSE, recursive=TRUE)
   
   times <- unlist( lapply(files, function(x) {
     as.numeric(system(paste("stat -f%c", x), intern=TRUE))
@@ -39,10 +32,9 @@ ChangeLog <- function(msg="") {
     header <- paste0( Sys.Date(), "  ", Sys.getenv("USERNAME"), " <", Sys.getenv("EMAIL"), ">" )
     
     ## Stubs for each modified file
-    body_first <- paste0("        * ", modified[1], ": ", msg)
-    body_rest <-  paste0("        * ", modified[2:length(modified)], ": Idem")
+    body <- paste0("        * ", modified, ": ", msg)
     
-    changes <- c(header, "", body_first, body_rest)
+    changes <- c(header, "", body)
     
     ## Read in the ChangeLog, put the new changes on top, and write it back out
     ChangeLog <- readLines("ChangeLog")

@@ -1,9 +1,18 @@
 Version 0.5.1
 ------------------------------------------------------------
 
+  * Use `rbenchmark` instead of `microbenchmark` to ensure
+    Solaris vignettes are built fine.
   * Added 'enumerate', a function that works like 'lapply'
     but also allows the user to pass an index as the
     second argument to the function.
+  * Added 'registerFunctions', a utility function for package
+    authors that allows them to easily register symbols to be
+    exported by their package. Package authors can annotate
+    C and C++ functions they wish to register with
+    // [[register]]; calling `registerFunctions()` will
+    generate a file, `<pkgName>_init.c`, which will regiister
+    symbols with names (by default) of `C_<funcName>`
 
 Version 0.5.0
 ------------------------------------------------------------

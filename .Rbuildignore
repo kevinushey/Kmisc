@@ -19,3 +19,6 @@ README.md
 vignettes/*.md
 vignettes/*.html
 .travis.yml
+
+^R/overwrite.R$
+^R/ChangeLog.R$

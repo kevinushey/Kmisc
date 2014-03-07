@@ -77,7 +77,7 @@ prepare_package <- function(build=TRUE, check=TRUE, install=FALSE, copy.tarball=
     rx <- paste0("^", pkg_name, "_", pkg_version)
     pkg <- grep(rx, list.files(), value=TRUE)
     to <- file.path(owd, "dist", pkg)
-    file.copy(pkg, to, overwrite=TRUE)
+    if (copy.tarball) file.copy(pkg, to, overwrite=TRUE)
     cat("Done!\n\n")
   }
   
