@@ -15,7 +15,7 @@ LinkingTo: Rcpp
 URL: https://github.com/kevinushey/Kmisc
 BugReports: https://github.com/kevinushey/Kmisc/issues
 Imports:
-    Rcpp (>= 0.10.5),
+    Rcpp (>= 0.11.0),
     data.table,
     lattice,
     grid,
@@ -30,4 +30,3 @@ Suggests:
     rbenchmark
 ByteCompile: TRUE
 VignetteBuilder: knitr
-Roxygen: list(wrap = FALSE)

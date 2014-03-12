@@ -1,41 +1,24 @@
 #ifndef KMISC_UTILS_H_
 #define KMISC_UTILS_H_
 
-template <typename T>
-inline bool IsNA(T x);
-
-template <>
-inline bool IsNA< Rcpp::internal::const_string_proxy<STRSXP> >( const Rcpp::internal::const_string_proxy<STRSXP> x ) {
+inline bool IsNA( const Rcpp::internal::const_string_proxy<STRSXP>& x ) {
   return x == NA_STRING;
 }
 
-template <>
-inline bool IsNA<int>(int x) {
+inline bool IsNA(int x) {
   return x == NA_INTEGER;
 }
 
-template <>
-inline bool IsNA<SEXP>(SEXP x) {
+inline bool IsNA(SEXP x) {
   return x == NA_STRING;
 }
 
-// hacky speedups for comparing NA, NaN
-// nope, x == NA_REAL does not suffice, since that always evaluates to false
-template <>
-inline bool IsNA<double>(double x) {
-  return memcmp(
-    (char*) &x,
-    (char*) &NA_REAL,
-    sizeof(double)
-  ) == 0;
+inline bool IsNA(double x) {
+  return Rcpp::internal::Rcpp_IsNA(x);
 }
 
 inline bool IsNaN(double x) {
-  return memcmp(
-    (char*) &x,
-    (char*) &R_NaN,
-    sizeof(double)
-  ) == 0;
+  return Rcpp::internal::Rcpp_IsNaN(x);
 }
 
 // borrowed from data.table package;
