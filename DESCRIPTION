@@ -21,8 +21,7 @@ Imports:
     grid,
     knitr,
     markdown,
-    fastmatch,
-    proto
+    fastmatch
 Suggests:
     ggplot2,
     plyr,
