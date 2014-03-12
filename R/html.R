@@ -55,8 +55,7 @@ html <- function(..., file="", .sub=NULL) {
 ##' intend to embed them in \R Markdown documents. This is mainly used for
 ##' printing of items in the environment \code{html}.
 ##' @param ... a set of kHTML objects (strings).
-##' @method print kHTML
-##' @S3method print kHTML
+##' @export
 ##' @seealso \code{\link{html}}
 ##' @examples
 ##' Kmisc:::.html$br()

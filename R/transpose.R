@@ -10,22 +10,19 @@ transpose <- function(x) {
 }
 
 ##' @rdname transpose
-##' @S3method transpose list
-##' @method transpose list
+##' @export
 transpose.list <- function(x) {
   return( .Call(Ctranspose_list, as.list(x)) )
 }
 
 ##' @rdname transpose
-##' @S3method transpose data.frame
-##' @method transpose data.frame
+##' @export
 transpose.data.frame <- function(x) {
   return( as.matrix( transpose.list(x) ) )
 }
 
 ##' @rdname transpose
-##' @S3method transpose default
-##' @method transpose default
+##' @export
 transpose.default <- function(x) {
   return( t.default(x) )
 }

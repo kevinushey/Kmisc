@@ -21,7 +21,8 @@ Imports:
     grid,
     knitr,
     markdown,
-    fastmatch
+    fastmatch,
+    proto
 Suggests:
     ggplot2,
     plyr,
@@ -30,3 +31,4 @@ Suggests:
     rbenchmark
 ByteCompile: TRUE
 VignetteBuilder: knitr
+Roxygen: list(wrap = FALSE)
