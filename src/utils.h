@@ -5,7 +5,7 @@ template <typename T>
 inline bool IsNA(T x);
 
 template <>
-inline bool IsNA< Rcpp::internal::const_string_proxy<STRSXP> >( Rcpp::internal::const_string_proxy<STRSXP> x ) {
+inline bool IsNA< Rcpp::internal::const_string_proxy<STRSXP> >( const Rcpp::internal::const_string_proxy<STRSXP> x ) {
   return x == NA_STRING;
 }
 
