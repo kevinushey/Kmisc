@@ -30,4 +30,3 @@ Suggests:
     rbenchmark
 ByteCompile: TRUE
 VignetteBuilder: knitr
-
