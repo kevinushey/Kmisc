@@ -45,39 +45,31 @@ without_rows.re(x, pattern, match_var = rownames(x), perl = TRUE,
   fixed = FALSE, ...)
 }
 \arguments{
-  \item{x}{An \R object (in the case of \code{re_}
-  methods), or a character vector (in the case of
-  \code{ngrep}, \code{fgrep})}
+\item{x}{An \R object (in the case of \code{re_} methods), or a character
+vector (in the case of \code{ngrep}, \code{fgrep})}
 
-  \item{pattern}{character string containing a character
-  string to be matched in the given character vector;
-  coerced by \code{\link{as.character}} if possible.}
+\item{pattern}{character string containing a character string to be matched
+in the given character vector; coerced by \code{\link{as.character}} if possible.}
 
-  \item{ignore.case}{boolean; if \code{TRUE} we perform
-  case-insensitive matching.}
+\item{ignore.case}{boolean; if \code{TRUE} we perform case-insensitive matching.}
 
-  \item{perl}{boolean; if \code{TRUE}, we use
-  perl-compatible regular expressions.}
+\item{perl}{boolean; if \code{TRUE}, we use perl-compatible regular expressions.}
 
-  \item{value}{boolean; if \code{TRUE} we return the actual
-  matches; if \code{FALSE} we return the indices
-  corresponding to the matches.}
+\item{value}{boolean; if \code{TRUE} we return the actual matches; if \code{FALSE}
+we return the indices corresponding to the matches.}
 
-  \item{fixed}{boolean; if \code{TRUE} the pattern is
-  matched as-is. Overrides all conflicting arguments.}
+\item{fixed}{boolean; if \code{TRUE} the pattern is matched as-is. Overrides
+all conflicting arguments.}
 
-  \item{useBytes}{boolean; if \code{TRUE} we perform
-  matching byte-by-byte rather than character by
-  character.}
+\item{useBytes}{boolean; if \code{TRUE} we perform matching byte-by-byte rather
+than character by character.}
 
-  \item{match_var}{A variable to match on, as used in the
-  \code{re_extract_rows} function.}
+\item{match_var}{A variable to match on, as used in the
+\code{re_extract_rows} function.}
 
-  \item{invert}{Invert the results of the regular
-  expression match?}
+\item{invert}{Invert the results of the regular expression match?}
 
-  \item{...}{Optional arguments passed to \code{grep} or
-  \code{grepl}.}
+\item{...}{Optional arguments passed to \code{grep} or \code{grepl}.}
 }
 \description{
 These functions provide simple extensions to base regular expressions in \R,

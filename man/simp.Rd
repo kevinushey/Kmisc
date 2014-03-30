@@ -6,9 +6,9 @@
 simp(x, y)
 }
 \arguments{
-  \item{x}{A vector of values \code{x}.}
+\item{x}{A vector of values \code{x}.}
 
-  \item{y}{A vector of values \code{f(x)}.}
+\item{y}{A vector of values \code{f(x)}.}
 }
 \description{
 This function computes the area under the curve using Simpson's

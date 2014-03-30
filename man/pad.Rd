@@ -6,10 +6,9 @@
 pad(x, n)
 }
 \arguments{
-  \item{x}{An \R object (list, data.frame, matrix, atomic
-  vector).}
+\item{x}{An \R object (list, data.frame, matrix, atomic vector).}
 
-  \item{n}{The final length of each object.}
+\item{n}{The final length of each object.}
 }
 \description{
 This function pads an \R object (list, data.frame, matrix, atomic vector)

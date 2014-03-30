@@ -6,18 +6,15 @@
 kSave(x, file, lvl = 1, Rext = ".rda", ...)
 }
 \arguments{
-  \item{x}{the R object you want to save / write to file}
+\item{x}{the R object you want to save / write to file}
 
-  \item{file}{the location to write the file to, with
-  extension desired for object written by write.table}
+\item{file}{the location to write the file to, with extension desired for object written by write.table}
 
-  \item{lvl}{how many extensions do you want to strip from
-  your output file?}
+\item{lvl}{how many extensions do you want to strip from your output file?}
 
-  \item{Rext}{the extension to use for the saved object.}
+\item{Rext}{the extension to use for the saved object.}
 
-  \item{...}{optional arguments passed to
-  \code{write.table}}
+\item{...}{optional arguments passed to \code{write.table}}
 }
 \description{
 A function that both writes a file to table with \code{write.table},

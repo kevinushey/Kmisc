@@ -6,12 +6,11 @@
 makeHTMLTag(tag, ...)
 }
 \arguments{
-  \item{tag}{the HTML tag to use.}
+\item{tag}{the HTML tag to use.}
 
-  \item{...}{a collection of named and unnamed arguments;
-  named arguments are parsed as attributes of the tag,
-  unnamed arguments are pasted together into the inner data
-  of the tag.}
+\item{...}{a collection of named and unnamed arguments;
+named arguments are parsed as attributes of the tag,
+unnamed arguments are pasted together into the inner data of the tag.}
 }
 \description{
 Creates a function that returns a function that can be used to generate

@@ -6,7 +6,7 @@
 split_runs(x)
 }
 \arguments{
-  \item{x}{A numeric or character vector.}
+\item{x}{A numeric or character vector.}
 }
 \description{
 Split a vector into a list of runs, such that each entry in the

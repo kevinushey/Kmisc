@@ -6,9 +6,8 @@
 cd(...)
 }
 \arguments{
-  \item{...}{the set of strings to paste together. if no
-  arguments are submitted, then we return to the home
-  directory.}
+\item{...}{the set of strings to paste together. if no arguments are
+submitted, then we return to the home directory.}
 }
 \description{
 A small convenience function that wraps \code{file.path} into a

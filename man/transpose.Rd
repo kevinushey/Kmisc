@@ -15,7 +15,7 @@ transpose(x)
 \method{transpose}{default}(x)
 }
 \arguments{
-  \item{x}{A matrix, data.frame, or matrix-like list.}
+\item{x}{A matrix, data.frame, or matrix-like list.}
 }
 \description{
 This functions similarily to \R's \code{t}, but we add a new method,

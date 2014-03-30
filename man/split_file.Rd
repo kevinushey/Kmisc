@@ -7,28 +7,24 @@ split_file(file, column, sep = NULL, outDir = file.path(dirname(file),
   "split"), prepend = "", dots = 1, skip = 0, verbose = TRUE)
 }
 \arguments{
-  \item{file}{The location of the file we are splitting.}
+\item{file}{The location of the file we are splitting.}
 
-  \item{column}{The column (by index) to split over.}
+\item{column}{The column (by index) to split over.}
 
-  \item{sep}{The file separator. Must be a single
-  character. If \code{''}, we guess the delimiter from the
-  first line.}
+\item{sep}{The file separator. Must be a single character. If \code{''},
+we guess the delimiter from the first line.}
 
-  \item{outDir}{The directory to output the files.}
+\item{outDir}{The directory to output the files.}
 
-  \item{prepend}{A string to prepend to the output file
-  names; typically an identifier for what the column is
-  being split over.}
+\item{prepend}{A string to prepend to the output file names; typically an
+identifier for what the column is being split over.}
 
-  \item{dots}{The number of dots used in making up the file
-  extension. If there are no dots in the file name, this
-  argument is ignored.}
+\item{dots}{The number of dots used in making up the file extension.
+If there are no dots in the file name, this argument is ignored.}
 
-  \item{skip}{Integer; number of rows to skip (e.g. to
-  avoid a header).}
+\item{skip}{Integer; number of rows to skip (e.g. to avoid a header).}
 
-  \item{verbose}{Be chatty?}
+\item{verbose}{Be chatty?}
 }
 \description{
 This script splits a delimited file by

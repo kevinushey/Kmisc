@@ -11,23 +11,20 @@ split2df(x, sep, fixed = FALSE, perl = TRUE, useBytes = FALSE,
   names = NULL)
 }
 \arguments{
-  \item{x}{a vector of strings.}
+\item{x}{a vector of strings.}
 
-  \item{sep}{the delimiter / \code{\link{regex}} you wish
-  to split your strings on.}
+\item{sep}{the delimiter / \code{\link{regex}} you wish to split your strings on.}
 
-  \item{fixed}{logical. If \code{TRUE}, we match \code{sep}
-  exactly; otherwise, we use regular expressions. Has
-  priority over \code{perl}.}
+\item{fixed}{logical. If \code{TRUE}, we match \code{sep} exactly;
+otherwise, we use regular expressions. Has priority over \code{perl}.}
 
-  \item{perl}{logical. Should perl-compatible regexps be
-  used? Ignored when \code{fixed} is \code{TRUE}.}
+\item{perl}{logical. Should perl-compatible regexps be used? Ignored when
+\code{fixed} is \code{TRUE}.}
 
-  \item{useBytes}{logical. If \code{TRUE}, matching is done
-  byte-by-byte rather than character-by-character.}
+\item{useBytes}{logical. If \code{TRUE}, matching is done byte-by-byte rather than
+character-by-character.}
 
-  \item{names}{optional: a vector of names to pass to the
-  returned \code{data.frame}.}
+\item{names}{optional: a vector of names to pass to the returned \code{data.frame}.}
 }
 \description{
 This function takes a vector of strings following a regular

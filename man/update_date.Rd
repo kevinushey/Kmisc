@@ -6,7 +6,7 @@
 update_date(file = "DESCRIPTION")
 }
 \arguments{
-  \item{file}{The path to the \code{DESCRIPTION} file.}
+\item{file}{The path to the \code{DESCRIPTION} file.}
 }
 \description{
 This function for package authors updates the time in the \code{DESCRIPTION}

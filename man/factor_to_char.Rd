@@ -9,12 +9,11 @@ factor_to_char(X, inplace = FALSE)
 factor2char(X, inplace = FALSE)
 }
 \arguments{
-  \item{X}{an object.}
+\item{X}{an object.}
 
-  \item{inplace}{Boolean; if \code{TRUE} we modify the
-  object in place.  Useful if you're modifying a list and
-  don't want to force a copy, but be wary of other symbols
-  pointing as the same data.}
+\item{inplace}{Boolean; if \code{TRUE} we modify the object in place.
+Useful if you're modifying a list and don't want to force a copy, but
+be wary of other symbols pointing at the same data.}
 }
 \description{
 Converts factors to characters in an object. Leaves non-character

@@ -6,21 +6,19 @@
 extract_rows_from_file(file, out = NULL, column, sep = NULL, keep)
 }
 \arguments{
-  \item{file}{The input file to extract rows from.}
+\item{file}{The input file to extract rows from.}
 
-  \item{out}{The location to output the file. If this is
-  \code{NULL}, we redirect output back into the \R
-  session.}
+\item{out}{The location to output the file. If this is \code{NULL}, we
+redirect output back into the \R session.}
 
-  \item{column}{The column to check, indexed from 1.}
+\item{column}{The column to check, indexed from 1.}
 
-  \item{sep}{The delimiter used in \code{file}. Must be a
-  single character. If no delimiter is specified, we guess
-  the delimiter from the first row of \code{file}.}
+\item{sep}{The delimiter used in \code{file}. Must be a single character.
+If no delimiter is specified, we guess the delimiter from the first row
+of \code{file}.}
 
-  \item{keep}{A character vector containing all items that
-  we want to check and keep within the \code{column}th
-  column of each row.}
+\item{keep}{A character vector containing all items that we want to check
+and keep within the \code{column}th column of each row.}
 }
 \description{
 This function reads through a delimited file on disk, determines if the

@@ -7,32 +7,28 @@ tapply_(X, INDEX, FUN = NULL, FUN.VALUE = NULL, ..., simplify = TRUE,
   USE.NAMES = TRUE, na.last = TRUE)
 }
 \arguments{
-  \item{X}{An atomic vector.}
+\item{X}{An atomic vector.}
 
-  \item{INDEX}{A vector coercable to factor; must be one of
-  the common atomic types: factor, integer, numeric, or
-  character.}
+\item{INDEX}{A vector coercable to factor; must be one of the common atomic types:
+factor, integer, numeric, or character.}
 
-  \item{FUN}{The function to be applied. See more details
-  at \code{\link{lapply}}.}
+\item{FUN}{The function to be applied. See more details at \code{\link{lapply}}.}
 
-  \item{FUN.VALUE}{Optional; if specified we try to
-  leverage \code{vapply} for computation of results.}
+\item{FUN.VALUE}{Optional; if specified we try to leverage \code{vapply} for
+computation of results.}
 
-  \item{...}{Optional arguments to pass to \code{FUN}.}
+\item{...}{Optional arguments to pass to \code{FUN}.}
 
-  \item{simplify}{boolean; if \code{TRUE}, we unlist the
-  output and hence return a named vector of values.}
+\item{simplify}{boolean; if \code{TRUE}, we unlist the output and hence return
+a named vector of values.}
 
-  \item{USE.NAMES}{boolean; if \code{TRUE} use \code{X} as
-  \code{\link{names}} for the result unless it had names
-  already. Sometimes, one can achieve substantial speedups
-  by setting this to \code{FALSE}. This option is only used
-  when \code{FUN.VALUE} is not \code{NULL}.}
+\item{USE.NAMES}{boolean; if \code{TRUE} use \code{X} as \code{\link{names}} for
+the result unless it had names already. Sometimes, one can achieve substantial
+speedups by setting this to \code{FALSE}. This option is only used when
+\code{FUN.VALUE} is not \code{NULL}.}
 
-  \item{na.last}{Boolean, if \code{TRUE} \code{NA} values
-  are grouped at the end.  Ie, we group on the \code{NA}s
-  as well.}
+\item{na.last}{Boolean, if \code{TRUE} \code{NA} values are grouped at the end.
+Ie, we group on the \code{NA}s as well.}
 }
 \description{
 This function acts as a faster version of \code{tapply} for the common case of

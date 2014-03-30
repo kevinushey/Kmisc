@@ -6,17 +6,13 @@
 pxt(x, class = "twoDtable", id = NULL, ...)
 }
 \arguments{
-  \item{x}{a 2x2 table; typically something returned from
-  \code{kTable(x,y)}}
+\item{x}{a 2x2 table; typically something returned from \code{kTable(x,y)}}
 
-  \item{class}{class to be passed to HTML table; used for
-  CSS styling.}
+\item{class}{class to be passed to HTML table; used for CSS styling.}
 
-  \item{id}{id to be passed to HTML table; used for CSS
-  styling.}
+\item{id}{id to be passed to HTML table; used for CSS styling.}
 
-  \item{...}{optional arguments passed to
-  \code{\link{makeHTMLTable}}.}
+\item{...}{optional arguments passed to \code{\link{makeHTMLTable}}.}
 }
 \description{
 Function for outputting cross-tabulated tables as marked-up HTML.

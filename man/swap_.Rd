@@ -6,11 +6,10 @@
 swap_(vec, ...)
 }
 \arguments{
-  \item{vec}{the vector of items whose elemetns you will be
-  replacing.}
+\item{vec}{the vector of items whose elemetns you will be replacing.}
 
-  \item{...}{A set of named arguments, whereby we translate
-  from \code{names} to \code{values} of those arguments.}
+\item{...}{A set of named arguments, whereby we translate from \code{names}
+to \code{values} of those arguments.}
 }
 \description{
 This function swaps elements in a vector. See examples for usage.

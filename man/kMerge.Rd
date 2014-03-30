@@ -7,21 +7,17 @@ kMerge(x, y, by = intersect(names(x), names(y)), by.x = by, by.y = by,
   ...)
 }
 \arguments{
-  \item{x}{the \code{data.frame} you wish to merge \code{y}
-  into.}
+\item{x}{the \code{data.frame} you wish to merge \code{y} into.}
 
-  \item{y}{the \code{data.frame} to be merged.}
+\item{y}{the \code{data.frame} to be merged.}
 
-  \item{by}{specifications of the columns used for merging.
-  See 'Details' of \code{\link{merge}}.}
+\item{by}{specifications of the columns used for merging. See 'Details' of \code{\link{merge}}.}
 
-  \item{by.x}{specifications of the columns used for
-  merging. See 'Details' of \code{\link{merge}}.}
+\item{by.x}{specifications of the columns used for merging. See 'Details' of \code{\link{merge}}.}
 
-  \item{by.y}{specifications of the columns used for
-  merging. See 'Details' of \code{\link{merge}}.}
+\item{by.y}{specifications of the columns used for merging. See 'Details' of \code{\link{merge}}.}
 
-  \item{...}{optional arguments passed to \code{merge}.}
+\item{...}{optional arguments passed to \code{merge}.}
 }
 \value{
 \code{data.frame}

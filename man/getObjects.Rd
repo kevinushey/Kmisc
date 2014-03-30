@@ -6,7 +6,7 @@
 getObjects(env)
 }
 \arguments{
-  \item{env}{an environment.}
+\item{env}{an environment.}
 }
 \value{
 a list of the objects contained within that environment.

@@ -9,7 +9,7 @@ read(file)
 readlines(file)
 }
 \arguments{
-  \item{file}{Path to a file.}
+\item{file}{Path to a file.}
 }
 \description{
 These functions read a file into memory. We memory map the file for fast I/O.

@@ -6,10 +6,9 @@
 strip_extension(x, lvl = 1)
 }
 \arguments{
-  \item{x}{the file name, including extension.}
+\item{x}{the file name, including extension.}
 
-  \item{lvl}{the number of \code{'.'} used in defining the
-  file extension.}
+\item{lvl}{the number of \code{'.'} used in defining the file extension.}
 }
 \description{
 Strips the extension from a file name. By default, we assume the extension

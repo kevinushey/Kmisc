@@ -7,16 +7,16 @@ scan.cb(what = character(), sep = "\\n", quiet = TRUE,
   blank.lines.skip = FALSE, ...)
 }
 \arguments{
-  \item{what}{passed to \code{scan}.}
+\item{what}{passed to \code{scan}.}
 
-  \item{sep}{passed to \code{scan}.}
+\item{sep}{passed to \code{scan}.}
 
-  \item{quiet}{passed to \code{scan}.}
+\item{quiet}{passed to \code{scan}.}
 
-  \item{blank.lines.skip}{Skip blank lines? Defaults to
-  \code{FALSE}, as opposed to base \R's \code{scan}.}
+\item{blank.lines.skip}{Skip blank lines? Defaults to \code{FALSE}, as
+opposed to base \R's \code{scan}.}
 
-  \item{...}{passed to \code{scan}.}
+\item{...}{passed to \code{scan}.}
 }
 \description{
 Convenience function for reading data from the clipboard.

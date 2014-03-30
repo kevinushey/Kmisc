@@ -6,15 +6,13 @@
 kSvg(file = NULL, width = 4, height = 4, class = NULL)
 }
 \arguments{
-  \item{file}{path to the SVG file you want to embed}
+\item{file}{path to the SVG file you want to embed}
 
-  \item{width}{width (in pixels) of the SVG file (or, more
-  accurately, canvas in which that file is displayed)}
+\item{width}{width (in pixels) of the SVG file (or, more accurately, canvas in which that file is displayed)}
 
-  \item{height}{height (in pixels) of the SVG file (or,
-  more accurately, canvas in which that file is displayed)}
+\item{height}{height (in pixels) of the SVG file (or, more accurately, canvas in which that file is displayed)}
 
-  \item{class}{class passed to the \code{<embed>} tag}
+\item{class}{class passed to the \code{<embed>} tag}
 }
 \description{
 Convenience function for \code{cat}-ing out HTML markup for an SVG image, using

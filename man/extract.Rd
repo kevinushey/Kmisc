@@ -6,10 +6,9 @@
 extract(x, ...)
 }
 \arguments{
-  \item{x}{An \R object with a \code{names} attribute.}
+\item{x}{An \R object with a \code{names} attribute.}
 
-  \item{...}{an optional number of 'names' to match in
-  \code{dat}.}
+\item{...}{an optional number of 'names' to match in \code{dat}.}
 }
 \description{
 Extracts elements from an \R object

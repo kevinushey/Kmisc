@@ -9,7 +9,7 @@ kLoad(...)
 getload(...)
 }
 \arguments{
-  \item{...}{args to pass to \code{load}}
+\item{...}{args to pass to \code{load}}
 }
 \value{
 the object stored in the \code{load}-ed object

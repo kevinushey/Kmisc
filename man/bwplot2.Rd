@@ -7,22 +7,19 @@ bwplot2(form, data = NULL, xlab = NULL, ylab = NULL, main = NULL,
   n = 10, ...)
 }
 \arguments{
-  \item{form}{a formula object as expected by
-  \code{lattice}'s \code{xyplot}.}
+\item{form}{a formula object as expected by \code{lattice}'s \code{xyplot}.}
 
-  \item{data}{see \code{\link{xyplot}}.}
+\item{data}{see \code{\link{xyplot}}.}
 
-  \item{xlab}{see \code{\link{xyplot}}.}
+\item{xlab}{see \code{\link{xyplot}}.}
 
-  \item{ylab}{see \code{\link{xyplot}}.}
+\item{ylab}{see \code{\link{xyplot}}.}
 
-  \item{main}{see \code{\link{xyplot}}.}
+\item{main}{see \code{\link{xyplot}}.}
 
-  \item{n}{number of points necessary for a boxplot to be
-  drawn.}
+\item{n}{number of points necessary for a boxplot to be drawn.}
 
-  \item{...}{additional arguments passed to \code{xyplot}
-  call.}
+\item{...}{additional arguments passed to \code{xyplot} call.}
 }
 \description{
 This generates a custom lattice boxplot; we super-impose actual plot points

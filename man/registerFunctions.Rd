@@ -6,9 +6,8 @@
 registerFunctions(prefix = "C_")
 }
 \arguments{
-  \item{prefix}{A prefix to append to the exported name, so
-  that a function called \code{myfun} is registered as
-  \code{<prefix>myfun}.}
+\item{prefix}{A prefix to append to the exported name, so that a function
+called \code{myfun} is registered as \code{<prefix>myfun}.}
 }
 \description{
 This function can be used to automatically register the native routines

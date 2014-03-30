@@ -6,11 +6,11 @@
 kImg(x, width = 480, height = 480)
 }
 \arguments{
-  \item{x}{path to an image you want to source}
+\item{x}{path to an image you want to source}
 
-  \item{width}{width (in pixels) of the image}
+\item{width}{width (in pixels) of the image}
 
-  \item{height}{height (in pixels) of the image}
+\item{height}{height (in pixels) of the image}
 }
 \description{
 Convenience function for \code{cat}-ing out HTML markup for an image as

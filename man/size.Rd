@@ -6,18 +6,16 @@
 size(x, quote = FALSE, units = "auto", ...)
 }
 \arguments{
-  \item{x}{An \R object.}
+\item{x}{An \R object.}
 
-  \item{quote}{logical, indicating whether or not the
-  result should be printed with surrounding quotes.}
+\item{quote}{logical, indicating whether or not the result should be printed
+with surrounding quotes.}
 
-  \item{units}{The units to be used in printing the size.
-  Other allowed values are \code{"Kb"}, \code{"Mb"},
-  \code{"Gb"} and \code{"auto"}. See
-  \code{\link{object.size}} for more details.}
+\item{units}{The units to be used in printing the size. Other allowed values are
+\code{"Kb"}, \code{"Mb"}, \code{"Gb"} and \code{"auto"}. See \code{\link{object.size}}
+for more details.}
 
-  \item{...}{Arguments to be passed to or from other
-  methods.}
+\item{...}{Arguments to be passed to or from other methods.}
 }
 \description{
 Provides an estimate of the memory that is being used to store an \R

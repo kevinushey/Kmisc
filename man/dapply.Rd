@@ -6,13 +6,11 @@
 dapply(X, FUN, ...)
 }
 \arguments{
-  \item{X}{a vector, expression object, or a
-  \code{data.frame}}
+\item{X}{a vector, expression object, or a \code{data.frame}}
 
-  \item{FUN}{function to be applied to each element of
-  \code{X}.}
+\item{FUN}{function to be applied to each element of \code{X}.}
 
-  \item{...}{optional arguments to \code{FUN}.}
+\item{...}{optional arguments to \code{FUN}.}
 }
 \description{
 A convenience function that works like \code{lapply}, but coerces the output
@@ -40,6 +38,6 @@ dapply( dat, summary )
 str( dapply( dat, summary ) )
 }
 \seealso{
-\code{\link{lapply}}, \code{\link{lapply}}
+\code{\link{sapply}}, \code{\link{lapply}}
 }
 

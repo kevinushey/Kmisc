@@ -6,13 +6,12 @@
 str_slice2(x, n = 1, USE.NAMES = TRUE)
 }
 \arguments{
-  \item{x}{a character vector.}
+\item{x}{a character vector.}
 
-  \item{n}{integer (or numeric coercible to integer); index
-  at which to slice.}
+\item{n}{integer (or numeric coercible to integer); index at which to slice.}
 
-  \item{USE.NAMES}{logical. if names attribute already
-  exists on \code{x}, pass this through to the result?}
+\item{USE.NAMES}{logical. if names attribute already exists on \code{x},
+pass this through to the result?}
 }
 \value{
 A list of length equal to the length of \code{x}, with each element

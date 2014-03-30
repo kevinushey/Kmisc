@@ -6,7 +6,7 @@
 remove_na(x)
 }
 \arguments{
-  \item{x}{An (atomic) vector, or a list / data.frame.}
+\item{x}{An (atomic) vector, or a list / data.frame.}
 }
 \description{
 This function removes all \code{NA} entries from a vector.

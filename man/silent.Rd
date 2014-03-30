@@ -6,7 +6,7 @@
 silent(expr)
 }
 \arguments{
-  \item{expr}{An \R expression.}
+\item{expr}{An \R expression.}
 }
 \description{
 This function combines hides any output a function might try to write

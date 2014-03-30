@@ -6,14 +6,12 @@
 html(..., file = "", .sub = NULL)
 }
 \arguments{
-  \item{...}{A set of HTML tag functions. See examples for
-  details.}
+\item{...}{A set of HTML tag functions. See examples for details.}
 
-  \item{file}{Location to output the generated HTML.}
+\item{file}{Location to output the generated HTML.}
 
-  \item{.sub}{A named list of substitutions to perform; we
-  substitute each symbol from the names of \code{.sub} with
-  its corresponding value.}
+\item{.sub}{A named list of substitutions to perform; we substitute each
+symbol from the names of \code{.sub} with its corresponding value.}
 }
 \description{
 Use this function to output HTML code for use in R Markdown documents
