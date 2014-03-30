@@ -18,8 +18,9 @@ SEXP setcolnames(SEXP x, SEXP value) {
     return x;
   }
   
-  // regular matrix, array dispatch -- code is basically a copy of the
-  // R code used
+  // regular matrix, array dispatch -- code is basically a 
+  // direct translation of the R code for `colnames<-`, with
+  // coercion checks
   int nprotect = 0;
   SEXP dn = getAttrib(x, R_DimNamesSymbol);
   SEXP dim = getAttrib(x, R_DimSymbol);
