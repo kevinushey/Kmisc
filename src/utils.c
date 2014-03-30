@@ -58,11 +58,9 @@ void set_names(SEXP x) {
 
 void set_rownames(SEXP x) {
   int n = length(VECTOR_ELT(x, 0));
-  SEXP rownames = PROTECT( allocVector(INTSXP, n) );
-  int* ptr = INTEGER(rownames);
-  for (int i=0; i < n; ++i) {
-    ptr[i] = i+1;
-  }
+  SEXP rownames = PROTECT( allocVector(INTSXP, 2) );
+  INTEGER(rownames)[0] = NA_INTEGER;
+  INTEGER(rownames)[1] = -n;
   setAttrib(x, R_RowNamesSymbol, rownames);
   UNPROTECT(1);
 }

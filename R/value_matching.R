@@ -36,3 +36,17 @@ NULL
 "%knin%" <- function(x, y) {
   return( x[ x %nin% y ] )
 }
+
+##' @rdname value_matching
+##' @usage x \%drop\% y
+##' @export
+"%drop%" <- function(x, y) {
+  return( x[ !x %in% y ] )
+}
+
+##' @rdname value_matching
+##' @usage x \%keep\% y
+##' @export
+"%keep%" <- function(x, y) {
+  return( x[ x %in% y ] )
+}

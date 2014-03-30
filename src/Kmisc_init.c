@@ -21,6 +21,8 @@ SEXP mat2list(SEXP x);
 SEXP melt_dataframe( SEXP x, SEXP id_ind_, SEXP val_ind_, SEXP variable_name, SEXP value_name );
 SEXP melt_matrix( SEXP x );
 SEXP setnamed(SEXP x, SEXP i);
+SEXP setcolnames(SEXP x, SEXP y);
+SEXP setrownames(SEXP x, SEXP y);
 SEXP simp( SEXP x, SEXP y );
 SEXP str_rev( SEXP x );
 SEXP str_slice(SEXP x, SEXP n);
@@ -60,6 +62,8 @@ R_CallMethodDef callMethods[]  = {
   {"Cmelt_dataframe", (DL_FUNC) &melt_dataframe, 5},
   {"Cmelt_matrix", (DL_FUNC) &melt_matrix, 1},
   {"Csetnamed", (DL_FUNC) &setnamed, 2},
+  {"Csetcolnames", (DL_FUNC) &setcolnames, 2},
+  {"Csetrownames", (DL_FUNC) &setrownames, 2},
   {"Csimp", (DL_FUNC) &simp, 2},
   {"Cstr_rev", (DL_FUNC) &str_rev, 1},
   {"Cstr_slice", (DL_FUNC) &str_slice, 2},

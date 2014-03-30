@@ -62,7 +62,6 @@ print(l)
 enumerate(l, function(x, i) x^i)
 ```
 
-
 `swap`: Replace elements in a vector.
 
 ```{r tidy=FALSE}
@@ -126,7 +125,7 @@ This is partially deprecated by `data.table::rbindlist` now, which has a much
 faster C implementation.
 
 ```{r tidy=FALSE}
-dfs <- replicate(1E3,
+dfs <- replicate(1E2,
   data.frame(x=rnorm(10), y=sample(letters,10), z=sample(LETTERS,10)),
   simplify=FALSE
 )
@@ -208,9 +207,9 @@ Use these functions to generate C++ / Rcpp-backed functions for common R-style
 operations.
 
 `Rcpp_tapply_generator`: Generate fast `tapply` style functions from C++
-code through Rcpp. See the example.
+code through Rcpp. See `?Rcpp_tapply_generator` for more information.
 
-```{r, tidy=FALSE}
+```{r, tidy=FALSE, eval=FALSE}
 n <- 1E5
 dat <- data.frame( y=rnorm(n), x=sample(letters[1:5], n, TRUE) )
 tMean <- Rcpp_tapply_generator("return mean(x);")
@@ -226,7 +225,7 @@ benchmark(
 `Rcpp_apply_generator`: An apply function generator tailored to 2D matrices.
 However, your function definition must return a scalar value.
 
-```{r, tidy=FALSE}
+```{r, tidy=FALSE, eval=FALSE}
 aMean <- Rcpp_apply_generator("return mean(x);")
 mat <- matrix( rnorm(1E3), nrow=100 )
 aMean(mat, 2)

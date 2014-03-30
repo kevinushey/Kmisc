@@ -39,9 +39,10 @@ SEXP list2df(SEXP x_, SEXP inplace) {
 		}
 	}
 
-	SEXP row_names = PROTECT( allocVector( INTSXP, n ) );
-	for (int i = 0; i < n; ++i)
-		INTEGER(row_names)[i] = i + 1;
+  // use the special format for setting row names
+  SEXP row_names = PROTECT( allocVector( INTSXP, 2 ) );
+  INTEGER(row_names)[0] = NA_INTEGER;
+  INTEGER(row_names)[1] = -n;
 
 	setAttrib(x, R_ClassSymbol, mkString("data.frame"));
 	setAttrib(x, R_RowNamesSymbol, row_names);

@@ -88,7 +88,7 @@ cd <- function(...) {
 ##' @param X a vector, expression object, or a \code{data.frame}
 ##' @param FUN function to be applied to each element of \code{X}.
 ##' @param ... optional arguments to \code{FUN}.
-##' @seealso \code{\link{lapply}}, \code{\link{lapply}}
+##' @seealso \code{\link{sapply}}, \code{\link{lapply}}
 ##' @export
 ##' @importFrom data.table setattr
 ##' @examples
@@ -243,7 +243,7 @@ cat.cb <- function( dat, ... ) {
 ##' @param X an object.
 ##' @param inplace Boolean; if \code{TRUE} we modify the object in place.
 ##'   Useful if you're modifying a list and don't want to force a copy, but
-##'   be wary of other symbols pointing as the same data.
+##'   be wary of other symbols pointing at the same data.
 ##' @export
 factor_to_char <- function(X, inplace=FALSE) {
   invisible( .Call(Cfactor_to_char, X, as.logical(inplace)) )
@@ -261,7 +261,7 @@ factor2char <- factor_to_char
 ##' @param X an object.
 ##' @param inplace boolean; if \code{TRUE} the object is modified in place.
 ##'   Useful if you're modifying a list and don't want to force a copy, but
-##'   be wary of other symbols pointing as the same data.
+##'   be wary of other symbols pointing at the same data.
 ##' @param ... Ignored.
 ##' @export
 char_to_factor <- function(X, inplace=FALSE, ...) {
