@@ -33,6 +33,7 @@ SEXP setcolnames(SEXP x, SEXP value) {
       error("attempt to set 'colnames' on an object with less than two dimensions");
     }
     dn = PROTECT(allocVector(VECSXP, nd));
+    ++nprotect;
   }
   if (LENGTH(dn) < 2) {
     error("attempt to set 'colnames' on an object with less than two dimensions");
@@ -101,6 +102,7 @@ SEXP setrownames(SEXP x, SEXP value) {
       error("attempt to set 'rownames' on an object with no dimensions");
     }
     dn = PROTECT(allocVector(VECSXP, nd));
+    ++nprotect;
   }
   if (LENGTH(dn) < 1) {
     error("attempt to set 'rownames' on an object with no dimensions");
