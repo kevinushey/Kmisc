@@ -43,7 +43,7 @@ cleanup <- function() {
     files <- grep(regex, src_files, value=TRUE)
     final <- file.path(
       buildDir,
-      src,
+      "src",
       paste0(pkg_name, "_", gsub("\\.", "", ext), ext)
     )
     file.create(final)
