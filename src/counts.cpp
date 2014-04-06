@@ -80,7 +80,11 @@ inline IntegerVector do_counts<NumericVector, double>(const NumericVector& x) {
   output.attr("names") = names;
   // fix names
   for (int i=0; i < output.size(); ++i) {
-    if (CHAR(STRING_ELT(output.attr("names"), i)) == "-0") {
+    bool samestr = strcmp(
+      CHAR(STRING_ELT(output.attr("names"), i)),
+      "-0"
+    ) == 0;
+    if (samestr) {
       SET_STRING_ELT(output.attr("names"), i, Rf_mkChar("0"));
     }
   }
