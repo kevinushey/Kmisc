@@ -52,7 +52,11 @@ cleanup <- function() {
       header <- paste("// begin file", shQuote(basename(file)), "\n\n")
       footer <- paste("\n// end file", shQuote(basename(file)), "\n\n")
       cat(header, file = final, append = TRUE)
-      system( paste("cat", shQuote(file), ">>", shQuote(final)) )
+      
+      ## Use R since we can't assume the presence of cat
+      tmp <- readLines(file)
+      cat(tmp, sep="\n", file = final, append = TRUE)
+      
       cat(footer, file = final, append = TRUE)
     }
     file.remove(files)
