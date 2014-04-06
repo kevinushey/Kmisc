@@ -41,7 +41,11 @@ cleanup <- function() {
   ## ext: the file extension to use on the outputted file
   concatenate_src <- function(regex, ext) {
     files <- grep(regex, src_files, value=TRUE)
-    final <- paste(sep='', buildDir, "/src/", pkg_name, "_", gsub("\\.", "", ext), ext)
+    final <- file.path(
+      buildDir,
+      src,
+      paste0(pkg_name, "_", gsub("\\.", "", ext), ext)
+    )
     file.create(final)
     files <- files[ files != final ]
     for (file in files) {
