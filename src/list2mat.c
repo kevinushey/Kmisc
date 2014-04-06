@@ -70,4 +70,6 @@ SEXP list2mat(SEXP x) {
   return output;
 }
 
+#undef HANDLE_CASE
+
 #undef USE_RINTERNALS
