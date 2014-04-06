@@ -1,6 +1,4 @@
-library( testthat )
-set.seed(123)
-
+context("kMerge")
 n <- 10
 
 x <- data.frame( id=n:1, y=rnorm(n), z=sample( letters, n, replace=TRUE ) )

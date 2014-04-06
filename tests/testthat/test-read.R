@@ -1,5 +1,4 @@
-library(testthat)
-library(Kmisc)
+context("read")
 library(Rcpp)
 
 dat <- as.data.frame( replicate(10, rnorm(1E4), simplify=FALSE) )
@@ -8,10 +7,17 @@ write.table(dat, file=tempfile)
 
 tmp1 <- readLines(tempfile)
 tmp2 <- readlines(tempfile)
-stopifnot( identical(tmp1, tmp2) )
+expect_identical(tmp1, tmp2)
 
 tmp3 <- read(tempfile)
-stopifnot( identical( tmp2, unlist(strsplit(tmp3, "\n", fixed=TRUE)) ) )
+
+if (!is.null(Sys.info()) && Sys.info()[["sysname"]] == "Windows") {
+  nl <- "\r\n"
+} else {
+  nl <- "\n"
+}
+
+expect_identical(tmp2, unlist(strsplit(tmp3, nl, fixed=TRUE)))
 
 # cppFunction(verbose=TRUE, includes="
 # #include <Rcpp.h>

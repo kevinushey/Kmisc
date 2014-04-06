@@ -1,4 +1,4 @@
-context("fast_factor, factor_")
+context("factor")
 
 set.seed(123)
 

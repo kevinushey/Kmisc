@@ -1,6 +1,5 @@
-library(testthat)
+context("melt_")
 library(reshape2)
-library(Kmisc)
 
 n <- 1E4
 dat <- data.frame( stringsAsFactors=FALSE,

@@ -1,3 +1,5 @@
+context("stack_list")
+
 library(Kmisc)
 library(testthat)
 

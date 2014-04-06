@@ -1,4 +1,4 @@
-library(testthat)
+context("enumerate")
 
 ## these fail because testthat breaks the evaluation of enumerate
 v <- replicate(2, rnorm(2), simplify=FALSE)

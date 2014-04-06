@@ -1,5 +1,4 @@
-library(Kmisc)
-library(testthat)
+context("str_split")
 
 dat <- do.call(paste, replicate(10, sample(letters, 1E5, TRUE), simplify=FALSE))
 ## old str_split

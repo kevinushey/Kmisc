@@ -1,5 +1,4 @@
-library(testthat)
-library(Kmisc)
+context("*apply")
 
 m <- matrix(1:16, nrow=4, ncol=4)
 rownames(m) <- letters[1:4]

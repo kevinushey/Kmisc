@@ -1,5 +1,4 @@
-library(Kmisc)
-library(testthat)
+context("any_na")
 
 x <- rnorm(10)
 x[1] <- NA

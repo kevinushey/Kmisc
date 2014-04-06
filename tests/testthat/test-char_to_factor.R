@@ -1,5 +1,4 @@
-library(Kmisc)
-library(testthat)
+context("char2factor")
 
 dat <- list(
   list(

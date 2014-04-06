@@ -1,6 +1,4 @@
-library(testthat)
-library(Kmisc)
-
+context("counts")
 table_ <- function(x) {
   c(table(x, useNA="ifany"))
 }

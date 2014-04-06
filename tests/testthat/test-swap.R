@@ -1,5 +1,4 @@
-library(Kmisc)
-library(testthat)
+context("swap")
 
 Rswap <- function(vec, from, to) {
   tmp <- to[match(vec, from)]

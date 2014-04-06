@@ -1,5 +1,4 @@
-library(Kmisc)
-library(testthat)
+context("transpose")
 
 l <- replicate(10, rnorm(1E1), simplify=FALSE)
 gctorture(TRUE)

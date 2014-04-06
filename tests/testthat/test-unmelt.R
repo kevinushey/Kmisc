@@ -1,5 +1,4 @@
-library(Kmisc)
-library(testthat)
+context("unmelt")
 
 n <- 1E2
 
