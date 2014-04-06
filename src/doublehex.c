@@ -26,7 +26,13 @@ SEXP double2hex(SEXP x) {
   
   unsigned long long *xx = (unsigned long long*) REAL(x);
   char buf[n];
+  
+  // windows specifies long longs differently under mingw
+  #ifdef WIN32
+  snprintf(buf, n, "%016I64X", *xx);
+  #else
   snprintf(buf, n, "%016llX", *xx);
+  #endif
   SEXP output = PROTECT(allocVector(STRSXP, 1));
   SET_STRING_ELT(output, 0, mkChar(buf));
   UNPROTECT(1);
