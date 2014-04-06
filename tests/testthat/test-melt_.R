@@ -1,7 +1,7 @@
 context("melt_")
 library(reshape2)
 
-n <- 1E4
+n <- 1E2
 dat <- data.frame( stringsAsFactors=FALSE,
   x=sample(letters, n, TRUE),
   y=sample(LETTERS, n, TRUE),
@@ -35,10 +35,10 @@ dat$zc[ sample(1:n, n/2) ] <- NA
 expect_identical( melt_(dat, id.vars=c("x", "y")), melt_(dat, measure.vars=c("za", "zb", "zc")) )
 
 dat$x <- as.factor( dat$x )
-suppressWarnings( stopifnot( identical(
+suppressWarnings( expect_identical(
   factor_to_char(melt_(dat, c('x', 'y'))),
   factor_to_char(melt(dat, c('x', 'y')))
-) ) )
+) )
 
 all.equal(
   tmp1 <- melt_(dat, c('x', 'y')),
@@ -49,25 +49,25 @@ dat$x <- as.character(dat$x)
 
 dat$zc <- as.integer( dat$zc )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
-suppressWarnings( stopifnot( identical(
+suppressWarnings( expect_identical(
   melt_(dat, c('x', 'y')),
   factor_to_char(melt(dat, c('x', 'y')))
-) ) )
+) )
 
 dat$zb <- as.character( dat$zb )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
 
-suppressWarnings( stopifnot( identical(
+suppressWarnings( expect_identical(
   melt_(dat, c('x', 'y')),
   factor_to_char(melt(dat, c('x', 'y')))
-) ) )
+) )
 
 dat$zb <- sample( c(TRUE, FALSE), nrow(dat), replace=TRUE )
 expect_warning( tmp <- melt_(dat, c("x", "y")) )
-suppressWarnings( stopifnot( identical(
+suppressWarnings( expect_identical(
   melt_(dat, c('x', 'y')),
   factor_to_char(melt(dat, c('x', 'y')))
-) ) )
+) )
 
 ## testing new args
 suppressWarnings(
@@ -83,7 +83,7 @@ expect_identical( df[,2], df2[,2] )
 rm( list=ls() )
 
 ## more tests
-n <- 1E3
+n <- 1E2
 df <- data.frame( stringsAsFactors=FALSE,
   x=sample(letters, n, TRUE),
   y=factor(sample(letters, n, TRUE)),
@@ -97,7 +97,7 @@ df <- cbind(
 names(df) <- c('x', 'y', 'z', paste0("V", 1:100))
 tmp1 <- factor_to_char(melt_(df, id.vars=c('x', 'y', 'z')), inplace=TRUE)
 tmp2 <- factor_to_char(melt(df, id.vars=c('x', 'y', 'z')), inplace=TRUE)
-stopifnot( identical(tmp1, tmp2) )
+expect_identical(tmp1, tmp2)
 
 ## tests from Arun
 ## see: issue #2
@@ -141,8 +141,6 @@ expect_error(tmp4 <- melt(DF, id=c("x1", "x4"), measure=c("x5", "x6")))
 x <- matrix(1:24, nrow=4)
 rownames(x) <- 1:4
 colnames(x) <- letters[1:6]
-melt_(x)
-melt(x)
 expect_true( all( melt(x) == melt_(x) ) )
 
 rownames(x) <- NULL
@@ -153,7 +151,7 @@ expect_true( all( melt_(x) == melt(x) ) )
 x <- matrix( letters[1:16], nrow=2)
 expect_true( all( melt(x) == melt_(x) ) )
 
-x <- matrix( rnorm(1E5), ncol=1E2 )
+x <- matrix( rnorm(100), ncol=10 )
 expect_true( all( melt(x) == melt_(x) ) )
 
 m <- matrix(1:1E2, nrow=10)

@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+R.exe -e "source('R/cleanup.R'); cleanup()"

@@ -1,7 +1,7 @@
 context("read")
 library(Rcpp)
 
-dat <- as.data.frame( replicate(10, rnorm(1E4), simplify=FALSE) )
+dat <- as.data.frame( replicate(5, rnorm(5), simplify=FALSE) )
 tempfile <- tempfile()
 write.table(dat, file=tempfile)
 

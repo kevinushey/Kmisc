@@ -13,10 +13,10 @@ m <- matrix(1:9, nrow=3)
 rownames(m) <- letters[1:3]
 colnames(m) <- LETTERS[1:3]
 
-stopifnot( identical(
+expect_identical(
   transpose(m),
   t(m)
-) )
+)
 
 l <- list(1:3, 4:7)
 expect_error(transpose(l))

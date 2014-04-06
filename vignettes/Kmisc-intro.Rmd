@@ -210,7 +210,7 @@ operations.
 code through Rcpp. See `?Rcpp_tapply_generator` for more information.
 
 ```{r, tidy=FALSE, eval=FALSE}
-n <- 1E5
+n <- 1E2
 dat <- data.frame( y=rnorm(n), x=sample(letters[1:5], n, TRUE) )
 tMean <- Rcpp_tapply_generator("return mean(x);")
 with( dat, tMean(y, x) )
@@ -245,7 +245,8 @@ it is however restricted to the (common) case of your value and grouping
 variables being column vectors.
 
 ```{r, tidy=FALSE}
-y <- rnorm(1E5); x <- sample(letters[1:5], 1E5, TRUE)
+n <- 1E2
+y <- rnorm(n); x <- sample(letters[1:5], n, TRUE)
 tapply(y, x, mean)
 tapply_(y, x, mean)
 benchmark( replications=10,
@@ -272,7 +273,7 @@ melt_(dat, id.vars="id")
 be useful in some rare cases where speed is essential.
 
 ```{r, tidy=FALSE}
-lets <- sample(letters, 1E6, TRUE)
+lets <- sample(letters, 1E2, TRUE)
 stopifnot( identical(
   factor_(lets),
   factor(lets)
