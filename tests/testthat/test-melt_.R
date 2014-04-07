@@ -23,8 +23,8 @@ expect_identical(
   c("x", "y", "vars", "vals")
 )
 
-for( i in 1:ncol(tmp1) ) {
-  stopifnot( all( tmp1[,i] == tmp2[,i] ) )
+for (i in 1:ncol(tmp1)) {
+  expect_true( all( tmp1[,i] == tmp2[,i] ) )
 }
 
 ## check that melt_ handles NAs
