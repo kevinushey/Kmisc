@@ -6,11 +6,29 @@
 ##' Dictionaries are just hashed \R environments with \code{emptyenv()} as a
 ##' parent.
 ##'
+##' @section Warning:
+##'
+##' Dictionaries have \bold{reference semantics}, so modifying a dictionary
+##' within a function will modify the dictionary passed in, not a copy! Use the
+##' \code{copy} function to duplicate a \code{dict}.
+##'
+##'
 ##' @param ... Named arguments used in constructing the dictionary.
 ##' @param `_size` The number of 'buckets' used. This is the maximum of
 ##'   \code{29L} and the number of named arguments passed to \code{...}.
 ##' @export
 ##' @examples
+##' ## Reference semantics -- be careful!
+##' x <- dict()
+##' y <- x
+##' x[["a"]] <- 100
+##' print(y[["a"]])
+##'
+##' ## Use copy to be explicit
+##' y <- copy(x)
+##' x[["b"]] <- 200
+##' try(y[["b"]], silent = TRUE)
+##'
 ##' ## Named lookup can be much faster in a dictionary
 ##' x <- as.list(1:1E5)
 ##' names(x) <- paste0("Element_", 1:1E5)
@@ -19,6 +37,8 @@
 ##'   microbenchmark(
 ##'     x[["Element_1"]],
 ##'     dict[["Element_1"]],
+##'     x[["Element_1000"]],
+##'     dict[["Element_1000"]],
 ##'     x[["Element_100000"]],
 ##'     dict[["Element_100000"]]
 ##'   )
@@ -84,7 +104,12 @@ values.dictionary <- function(x) {
 
 ##' @export
 `[.dictionary` <- function(x, i, j, ..., drop = FALSE) {
-  lapply(i, function(key) x[[key]])
+  mget(i, envir = x, inherits = FALSE)
+}
+
+##' @export
+`[[.dictionary` <- function(x, i, j, ..., drop = FALSE) {
+  get(i, envir = x, inherits = FALSE)
 }
 
 ##' @export
@@ -93,4 +118,19 @@ values.dictionary <- function(x) {
     x[[key]] <- value
   }))
   x
+}
+
+##' @export
+copy <- function(x) UseMethod("copy")
+
+##' @export
+copy.dictionary <- function(x) {
+  output <- list2env(
+    x = as.list.environment(x, all.names = TRUE),
+    parent = emptyenv(),
+    hash = TRUE
+  )
+  class(output) <- "dictionary"
+  output
+
 }

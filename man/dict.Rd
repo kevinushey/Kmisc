@@ -19,7 +19,25 @@ environments as a backend.
 Dictionaries are just hashed \R environments with \code{emptyenv()} as a
 parent.
 }
+\section{Warning}{
+
+
+Dictionaries have \bold{reference semantics}, so modifying a dictionary
+within a function will modify the dictionary passed in, not a copy! Use the
+\code{copy} function to duplicate a \code{dict}.
+}
 \examples{
+## Reference semantics -- be careful!
+x <- dict()
+y <- x
+x[["a"]] <- 100
+print(y[["a"]])
+
+## Use copy to be explicit
+y <- copy(x)
+x[["b"]] <- 200
+try(y[["b"]], silent = TRUE)
+
 ## Named lookup can be much faster in a dictionary
 x <- as.list(1:1E5)
 names(x) <- paste0("Element_", 1:1E5)
@@ -28,6 +46,8 @@ if (require(microbenchmark)) {
   microbenchmark(
     x[["Element_1"]],
     dict[["Element_1"]],
+    x[["Element_1000"]],
+    dict[["Element_1000"]],
     x[["Element_100000"]],
     dict[["Element_100000"]]
   )
