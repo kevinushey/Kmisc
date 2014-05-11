@@ -1,6 +1,6 @@
 ##' Enumerate over a Vector
 ##'
-##' This function extends `lapply` to operate on functions taking two
+##' This function extends \code{lapply} to operate on functions taking two
 ##' arguments -- the first refers to each element within a vector, while
 ##' the second refers to the current index.
 ##'
@@ -16,7 +16,22 @@
 ##' enumerate(v, f)
 ##' enumerate(v, function(x, i) i)
 enumerate <- function(X, FUN, ...) {
-  call <- match.call(expand.dots=FALSE)
-  nargs <- sum( as.character(formals(FUN)) == "" )
-  return( .Call(Cenumerate, call, environment(), as.integer(nargs)) )
+  UseMethod("enumerate")
+}
+
+##' @export
+enumerate.default <- function(X, FUN, ...) {
+  call <- match.call(expand.dots = FALSE)
+  nargs <- sum(as.character(formals(FUN)) == "")
+  .Call(Cenumerate, call, environment(), as.integer(nargs))
+}
+
+##' @export
+enumerate.dictionary <- function(X, FUN, ...) {
+  result <- vector("list", length(X))
+  keys <- keys(X)
+  for (i in seq_along(keys)) {
+    result[[i]] <- FUN(keys[i], X[[keys[i]]], ...)
+  }
+  result
 }

@@ -13,7 +13,7 @@ enumerate(X, FUN, ...)
 \item{...}{Optional arguments to \code{FUN}.}
 }
 \description{
-This function extends `lapply` to operate on functions taking two
+This function extends \code{lapply} to operate on functions taking two
 arguments -- the first refers to each element within a vector, while
 the second refers to the current index.
 }
