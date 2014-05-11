@@ -27,7 +27,7 @@ enumerate.default <- function(X, FUN, ...) {
 }
 
 ##' @export
-enumerate.dictionary <- function(X, FUN, ...) {
+enumerate.dict <- function(X, FUN, ...) {
   result <- vector("list", length(X))
   keys <- keys(X)
   for (i in seq_along(keys)) {

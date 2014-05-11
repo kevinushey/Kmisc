@@ -32,7 +32,7 @@
 ##' ## Named lookup can be much faster in a dictionary
 ##' x <- as.list(1:1E5)
 ##' names(x) <- paste0("Element_", 1:1E5)
-##' dict <- as.dictionary(x)
+##' dict <- as.dict(x)
 ##' if (require(microbenchmark)) {
 ##'   microbenchmark(
 ##'     x[["Element_1"]],
@@ -50,23 +50,23 @@ dict <- function(..., `_size` = 29L) {
   for (i in seq_along(names)) {
     dict[[ names[i] ]] <- dots[[i]]
   }
-  class(dict) <- "dictionary"
+  class(dict) <- "dict"
   dict
 }
 
 ##' @export
-print.dictionary <- function(x, ...) {
+print.dict <- function(x, ...) {
   cat("Dictionary of ", length(x), " key-value pairs\n", sep = "")
 }
 
 ##' Coerce an Object to a Dictionary
 ##' @export
-as.dictionary <- function(x, ...) {
-  UseMethod("as.dictionary")
+as.dict <- function(x, ...) {
+  UseMethod("as.dict")
 }
 
 ##' @export
-str.dictionary <- function(object, ...) {
+str.dict <- function(object, ...) {
   print(object, ...)
   keys <- keys(object)
   invisible(enumerate(keys, function(x, i) {
@@ -76,9 +76,9 @@ str.dictionary <- function(object, ...) {
 }
 
 ##' @export
-as.dictionary.list <- function(x, ...) {
+as.dict.list <- function(x, ...) {
   env <- list2env(x, parent = emptyenv(), hash = TRUE, size = max(29L, length(x)))
-  class(env) <- "dictionary"
+  class(env) <- "dict"
   env
 }
 
@@ -88,7 +88,7 @@ keys <- function(x) {
 }
 
 ##' @export
-keys.dictionary <- function(x) {
+keys.dict <- function(x) {
   objects(x)
 }
 
@@ -98,22 +98,22 @@ values <- function(x) {
 }
 
 ##' @export
-values.dictionary <- function(x) {
+values.dict <- function(x) {
   lapply(keys(x), function(elem) get(elem, envir = x))
 }
 
 ##' @export
-`[.dictionary` <- function(x, i, j, ..., drop = FALSE) {
+`[.dict` <- function(x, i, j, ..., drop = FALSE) {
   mget(i, envir = x, inherits = FALSE)
 }
 
 ##' @export
-`[[.dictionary` <- function(x, i, j, ..., drop = FALSE) {
+`[[.dict` <- function(x, i, j, ..., drop = FALSE) {
   get(i, envir = x, inherits = FALSE)
 }
 
 ##' @export
-`[<-.dictionary` <- function(x, i, j, value) {
+`[<-.dict` <- function(x, i, j, value) {
   invisible(lapply(i, function(key) {
     x[[key]] <- value
   }))
@@ -124,13 +124,13 @@ values.dictionary <- function(x) {
 copy <- function(x) UseMethod("copy")
 
 ##' @export
-copy.dictionary <- function(x) {
+copy.dict <- function(x) {
   output <- list2env(
     x = as.list.environment(x, all.names = TRUE),
     parent = emptyenv(),
     hash = TRUE
   )
-  class(output) <- "dictionary"
+  class(output) <- "dict"
   output
 
 }

@@ -41,7 +41,7 @@ try(y[["b"]], silent = TRUE)
 ## Named lookup can be much faster in a dictionary
 x <- as.list(1:1E5)
 names(x) <- paste0("Element_", 1:1E5)
-dict <- as.dictionary(x)
+dict <- as.dict(x)
 if (require(microbenchmark)) {
   microbenchmark(
     x[["Element_1"]],
