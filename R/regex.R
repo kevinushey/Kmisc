@@ -1,9 +1,9 @@
 ##' Pattern matching and Replacement
-##' 
+##'
 ##' These functions provide simple extensions to base regular expressions in \R,
 ##' primarily intended to assist with extraction of elements based on the
 ##' result of a regular expression evaluation.
-##' 
+##'
 ##' The order is \emph{reversed} for the \code{re_} set of functions;
 ##' i.e., an \R object is expected first, rather than a regular expression pattern.
 ##'
@@ -59,7 +59,11 @@ re.exists <- function(pattern, x, perl=TRUE, fixed=FALSE, ...) {
 ##' @export
 re_extract <- function( x, pattern, perl=TRUE, fixed=FALSE, ... ) {
   if (fixed) perl <- FALSE
-  return( x[ grep( pattern, names(x), perl=perl, fixed=fixed, ... ) ] )
+  if (inherits(x, "data.table")) {
+    x[, grep(pattern, names(x), perl = perl, fixed = fixed, ...), with = FALSE]
+  } else {
+    x[grep(pattern, names(x), perl = perl, fixed = fixed, ...)]
+  }
 }
 
 ##' @rdname regex
@@ -72,9 +76,15 @@ extract.re <- function(x, pattern, perl=TRUE, fixed=FALSE, ...) {
 ##' @rdname regex
 ##' @export
 ##' @seealso \code{\link{grep}}, \code{\link{regex}}
-re_without <- function( x, pattern, perl=TRUE, fixed=FALSE, ... ) {
+re_without <- function(x, pattern, perl = TRUE, fixed = FALSE, ...) {
   if (fixed) perl <- FALSE
-  return( x[ 1:length(x) %nin% grep( pattern, names(x), perl=perl, fixed=fixed, ... ) ] )
+  cond <- (1:length(x)) %nin%
+    (grep(pattern, names(x), perl = perl, fixed = fixed, ...))
+  if (inherits(x, "data.table")) {
+    x[, cond, with = FALSE]
+  } else {
+    x[cond]
+  }
 }
 
 ##' @rdname regex
@@ -91,8 +101,11 @@ without.re <- function(x, pattern, perl=TRUE, fixed=FALSE, ...) {
 ##' rownames(dat) <- 1:26
 ##' ## get all rows in dat with a 1, 2, 3 or 4 in the name
 ##' re_extract_rows( dat, "[1-4]" )
-re_extract_rows <- function(x, pattern, match_var=rownames(x), perl=TRUE, fixed=FALSE, ...) {
-  return( x[ grep( pattern, match_var, perl=perl, fixed=fixed, ... ), ] )
+re_extract_rows <- function(x, pattern, match_var = rownames(x),
+                            perl = TRUE, fixed = FALSE,
+                            drop = FALSE, ...) {
+  cond <- grep(pattern, match_var, perl = perl, fixed = fixed, ...)
+  x[cond, , drop = drop]
 }
 
 ##' @rdname regex
@@ -109,8 +122,11 @@ extract_rows.re <- function(x, pattern, match_var=rownames(x), perl=TRUE, fixed=
 ##' rownames(dat) <- 1:26
 ##' ## get all rows in dat with a 1, 2, 3 or 4 in the name
 ##' re_without_rows( dat, "[0-4]" )
-re_without_rows <- function(x, pattern, match_var=rownames(x), perl=TRUE, fixed=FALSE, ...) {
-  return( x[ 1:nrow(x) %nin% grep( pattern, match_var, perl=perl, fixed=fixed, ... ), ] )
+re_without_rows <- function(x, pattern, match_var = rownames(x),
+                            perl = TRUE, fixed = FALSE,
+                            drop = FALSE, ...) {
+  cond <- 1:nrow(x) %nin% grep(pattern, match_var, perl = perl, fixed = fixed, ...)
+  x[cond, , drop = drop]
 }
 
 ##' @rdname regex
