@@ -5,7 +5,7 @@ SEXP fast_factor(SEXP, SEXP);
 
 // [[Rcpp::export(.char_to_factor)]]
 RObject char_to_factor( RObject x_, bool inplace ) {
-
+   
   RObject x;
   if (inplace) {
     x = x_;
