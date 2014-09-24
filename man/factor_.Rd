@@ -6,16 +6,19 @@
 factor_(x, levels = NULL, labels = levels, na.last = NA)
 }
 \arguments{
-\item{x}{An object of atomic type \code{integer}, \code{numeric},
-\code{character} or \code{logical}.}
+  \item{x}{An object of atomic type \code{integer},
+  \code{numeric}, \code{character} or \code{logical}.}
 
-\item{levels}{An optional character vector of levels. Is coerced to the same type as
-\code{x}. By default, we compute the levels as \code{sort(unique.default(x))}.}
+  \item{levels}{An optional character vector of levels. Is
+  coerced to the same type as \code{x}. By default, we
+  compute the levels as \code{sort(unique.default(x))}.}
 
-\item{labels}{A set of labels used to rename the levels, if desired.}
+  \item{labels}{A set of labels used to rename the levels,
+  if desired.}
 
-\item{na.last}{If \code{TRUE} and there are missing values, the last level is
-set as \code{NA}; otherwise; they are removed.}
+  \item{na.last}{If \code{TRUE} and there are missing
+  values, the last level is set as \code{NA}; otherwise;
+  they are removed.}
 }
 \description{
 This function generates factors more quickly, by leveraging

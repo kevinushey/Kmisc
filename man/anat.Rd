@@ -9,11 +9,13 @@ anat(df, n = 3, cols = 99)
 anatomy(df, n = 3, cols = 99)
 }
 \arguments{
-\item{df}{An object inheriting class \code{data.frame}.}
+  \item{df}{An object inheriting class \code{data.frame}.}
 
-\item{n}{The number of elements to print from each vector.}
+  \item{n}{The number of elements to print from each
+  vector.}
 
-\item{cols}{The number of columns to print from the \code{data.frame}.}
+  \item{cols}{The number of columns to print from the
+  \code{data.frame}.}
 }
 \description{
 This function displays the 'anatomy' of a data frame. In practice, it's used

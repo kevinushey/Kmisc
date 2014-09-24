@@ -6,11 +6,13 @@
 gradient(x, m = 10, cols = c("darkorange", "grey60", "darkblue"))
 }
 \arguments{
-\item{x}{a continuous variable to generate colors over.}
+  \item{x}{a continuous variable to generate colors over.}
 
-\item{m}{the number of distinct colors you wish to pull from the pallete.}
+  \item{m}{the number of distinct colors you wish to pull
+  from the pallete.}
 
-\item{cols}{the colors to interpolate over. passed to \code{\link{colorRampPalette}}.}
+  \item{cols}{the colors to interpolate over. passed to
+  \code{\link{colorRampPalette}}.}
 }
 \description{
 Assign colors based on a continuous variable. Useful for plotting functions

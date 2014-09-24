@@ -7,13 +7,17 @@ p1t(x, class = "table table-condensed table-striped table-hover", id = NULL,
   ...)
 }
 \arguments{
-\item{x}{a \code{data.frame}, typically output of \code{kTable}.}
+  \item{x}{a \code{data.frame}, typically output of
+  \code{kTable}.}
 
-\item{class}{class to be passed to HTML table; used for CSS styling.}
+  \item{class}{class to be passed to HTML table; used for
+  CSS styling.}
 
-\item{id}{id to be passed to HTML table; used for CSS styling.}
+  \item{id}{id to be passed to HTML table; used for CSS
+  styling.}
 
-\item{...}{optional arguments passed to \code{\link{makeHTMLTable}}.}
+  \item{...}{optional arguments passed to
+  \code{\link{makeHTMLTable}}.}
 }
 \description{
 This tabling function is intended for the output of \code{kTable}, as

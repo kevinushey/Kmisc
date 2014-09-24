@@ -6,14 +6,15 @@
 pMerge(df1, df2, by = intersect(names(df1), names(df2)), doCheck = FALSE)
 }
 \arguments{
-\item{df1}{the data.frame which we are preserving}
+  \item{df1}{the data.frame which we are preserving}
 
-\item{df2}{the data.frame we are merging into df1}
+  \item{df2}{the data.frame we are merging into df1}
 
-\item{by}{character; name of the variable we are merging over}
+  \item{by}{character; name of the variable we are merging
+  over}
 
-\item{doCheck}{boolean; set this if you want to perform more extensive
-(but slower) error checking}
+  \item{doCheck}{boolean; set this if you want to perform
+  more extensive (but slower) error checking}
 }
 \description{
 This function will merge a data frame \code{df2} 'into' a data frame

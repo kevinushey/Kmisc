@@ -6,7 +6,7 @@
 duplicate(x)
 }
 \arguments{
-\item{x}{An \R object.}
+  \item{x}{An \R object.}
 }
 \description{
 In \R, objects are copied 'lazily'. We use this function to force a copy.

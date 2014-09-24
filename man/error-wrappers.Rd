@@ -22,11 +22,14 @@ warn_if(expr, fmt, ...)
 message_if(expr, fmt, ...)
 }
 \arguments{
-\item{expr}{An expression to be evaluated and checked for 'truthiness'.}
+  \item{expr}{An expression to be evaluated and checked for
+  'truthiness'.}
 
-\item{fmt}{A character vector of format strings. Passed to \code{\link{gettextf}}.}
+  \item{fmt}{A character vector of format strings. Passed
+  to \code{\link{gettextf}}.}
 
-\item{...}{Optional arguments passed to \code{\link{gettextf}}.}
+  \item{...}{Optional arguments passed to
+  \code{\link{gettextf}}.}
 }
 \description{
 These are simple wrappers to functions \code{stop}, \code{warning}, and

@@ -13,19 +13,22 @@ melt_(data, ...)
 \method{melt_}{matrix}(data, ...)
 }
 \arguments{
-\item{data}{The \code{data.frame} to melt.}
+  \item{data}{The \code{data.frame} to melt.}
 
-\item{...}{Arguments passed to other methods.}
+  \item{...}{Arguments passed to other methods.}
 
-\item{id.vars}{Vector of id variables. Can be integer (variable position)
-or string (variable name). If blank, we use all variables not in \code{measure.vars}.}
+  \item{id.vars}{Vector of id variables. Can be integer
+  (variable position) or string (variable name). If blank,
+  we use all variables not in \code{measure.vars}.}
 
-\item{measure.vars}{Vector of measured variables. Can be integer (variable position)
-or string (variable name). If blank, we use all variables not in \code{id.vars}.}
+  \item{measure.vars}{Vector of measured variables. Can be
+  integer (variable position) or string (variable name). If
+  blank, we use all variables not in \code{id.vars}.}
 
-\item{variable.name}{Name of variable used to store measured variable names.}
+  \item{variable.name}{Name of variable used to store
+  measured variable names.}
 
-\item{value.name}{Name of variable used to store values.}
+  \item{value.name}{Name of variable used to store values.}
 }
 \description{
 Inspired by \code{reshape2:::melt}, we melt \code{data.frame}s and

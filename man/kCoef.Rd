@@ -7,13 +7,16 @@ kCoef(fit, remove_underscore = TRUE, remove_dollar = TRUE,
   swap_periods = TRUE)
 }
 \arguments{
-\item{fit}{the model fit we wish to generate coefficients from.}
+  \item{fit}{the model fit we wish to generate coefficients
+  from.}
 
-\item{remove_underscore}{remove underscores (and all elements after) in a variable?}
+  \item{remove_underscore}{remove underscores (and all
+  elements after) in a variable?}
 
-\item{remove_dollar}{remove all elements before and including a $ in a variable name?}
+  \item{remove_dollar}{remove all elements before and
+  including a $ in a variable name?}
 
-\item{swap_periods}{swap periods with spaces?}
+  \item{swap_periods}{swap periods with spaces?}
 }
 \value{
 a matrix of coefficients with nicely formatted names.

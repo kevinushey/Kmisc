@@ -6,10 +6,12 @@
 dict(..., `_size` = 29L)
 }
 \arguments{
-\item{...}{Named arguments used in constructing the dictionary.}
+  \item{...}{Named arguments used in constructing the
+  dictionary.}
 
-\item{`_size`}{The number of 'buckets' used. This is the maximum of
-\code{29L} and the number of named arguments passed to \code{...}.}
+  \item{`_size`}{The number of 'buckets' used. This is the
+  maximum of \code{29L} and the number of named arguments
+  passed to \code{...}.}
 }
 \description{
 Dictionaries, i.e., hashed key-value pairs, are implemented in \R using
@@ -20,11 +22,10 @@ Dictionaries are just hashed \R environments with \code{emptyenv()} as a
 parent.
 }
 \section{Warning}{
-
-
-Dictionaries have \bold{reference semantics}, so modifying a dictionary
-within a function will modify the dictionary passed in, not a copy! Use the
-\code{copy} function to duplicate a \code{dict}.
+  Dictionaries have \bold{reference semantics}, so
+  modifying a dictionary within a function will modify the
+  dictionary passed in, not a copy! Use the \code{copy}
+  function to duplicate a \code{dict}.
 }
 \examples{
 ## Reference semantics -- be careful!

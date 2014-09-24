@@ -6,7 +6,7 @@
 \method{print}{kHTML}(...)
 }
 \arguments{
-\item{...}{a set of kHTML objects (strings).}
+  \item{...}{a set of kHTML objects (strings).}
 }
 \description{
 By default, we \code{cat} out kHTML objects as we typically

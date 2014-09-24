@@ -6,7 +6,7 @@
 make_dummy(x)
 }
 \arguments{
-\item{x}{an object coercable to \code{factor}.}
+  \item{x}{an object coercable to \code{factor}.}
 }
 \description{
 This functions converts a single factor into dummy variables, with one

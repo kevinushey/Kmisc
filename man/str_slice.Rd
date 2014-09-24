@@ -6,9 +6,10 @@
 str_slice(x, n = 1)
 }
 \arguments{
-\item{x}{a character vector.}
+  \item{x}{a character vector.}
 
-\item{n}{integer (or numeric coercible to integer); index at which to slice.}
+  \item{n}{integer (or numeric coercible to integer); index
+  at which to slice.}
 }
 \value{
 A list of length equal to the length of \code{x}, with each element

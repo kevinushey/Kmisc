@@ -6,7 +6,7 @@
 list2mat(list)
 }
 \arguments{
-\item{list}{A list.}
+  \item{list}{A list.}
 }
 \description{
 This function converts a \code{list} to a \code{matrix}, assuming that each

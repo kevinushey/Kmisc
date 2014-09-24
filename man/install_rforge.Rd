@@ -6,9 +6,10 @@
 install_rforge(project, ...)
 }
 \arguments{
-\item{project}{project name}
+  \item{project}{project name}
 
-\item{...}{Other arguments passed on to \code{\link{install.packages}}.}
+  \item{...}{Other arguments passed on to
+  \code{\link{install.packages}}.}
 }
 \description{
 Attempts to install a package directly from R-Forge.

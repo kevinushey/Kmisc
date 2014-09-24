@@ -6,11 +6,13 @@
 pp_plot(x, ...)
 }
 \arguments{
-\item{x}{A vector of p-values; numbers within the range 0 to 1.}
+  \item{x}{A vector of p-values; numbers within the range 0
+  to 1.}
 
-\item{...}{Optional arguments passed to \code{\link{xyplot}}.
-Note that a custom panel function is used for generating the plot
-and hence you shouldn't try to generate your own panel function.}
+  \item{...}{Optional arguments passed to
+  \code{\link{xyplot}}. Note that a custom panel function
+  is used for generating the plot and hence you shouldn't
+  try to generate your own panel function.}
 }
 \description{
 This function constructs a probability-probability plot as based

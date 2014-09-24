@@ -6,13 +6,14 @@
 pymat(x, ..., collapse = ", ")
 }
 \arguments{
-\item{x}{A string with arguments to be replaced in the form of
-\code{{0}, {1}, ..., {n}}.}
+  \item{x}{A string with arguments to be replaced in the
+  form of \code{{0}, {1}, ..., {n}}.}
 
-\item{...}{Arguments to be substituted into \code{x}.}
+  \item{...}{Arguments to be substituted into \code{x}.}
 
-\item{collapse}{If vectors of length greater than 1 are passed to \code{...},
-then we collapse the vectors with this separator.}
+  \item{collapse}{If vectors of length greater than 1 are
+  passed to \code{...}, then we collapse the vectors with
+  this separator.}
 }
 \description{
 This function allows Python-style formatting of strings, whereby text of

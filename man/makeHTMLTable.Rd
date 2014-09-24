@@ -8,24 +8,29 @@ makeHTMLTable(x, attr, row.spans = 0, col.spans = 0,
   replace.periods = TRUE)
 }
 \arguments{
-\item{x}{the \code{data.frame} / \code{matrix} you want to convert to an HTML table.}
+  \item{x}{the \code{data.frame} / \code{matrix} you want
+  to convert to an HTML table.}
 
-\item{attr}{attributes to be passed to the \code{<table>} tag, as raw HTML.}
+  \item{attr}{attributes to be passed to the \code{<table>}
+  tag, as raw HTML.}
 
-\item{row.spans}{a matrix specifying desired row.spans, for largers cells.}
+  \item{row.spans}{a matrix specifying desired row.spans,
+  for largers cells.}
 
-\item{col.spans}{a matrix specifying desired column spans, for larger cells.}
+  \item{col.spans}{a matrix specifying desired column
+  spans, for larger cells.}
 
-\item{use.row.names}{if you submit an object with row names, use those names in
-construction of the table.}
+  \item{use.row.names}{if you submit an object with row
+  names, use those names in construction of the table.}
 
-\item{use.col.names}{if you submit an object with column names, use those names in
-construction of the table.}
+  \item{use.col.names}{if you submit an object with column
+  names, use those names in construction of the table.}
 
-\item{clean}{boolean. if \code{TRUE}, we print all numeric values with 4 digits.
-Alternatively, we can pass a format specifier as used by \code{\link{sprintf}}.}
+  \item{clean}{boolean. if \code{TRUE}, we print all
+  numeric values with 4 digits. Alternatively, we can pass
+  a format specifier as used by \code{\link{sprintf}}.}
 
-\item{replace.periods}{replace periods with spaces?}
+  \item{replace.periods}{replace periods with spaces?}
 }
 \description{
 Function for making HTML tables from an \R 'table-like' object; ie, a

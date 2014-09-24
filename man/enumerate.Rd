@@ -6,11 +6,11 @@
 enumerate(X, FUN, ...)
 }
 \arguments{
-\item{X}{A vector.}
+  \item{X}{A vector.}
 
-\item{FUN}{A function, taking two arguments.}
+  \item{FUN}{A function, taking two arguments.}
 
-\item{...}{Optional arguments to \code{FUN}.}
+  \item{...}{Optional arguments to \code{FUN}.}
 }
 \description{
 This function extends \code{lapply} to operate on functions taking two

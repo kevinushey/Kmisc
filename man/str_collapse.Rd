@@ -6,7 +6,7 @@
 str_collapse(x)
 }
 \arguments{
-\item{x}{A list of character vectors.}
+  \item{x}{A list of character vectors.}
 }
 \description{
 This function collapses a string using Rcpp sugar, and

@@ -9,9 +9,10 @@ setrownames(x, value)
 setcolnames(x, value)
 }
 \arguments{
-\item{x}{Either a \code{data.frame}, or an array.}
+  \item{x}{Either a \code{data.frame}, or an array.}
 
-\item{value}{Either \code{NULL} or a vector coercible to character.}
+  \item{value}{Either \code{NULL} or a vector coercible to
+  character.}
 }
 \description{
 Similar to the \code{setattr} or \code{setnames} functions of

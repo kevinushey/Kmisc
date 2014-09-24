@@ -7,23 +7,28 @@ hImg(my_plot, file, width = 400, height = 300, dpi = 300, dim = NULL,
   scale = 100, device = "png", ...)
 }
 \arguments{
-\item{my_plot}{a plot object, or code that generates a plot}
+  \item{my_plot}{a plot object, or code that generates a
+  plot}
 
-\item{file}{file location to output image to}
+  \item{file}{file location to output image to}
 
-\item{width}{width (in pixels) of the plot}
+  \item{width}{width (in pixels) of the plot}
 
-\item{height}{height (in pixels) of the plot}
+  \item{height}{height (in pixels) of the plot}
 
-\item{dpi}{the number of dots per inch used. Default is high to ensure plots are crisp on all displays}
+  \item{dpi}{the number of dots per inch used. Default is
+  high to ensure plots are crisp on all displays}
 
-\item{dim}{passed to \code{par( mfrow )}; used if making multiple base-R plots}
+  \item{dim}{passed to \code{par( mfrow )}; used if making
+  multiple base-R plots}
 
-\item{scale}{the scale factor to use when scaling plots for web display.}
+  \item{scale}{the scale factor to use when scaling plots
+  for web display.}
 
-\item{device}{the device to use for the plot call.}
+  \item{device}{the device to use for the plot call.}
 
-\item{...}{optional arguments passed to \code{\link{png}}}
+  \item{...}{optional arguments passed to
+  \code{\link{png}}}
 }
 \description{
 A convenience function that prints a plot to file, and then returns HTML

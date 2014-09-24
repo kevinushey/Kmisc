@@ -6,9 +6,9 @@
 clean_doc(dir = getwd(), ask = TRUE)
 }
 \arguments{
-\item{dir}{the project directory.}
+  \item{dir}{the project directory.}
 
-\item{ask}{boolean. ask before clearing directory?}
+  \item{ask}{boolean. ask before clearing directory?}
 }
 \description{
 This function removes all the .Rd documentation files present in

@@ -6,7 +6,7 @@
 cite_package(...)
 }
 \arguments{
-\item{...}{A (set of) package names.}
+  \item{...}{A (set of) package names.}
 }
 \description{
 We pull the text version out of the citation object returned

@@ -6,7 +6,7 @@
 hex(x)
 }
 \arguments{
-\item{x}{A value.}
+  \item{x}{A value.}
 }
 \description{
 Prints the hex (byte) representation of a value.

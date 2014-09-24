@@ -6,13 +6,16 @@
 wrap(x, width = 8, ...)
 }
 \arguments{
-\item{x}{A character vectors, or an object which can be converted to
-a character vector by \code{\link{as.character}}.}
+  \item{x}{A character vectors, or an object which can be
+  converted to a character vector by
+  \code{\link{as.character}}.}
 
-\item{width}{A positive integer giving the number of characters a line
-can reach before we wrap and introduce a new line.}
+  \item{width}{A positive integer giving the number of
+  characters a line can reach before we wrap and introduce
+  a new line.}
 
-\item{...}{Optional arguments passed to \code{\link{strwrap}}.}
+  \item{...}{Optional arguments passed to
+  \code{\link{strwrap}}.}
 }
 \description{
 This function operates similarily to \code{\link{strwrap}}, but

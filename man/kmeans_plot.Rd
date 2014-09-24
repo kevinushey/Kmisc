@@ -6,13 +6,13 @@
 kmeans_plot(dat, nmax = 20, ...)
 }
 \arguments{
-\item{dat}{numeric matrix of data, or an object that can be coerced to
-such a matrix (such as a numeric vector or a data frame with all
-numeric columns).}
+  \item{dat}{numeric matrix of data, or an object that can
+  be coerced to such a matrix (such as a numeric vector or
+  a data frame with all numeric columns).}
 
-\item{nmax}{maximum number of clusters to examine}
+  \item{nmax}{maximum number of clusters to examine}
 
-\item{...}{optional arguments passed to xyplot}
+  \item{...}{optional arguments passed to xyplot}
 }
 \description{
 Using \code{kmeans}, plot percentage variance explained vs. number of clusters.

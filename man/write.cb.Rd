@@ -7,15 +7,19 @@ write.cb(dat, row.names = FALSE, col.names = TRUE, sep = "\\t",
   quote = FALSE)
 }
 \arguments{
-\item{dat}{the data file you want to write out; passed to \code{write.table}.}
+  \item{dat}{the data file you want to write out; passed to
+  \code{write.table}.}
 
-\item{row.names}{logical. include the row names of dat?}
+  \item{row.names}{logical. include the row names of dat?}
 
-\item{col.names}{logical. include the column names of dat?}
+  \item{col.names}{logical. include the column names of
+  dat?}
 
-\item{sep}{the delimiter used to separate elements after exporting dat.}
+  \item{sep}{the delimiter used to separate elements after
+  exporting dat.}
 
-\item{quote}{logical. include quotes around character vectors in dat?}
+  \item{quote}{logical. include quotes around character
+  vectors in dat?}
 }
 \description{
 Directs output of \code{write.table} to the clipboard. This can be

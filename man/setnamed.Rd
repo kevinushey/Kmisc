@@ -6,9 +6,9 @@
 setnamed(x, i)
 }
 \arguments{
-\item{x}{An \R object.}
+  \item{x}{An \R object.}
 
-\item{i}{An integer equal to 1 or 2.}
+  \item{i}{An integer equal to 1 or 2.}
 }
 \description{
 This function sets the \code{NAMED} attribute of an \R object.

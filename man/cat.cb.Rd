@@ -6,9 +6,9 @@
 cat.cb(dat, ...)
 }
 \arguments{
-\item{dat}{data to be written to the clipboard.}
+  \item{dat}{data to be written to the clipboard.}
 
-\item{...}{optional arguments passed to \code{cat}.}
+  \item{...}{optional arguments passed to \code{cat}.}
 }
 \description{
 This function writes data to the clipboard, using \code{\link{cat}}.

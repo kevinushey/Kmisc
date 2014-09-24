@@ -6,9 +6,9 @@
 lu(x, ...)
 }
 \arguments{
-\item{x}{a vector}
+  \item{x}{a vector}
 
-\item{...}{passed to \code{\link{unique}}}
+  \item{...}{passed to \code{\link{unique}}}
 }
 \description{
 Returns the number of non-NA unique elements in a vector. A wrapper to

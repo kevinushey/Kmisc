@@ -6,15 +6,17 @@
 in_interval(x, lo, hi, include.lower = TRUE, include.upper = FALSE)
 }
 \arguments{
-\item{x}{numeric. vector of numbers.}
+  \item{x}{numeric. vector of numbers.}
 
-\item{lo}{numeric, length 1. lower boundary.}
+  \item{lo}{numeric, length 1. lower boundary.}
 
-\item{hi}{numeric, length 1. upper boundary.}
+  \item{hi}{numeric, length 1. upper boundary.}
 
-\item{include.lower}{boolean. include the lower endpoint?}
+  \item{include.lower}{boolean. include the lower
+  endpoint?}
 
-\item{include.upper}{boolean. include the upper endpoint?}
+  \item{include.upper}{boolean. include the upper
+  endpoint?}
 }
 \description{
 This function determines whether elements of a numeric vector \code{x} lie

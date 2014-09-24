@@ -6,12 +6,13 @@
 swap(vec, from, to = names(from))
 }
 \arguments{
-\item{vec}{the vector of items whose elements you will be replacing.}
+  \item{vec}{the vector of items whose elements you will be
+  replacing.}
 
-\item{from}{the items you will be mapping 'from'.}
+  \item{from}{the items you will be mapping 'from'.}
 
-\item{to}{the items you will be mapping 'to'. must be same length and
-order as \code{from}.}
+  \item{to}{the items you will be mapping 'to'. must be
+  same length and order as \code{from}.}
 }
 \description{
 This function swaps elements in a vector. See examples for usage.

@@ -6,10 +6,10 @@
 any_na(x, how = "unlist")
 }
 \arguments{
-\item{x}{An \R object.}
+  \item{x}{An \R object.}
 
-\item{how}{The simplification to use if \code{x} is a list. See
-\code{\link{rapply}} for more details.}
+  \item{how}{The simplification to use if \code{x} is a
+  list. See \code{\link{rapply}} for more details.}
 }
 \description{
 This function checks whether there are any missing values in an \R

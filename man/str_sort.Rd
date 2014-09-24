@@ -6,14 +6,17 @@
 str_sort(x, increasing = TRUE, ignore.case = FALSE, USE.NAMES = FALSE)
 }
 \arguments{
-\item{x}{a character vector (a vector of 'strings' to sort)}
+  \item{x}{a character vector (a vector of 'strings' to
+  sort)}
 
-\item{increasing}{boolean. sort the string in increasing lexical order?}
+  \item{increasing}{boolean. sort the string in increasing
+  lexical order?}
 
-\item{ignore.case}{boolean. ignore case (so that, eg, \code{a < A < b})}
+  \item{ignore.case}{boolean. ignore case (so that, eg,
+  \code{a < A < b})}
 
-\item{USE.NAMES}{logical. if names attribute already exists on \code{x},
-pass this through to the result?}
+  \item{USE.NAMES}{logical. if names attribute already
+  exists on \code{x}, pass this through to the result?}
 }
 \description{
 Sorts a vector of strings lexically, as based on their

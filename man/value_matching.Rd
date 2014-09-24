@@ -19,9 +19,11 @@ x \%drop\% y
 x \%keep\% y
 }
 \arguments{
-\item{x}{Vector or \code{NULL}: the values to be matched.}
+  \item{x}{Vector or \code{NULL}: the values to be
+  matched.}
 
-\item{y}{Vector or \code{NULL}: the values to be matched against.}
+  \item{y}{Vector or \code{NULL}: the values to be matched
+  against.}
 }
 \description{
 These are a couple of mostly self-explanatory wrappers around \code{\%in\%}.

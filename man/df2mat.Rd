@@ -6,7 +6,7 @@
 df2mat(df)
 }
 \arguments{
-\item{df}{a \code{data.frame}.}
+  \item{df}{a \code{data.frame}.}
 }
 \description{
 This function converts a \code{data.frame} to a \code{matrix}.

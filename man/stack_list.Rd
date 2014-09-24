@@ -8,21 +8,26 @@ stack_list(list, name = "row_names", make_row_names = typeof(attr(list[[1]],
   index_name = "list_index", coerce_factors = TRUE)
 }
 \arguments{
-\item{list}{a list of data frames, or a list of lists with each element of
-the same length.}
+  \item{list}{a list of data frames, or a list of lists
+  with each element of the same length.}
 
-\item{name}{a name to assign to the column of row names generated.}
+  \item{name}{a name to assign to the column of row names
+  generated.}
 
-\item{make_row_names}{boolean. add a column built from the row names? Defaults
-to \code{TRUE} only if the row names are of type \code{character}.}
+  \item{make_row_names}{boolean. add a column built from
+  the row names? Defaults to \code{TRUE} only if the row
+  names are of type \code{character}.}
 
-\item{keep_list_index}{boolean; if \code{TRUE} we include a vector that indicates
-which list a particular entry came from.}
+  \item{keep_list_index}{boolean; if \code{TRUE} we include
+  a vector that indicates which list a particular entry
+  came from.}
 
-\item{index_name}{a name to assign to the column of indices.}
+  \item{index_name}{a name to assign to the column of
+  indices.}
 
-\item{coerce_factors}{boolean; if \code{TRUE}, we convert factors to their
-character representation; otherwise, we take the internal integer representation.}
+  \item{coerce_factors}{boolean; if \code{TRUE}, we convert
+  factors to their character representation; otherwise, we
+  take the internal integer representation.}
 }
 \description{
 Function for stacking a list, where each component of the list

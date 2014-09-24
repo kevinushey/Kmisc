@@ -6,9 +6,9 @@
 Kmisc.knit2html(input, ...)
 }
 \arguments{
-\item{input}{An \code{.Rmd} file.}
+  \item{input}{An \code{.Rmd} file.}
 
-\item{...}{Optional arguments passed to \code{knit}.}
+  \item{...}{Optional arguments passed to \code{knit}.}
 }
 \description{
 This function 'knits' an R Markdown document with \code{knitr}, and injects

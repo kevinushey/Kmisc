@@ -6,7 +6,7 @@
 mat2df(x)
 }
 \arguments{
-\item{x}{A \code{matrix}.}
+  \item{x}{A \code{matrix}.}
 }
 \description{
 Identical to \code{as.matrix.data.frame}, but faster.

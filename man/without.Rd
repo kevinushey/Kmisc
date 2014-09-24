@@ -6,9 +6,10 @@
 without(x, ...)
 }
 \arguments{
-\item{x}{An \R object with a \code{names} attribute.}
+  \item{x}{An \R object with a \code{names} attribute.}
 
-\item{...}{an optional number of 'names' to match in \code{x}.}
+  \item{...}{an optional number of 'names' to match in
+  \code{x}.}
 }
 \description{
 Removes elements from an \R object

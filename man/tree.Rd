@@ -6,7 +6,7 @@
 tree(x)
 }
 \arguments{
-\item{x}{A (named) list.}
+  \item{x}{A (named) list.}
 }
 \description{
 This function returns output similar to that of the command line
