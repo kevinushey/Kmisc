@@ -23,4 +23,3 @@ the R programming process easier. The functions range from:
 Install me in R with `devtools::install_github` with the following call:
 
     devtools::install_github("Kmisc", "kevinushey")
-
