@@ -54,7 +54,7 @@ SEXP setcolnames(SEXP x, SEXP value) {
   
 }
 
-inline int df_nrows(SEXP x) {
+int df_nrows(SEXP x) {
   SEXP rownames = getAttrib(x, R_RowNamesSymbol);
   if (isNull(rownames)) error("'row.names' attribute is NULL");
   if (TYPEOF(rownames) == INTSXP && LENGTH(rownames) == 2 && INTEGER(rownames)[0] == NA_INTEGER) {
