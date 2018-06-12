@@ -20,7 +20,7 @@ the R programming process easier. The functions range from:
   `factor_` is a faster `factor`...
   * And more! Browse the index to get an idea of everything that's there.
 
-Install me in R with `devtools::install_github` with the following call:
+Install me in R with `devtools::install_github()` with the following call:
 
-    devtools::install_github("Kmisc", "kevinushey")
+    devtools::install_github("kevinushey/Kmisc")
 
